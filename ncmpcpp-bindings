@@ -1,0 +1,41 @@
+def_key "alt-s"
+    find
+
+def_key "ctrl-s"
+    find_item_forward
+def_key "ctrl-r"
+    find_item_backward
+
+def_key "ctrl-n"
+    scroll_down
+def_key "ctrl-p"
+    scroll_up
+
+def_key "alt-v"
+    page_up
+def_key "ctrl-v"
+    page_down
+
+def_key "ctrl-b"
+    previous_column
+def_key "ctrl-f"
+    next_column
+
+def_key "."
+    show_lyrics
+
+def_key "n"
+    next_found_item
+def_key "N"
+    previous_found_item
+
+def_key "+"
+   volume_up
+
+def_key "-"
+   volume_down
+
+def_key "J"
+    move_sort_order_down
+def_key "K"
+    move_sort_order_up

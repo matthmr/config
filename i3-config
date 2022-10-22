@@ -1,0 +1,151 @@
+# start-up daemons
+exec --no-startup-id dunst
+exec --no-startup-id emacsserver xtoggle
+
+# modifier key
+set $mod Mod4
+
+# font
+font pango:JetBrains Mono 12
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+bindsym $mod+q kill
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# move focused window
+bindsym $mod+Shift+h move left 15 px
+bindsym $mod+Shift+j move down 15 px
+bindsym $mod+Shift+k move up 15 px
+bindsym $mod+Shift+l move right 15 px
+
+# set split direction
+bindsym $mod+Control+f split h
+bindsym $mod+Control+b split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Control+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent/child container
+bindsym $mod+Shift+p focus parent
+bindsym $mod+Shift+c focus child
+
+# set workspace
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+
+# switch to workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+
+# mouse position
+bindsym $mod+Control+m move position mouse
+bindsym $mod+Control+c move absolute position center
+focus_follows_mouse no
+
+# scratchpad
+bindsym $mod+Control+s move scratchpad
+bindsym $mod+Control+d scratchpad show
+
+# workspace cycling
+bindsym $mod+Tab workspace next
+bindsym $mod+Shift+Tab workspace prev
+
+# swaps
+bindsym $mod+m mark swapee
+bindsym $mod+Shift+m unmark swapee
+bindsym $mod+n swap container with mark swapee
+bindsym $mod+Control+n exec "dunstctl close-all"
+
+# style
+#                       border  bg      txt     indic     chbordr
+client.focused          #303030 #303030 #ffffff #aaaaaa   #303030
+client.focused_inactive #222222 #222222 #ffffff #484e50   #222222
+client.unfocused        #222222 #222222 #888888 #292d2e   #222222
+
+client.urgent           #2f343a #900000 #ffffff #900000   #900000
+client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+
+client.background       #ffffff
+
+# Modes
+mode "action" {
+  bindsym q exec xserver-kill; mode "default"
+  bindsym c reload; mode "default"
+  bindsym r restart; mode "default"
+
+  bindsym Control+g mode "default"
+  bindsym Escape mode "default"
+}
+
+mode "resize" {
+        bindsym h resize shrink width 15 px
+        bindsym j resize grow height 15 px
+        bindsym k resize shrink height 15 px
+        bindsym l resize grow width 15 px
+
+        bindsym Shift+h resize grow left 15 px
+        bindsym Shift+j resize shrink up 15 px
+        bindsym Shift+k resize grow up 15 px
+        bindsym Shift+l resize shrink left 15 px
+
+        bindsym Control+g mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+Shift+r mode "resize"
+bindsym $mod+Shift+a mode "action"
+
+# misc
+title_align center
+#workspace_layout tabbed
+for_window [all] title_window_icon on
+default_border normal 2
+bindsym $mod+p exec --no-startup-id dmenu_run
+
+# status bar
+bar {
+  # status_command i3status
+  status_command i3blocks
+
+  colors {
+    background         #303030
+    active_workspace   #303030 #303030 #FFFFFF
+    inactive_workspace #303030 #303030 #888888
+    focused_workspace  #303030 #303030 #FFFFFF
+  }
+
+  font pango:JetBrains Mono 14
+
+  position top
+  #position bottom
+}

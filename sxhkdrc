@@ -1,0 +1,118 @@
+# media keys
+XF86Tools
+  mpc play > /dev/null
+XF86AudioLowerVolume
+  amixer set Master 5%- > /dev/null
+XF86AudioRaiseVolume
+  amixer set Master 5%+ > /dev/null
+XF86AudioMute
+  amixer set Master toggle > /dev/null
+XF86AudioStop
+  mpc stop > /dev/null
+XF86AudioPrev
+  mpc prev > /dev/null
+XF86AudioPlay
+  mpc toggle > /dev/null
+XF86AudioNext
+  mpc next > /dev/null
+XF86Mail
+  ungoogled-chromium
+XF86HomePage
+  st -e zsh
+XF86Explorer
+  st -e lf -single
+XF86Calculator
+  st -e calc
+
+# print key
+Print
+  /tmp/dbus-launch screenshot-now
+
+# term-mode
+super + control + Return; shift + a
+  /tmp/dbus-launch alacritty --command tmux new -A	
+super + control + Return; shift + u
+  /tmp/dbus-launch urxvt -title tmux -e tmux new -A
+super + control + Return; shift + s
+  /tmp/dbus-launch st -e tmux new -A
+super + control + Return; shift + x
+  /tmp/dbus-launch xterm -e tmux new -A
+super + control + Return; a
+  /tmp/dbus-launch alacritty
+super + control + Return; u
+  /tmp/dbus-launch urxvt -title urxvt -e zsh
+super + control + Return; s
+  /tmp/dbus-launch st -e zsh
+super + control + Return; x
+  /tmp/dbus-launch xterm -e zsh
+
+# action-mode
+super + control + a; p
+  /tmp/dbus-launch rcshutdown
+super + control + a; r
+  /tmp/dbus-launch rcreboot
+super + control + a; shift + p
+  /tmp/dbus-launch rcnshutdown
+super + control + a; shift + r
+  /tmp/dbus-launch rcnreboot
+super + control + a; s
+  loginctl suspend
+super + control + a; h
+  loginctl hibernate
+super + control + a; l
+  i3lock -i '/home/mh/Images/Wallpapers/vapor/apollo.png' -e -f -b -n -t -p default
+
+# launch-mode
+super + control + l; a
+  /tmp/dbus-launch alsa-dmenu
+super + control + l; b
+  /tmp/dbus-launch ungoogled-chromium
+super + control + l; shift + b
+  /tmp/dbus-launch ungoogled-chromium /tmp/index.html
+super + control + l; f
+  /tmp/dbus-launch firefox
+super + control + l; m
+  /tmp/dbus-launch mpc-dmenu
+super + control + l; s
+  /tmp/dbus-launch maim-dmenu
+super + control + l; l
+  /tmp/dbus-launch st -e lf -single
+super + control + l; e
+  /tmp/dbus-launch emacsxc
+super + control + l; shift + e
+  /tmp/dbus-launch emacs
+
+# docs-mode
+super + control + d; j
+  docs emacsclient journal
+super + control + d; w
+  docs emacsclient wiki
+super + control + d; shift + j
+  docs emacsxc journal
+super + control + d; shift + w
+  docs emacsxc wiki
+
+# kill-mode
+super + control + k; d
+  /tmp/dbus-launch dunstctl close-all
+
+# copy-mode
+super + control + c; c
+  /home/mh/Scripts/edit-copy.sh emacsclient
+super + control + c; e
+  /home/mh/Scripts/edit-copy.sh -e emacsclient
+super + control + c; shift + c
+  /home/mh/Scripts/edit-copy.sh 
+super + control + c; shift + e
+  /home/mh/Scripts/edit-copy.sh -e 
+
+# misc
+# we start `wm' in a dbus session, we need everything that is started
+# by dmenu to have the address set by the session. The same is not true
+# for terminal-started applications
+#super + p
+#	dmenu_run
+super + c
+  clipmenu
+super + control + r
+  /home/mh/Scripts/sxhkd-reload.sh

@@ -1,0 +1,17 @@
+zoom_in
+zoom_out
+scroll_up
+scroll_down
+scroll_left
+scroll_right
+next_img
+prev_img
+
+zoom_in K
+zoom_out J
+scroll_up k
+scroll_down j
+scroll_left h
+scroll_right l
+next_img L
+prev_img H
