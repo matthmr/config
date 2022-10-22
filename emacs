@@ -1,16 +1,16 @@
 ;; Preamble
 ; color theme
 (add-to-list 'custom-theme-load-path
-						 "/home/mh/.emacs.d/themes") ;; gruber-darker,vscode-dark-plus
+             "/home/mh/.emacs.d/themes") ;; gruber-darker,vscode-dark-plus
 (add-to-list 'custom-theme-load-path
-						 "/home/mh/.emacs.d/themes/base16-theme/build") ;; base16
+             "/home/mh/.emacs.d/themes/base16-theme/build") ;; base16
 ; git-managed packages
 (add-to-list 'load-path
-						 "/home/mh/Git/EMACS/markdown-mode") ;; markdown-mode
+             "/home/mh/Git/EMACS/markdown-mode") ;; markdown-mode
 (add-to-list 'load-path
-						 "/home/mh/Git/EMACS/evil-mode") ;; evil-mode
+             "/home/mh/Git/EMACS/evil-mode") ;; evil-mode
 (add-to-list 'load-path
-						 "/home/mh/.emacs.d/themes") ;; base16
+             "/home/mh/.emacs.d/themes") ;; base16
 
 ;; Global Configuration
 ; set by emacs
@@ -41,14 +41,14 @@
 (setq auto-save-default nil)
 (setq create-lockfiles nil)
 (setq inhibit-startup-message t)
-(setq scroll-margin 3
-      scroll-conservatively 101
-      scroll-up-aggressively 0.01
-      scroll-down-aggressively 0.01
-      scroll-preserve-screen-position t
-      auto-window-vscroll nil)
-(setq next-screen-context-lines 20)
+(setq scroll-error-top-bottom t)
+(setq scroll-preserve-screen-position t)
+(setq scroll-margin 2)
+(setq scroll-conservatively 100)
+(setq next-screen-context-lines 2)
 (setq column-number-indicator-zero-based nil)
+(setq split-height-threshold 30) ; prefer spliting horizontally
+; (setq split-width-threshold 90)
 (setq-default truncate-lines 0)
 (setq-default tab-width 2)
 (setq-default window-divider-default-places 'right-only)
@@ -59,7 +59,6 @@
 (setq-default frame-title-format '("emacs@linux - %b")) ; as per `https://emacs.stackexchange.com/questions/16834/how-to-change-the-frame-title-from-emacshost-to-visited-file-name'
 (setq-default inhibit-x-resources t) ; as per [C-h v inhibit-x-resources]
 (setq-default indent-tabs-mode nil)
-(setq-default split-width-threshold 1)
 
 ; even more (in)sane defaults
 (fset 'yes-or-no-p 'y-or-n-p) ;; make every "yes or no" question a "y or n" question
@@ -70,10 +69,14 @@
   (if (eq current-prefix-arg nil)
       (setq current-prefix-arg prefix))
   (call-interactively function))
-(global-set-key (kbd "C-x C-o") (lambda () (interactive) (call-prefix -1 'other-window)))
+(global-set-key (kbd "C-x C-o") (lambda () (interactiv e) (call-prefix -1 'other-window)))
 (global-set-key (kbd "C-x <") (lambda () (interactive) (call-prefix 10 'scroll-right)))
 (global-set-key (kbd "C-x >") (lambda () (interactive) (call-prefix 10 'scroll-left)))
+(global-set-key (kbd "C-v") (lambda () (interactive) (call-prefix 10 'scroll-up-command)))
+(global-set-key (kbd "M-v") (lambda () (interactive) (call-prefix 10 'scroll-down-command)))
 (global-set-key (kbd "M-o") 'overwrite-mode)
+(global-set-key (kbd "C-M-n") 'scroll-up-line)
+(global-set-key (kbd "C-M-p") 'scroll-down-line)
 
 ;; MODES
 ; Xterm
