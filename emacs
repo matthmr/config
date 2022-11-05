@@ -1,4 +1,7 @@
 ;; Preamble
+(load "/home/mh/.emacs.d/keybindings")
+(load "/home/mh/.emacs.d/macros")
+
 ; color theme
 (add-to-list 'custom-theme-load-path
              "/home/mh/.emacs.d/themes") ;; gruber-darker,vscode-dark-plus
@@ -21,6 +24,7 @@
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
  '(fill-column 70)
+ '(goal-column 0)
  '(fringe-mode 0 nil (fringe))
  '(global-display-line-numbers-mode t)
  '(inhibit-startup-screen t)
@@ -64,20 +68,6 @@
 (fset 'yes-or-no-p 'y-or-n-p) ;; make every "yes or no" question a "y or n" question
 
 ; remap
-(defun call-prefix (prefix function)
-  "Call `function' with `prefix'"
-  (if (eq current-prefix-arg nil)
-      (setq current-prefix-arg prefix))
-  (call-interactively function))
-(global-set-key (kbd "C-x C-o") (lambda () (interactiv e) (call-prefix -1 'other-window)))
-(global-set-key (kbd "C-x <") (lambda () (interactive) (call-prefix 10 'scroll-right)))
-(global-set-key (kbd "C-x >") (lambda () (interactive) (call-prefix 10 'scroll-left)))
-(global-set-key (kbd "C-v") (lambda () (interactive) (call-prefix 10 'scroll-up-command)))
-(global-set-key (kbd "M-v") (lambda () (interactive) (call-prefix 10 'scroll-down-command)))
-(global-set-key (kbd "M-o") 'overwrite-mode)
-(global-set-key (kbd "C-M-n") 'scroll-up-line)
-(global-set-key (kbd "C-M-p") 'scroll-down-line)
-
 ;; MODES
 ; Xterm
 (setq xterm-mouse-mode t)
@@ -104,13 +94,15 @@
 
 ;; HOOKS
 (add-hook 'text-mode-hook 'auto-fill-mode)
+(add-hook 'c-mode-hook 'outline-minor-mode)
+(add-hook 'sh-mode-hook 'outline-minor-mode)
 (add-to-list 'auto-mode-alist '("\\.gitignore\\'" . conf-mode))
 
 ;; THEMES
-(load-theme 'base16-grayscale-dark t)
+(load-theme 'base16-gruvbox-dark-hard t)
 
 ;; INPUT
-(set-input-method 'programmer-dvorak)
+;(set-input-method 'programmer-dvorak)
 
 ;; EMACS DISABLED MODES (why?)
 (put 'narrow-to-region 'disabled nil)

@@ -26,7 +26,7 @@ XF86Calculator
 
 # print key
 Print
-  /tmp/dbus-launch screenshot-now
+  /tmp/dbus-launch screenshot-quick
 
 # term-mode
 super + control + Return; shift + a
@@ -98,11 +98,11 @@ super + control + k; d
 
 # copy-mode
 super + control + c; c
-  /home/mh/Scripts/edit-copy.sh emacsclient
+  /home/mh/Scripts/edit-copy.sh -c emacsclient
 super + control + c; e
   /home/mh/Scripts/edit-copy.sh -e emacsclient
 super + control + c; shift + c
-  /home/mh/Scripts/edit-copy.sh 
+  /home/mh/Scripts/edit-copy.sh -c
 super + control + c; shift + e
   /home/mh/Scripts/edit-copy.sh -e 
 

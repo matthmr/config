@@ -1,0 +1,36 @@
+(defun call-prefix (prefix function)
+  "Call `function' with `prefix'"
+  (if (eq current-prefix-arg nil)
+      (setq current-prefix-arg prefix))
+  (call-interactively function))
+(global-set-key (kbd "M-<tab>") 'other-window)
+(global-set-key (kbd "M-S-<iso-lefttab>") (lambda () (interactive) (call-prefix -1 'other-window)))
+;;(global-set-key (kbd "C-x <") (lambda () (interactive) (call-prefix 10 'scroll-right)))
+;;(global-set-key (kbd "C-x >") (lambda () (interactive) (call-prefix 10 'scroll-left)))
+(global-set-key (kbd "C-v") (lambda () (interactive) (call-prefix 10 'scroll-up-command)))
+(global-set-key (kbd "M-v") (lambda () (interactive) (call-prefix 10 'scroll-down-command)))
+(global-set-key (kbd "M-k") (lambda () (interactive) (call-prefix 0 'kill-line)))
+(global-set-key (kbd "M-o")     'overwrite-mode)
+(global-set-key (kbd "C-x C-p") 'set-goal-column)
+(global-set-key (kbd "C-M-n")   'scroll-up-line)
+(global-set-key (kbd "C-M-p")   'scroll-down-line)
+(global-set-key (kbd "M-#")     'query-replace)
+(global-set-key (kbd "M-*")     'query-replace-regexp)
+
+(global-unset-key (kbd "C-x o"))
+
+(global-set-key (kbd "C-x o a")   'outline-show-all)
+(global-set-key (kbd "C-x o c")   'outline-hide-subtree)
+(global-set-key (kbd "C-x o o")   'outline-show-children)
+(global-set-key (kbd "C-x o s")   'outline-show-subtree)
+(global-set-key (kbd "C-x o TAB") 'outline-cycle)
+(global-set-key (kbd "C-x o n")   'outline-cycle-buffer)
+
+(defun evil ()
+    "Start evil mode"
+    (require 'evil)
+    (evil-mode)
+    ;; Customize `evil-mode'
+    (setq evil-redo-function 'undo-redo)
+    (global-set-key (kbd "M-d") 'evil-scroll-up)
+    (outline-minor-mode t))

@@ -1,0 +1,10 @@
+(set-register ?o '("#+begin_src"
+                   "#+end_src"))
+
+(set-register ?q '("#+begin_quote"
+                   "#+end_quote"))
+
+(set-register ?l '(
+                   "#ifndef LOCK_"
+                   "#  define LOCK_"
+                   "#endif"))
