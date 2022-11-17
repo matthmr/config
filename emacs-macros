@@ -8,3 +8,8 @@
                    "#ifndef LOCK_"
                    "#  define LOCK_"
                    "#endif"))
+
+(set-register ?h '(
+                   "#+TITLE: "
+                   "#+DATE: "
+                   "#+AUTHOR: "))

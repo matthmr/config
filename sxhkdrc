@@ -1,33 +1,3 @@
-# media keys
-XF86Tools
-  mpc play > /dev/null
-XF86AudioLowerVolume
-  amixer set Master 5%- > /dev/null
-XF86AudioRaiseVolume
-  amixer set Master 5%+ > /dev/null
-XF86AudioMute
-  amixer set Master toggle > /dev/null
-XF86AudioStop
-  mpc stop > /dev/null
-XF86AudioPrev
-  mpc prev > /dev/null
-XF86AudioPlay
-  mpc toggle > /dev/null
-XF86AudioNext
-  mpc next > /dev/null
-XF86Mail
-  ungoogled-chromium
-XF86HomePage
-  st -e zsh
-XF86Explorer
-  st -e lf -single
-XF86Calculator
-  st -e calc
-
-# print key
-Print
-  /tmp/dbus-launch screenshot-quick
-
 # term-mode
 super + control + Return; shift + a
   /tmp/dbus-launch alacritty --command tmux new -A	
@@ -52,13 +22,13 @@ super + control + a; p
 super + control + a; r
   /tmp/dbus-launch rcreboot
 super + control + a; shift + p
-  /tmp/dbus-launch rcnshutdown
+  doas openrc-shutdown -p now
 super + control + a; shift + r
-  /tmp/dbus-launch rcnreboot
-super + control + a; s
-  loginctl suspend
-super + control + a; h
-  loginctl hibernate
+  doas openrc-shutdown -r now
+#super + control + a; s
+#  doas /home/mh/.local/bin/s2ram
+#super + control + a; h
+#  doas /home/mh/.local/bin/s2disk
 super + control + a; l
   i3lock -i '/home/mh/Images/Wallpapers/vapor/apollo.png' -e -f -b -n -t -p default
 
@@ -74,7 +44,11 @@ super + control + l; f
 super + control + l; m
   /tmp/dbus-launch mpc-dmenu
 super + control + l; s
-  /tmp/dbus-launch maim-dmenu
+  /tmp/dbus-launch screenshot-dir
+super + control + l; q
+  /tmp/dbus-launch screenshot-quick
+super + control + l; j
+  /tmp/dbus-launch japanese-dmenu
 super + control + l; l
   /tmp/dbus-launch st -e lf -single
 super + control + l; e
@@ -84,26 +58,26 @@ super + control + l; shift + e
 
 # docs-mode
 super + control + d; j
-  docs emacsclient journal
+  docs journal -e emacsclient
 super + control + d; w
-  docs emacsclient wiki
+  docs wiki -e emacsclient
 super + control + d; shift + j
-  docs emacsxc journal
+  docs journal -e emacsxc
 super + control + d; shift + w
-  docs emacsxc wiki
+  docs wiki -e emacsxc
 
 # kill-mode
-super + control + k; d
-  /tmp/dbus-launch dunstctl close-all
+#super + control + k; d
+#  /tmp/dbus-launch dunstctl close-all
 
 # copy-mode
-super + control + c; c
+super + control + x; c
   /home/mh/Scripts/edit-copy.sh -c emacsclient
-super + control + c; e
+super + control + x; e
   /home/mh/Scripts/edit-copy.sh -e emacsclient
-super + control + c; shift + c
+super + control + x; shift + c
   /home/mh/Scripts/edit-copy.sh -c
-super + control + c; shift + e
+super + control + x; shift + e
   /home/mh/Scripts/edit-copy.sh -e 
 
 # misc

@@ -158,3 +158,4 @@ map gp :cd /home/mh/Git/MH
 map grs :cd /mnt/ssd
 map grh :cd /mnt/hdd
 map grn :cd /
+map gt :cd /tmp

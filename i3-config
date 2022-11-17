@@ -1,5 +1,5 @@
 # start-up daemons
-exec --no-startup-id dunst
+#exec --no-startup-id dunst
 exec --no-startup-id emacsserver xtoggle
 
 # modifier key
@@ -73,8 +73,8 @@ bindsym $mod+Control+c move absolute position center
 focus_follows_mouse no
 
 # scratchpad
-bindsym $mod+Control+s move scratchpad
-bindsym $mod+Control+d scratchpad show
+bindsym $mod+Shift+s move scratchpad
+bindsym $mod+Shift+d scratchpad show
 
 # workspace cycling
 bindsym $mod+Tab workspace next
@@ -84,7 +84,6 @@ bindsym $mod+Shift+Tab workspace prev
 bindsym $mod+m mark swapee
 bindsym $mod+Shift+m unmark swapee
 bindsym $mod+n swap container with mark swapee
-bindsym $mod+Control+n exec "dunstctl close-all"
 
 # style
 #                       border  bg      txt     indic     chbordr
