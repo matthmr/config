@@ -1,15 +1,20 @@
-(set-register ?o '("#+begin_src"
+(set-register ?s '("#+begin_src"
                    "#+end_src"))
 
 (set-register ?q '("#+begin_quote"
                    "#+end_quote"))
+
+(set-register ?o '(
+                   "#+TITLE: "
+                   "#+DATE: "
+                   "#+AUTHOR: "))
 
 (set-register ?l '(
                    "#ifndef LOCK_"
                    "#  define LOCK_"
                    "#endif"))
 
-(set-register ?h '(
-                   "#+TITLE: "
-                   "#+DATE: "
-                   "#+AUTHOR: "))
+(set-register ?t '(
+                   "struct {"
+                   "};"
+                   "typedef struct ;"))

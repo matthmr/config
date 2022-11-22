@@ -18,6 +18,9 @@
 (global-set-key (kbd "C-M-p")   'scroll-down-line)
 (global-set-key (kbd "M-#")     'query-replace)
 (global-set-key (kbd "M-*")     'query-replace-regexp)
+(global-set-key (kbd "C-x ^")   (lambda () (interactive) (call-prefix 5 'enlarge-window)))
+(global-set-key (kbd "C-x {")   (lambda () (interactive) (call-prefix 5 'shrink-window-horizontally)))
+(global-set-key (kbd "C-x }")   (lambda () (interactive) (call-prefix 5 'enlarge-window-horizontally)))
 
 (global-unset-key (kbd "C-x o"))
 (global-set-key (kbd "C-x C-o")   'other-window) ; I don't use `delete-blank-lines'

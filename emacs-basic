@@ -52,6 +52,7 @@
 (setq-default sentence-end-double-space nil) ; Why the fuck would I do that?
 (setq-default local-enable-local-variables nil) ; Why the fuck would I do that?
 (setq-default ring-bell-function 'ignore) ; SHUT THE FUCK UP
+(setq-default tab-bar-show 1)
 
 ; even more (in)sane defaults
 (fset 'yes-or-no-p 'y-or-n-p) ;; make every "yes or no" question a "y or n" question
@@ -78,5 +79,6 @@
 
 ;; HOOKS
 (add-hook 'text-mode-hook 'auto-fill-mode)
-(add-hook 'c-mode-hook 'outline-minor-mode)
+(add-hook 'c-mode-hook    'outline-minor-mode)
+(add-hook 'diff-mode-hook 'outline-minor-mode)
 (add-to-list 'auto-mode-alist '("\\.gitignore\\'" . conf-mode))
