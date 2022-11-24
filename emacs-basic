@@ -59,8 +59,6 @@
 
 ; remap
 ;; MODES
-; Xterm
-(setq xterm-mouse-mode t)
 
 ; C
 (setq c-default-style "linux")
@@ -72,10 +70,8 @@
 ; Shell
 (setq sh-basic-offset 2)
 
-
 ;; EMACS DISABLED MODES (why?)
 (setq-default disabled-command-function nil)
-
 
 ;; HOOKS
 (add-hook 'text-mode-hook 'auto-fill-mode)

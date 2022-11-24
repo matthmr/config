@@ -1,0 +1,24 @@
+[user]
+	name = mh
+	email = observermatth@gmail.com
+[pull]
+	rebase = false
+[init]
+	defaultBranch = master
+[credential "https://github.com"]
+	helper = 
+	helper = !/mnt/ssd/root/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/mnt/ssd/root/usr/bin/gh auth git-credential
+[color]
+	ui = true
+[core]
+	pager = less -r
+	editor = vim
+[push]
+	autoSetupRemote = true
+	followTags = true
+
+[commit]
+	verbose = true
