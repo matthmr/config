@@ -7,7 +7,12 @@ xset b off &
 xrdb /home/mh/.Xresources &
 
 ### WINDOW MANAGER ###
-xdaemon $wm &
-xsession $wm dbus &
-#exec $wm $wmopts
-exec dbus-launch --exit-with-session $wm $opts
+xdaemon  "$wm"                 &
+xsession "$wm" "$session_type" &
+
+if [[ -z $session_type ]]; then
+  exec $wm $wmopts
+else
+  unset session_type
+  exec dbus-launch --exit-with-session "$wm" "$opts"
+fi

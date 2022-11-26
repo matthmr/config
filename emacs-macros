@@ -12,9 +12,13 @@
 (set-register ?l '(
                    "#ifndef LOCK_"
                    "#  define LOCK_"
+                   ""
+                   ""
+                   ""
                    "#endif"))
 
 (set-register ?t '(
                    "struct {"
                    "};"
+                   ""
                    "typedef struct ;"))

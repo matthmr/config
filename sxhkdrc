@@ -1,6 +1,6 @@
 # term-mode
 super + control + Return; shift + a
-  /tmp/dbus-launch alacritty --command tmux new -A	
+  /tmp/dbus-launch alacritty --command tmux new -A
 super + control + Return; shift + u
   /tmp/dbus-launch urxvt -title tmux -e tmux new -A
 super + control + Return; shift + s
@@ -17,14 +17,14 @@ super + control + Return; x
   /tmp/dbus-launch xterm -e zsh
 
 # action-mode
-super + control + a; p
-  /tmp/dbus-launch rcshutdown
-super + control + a; r
-  /tmp/dbus-launch rcreboot
 super + control + a; shift + p
-  doas openrc-shutdown -p now
+  /tmp/dbus-launch rcshutdown
 super + control + a; shift + r
-  doas openrc-shutdown -r now
+  /tmp/dbus-launch rcreboot
+#super + control + a; control + shift + p
+#  doas openrc-shutdown -p now
+#super + control + a; control + shift + r
+#  doas openrc-shutdown -r now
 #super + control + a; s
 #  doas /home/mh/.local/bin/s2ram
 #super + control + a; h
@@ -65,20 +65,6 @@ super + control + d; shift + j
   docs journal -e emacsxc
 super + control + d; shift + w
   docs wiki -e emacsxc
-
-# kill-mode
-#super + control + k; d
-#  /tmp/dbus-launch dunstctl close-all
-
-# copy-mode
-super + control + x; c
-  /home/mh/Scripts/edit-copy.sh -c emacsclient
-super + control + x; e
-  /home/mh/Scripts/edit-copy.sh -e emacsclient
-super + control + x; shift + c
-  /home/mh/Scripts/edit-copy.sh -c
-super + control + x; shift + e
-  /home/mh/Scripts/edit-copy.sh -e 
 
 # misc
 # we start `wm' in a dbus session, we need everything that is started

@@ -1,24 +1,45 @@
-[user]
-	name = mh
-	email = observermatth@gmail.com
-[pull]
-	rebase = false
-[init]
-	defaultBranch = master
+# Github CLI for pushing to github
 [credential "https://github.com"]
-	helper = 
-	helper = !/mnt/ssd/root/usr/bin/gh auth git-credential
-[credential "https://gist.github.com"]
-	helper = 
-	helper = !/mnt/ssd/root/usr/bin/gh auth git-credential
-[color]
-	ui = true
-[core]
-	pager = less -r
-	editor = vim
-[push]
-	autoSetupRemote = true
-	followTags = true
+  helper = !/mnt/ssd/root/usr/bin/gh auth git-credential
 
-[commit]
-	verbose = true
+# Global configs
+[user]
+  name = mh
+  email = observermatth@gmail.com
+[pull]
+  rebase = false
+[init]
+  defaultBranch = master
+[color]
+  ui = true
+[core]
+  pager = less -r
+  editor = nvim
+[push]
+  autoSetupRemote = true
+  followTags = true
+[status]
+  short = true
+[log]
+  date = format:%Y%m%d%H%M
+[blame]
+  date = format:%Y%m%d%H%M
+#[commit]
+#  verbose = true
+[pager]
+  branch = false
+  tag = false
+  stash = false
+
+# Git aliases
+[alias]
+  l = log --all --stat --patch
+  d = diff --stat --patch
+  c = commit
+  a = add
+  s = stash
+  b = branch
+  m = merge
+  st = status
+  ch = checkout
+  adp = add -p

@@ -25,6 +25,7 @@
 
 (global-unset-key (kbd "C-x o"))
 (global-set-key (kbd "C-x C-o")   'other-window) ; I don't use `delete-blank-lines'
+(global-set-key (kbd "C-x C-M-o") (lambda () (interactive) (call-prefix -1 'other-window)))
 
 ;; `outline-minor-mode'
 (global-set-key (kbd "C-x o a")   'outline-show-all)
