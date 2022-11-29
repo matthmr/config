@@ -22,6 +22,8 @@
 (global-set-key (kbd "C-x C-M-=")   (lambda () (interactive) (call-prefix 5 'enlarge-window)))
 (global-set-key (kbd "C-x {")   (lambda () (interactive) (call-prefix 5 'shrink-window-horizontally)))
 (global-set-key (kbd "C-x }")   (lambda () (interactive) (call-prefix 5 'enlarge-window-horizontally)))
+(global-set-key (kbd "C-x <")   (lambda () (interactive) (call-prefix 15 'scroll-right)))
+(global-set-key (kbd "C-x >")   (lambda () (interactive) (call-prefix 15 'scroll-left)))
 
 (global-unset-key (kbd "C-x o"))
 (global-set-key (kbd "C-x C-o")   'other-window) ; I don't use `delete-blank-lines'

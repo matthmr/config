@@ -40,6 +40,13 @@ Any file that already has a hard link is not to be linked again. This
 goes specially for files that are tracked by ``p://Scripts`` or other
 repositories.
 
+System Files
+------------
+
+In the ``/sys`` directory, there are *system config files*. Those are
+files mirrored in ``~/Backup`` or somewhere close. Those are only
+*copies* of the config file.
+
 NOTE
 ----
 

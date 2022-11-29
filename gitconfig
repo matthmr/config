@@ -13,8 +13,17 @@
 [color]
   ui = true
 [core]
-  pager = less -r
+  #pager = less -r
+  pager = delta --line-numbers --side-by-side
   editor = nvim
+[interactive]
+  diffFilter = delta --color-only
+[delta]
+  navigate = true
+[merge]
+  conflictstyle = diff3
+[diff]
+  colorMoved = default
 [push]
   autoSetupRemote = true
   followTags = true
@@ -40,6 +49,7 @@
   s = stash
   b = branch
   m = merge
+  sh = show --stat --patch
   st = status
   ch = checkout
   adp = add -p

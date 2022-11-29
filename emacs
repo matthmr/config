@@ -25,6 +25,7 @@
 (add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
 
 ;; THEMES
+(setq base16-theme-distinct-fringe-background nil)
 (load-theme 'base16-gruvbox-dark-hard t)
 
 ;; INPUT

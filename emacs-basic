@@ -53,6 +53,8 @@
 (setq-default local-enable-local-variables nil) ; Why the fuck would I do that?
 (setq-default ring-bell-function 'ignore) ; SHUT THE FUCK UP
 (setq-default tab-bar-show 1)
+(setq-default buffer-display-table nil)
+(set-display-table-slot standard-display-table 'truncation ?…)
 
 ; even more (in)sane defaults
 (fset 'yes-or-no-p 'y-or-n-p) ;; make every "yes or no" question a "y or n" question
@@ -70,6 +72,14 @@
 ; Shell
 (setq sh-basic-offset 2)
 
+; WS
+(setq-default whitespace-space-regexp "\\( +$\\)")
+(setq-default whitespace-style
+              '(face empty trailing spaces tab-mark))
+(setq-default whitespace-display-mappings '(
+              (tab-mark ?\x09 [?¦ ?\ ])))
+(global-whitespace-mode)
+
 ;; EMACS DISABLED MODES (why?)
 (setq-default disabled-command-function nil)
 
@@ -77,4 +87,5 @@
 (add-hook 'text-mode-hook 'auto-fill-mode)
 (add-hook 'c-mode-hook    'outline-minor-mode)
 (add-hook 'diff-mode-hook 'outline-minor-mode)
+(add-hook 'lisp-mode-hook 'outline-minor-mode)
 (add-to-list 'auto-mode-alist '("\\.gitignore\\'" . conf-mode))
