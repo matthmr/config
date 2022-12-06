@@ -18,13 +18,16 @@
  '(scroll-bar-mode nil)
  '(size-indication-mode t)
  '(tool-bar-mode nil)
- '(tooltip-mode nil))
+ '(tooltip-mode nil)
+ '(eglot-highlight-symbol-face ((t (:inherit underline)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Iosevka Term" :foundry "UKWN" :slant normal :weight semi-bold :height 169 :width normal)))))
+ '(default ((t (:family "Iosevka Term" :foundry "UKWN" :slant normal :weight semi-bold :height 169 :width normal))))
+ '(eglot-highlight-symbol-face ((t (:inherit underline))))
+ '(trailing-whitespace ((t (:background "#fb4934" :foreground "#fabd2f")))))
 
 ; (in)sane defaults
 (setq make-backup-files nil)
@@ -53,8 +56,6 @@
 (setq-default local-enable-local-variables nil) ; Why the fuck would I do that?
 (setq-default ring-bell-function 'ignore) ; SHUT THE FUCK UP
 (setq-default tab-bar-show 1)
-(setq-default buffer-display-table nil)
-(set-display-table-slot standard-display-table 'truncation ?…)
 
 ; even more (in)sane defaults
 (fset 'yes-or-no-p 'y-or-n-p) ;; make every "yes or no" question a "y or n" question
@@ -72,20 +73,26 @@
 ; Shell
 (setq sh-basic-offset 2)
 
+;; EMACS DISABLED MODES (why?)
+(setq-default disabled-command-function nil)
+
+; Style
+(set-display-table-slot standard-display-table 'truncation ?…)
+(set-display-table-slot standard-display-table 'selective-display
+                        (string-to-vector "↷"))
+
 ; WS
 (setq-default whitespace-space-regexp "\\( +$\\)")
 (setq-default whitespace-style
               '(face empty trailing spaces tab-mark))
 (setq-default whitespace-display-mappings '(
               (tab-mark ?\x09 [?¦ ?\ ])))
-(global-whitespace-mode)
-
-;; EMACS DISABLED MODES (why?)
-(setq-default disabled-command-function nil)
+(setq-default show-trailing-whitespace t)
+;(global-whitespace-mode)
 
 ;; HOOKS
-(add-hook 'text-mode-hook 'auto-fill-mode)
-(add-hook 'c-mode-hook    'outline-minor-mode)
-(add-hook 'diff-mode-hook 'outline-minor-mode)
-(add-hook 'lisp-mode-hook 'outline-minor-mode)
-(add-to-list 'auto-mode-alist '("\\.gitignore\\'" . conf-mode))
+(add-hook 'text-mode-hook   'auto-fill-mode)
+(add-hook 'c-mode-hook      'outline-minor-mode)
+(add-hook 'diff-mode-hook   'outline-minor-mode)
+(add-hook 'lisp-mode-hook   'outline-minor-mode)
+(add-hook 'python-mode-hook 'outline-minor-mode)

@@ -1,0 +1,34 @@
+#
+# This file is parsed by pam_env module
+#
+# Syntax: simple "KEY=VAL" pairs on separate lines
+#
+
+# Sets qt5ct variable
+QT_QPA_PLATFORMTHEME=qt5ct
+
+# editor
+EDITOR=/usr/bin/nvim
+
+# fcitx sugar
+QT_IM_MODULE="fcitx"
+GTK_IM_MODULE="fcitx"
+SDL_IM_MODULE="fcitx"
+XMODIFIERS="@im=fcitx"
+
+# pkgconfig compatibility
+PKG_CONFIG_PATH=/mnt/ssd/root/usr/lib/pkgconfig
+
+# XDG
+## user (mostly infered)
+XDG_CONFIG_HOME=/home/mh/.config
+XDG_DATA_HOME=/home/mh/.local/share
+XDG_CACHE_HOME=/home/mh/.cache
+
+## system
+XDG_DATA_DIRS=/usr/share:/mnt/ssd/root/usr/share
+XDG_CONFIG_DIRS=/etc/xdg:/mnt/ssd/root/etc/xdg
+
+# python / ruby
+PYTHONPATH=/mnt/ssd/root/usr/lib/python3.10/site-packages
+RUBYLIB=/mnt/ssd/root/usr/lib/ruby

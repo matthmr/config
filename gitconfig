@@ -42,14 +42,17 @@
 
 # Git aliases
 [alias]
-  l = log --all --stat --patch
-  d = diff --stat --patch
-  c = commit
-  a = add
-  s = stash
-  b = branch
-  m = merge
+  lg = log --all --stat --patch
+  df = diff --stat --patch
+  cm = commit
+  fe = fetch
+  ad = add
+  br = branch
+  mr = merge
+  st = stash
+  pl = pull
+  ps = push
   sh = show --stat --patch
-  st = status
+  ss = status
   ch = checkout
   adp = add -p

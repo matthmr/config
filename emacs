@@ -12,7 +12,14 @@
 (add-to-list 'load-path
              "/home/mh/Git/EMACS/evil-mode") ;; evil-mode
 (add-to-list 'load-path
+             "/home/mh/Git/EMACS/eglot") ;; lsp
+(add-to-list 'load-path
              "/home/mh/.emacs.d/themes") ;; base16
+
+(require 'eglot)
+
+(setq max-mini-window-height 1)
+(setq eglot-stay-out-of '("flymake" "imenu"))
 
 ; Markdown
 (autoload 'markdown-mode "markdown-mode"

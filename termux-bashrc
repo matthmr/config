@@ -1,0 +1,50 @@
+SSH_PORT=8022
+GIT_PORT=9418
+export IP=$(ifconfig | grep -Po '192\.168\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
+
+function show_ip {
+  echo "[ == ] Local ip address: $IP"
+}
+
+function show_user {
+  echo "[ == ] User: $(whoami)"
+}
+
+function start_ssh {
+  echo "[ .. ] Starting the ssh server at port $SSH_PORT"
+  sshd -p $SSH_PORT >& /dev/null
+
+  echo "[ .. ] Setting password to \`y'"
+  yes | passwd >& /dev/null
+}
+
+function start_git_daemon {
+  echo "[ .. ] Starting the git daemon at port $GIT_PORT"
+  git daemon \
+      --port=$GIT_PORT \
+      --listen=$IP \
+      --export-all \
+      --base-path=$(pwd) \
+      --detach \
+      --enable=receive-pack
+#      --log-destination=/dev/null \
+}
+
+show_ip
+show_user
+
+read -p "[ Y/n] Start ssh? " ans
+if [[ $ans = 'y' || -z $ans ]]; then
+  start_ssh
+fi
+
+read -p "[ Y/n] Start git? " ans
+if [[ $ans = 'y' || -z $ans ]]; then
+  start_git_daemon
+fi
+
+unset SSH_PORT GIT_PORT
+unset -f show_ip
+unset -f show_user
+unset -f start_ssh
+unset -f start_git_daemon

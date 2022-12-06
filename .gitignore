@@ -3,3 +3,6 @@
 *.a
 *.so
 *.html
+
+# Emacs
+*.elc
