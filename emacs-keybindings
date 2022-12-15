@@ -14,8 +14,6 @@
 (global-set-key (kbd "M-k") (lambda () (interactive) (call-prefix 0 'kill-line)))
 (global-set-key (kbd "M-o")     'overwrite-mode)
 (global-set-key (kbd "C-x C-p") 'set-goal-column)
-(global-set-key (kbd "C-M-n")   'scroll-up-line)
-(global-set-key (kbd "C-M-p")   'scroll-down-line)
 (global-set-key (kbd "M-#")     'query-replace)
 (global-set-key (kbd "M-*")     'query-replace-regexp)
 (global-set-key (kbd "C-x C-M--")   (lambda () (interactive) (call-prefix -5 'enlarge-window)))
@@ -40,14 +38,18 @@
 ;; emacs' bullshit
 (global-set-key (kbd "C-x x C-w") 'delete-region)
 (global-set-key (kbd "C-x x C-k") 'kill-whole-line)
+(global-set-key (kbd "C-x x C-i") 'imenu)
 
-;; swapping lines
-(global-set-key (kbd "C-x x C-p")
+;; keep-cursor-scroll
+(global-set-key (kbd "C-x x C-n") 'scroll-up-line)
+(global-set-key (kbd "C-x x C-p") 'scroll-down-line)
+
+(global-set-key (kbd "C-M-p")
                 (lambda () (interactive)
                  (transpose-lines 1)
-                  (previous-line 2)))
+                 (previous-line 2)))
 
-(global-set-key (kbd "C-x x C-n")
+(global-set-key (kbd "C-M-n")
                 (lambda () (interactive)
                   (next-line 1)
                   (transpose-lines 1)
@@ -57,22 +59,29 @@
 (setq clip-file "/tmp/clipboard")
 (setq clip-script-read "/home/mh/Scripts/edit-copy.sh -i")
 (setq clip-script-edit "/home/mh/Scripts/edit-copy.sh -d")
+(setq git-add-command "git add --patch")
 
 (global-set-key (kbd "C-x c w")   (lambda () (interactive)
                                     (write-file clip-file)
                                     (shell-command clip-script-read)))
 (global-set-key (kbd "C-x c e")   (lambda () (interactive)
                                     (find-file clip-file)
-                                    (shell-command clip-script-edit)))
+                                    (shell-command clip-script-edit)
+                                    (revert-buffer-quick)))
 (global-set-key (kbd "C-x c r")   (lambda () (interactive)
-                                    (find-file clip-file)))
+                                    (find-file clip-file)
+                                    (revert-buffer-quick)))
 
-;; `evil'
-(defun evil ()
-    "Start evil mode"
-    (require 'evil)
-    (evil-mode)
-    ;; Customize `evil-mode'
-    (setq evil-redo-function 'undo-redo)
-    (global-set-key (kbd "M-d") 'evil-scroll-up)
-    (outline-minor-mode t))
+;; VC
+(global-set-key (kbd "C-x v C-i")
+                (lambda () (interactive)
+                  (setq vc-buffer-file-name (buffer-file-name))
+                  (async-shell-command
+                   (format "%s %s" git-add-command
+                           (if vc-buffer-file-name
+                               vc-buffer-file-name
+                             ".")))
+                  (switch-to-buffer-other-window "*Async Shell Command*")
+                  (highlight-regexp "^+.*"  'diff-added)
+                  (highlight-regexp "^-.*+" 'diff-removed)
+                  (highlight-regexp "^@@.*" 'diff-hunk-header)))

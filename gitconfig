@@ -13,13 +13,8 @@
 [color]
   ui = true
 [core]
-  #pager = less -r
-  pager = delta --line-numbers --side-by-side
+  pager = less -r
   editor = nvim
-[interactive]
-  diffFilter = delta --color-only
-[delta]
-  navigate = true
 [merge]
   conflictstyle = diff3
 [diff]
@@ -55,4 +50,7 @@
   sh = show --stat --patch
   ss = status
   ch = checkout
+  rs = restore
+  rv = revert
+  tg = tag
   adp = add -p

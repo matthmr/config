@@ -17,6 +17,7 @@ super + control + Return; x
   /tmp/dbus-launch xterm -e zsh
 
 # action-mode
+# TODO: add an interactive [Y/n] for the `rc-' ACPI family
 super + control + a; shift + p
   /tmp/dbus-launch rcshutdown
 super + control + a; shift + r
@@ -58,13 +59,13 @@ super + control + l; shift + e
 
 # docs-mode
 super + control + d; j
-  docs journal -e emacsclient
+  docs -I journal emacsclient
 super + control + d; w
-  docs wiki -e emacsclient
+  docs -I wiki emacsclient
 super + control + d; shift + j
-  docs journal -e emacsxc
+  docs -I journal emacsxc
 super + control + d; shift + w
-  docs wiki -e emacsxc
+  docs -I wiki emacsxc
 
 # misc
 # we start `wm' in a dbus session, we need everything that is started

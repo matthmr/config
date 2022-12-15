@@ -1,5 +1,6 @@
-(load "/home/mh/.emacs.d/keybindings")
-(load "/home/mh/.emacs.d/macros")
+(load "/home/p/config/emacs-keybindings")
+;(load "/home/p/config/emacs-functions")
+(load "/home/p/config/emacs-macros")
 
 ;; Global Configuration
 ; set by emacs
@@ -9,7 +10,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
- '(fill-column 70)
+ '(fill-column 80)
  '(fringe-mode 0 nil (fringe))
  '(global-display-line-numbers-mode t)
  '(goal-column 0)
@@ -30,6 +31,7 @@
  '(trailing-whitespace ((t (:background "#fb4934" :foreground "#fabd2f")))))
 
 ; (in)sane defaults
+(setq initial-scratch-message "")
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 (setq create-lockfiles nil)
@@ -41,6 +43,7 @@
 (setq next-screen-context-lines 2)
 (setq column-number-indicator-zero-based nil)
 (setq split-height-threshold 30) ; prefer spliting horizontally
+(setq vc-handled-backends '(Git))
 ; (setq split-width-threshold 90)
 (setq-default truncate-lines 0)
 (setq-default tab-width 2)
@@ -56,6 +59,11 @@
 (setq-default local-enable-local-variables nil) ; Why the fuck would I do that?
 (setq-default ring-bell-function 'ignore) ; SHUT THE FUCK UP
 (setq-default tab-bar-show 1)
+(setq-default echo-keystrokes 0.1)
+(setq-default vc-find-revision-no-save t)
+(setq-default auto-save-list-file-prefix nil) ; STOP
+(setq-default completion-ignore-case t) ; case-insensitive
+(setq-default read-buffer-completion-ignore-case t) ; case-insensitive
 
 ; even more (in)sane defaults
 (fset 'yes-or-no-p 'y-or-n-p) ;; make every "yes or no" question a "y or n" question
@@ -63,12 +71,20 @@
 ; remap
 ;; MODES
 
+; IDO
+(setq ido-save-directory-list-file "/dev/null")
+(setq ido-enable-last-directory-history nil)
+(setq ido-record-commands nil)
+(setq ido-max-work-directory-list 0)
+(setq ido-max-work-file-list 0)
+
 ; C
 (setq c-default-style "linux")
 (setq c-basic-offset 2)
 
 ; Python
 (setq python-basic-offset 2)
+(setq python-indent-offset 2)
 
 ; Shell
 (setq sh-basic-offset 2)
@@ -76,11 +92,7 @@
 ;; EMACS DISABLED MODES (why?)
 (setq-default disabled-command-function nil)
 
-; Style
-(set-display-table-slot standard-display-table 'truncation ?…)
-(set-display-table-slot standard-display-table 'selective-display
-                        (string-to-vector "↷"))
-
+;; MODES
 ; WS
 (setq-default whitespace-space-regexp "\\( +$\\)")
 (setq-default whitespace-style
@@ -89,6 +101,9 @@
               (tab-mark ?\x09 [?¦ ?\ ])))
 (setq-default show-trailing-whitespace t)
 ;(global-whitespace-mode)
+(ido-mode t)
+(icomplete-mode t)
+;(ido-everywhere t)
 
 ;; HOOKS
 (add-hook 'text-mode-hook   'auto-fill-mode)
