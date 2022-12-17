@@ -1,6 +1,6 @@
-(load "/home/p/config/emacs-keybindings")
+(load "~/.emacs.d/emacs-keybindings")
 ;(load "/home/p/config/emacs-functions")
-(load "/home/p/config/emacs-macros")
+(load "~/.emacs.d/emacs-macros")
 
 ;; Global Configuration
 ; set by emacs
@@ -19,15 +19,13 @@
  '(scroll-bar-mode nil)
  '(size-indication-mode t)
  '(tool-bar-mode nil)
- '(tooltip-mode nil)
- '(eglot-highlight-symbol-face ((t (:inherit underline)))))
+ '(tooltip-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Iosevka Term" :foundry "UKWN" :slant normal :weight semi-bold :height 169 :width normal))))
- '(eglot-highlight-symbol-face ((t (:inherit underline))))
  '(trailing-whitespace ((t (:background "#fb4934" :foreground "#fabd2f")))))
 
 ; (in)sane defaults
