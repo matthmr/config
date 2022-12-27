@@ -44,13 +44,14 @@
   ad = add
   br = branch
   mr = merge
-  st = stash
+  #st = stash
   pl = pull
+  bl = blame
   ps = push
   sh = show --stat --patch
-  ss = status
+  st = status
   ch = checkout
   rs = restore
   rv = revert
   tg = tag
-  adp = add -p
+  ap = add -p

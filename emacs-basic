@@ -100,10 +100,9 @@
 (setq-default whitespace-display-mappings '(
               (tab-mark ?\x09 [?¦ ?\ ])))
 (setq-default show-trailing-whitespace t)
-;(global-whitespace-mode)
 (ido-mode t)
+(ido-everywhere t)
 (icomplete-mode t)
-;(ido-everywhere t)
 
 ;; HOOKS
 (add-hook 'text-mode-hook   'auto-fill-mode)
