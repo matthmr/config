@@ -43,7 +43,7 @@
   fe = fetch
   ad = add
   br = branch
-  mr = merge
+  mg = merge
   #st = stash
   pl = pull
   bl = blame
