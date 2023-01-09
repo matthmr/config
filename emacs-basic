@@ -89,7 +89,7 @@
 
 ;(define-key input-decode-map (kbd "C-[") (kbd "<escape>"))
 
-(define-key viper-insert-basic-map "\C-d" 'delete-char)
+(define-key viper-insert-basic-map "\C-d"  'delete-char)
 ;(define-key viper-insert-basic-map "\C-w" 'viper-delete-backward-word)
 (define-key viper-insert-basic-map  "\C-t" 'transpose-chars)
 (define-key viper-insert-basic-map  "\C-u"
@@ -104,6 +104,10 @@
 (define-key viper-vi-basic-map "u"       'undo)
 (define-key viper-vi-basic-map "U"       'undo-redo)
 (define-key viper-vi-basic-map "v"       'set-mark-command)
+(define-key viper-vi-basic-map "V"       (lambda () (interactive)
+                                          (move-beginning-of-line nil)
+                                          (set-mark-command nil)
+                                          (end-of-line)))
 (define-key viper-vi-basic-map "g"       'beginning-of-buffer)
 
 (define-key viper-vi-basic-map "\C-v"    'rectangle-mark-mode)
