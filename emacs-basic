@@ -14,9 +14,8 @@
 (setq scroll-conservatively 100)
 (setq next-screen-context-lines 2)
 (setq column-number-indicator-zero-based nil)
-(setq split-height-threshold 30) ; prefer spliting horizontally
+(setq split-height-threshold 30) ; prefer spliting horizontally ; 90
 (setq vc-handled-backends '(Git))
-; (setq split-width-threshold 90)
 (setq-default truncate-lines 0)
 (setq-default tab-width 2)
 (setq-default window-divider-default-places 'right-only)
@@ -44,13 +43,6 @@
 ; remap
 ;; MODES
 
-; IDO
-(setq ido-save-directory-list-file "/dev/null")
-(setq ido-enable-last-directory-history nil)
-(setq ido-record-commands nil)
-(setq ido-max-work-directory-list 0)
-(setq ido-max-work-file-list 0)
-
 ; C
 (setq c-default-style "linux")
 (setq c-basic-offset 2)
@@ -73,13 +65,38 @@
 (setq-default whitespace-display-mappings '(
               (tab-mark ?\x09 [?¦ ?\ ])))
 (setq-default show-trailing-whitespace t)
-(ido-mode t)
-(ido-everywhere t)
+
+;; Icomplete
 (icomplete-mode t)
+
+(defvar icomplete-minibuffer-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "C-j")   'icomplete-force-complete)
+    (define-key map [remap minibuffer-complete-and-exit] 'icomplete-ret)
+    (define-key map (kbd "RET")   'icomplete-force-complete-and-exit)
+    (define-key map (kbd "C-s")   'icomplete-forward-completions)
+    (define-key map (kbd "C-r")   'icomplete-backward-completions)
+    (define-key map (kbd "C-DEL") 'icomplete-fido-backward-updir)
+    map)
+  "Keymap used by `icomplete-mode' in the minibuffer; changed by `mh-local'.")
+
+;; viper
+(define-key input-decode-map (kbd "C-[") (kbd "<escape>"))
+
+(define-key viper-insert-basic-map "\C-w" 'viper-delete-backward-word)
+(define-key viper-insert-basic-map "\C-t" 'transpose-chars)
+
+(define-key viper-vi-basic-map     "\C-b" 'backward-char)
+(define-key viper-vi-basic-map     "\C-f" 'forward-char)
+
+(define-key viper-vi-basic-map     "\C-v" 'scroll-up)
 
 ;; HOOKS
 (add-hook 'text-mode-hook   'auto-fill-mode)
-(add-hook 'c-mode-hook      'outline-minor-mode)
+(add-hook 'c-mode-hook      (lambda () (interactive)
+                              (setq comment-start "//")
+                              (setq comment-end "")
+                              (outline-minor-mode)))
 (add-hook 'diff-mode-hook   'outline-minor-mode)
 (add-hook 'lisp-mode-hook   'outline-minor-mode)
 (add-hook 'python-mode-hook 'outline-minor-mode)

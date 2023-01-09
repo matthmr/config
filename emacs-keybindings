@@ -1,14 +1,11 @@
 ;; prefix function
 (defun call-prefix (prefix function)
-  "Call `function' with `prefix'"
   (if (eq current-prefix-arg nil)
       (setq current-prefix-arg prefix))
   (call-interactively function))
 
 (global-set-key (kbd "M-<tab>") 'other-window)
 (global-set-key (kbd "M-S-<iso-lefttab>") (lambda () (interactive) (call-prefix -1 'other-window)))
-;;(global-set-key (kbd "C-x <") (lambda () (interactive) (call-prefix 10 'scroll-right)))
-;;(global-set-key (kbd "C-x >") (lambda () (interactive) (call-prefix 10 'scroll-left)))
 (global-set-key (kbd "C-v")   (lambda () (interactive) (call-prefix 10 'scroll-up-command)))
 (global-set-key (kbd "C-M-v") (lambda () (interactive) (call-prefix 10 'scroll-down-command)))
 (global-set-key (kbd "M-k") (lambda () (interactive) (call-prefix 0 'kill-line)))
@@ -112,3 +109,10 @@
 (global-set-key (kbd "C-x t v")
                 (lambda () (interactive)
                   (visual-line-mode 'toggle)))
+
+(global-set-key (kbd "C-x t x")
+                (lambda () (interactive)
+                  (setq-local show-trailing-whitespace (not show-trailing-whitespace))
+                  (setq-local display-line-numbers-mode (not display-line-numbers-mode))
+                  (setq-local size-indication-mode (not size-indication-mode))
+                  (setq-local column-number-mode (not column-number-mode))))

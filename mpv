@@ -1,0 +1,33 @@
+osc=yes
+audio-device=alsa/default
+audio-pitch-correction=yes
+volume=80
+
+user-agent="Mozilla/5.0"
+
+cache-on-disk=no
+
+# animu
+slang=en,eng
+alang=ja,jp,jpn,en,eng
+
+term-osd-bar=yes
+osd-font="Iosevka Term"
+cursor-autohide=5000
+
+[protocol.http]
+profile-desc=http
+cache=yes
+cache-secs=300
+demuxer-max-bytes=50M
+demuxer-max-back-bytes=10M
+
+[protocol.https]
+profile-desc=https
+profile=protocol.http
+
+[protocol.ytdl]
+ytdl-format=140
+video=no
+profile-desc=ytld
+profile=protocol.http
