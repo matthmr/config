@@ -40,9 +40,8 @@
 (setq scroll-conservatively 100)
 (setq next-screen-context-lines 2)
 (setq column-number-indicator-zero-based nil)
-(setq split-height-threshold 30) ; prefer spliting horizontally
+(setq split-height-threshold 30) ; prefer spliting horizontally ; 90
 (setq vc-handled-backends '(Git))
-; (setq split-width-threshold 90)
 (setq-default truncate-lines 0)
 (setq-default tab-width 2)
 (setq-default window-divider-default-places 'right-only)
@@ -62,19 +61,13 @@
 (setq-default auto-save-list-file-prefix nil) ; STOP
 (setq-default completion-ignore-case t) ; case-insensitive
 (setq-default read-buffer-completion-ignore-case t) ; case-insensitive
+(setq-default goal-column nil)
 
 ; even more (in)sane defaults
 (fset 'yes-or-no-p 'y-or-n-p) ;; make every "yes or no" question a "y or n" question
 
 ; remap
 ;; MODES
-
-; IDO
-(setq ido-save-directory-list-file "/dev/null")
-(setq ido-enable-last-directory-history nil)
-(setq ido-record-commands nil)
-(setq ido-max-work-directory-list 0)
-(setq ido-max-work-file-list 0)
 
 ; C
 (setq c-default-style "linux")
@@ -98,14 +91,59 @@
 (setq-default whitespace-display-mappings '(
               (tab-mark ?\x09 [?¦ ?\ ])))
 (setq-default show-trailing-whitespace t)
-;(global-whitespace-mode)
-(ido-mode t)
+
+;; Icomplete
+(defvar icomplete-minibuffer-map
+  (let ((map (make-sparse-keymap)))
+    ;(define-key map [remap minibuffer-complete-and-exit] 'icomplete-ret)
+    (define-key map (kbd "C-c")   'icomplete-force-complete)
+    (define-key map (kbd "C-j")   'icomplete-ret)
+    (define-key map (kbd "RET")   'icomplete-force-complete-and-exit)
+    (define-key map (kbd "C-s")   'icomplete-forward-completions)
+    (define-key map (kbd "C-r")   'icomplete-backward-completions)
+    (define-key map (kbd "C-DEL") 'icomplete-fido-backward-updir)
+    map)
+  "Keymap used by `icomplete-mode' in the minibuffer'.")
+
 (icomplete-mode t)
-;(ido-everywhere t)
+
+;; viper
+(setq viper-mode t)
+(require 'viper)
+
+(viper-mode)
+
+(define-key input-decode-map (kbd "C-[") (kbd "<escape>"))
+
+(define-key viper-insert-basic-map "\C-d" 'delete-char)
+;(define-key viper-insert-basic-map "\C-w" 'viper-delete-backward-word)
+(define-key viper-insert-basic-map  "\C-t" 'transpose-chars)
+(define-key viper-insert-basic-map  "\C-u"
+  (lambda () (interactive)
+    (if (eq current-prefix-arg nil)
+      (setq current-prefix-arg 0))
+    (call-interactively 'kill-line)))
+
+(define-key viper-vi-basic-map "\C-b"    'backward-char)
+(define-key viper-vi-basic-map "\C-f"    'forward-char)
+
+(define-key viper-vi-basic-map "u"       'undo)
+(define-key viper-vi-basic-map "U"       'undo-redo)
+(define-key viper-vi-basic-map "v"       'set-mark-command)
+(define-key viper-vi-basic-map "g"       'beginning-of-buffer)
+
+(define-key viper-vi-basic-map "\C-v"    'rectangle-mark-mode)
+(define-key viper-vi-basic-map "\C-y"    'yank)
+(define-key viper-vi-basic-map "\C-e"    'end-of-line)
+(define-key viper-vi-basic-map "\C-i"    'viper-scroll-down-one)
+(define-key viper-vi-basic-map "\C-\M-i" 'viper-scroll-up-one)
 
 ;; HOOKS
 (add-hook 'text-mode-hook   'auto-fill-mode)
-(add-hook 'c-mode-hook      'outline-minor-mode)
+(add-hook 'c-mode-hook      (lambda () (interactive)
+                              (setq comment-start "//")
+                              (setq comment-end "")
+                              (outline-minor-mode)))
 (add-hook 'diff-mode-hook   'outline-minor-mode)
 (add-hook 'lisp-mode-hook   'outline-minor-mode)
 (add-hook 'python-mode-hook 'outline-minor-mode)

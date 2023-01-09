@@ -203,12 +203,12 @@ au FileType python,javascript,json,lisp call rainbow#load()
 au BufRead,BufNewFile *\.md set spell | set complete+=kspell
 
 augroup quickfix
-    autocmd!
-    autocmd QuickFixCmdPost [^l]* cwindow
-    autocmd QuickFixCmdPost l* lwindow
+  autocmd!
+  autocmd QuickFixCmdPost [^l]* cwindow
+  autocmd QuickFixCmdPost l* lwindow
 augroup END
 
 
 if !has('nvim')
-	set ttymouse=xterm2
+  set ttymouse=xterm2
 endif

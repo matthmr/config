@@ -1,16 +1,13 @@
 ;; prefix function
 (defun call-prefix (prefix function)
-  "Call `function' with `prefix'"
   (if (eq current-prefix-arg nil)
       (setq current-prefix-arg prefix))
   (call-interactively function))
 
 (global-set-key (kbd "M-<tab>") 'other-window)
 (global-set-key (kbd "M-S-<iso-lefttab>") (lambda () (interactive) (call-prefix -1 'other-window)))
-;;(global-set-key (kbd "C-x <") (lambda () (interactive) (call-prefix 10 'scroll-right)))
-;;(global-set-key (kbd "C-x >") (lambda () (interactive) (call-prefix 10 'scroll-left)))
-(global-set-key (kbd "C-v") (lambda () (interactive) (call-prefix 10 'scroll-up-command)))
-(global-set-key (kbd "M-v") (lambda () (interactive) (call-prefix 10 'scroll-down-command)))
+(global-set-key (kbd "C-v")   (lambda () (interactive) (call-prefix 10 'scroll-up-command)))
+(global-set-key (kbd "C-M-v") (lambda () (interactive) (call-prefix 10 'scroll-down-command)))
 (global-set-key (kbd "M-k") (lambda () (interactive) (call-prefix 0 'kill-line)))
 (global-set-key (kbd "M-o")     'overwrite-mode)
 (global-set-key (kbd "C-x C-p") 'set-goal-column)
@@ -59,7 +56,6 @@
 (setq clip-file "/tmp/clipboard")
 (setq clip-script-read "/home/mh/Scripts/edit-copy.sh -i")
 (setq clip-script-edit "/home/mh/Scripts/edit-copy.sh -d")
-(setq git-add-command "git add --patch")
 
 (global-set-key (kbd "C-x c w")   (lambda () (interactive)
                                     (write-file clip-file)
@@ -71,13 +67,16 @@
 (global-set-key (kbd "C-x c r")   (lambda () (interactive)
                                     (find-file clip-file)
                                     (revert-buffer-quick)))
+(global-set-key (kbd "C-x c y")   (lambda () (interactive)
+                                    (shell-command clip-script-edit)
+                                    (insert-file clip-file)))
 
 ;; VC
 (global-set-key (kbd "C-x v C-i")
                 (lambda () (interactive)
                   (setq vc-buffer-file-name (buffer-file-name))
                   (async-shell-command
-                   (format "%s %s" git-add-command
+                   (format "git add --patch %s"
                            (if vc-buffer-file-name
                                vc-buffer-file-name
                              ".")))
@@ -85,3 +84,35 @@
                   (highlight-regexp "^+.*"  'diff-added)
                   (highlight-regexp "^-.*+" 'diff-removed)
                   (highlight-regexp "^@@.*" 'diff-hunk-header)))
+
+(global-set-key (kbd "C-x v C-=")
+                (lambda () (interactive)
+                  (setq vc-buffer-file-name (buffer-file-name))
+                  (shell-command
+                   (format "git diff %s"
+                           (if vc-buffer-file-name
+                               vc-buffer-file-name
+                             ".")))
+                  (switch-to-buffer-other-window "*Shell Command Output*")
+                  (read-only-mode)
+                  (diff-mode)))
+
+;; TOGGLE
+(global-set-key (kbd "C-x t w")
+                (lambda () (interactive)
+                  (setq-local show-trailing-whitespace (not show-trailing-whitespace))))
+
+(global-set-key (kbd "C-x t l")
+                (lambda () (interactive)
+                  (setq-local display-line-numbers (not display-line-numbers))))
+
+(global-set-key (kbd "C-x t v")
+                (lambda () (interactive)
+                  (visual-line-mode 'toggle)))
+
+(global-set-key (kbd "C-x t x")
+                (lambda () (interactive)
+                  (setq-local show-trailing-whitespace (not show-trailing-whitespace))
+                  (setq-local display-line-numbers-mode (not display-line-numbers-mode))
+                  (setq-local size-indication-mode (not size-indication-mode))
+                  (setq-local column-number-mode (not column-number-mode))))
