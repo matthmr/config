@@ -15,12 +15,6 @@
   "Major mode for editing GitHub Flavored Markdown files" t)
 (add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
 
-;; THEMES
-(setq base16-theme-distinct-fringe-background nil)
-(load-theme 'base16-default-dark t)
-;;; chosen in the past:
-;; - default-dark
-
 ;; Style
 (set-display-table-slot standard-display-table 'truncation ?…)
 (set-display-table-slot standard-display-table 'selective-display

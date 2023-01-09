@@ -2,32 +2,6 @@
 ;(load "/home/p/config/emacs-functions")
 (load "~/.emacs.d/emacs-macros")
 
-;; Global Configuration
-; set by emacs
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(column-number-mode t)
- '(fill-column 80)
- '(fringe-mode 0 nil (fringe))
- '(global-display-line-numbers-mode t)
- '(goal-column 0)
- '(inhibit-startup-screen t)
- '(menu-bar-mode nil)
- '(scroll-bar-mode nil)
- '(size-indication-mode t)
- '(tool-bar-mode nil)
- '(tooltip-mode nil))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:family "Iosevka Term" :foundry "UKWN" :slant normal :weight semi-bold :height 169 :width normal))))
- '(trailing-whitespace ((t (:background "#fb4934" :foreground "#fabd2f")))))
-
 ; (in)sane defaults
 (setq initial-scratch-message "")
 (setq make-backup-files nil)
@@ -113,7 +87,7 @@
 
 (viper-mode)
 
-(define-key input-decode-map (kbd "C-[") (kbd "<escape>"))
+;(define-key input-decode-map (kbd "C-[") (kbd "<escape>"))
 
 (define-key viper-insert-basic-map "\C-d" 'delete-char)
 ;(define-key viper-insert-basic-map "\C-w" 'viper-delete-backward-word)
