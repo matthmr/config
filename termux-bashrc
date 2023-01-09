@@ -1,5 +1,6 @@
 SSH_PORT=8022
 GIT_PORT=9418
+export LESS=-rm
 export IP=$(ifconfig | grep -Po '192\.168\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
 
 function show_ip {
@@ -21,12 +22,11 @@ function start_ssh {
 function start_git_daemon {
   echo "[ .. ] Starting the git daemon at port $GIT_PORT"
   git daemon \
-      --port=$GIT_PORT \
-      --listen=$IP \
+      --base-path=$PWD \
       --export-all \
-      --base-path=$(pwd) \
       --detach \
       --enable=receive-pack
+#     --port=$GIT_PORT \
 #      --log-destination=/dev/null \
 }
 
