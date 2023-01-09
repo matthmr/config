@@ -67,29 +67,50 @@
 (setq-default show-trailing-whitespace t)
 
 ;; Icomplete
-(icomplete-mode t)
-
 (defvar icomplete-minibuffer-map
   (let ((map (make-sparse-keymap)))
-    (define-key map (kbd "C-j")   'icomplete-force-complete)
-    (define-key map [remap minibuffer-complete-and-exit] 'icomplete-ret)
+    ;(define-key map [remap minibuffer-complete-and-exit] 'icomplete-ret)
+    (define-key map (kbd "C-c")   'icomplete-force-complete)
+    (define-key map (kbd "C-j")   'icomplete-ret)
     (define-key map (kbd "RET")   'icomplete-force-complete-and-exit)
     (define-key map (kbd "C-s")   'icomplete-forward-completions)
     (define-key map (kbd "C-r")   'icomplete-backward-completions)
     (define-key map (kbd "C-DEL") 'icomplete-fido-backward-updir)
     map)
-  "Keymap used by `icomplete-mode' in the minibuffer; changed by `mh-local'.")
+  "Keymap used by `icomplete-mode' in the minibuffer'.")
+
+(icomplete-mode t)
 
 ;; viper
+(setq viper-mode t)
+(require 'viper)
+
+(viper-mode)
+
 (define-key input-decode-map (kbd "C-[") (kbd "<escape>"))
 
-(define-key viper-insert-basic-map "\C-w" 'viper-delete-backward-word)
-(define-key viper-insert-basic-map "\C-t" 'transpose-chars)
+(define-key viper-insert-basic-map "\C-d" 'delete-char)
+;(define-key viper-insert-basic-map "\C-w" 'viper-delete-backward-word)
+(define-key viper-insert-basic-map  "\C-t" 'transpose-chars)
+(define-key viper-insert-basic-map  "\C-u"
+  (lambda () (interactive)
+    (if (eq current-prefix-arg nil)
+      (setq current-prefix-arg 0))
+    (call-interactively 'kill-line)))
 
-(define-key viper-vi-basic-map     "\C-b" 'backward-char)
-(define-key viper-vi-basic-map     "\C-f" 'forward-char)
+(define-key viper-vi-basic-map "\C-b"    'backward-char)
+(define-key viper-vi-basic-map "\C-f"    'forward-char)
 
-(define-key viper-vi-basic-map     "\C-v" 'scroll-up)
+(define-key viper-vi-basic-map "u"       'undo)
+(define-key viper-vi-basic-map "U"       'undo-redo)
+(define-key viper-vi-basic-map "v"       'set-mark-command)
+(define-key viper-vi-basic-map "g"       'beginning-of-buffer)
+
+(define-key viper-vi-basic-map "\C-v"    'rectangle-mark-mode)
+(define-key viper-vi-basic-map "\C-y"    'yank)
+(define-key viper-vi-basic-map "\C-e"    'end-of-line)
+(define-key viper-vi-basic-map "\C-i"    'viper-scroll-down-one)
+(define-key viper-vi-basic-map "\C-\M-i" 'viper-scroll-up-one)
 
 ;; HOOKS
 (add-hook 'text-mode-hook   'auto-fill-mode)
