@@ -1,6 +1,6 @@
-(load "~/.emacs.d/emacs-keybindings")
+(load "/home/p/config/emacs-keybindings")
 ;(load "/home/p/config/emacs-functions")
-(load "~/.emacs.d/emacs-macros")
+(load "/home/p/config/emacs-macros")
 
 ; (in)sane defaults
 (setq initial-scratch-message "")

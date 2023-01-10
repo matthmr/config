@@ -4,7 +4,7 @@
 
 # Global configs
 [user]
-  name = mh-book-remote
+  name = mh
   email = observermatth@gmail.com
 [pull]
   rebase = false
