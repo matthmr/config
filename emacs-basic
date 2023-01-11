@@ -2,11 +2,10 @@
 ;(load "/home/p/config/emacs-functions")
 (load "/home/p/config/emacs-macros")
 
+(shell-command "mkdir /tmp/emacs/ 1>/dev/null 2>/dev/null")
+
 ; (in)sane defaults
-(setq initial-scratch-message "")
-(setq make-backup-files nil)
-(setq auto-save-default nil)
-(setq create-lockfiles nil)
+(setq create-lockfiles nil) ; these are *trully* useless
 (setq inhibit-startup-message t)
 (setq scroll-error-top-bottom t)
 (setq scroll-preserve-screen-position t)
@@ -16,6 +15,7 @@
 (setq column-number-indicator-zero-based nil)
 (setq split-height-threshold 30) ; prefer spliting horizontally ; 90
 (setq vc-handled-backends '(Git))
+(setq-default temporary-file-directory "/tmp/emacs")
 (setq-default truncate-lines 0)
 (setq-default tab-width 2)
 (setq-default window-divider-default-places 'right-only)
@@ -35,7 +35,15 @@
 (setq-default auto-save-list-file-prefix nil) ; STOP
 (setq-default completion-ignore-case t) ; case-insensitive
 (setq-default read-buffer-completion-ignore-case t) ; case-insensitive
+(setq-default read-file-name-completion-ignore-case t) ; case-insensitive
 (setq-default goal-column nil)
+(setq-default gc-cons-threshold 600000) ;; 600 M
+(setq-default confirm-kill-emacs 'y-or-n-p)
+(setq-default backup-inhibited nil)
+(setq-default auto-save-default t)
+
+;; Autosave
+(auto-save-mode)
 
 ; even more (in)sane defaults
 (fset 'yes-or-no-p 'y-or-n-p) ;; make every "yes or no" question a "y or n" question
@@ -70,7 +78,7 @@
 (defvar icomplete-minibuffer-map
   (let ((map (make-sparse-keymap)))
     ;(define-key map [remap minibuffer-complete-and-exit] 'icomplete-ret)
-    (define-key map (kbd "C-c")   'icomplete-force-complete)
+    (define-key map (kbd "TAB")   'icomplete-force-complete)
     (define-key map (kbd "C-j")   'icomplete-ret)
     (define-key map (kbd "RET")   'icomplete-force-complete-and-exit)
     (define-key map (kbd "C-s")   'icomplete-forward-completions)
@@ -87,7 +95,7 @@
 
 (viper-mode)
 
-;(define-key input-decode-map (kbd "C-[") (kbd "<escape>"))
+(define-key input-decode-map (kbd "C-[") (kbd "<escape>"))
 
 (define-key viper-insert-basic-map "\C-d"  'delete-char)
 ;(define-key viper-insert-basic-map "\C-w" 'viper-delete-backward-word)
@@ -97,6 +105,22 @@
     (if (eq current-prefix-arg nil)
       (setq current-prefix-arg 0))
     (call-interactively 'kill-line)))
+
+(define-key viper-vi-basic-map  "\C-o"
+  (lambda () (interactive)
+    (if (eq current-prefix-arg nil)
+      (setq current-prefix-arg t))
+    (call-interactively 'set-mark-command)))
+
+;; from `https://stackoverflow.com/questions/3393834/how-to-move-forward-and-backward-in-emacs-mark-ring'
+(define-key viper-vi-basic-map  "\C-i"
+  (lambda () (interactive)
+    (when mark-ring
+      (setq mark-ring (cons (copy-marker (mark-marker)) mark-ring))
+      (set-marker (mark-marker) (car (last mark-ring)) (current-buffer))
+      (when (null (mark t)) (ding))
+      (setq mark-ring (nbutlast mark-ring))
+      (goto-char (marker-position (car (last mark-ring)))))))
 
 (define-key viper-vi-basic-map "\C-b"    'backward-char)
 (define-key viper-vi-basic-map "\C-f"    'forward-char)
@@ -111,10 +135,6 @@
 (define-key viper-vi-basic-map "g"       'beginning-of-buffer)
 
 (define-key viper-vi-basic-map "\C-v"    'rectangle-mark-mode)
-(define-key viper-vi-basic-map "\C-y"    'yank)
-(define-key viper-vi-basic-map "\C-e"    'end-of-line)
-(define-key viper-vi-basic-map "\C-i"    'viper-scroll-down-one)
-(define-key viper-vi-basic-map "\C-\M-i" 'viper-scroll-up-one)
 
 ;; HOOKS
 (add-hook 'text-mode-hook   'auto-fill-mode)

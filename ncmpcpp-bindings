@@ -1,24 +1,24 @@
-def_key "alt-s"
+def_key "ctrl-s"
     find
 
-def_key "ctrl-s"
+def_key "/"
     find_item_forward
-def_key "ctrl-r"
+def_key "?"
     find_item_backward
 
-def_key "ctrl-n"
+def_key "j"
     scroll_down
-def_key "ctrl-p"
+def_key "k"
     scroll_up
 
-def_key "alt-v"
+def_key "ctrl-u"
     page_up
-def_key "ctrl-v"
+def_key "ctrl-d"
     page_down
 
-def_key "ctrl-b"
+def_key "h"
     previous_column
-def_key "ctrl-f"
+def_key "l"
     next_column
 
 def_key "."

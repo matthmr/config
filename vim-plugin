@@ -1,0 +1,25 @@
+call plug#begin()
+Plug 'nvim-treesitter/nvim-treesitter-context'
+Plug 'mengelbrecht/lightline-bufferline'
+Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'itchyny/lightline.vim'
+Plug 'neovim/nvim-lspconfig'
+Plug 'windwp/nvim-autopairs'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'morhetz/gruvbox'
+Plug 'vimwiki/vimwiki'
+Plug 'mbbill/undotree'
+Plug 'matze/vim-move'
+Plug 'axvr/org.vim'
+"Plug 'simrat39/symbols-outline.nvim'
+"Plug 'mfussenegger/nvim-dap'
+"Plug 'szw/vim-maximizer'
+"Plug 'junegunn/fzf.vim'
+"Plug 'tpope/vim-commentary'
+"Plug 'vifm/vifm.vim'
+call plug#end()
+
+let g:vimwiki_list = [{'path':'/home/mh/Wiki/', 'syntax': 'markdown', 'ext': 'md'}]
+let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
+let g:vimwiki_markdown_link_ext = 1

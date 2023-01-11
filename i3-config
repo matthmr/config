@@ -1,6 +1,6 @@
 # start-up daemons
 #exec --no-startup-id dunst
-exec --no-startup-id emacsserver xtoggle
+#exec --no-startup-id emacsserver xtoggle
 
 # modifier key
 set $mod Mod4

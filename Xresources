@@ -1,5 +1,6 @@
 !!! Cursor !!!
 Xcursor.size: 32
+Xcursor.theme: McMojave-cursors
 
 !!! Urxvt !!!
 URxvt.keysym.M-j: eval:scroll_down(10)
@@ -24,7 +25,7 @@ URxvt*termName: rxvt-unicode
 URxvt*pointerBlank: true
 URxvt*pointerBlankDelay: 10
 !URxvt.perl-ext-common: default,matcher,resize-font
-URxvt.perl-ext-common: default,resize-font
+URxvt.perl-ext-common: "default, -searchable-scrollback, resize-font"
 
 ! URxvt.Xft
 Xft.antialias: true
