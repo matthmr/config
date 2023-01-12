@@ -95,7 +95,8 @@
 
 (viper-mode)
 
-(define-key input-decode-map (kbd "C-[") (kbd "<escape>"))
+(if (display-graphic-p)
+  (define-key input-decode-map (kbd "C-[") (kbd "<escape>")))
 
 (define-key viper-insert-basic-map "\C-d"  'delete-char)
 ;(define-key viper-insert-basic-map "\C-w" 'viper-delete-backward-word)

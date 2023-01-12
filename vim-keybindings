@@ -42,8 +42,8 @@ nnoremap g. :cn<CR>
 nnoremap <leader>vd :vert diffsplit
 nnoremap <M-s>c :set ignorecase!<CR>
 nnoremap <silent> <leader>sw :let searchTerm = '\v<'.expand("<cword>").'>' <bar> let @/ = searchTerm <bar> echo '/'.@/ <bar> call histadd("search", searchTerm) <bar> set hls<cr>
-xnoremap <silent> <leader>sw yy:<C-u>let searchTerm = '\V'.substitute(escape(@", '\/'), "\n", '\\n', "g") <bar> let @/ = searchTerm <bar> call histadd("search", searchTerm) <bar> set hls <CR>
-nnoremap <C-x><C-b> :buffers<CR>:buffer 
+xnoremap <silent> <leader>sr yy:<C-u>let searchTerm = '\V'.substitute(escape(@", '\/'), "\n", '\\n', "g") <bar> let @/ = searchTerm <bar> call histadd("search", searchTerm) <bar> set hls <CR>
+nnoremap <C-x>b :buffers<CR>:buffer 
 nnoremap <leader>sp :set paste!<CR>
 nnoremap <leader>sm :marks<CR>
 nnoremap <leader>sj :jumps<CR>
