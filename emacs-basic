@@ -1,8 +1,6 @@
-(load "/home/p/config/emacs-keybindings")
+(load "~/.emacs.d/emacs-keybindings")
 ;(load "/home/p/config/emacs-functions")
-(load "/home/p/config/emacs-macros")
-
-(shell-command "mkdir /tmp/emacs/ 1>/dev/null 2>/dev/null")
+(load "~/.emacs.d/emacs-macros")
 
 ; (in)sane defaults
 (setq create-lockfiles nil) ; these are *trully* useless
@@ -15,7 +13,6 @@
 (setq column-number-indicator-zero-based nil)
 (setq split-height-threshold 30) ; prefer spliting horizontally ; 90
 (setq vc-handled-backends '(Git))
-(setq-default temporary-file-directory "/tmp/emacs")
 (setq-default truncate-lines 0)
 (setq-default tab-width 2)
 (setq-default window-divider-default-places 'right-only)
@@ -38,12 +35,6 @@
 (setq-default read-file-name-completion-ignore-case t) ; case-insensitive
 (setq-default goal-column nil)
 (setq-default gc-cons-threshold 600000) ;; 600 M
-(setq-default confirm-kill-emacs 'y-or-n-p)
-(setq-default backup-inhibited nil)
-(setq-default auto-save-default t)
-
-;; Autosave
-(auto-save-mode)
 
 ; even more (in)sane defaults
 (fset 'yes-or-no-p 'y-or-n-p) ;; make every "yes or no" question a "y or n" question
@@ -136,6 +127,10 @@
 (define-key viper-vi-basic-map "g"       'beginning-of-buffer)
 
 (define-key viper-vi-basic-map "\C-v"    'rectangle-mark-mode)
+(define-key viper-vi-basic-map "\C-y"    'yank)
+(define-key viper-vi-basic-map "\C-e"    'end-of-line)
+(define-key viper-vi-basic-map "\C-i"    'viper-scroll-down-one)
+(define-key viper-vi-basic-map "\C-\M-i" 'viper-scroll-up-one)
 
 ;; HOOKS
 (add-hook 'text-mode-hook   'auto-fill-mode)

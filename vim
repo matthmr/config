@@ -1,6 +1,6 @@
-source /home/p/config/vim-plugin
-source /home/p/config/vim-basic
-source /home/p/config/vim-keybindings
+" source ~/config/vim-plugin
+source ~/config/vim-basic
+source ~/config/vim-keybindings
 
 if !has('nvim')
   set ttymouse=xterm2
