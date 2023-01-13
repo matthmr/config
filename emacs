@@ -50,6 +50,12 @@
  '(icomplete-show-matches-on-no-input t)
  '(inhibit-startup-screen t)
  '(menu-bar-mode nil)
+ '(mode-line-compact nil)
+ '(mode-line-format
+   '("%e" mode-line-front-space mode-line-misc-info mode-line-mule-info mode-line-client mode-line-modified mode-line-remote mode-line-frame-identification mode-line-buffer-identification "   " mode-line-position
+     (vc-mode vc-mode)
+     "  " mode-line-modes mode-line-end-spaces))
+ '(read-file-name-completion-ignore-case t)
  '(scroll-bar-mode nil)
  '(search-default-mode t)
  '(set-mark-command-repeat-pop t)
@@ -62,7 +68,7 @@
  '(viper-insert-state-cursor-color "#ab4642")
  '(viper-shift-width 2)
  '(viper-toggle-key "")
- '(viper-want-ctl-h-help t))
+ '(viper-want-ctl-h-help nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

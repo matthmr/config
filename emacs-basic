@@ -32,9 +32,8 @@
 (setq-default auto-save-list-file-prefix nil) ; STOP
 (setq-default completion-ignore-case t) ; case-insensitive
 (setq-default read-buffer-completion-ignore-case t) ; case-insensitive
-(setq-default read-file-name-completion-ignore-case t) ; case-insensitive
 (setq-default goal-column nil)
-(setq-default gc-cons-threshold 600000) ;; 600 M
+(setq-default gc-cons-threshold 100000) ;; 100 M
 
 ; even more (in)sane defaults
 (fset 'yes-or-no-p 'y-or-n-p) ;; make every "yes or no" question a "y or n" question
