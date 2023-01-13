@@ -28,8 +28,6 @@
   date = format:%Y%m%d%H%M
 [blame]
   date = format:%Y%m%d%H%M
-#[commit]
-#  verbose = true
 [pager]
   branch = false
   tag = false
@@ -44,7 +42,6 @@
   ad = add
   br = branch
   mg = merge
-  #st = stash
   pl = pull
   bl = blame
   ps = push
@@ -55,3 +52,5 @@
   rv = revert
   tg = tag
   ap = add -p
+  mm = merge --no-ff --no-commit
+  mp = pull  --no-ff --no-commit
