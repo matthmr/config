@@ -35,7 +35,6 @@
 (setq-default auto-save-list-file-prefix nil) ; STOP
 (setq-default completion-ignore-case t) ; case-insensitive
 (setq-default read-buffer-completion-ignore-case t) ; case-insensitive
-(setq-default read-file-name-completion-ignore-case t) ; case-insensitive
 (setq-default goal-column nil)
 (setq-default gc-cons-threshold 600000) ;; 600 M
 (setq-default confirm-kill-emacs 'y-or-n-p)
