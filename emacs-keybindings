@@ -4,15 +4,16 @@
       (setq current-prefix-arg prefix))
   (call-interactively function))
 
-(global-set-key (kbd "M-<tab>") 'other-window)
-(global-set-key (kbd "M-S-<iso-lefttab>") (lambda () (interactive) (call-prefix -1 'other-window)))
+;; (global-set-key (kbd "M-<tab>") 'other-window)
+;; (global-set-key (kbd "M-S-<iso-lefttab>") (lambda () (interactive) (call-prefix -1 'other-window)))
 (global-set-key (kbd "C-v")   (lambda () (interactive) (call-prefix 10 'scroll-up-command)))
-(global-set-key (kbd "C-M-v") (lambda () (interactive) (call-prefix 10 'scroll-down-command)))
+;; (global-set-key (kbd "C-M-v") (lambda () (interactive) (call-prefix 10 'scroll-down-command)))
 (global-set-key (kbd "M-k") (lambda () (interactive) (call-prefix 0 'kill-line)))
 (global-set-key (kbd "M-o")     'overwrite-mode)
 (global-set-key (kbd "C-x C-p") 'set-goal-column)
 (global-set-key (kbd "M-#")     'query-replace)
 (global-set-key (kbd "M-*")     'query-replace-regexp)
+(global-set-key (kbd "C-x ;")   'comment-line)
 (global-set-key (kbd "C-x C-M--")   (lambda () (interactive) (call-prefix -5 'enlarge-window)))
 (global-set-key (kbd "C-x C-M-=")   (lambda () (interactive) (call-prefix 5 'enlarge-window)))
 (global-set-key (kbd "C-x {")   (lambda () (interactive) (call-prefix 5 'shrink-window-horizontally)))
@@ -38,8 +39,8 @@
 (global-set-key (kbd "C-x x C-i") 'imenu)
 
 ;; keep-cursor-scroll
-(global-set-key (kbd "C-x x C-n") 'scroll-up-line)
-(global-set-key (kbd "C-x x C-p") 'scroll-down-line)
+;; (global-set-key (kbd "C-x x C-n") 'scroll-up-line)
+;; (global-set-key (kbd "C-x x C-p") 'scroll-down-line)
 
 (global-set-key (kbd "C-M-p")
                 (lambda () (interactive)
@@ -53,23 +54,19 @@
                   (previous-line 1)))
 
 ;; clipboard (aka `edit-copy')
-(setq clip-file "/tmp/clipboard")
-(setq clip-script-read "/home/mh/Scripts/edit-copy.sh -i")
-(setq clip-script-edit "/home/mh/Scripts/edit-copy.sh -d")
-
-(global-set-key (kbd "C-x c w")   (lambda () (interactive)
-                                    (write-file clip-file)
-                                    (shell-command clip-script-read)))
-(global-set-key (kbd "C-x c e")   (lambda () (interactive)
-                                    (find-file clip-file)
-                                    (shell-command clip-script-edit)
-                                    (revert-buffer-quick)))
-(global-set-key (kbd "C-x c r")   (lambda () (interactive)
-                                    (find-file clip-file)
-                                    (revert-buffer-quick)))
-(global-set-key (kbd "C-x c y")   (lambda () (interactive)
-                                    (shell-command clip-script-edit)
-                                    (insert-file clip-file)))
+(global-set-key (kbd "C-x c w") (lambda () (interactive)
+                                  (write-file "/tmp/clipboard")
+                                  (shell-command "/home/mh/Scripts/edit-copy.sh -i")))
+(global-set-key (kbd "C-x c e") (lambda () (interactive)
+                                  (find-file "/tmp/clipboard")
+                                  (shell-command "/home/mh/Scripts/edit-copy.sh -d")
+                                  (revert-buffer-quick)))
+(global-set-key (kbd "C-x c r") (lambda () (interactive)
+                                  (find-file "/tmp/clipboard")
+                                  (revert-buffer-quick)))
+(global-set-key (kbd "C-x c y") (lambda () (interactive)
+                                  (shell-command "/home/mh/Scripts/edit-copy.sh -d")
+                                  (insert-file "/tmp/clipboard")))
 
 ;; VC
 (global-set-key (kbd "C-x v C-i")
@@ -98,21 +95,33 @@
                   (diff-mode)))
 
 ;; TOGGLE
+
+;;; toggle whitespace
 (global-set-key (kbd "C-x t w")
                 (lambda () (interactive)
                   (setq-local show-trailing-whitespace (not show-trailing-whitespace))))
 
+;;; toggle line numbers
 (global-set-key (kbd "C-x t l")
                 (lambda () (interactive)
                   (setq-local display-line-numbers (not display-line-numbers))))
 
-(global-set-key (kbd "C-x t v")
-                (lambda () (interactive)
-                  (visual-line-mode 'toggle)))
+;;; toggle visual line
+;; (global-set-key (kbd "C-x t v")
+;;                 (lambda () (interactive)
+;;                   (visual-line-mode 'toggle)))
 
+;;; toggle complex
 (global-set-key (kbd "C-x t x")
                 (lambda () (interactive)
                   (setq-local show-trailing-whitespace (not show-trailing-whitespace))
-                  (setq-local display-line-numbers-mode (not display-line-numbers-mode))
+                  (setq-local global-display-line-numbers-mode (not global-display-line-numbers-mode))
                   (setq-local size-indication-mode (not size-indication-mode))
                   (setq-local column-number-mode (not column-number-mode))))
+
+;;; toggle escape
+(global-set-key (kbd "C-x t e") (lambda () (interactive)
+                                  (global-set-key (kbd "<C-[>") 'viper-intercept-ESC-key)
+                                  (define-key input-decode-map [?\C-\[] (kbd "<C-[>"))))
+
+(load "/home/p/config/emacs-modes/mh-viper")

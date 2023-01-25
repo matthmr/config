@@ -21,6 +21,7 @@ nnoremap <C-x>0 :q<CR>
 nnoremap <C-x>1 :only<CR>
 nnoremap <C-x>2 <C-w><C-s>
 nnoremap <C-x>3 <C-w><C-v>
+nnoremap <C-x><C-o> <C-w><C-w>
 nnoremap <C-x><C-f> :e 
 nnoremap <leader>pf :e **/*
 nnoremap <C-x><C-r> :view 

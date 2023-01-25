@@ -36,18 +36,21 @@
 # Git aliases
 [alias]
   lg = log --all --stat --patch
+  gl = log --oneline --abbrev-commit --graph
   df = diff --stat --patch
   cm = commit
   fe = fetch
   ad = add
   br = branch
   mg = merge
+  sm = merge --squash
   pl = pull
   bl = blame
   ps = push
   sh = show --stat --patch
   st = status
   ch = checkout
+  cp = cherry-pick
   rs = restore
   rv = revert
   tg = tag

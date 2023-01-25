@@ -14,6 +14,9 @@ URxvt*font: xft:Iosevka Term Medium:size=16:antialias=true
 URxvt*boldFont: xft:Iosevka Term Heavy:size=16:antialias=true:style=bold
 URxvt*italicFont: xft:Iosevka Term Medium:size=16:antialias=true:style=italic
 URxvt*bolditalicFont: xft:Iosevka Term Medium:size=16:antialias=true:style=bolditalic
+URxvt.borderWidth: 0
+URxvt.internalBorder: 0
+URxvt.externalBorder: 0
 
 !URxvt*depth: 32
 URxvt*borderless: 1
@@ -21,11 +24,13 @@ URxvt*scrollBar: false
 URxvt*loginShell: false
 Urxvt*secondaryScroll:  true
 URxvt*saveLines: 1000
-URxvt*termName: rxvt-unicode
+!URxvt*termName: rxvt-unicode
+URxvt*termName: xterm-256color
 URxvt*pointerBlank: true
 URxvt*pointerBlankDelay: 10
 !URxvt.perl-ext-common: default,matcher,resize-font
-URxvt.perl-ext-common: "default, -searchable-scrollback, resize-font"
+URxvt.perl-ext-common: default,resize-font
+URxvt.searchable-scrollback: Meta-Shift-S
 
 ! URxvt.Xft
 Xft.antialias: true

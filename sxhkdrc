@@ -1,14 +1,10 @@
 # term-mode
-super + control + Return; shift + a
-  /tmp/dbus-launch alacritty --command tmux new -A
 super + control + Return; shift + u
   /tmp/dbus-launch urxvt -title tmux -e tmux new -A
 super + control + Return; shift + s
   /tmp/dbus-launch st -e tmux new -A
 super + control + Return; shift + x
   /tmp/dbus-launch xterm -e tmux new -A
-super + control + Return; a
-  /tmp/dbus-launch alacritty
 super + control + Return; u
   /tmp/dbus-launch urxvt -title urxvt -e zsh
 super + control + Return; s
@@ -22,14 +18,10 @@ super + control + a; shift + p
   /tmp/dbus-launch rcshutdown
 super + control + a; shift + r
   /tmp/dbus-launch rcreboot
-#super + control + a; control + shift + p
-#  doas openrc-shutdown -p now
-#super + control + a; control + shift + r
-#  doas openrc-shutdown -r now
-#super + control + a; s
-#  doas /home/mh/.local/bin/s2ram
-#super + control + a; h
-#  doas /home/mh/.local/bin/s2disk
+super + control + a; shift + s
+  /tmp/dbus-launch rcsuspend
+# super + control + a; shift + h
+#   /tmp/dbus-launch rchibernate
 super + control + a; l
   i3lock -i '/home/mh/Images/Wallpapers/vapor/apollo.png' -e -f -b -n -t -p default
 

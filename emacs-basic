@@ -1,5 +1,4 @@
 (load "/home/p/config/emacs-keybindings")
-;(load "/home/p/config/emacs-functions")
 (load "/home/p/config/emacs-macros")
 
 (shell-command "mkdir /tmp/emacs/ 1>/dev/null 2>/dev/null")
@@ -78,7 +77,7 @@
   (let ((map (make-sparse-keymap)))
     ;(define-key map [remap minibuffer-complete-and-exit] 'icomplete-ret)
     (define-key map (kbd "TAB")   'icomplete-force-complete)
-    (define-key map (kbd "C-j")   'icomplete-ret)
+    (define-key map (kbd "C-j")   'icomplete-fido-exit)
     (define-key map (kbd "RET")   'icomplete-force-complete-and-exit)
     (define-key map (kbd "C-s")   'icomplete-forward-completions)
     (define-key map (kbd "C-r")   'icomplete-backward-completions)
@@ -88,53 +87,7 @@
 
 (icomplete-mode t)
 
-;; viper
-(setq viper-mode t)
-(require 'viper)
-
-(viper-mode)
-
-(if (display-graphic-p)
-  (define-key input-decode-map (kbd "C-[") (kbd "<escape>")))
-
-(define-key viper-insert-basic-map "\C-d"  'delete-char)
-;(define-key viper-insert-basic-map "\C-w" 'viper-delete-backward-word)
-(define-key viper-insert-basic-map  "\C-t" 'transpose-chars)
-(define-key viper-insert-basic-map  "\C-u"
-  (lambda () (interactive)
-    (if (eq current-prefix-arg nil)
-      (setq current-prefix-arg 0))
-    (call-interactively 'kill-line)))
-
-(define-key viper-vi-basic-map  "\C-o"
-  (lambda () (interactive)
-    (if (eq current-prefix-arg nil)
-      (setq current-prefix-arg t))
-    (call-interactively 'set-mark-command)))
-
-;; from `https://stackoverflow.com/questions/3393834/how-to-move-forward-and-backward-in-emacs-mark-ring'
-(define-key viper-vi-basic-map  "\C-i"
-  (lambda () (interactive)
-    (when mark-ring
-      (setq mark-ring (cons (copy-marker (mark-marker)) mark-ring))
-      (set-marker (mark-marker) (car (last mark-ring)) (current-buffer))
-      (when (null (mark t)) (ding))
-      (setq mark-ring (nbutlast mark-ring))
-      (goto-char (marker-position (car (last mark-ring)))))))
-
-(define-key viper-vi-basic-map "\C-b"    'backward-char)
-(define-key viper-vi-basic-map "\C-f"    'forward-char)
-
-(define-key viper-vi-basic-map "u"       'undo)
-(define-key viper-vi-basic-map "U"       'undo-redo)
-(define-key viper-vi-basic-map "v"       'set-mark-command)
-(define-key viper-vi-basic-map "V"       (lambda () (interactive)
-                                          (move-beginning-of-line nil)
-                                          (set-mark-command nil)
-                                          (end-of-line)))
-(define-key viper-vi-basic-map "g"       'beginning-of-buffer)
-
-(define-key viper-vi-basic-map "\C-v"    'rectangle-mark-mode)
+(global-display-fill-column-indicator-mode)
 
 ;; HOOKS
 (add-hook 'text-mode-hook   'auto-fill-mode)

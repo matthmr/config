@@ -34,18 +34,21 @@
 (add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
 
 ;; THEMES
-(setq base16-theme-distinct-fringe-background nil)
 (load-theme 'base16-default-dark t)
 ;;; chosen in the past:
 ;; - default-dark
 
 ;; Style
 (set-display-table-slot standard-display-table 'truncation ?…)
+(set-display-table-slot standard-display-table 'wrap ?↩)
 (set-display-table-slot standard-display-table 'selective-display
                         (string-to-vector "↷"))
 
 ;; INPUT
 ;(set-input-method 'programmer-dvorak)
+
+;; OwO
+(require 'zen-mode)
 
 ;; Auto made
 (custom-set-variables
@@ -58,12 +61,17 @@
  '(auto-save-no-message t)
  '(backup-by-copying t)
  '(backup-directory-alist '((".*" . "/mnt/hdd/backup/EMACS/")))
+ '(base16-theme-256-color-source 'colors)
+ '(base16-theme-distinct-fringe-background t)
  '(column-number-mode t)
  '(completion-styles '(basic partial-completion emacs22 substring))
  '(delete-auto-save-files nil)
  '(delete-old-versions t)
  '(diff-refine nil)
+ '(eglot-autoshutdown t)
+ '(eglot-events-buffer-size 100000)
  '(eglot-highlight-symbol-face ((t (:inherit underline))))
+ '(eglot-menu-string "")
  '(fill-column 80)
  '(fringe-mode 0 nil (fringe))
  '(global-display-line-numbers-mode t)
@@ -71,6 +79,8 @@
  '(icomplete-mode t)
  '(icomplete-show-matches-on-no-input t)
  '(inhibit-startup-screen t)
+ '(kept-new-versions 1)
+ '(kept-old-versions 1)
  '(menu-bar-mode nil)
  '(mode-line-compact nil)
  '(mode-line-format
@@ -82,8 +92,11 @@
  '(search-default-mode t)
  '(set-mark-command-repeat-pop t)
  '(size-indication-mode t)
+ '(smerge-command-prefix "C-c m")
  '(tool-bar-mode nil)
  '(tooltip-mode nil)
+ '(truncate-partial-width-windows nil)
+ '(vc-follow-symlinks t)
  '(vc-make-backup-files t)
  '(version-control t)
  '(viper-case-fold-search t)
@@ -93,14 +106,16 @@
  '(viper-insert-state-cursor-color "#ab4642")
  '(viper-shift-width 2)
  '(viper-toggle-key "")
- '(viper-want-ctl-h-help nil))
+ '(viper-use-replace-region-delimiters nil)
+ '(viper-want-ctl-h-help t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Iosevka Term" :foundry "UKWN" :slant normal :weight semi-bold :height 169 :width normal))))
+ '(default ((t (:family "Iosevka Term" :foundry "UKWN" :slant normal :weight medium :height 169 :width normal))))
  '(eglot-highlight-symbol-face ((t (:inherit underline))))
+ '(eglot-mode-line ((t nil)))
  '(icomplete-first-match ((t (:foreground "#dc9656"))))
  '(trailing-whitespace ((t (:background "#fb4934" :foreground "#fabd2f"))))
  '(viper-minibuffer-emacs ((t nil)))
