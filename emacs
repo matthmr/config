@@ -15,9 +15,10 @@
              "/mnt/ssd/root/usr/share/emacs/site-lisp") ;; local
 
 (require 'eglot)
+(require 'zen-mode)
 
 (setq max-mini-window-height 1)
-(setq eglot-stay-out-of '("flymake" "imenu"))
+;;(setq eglot-stay-out-of '("imenu"))
 
 ; Markdown
 (autoload 'markdown-mode "markdown-mode"
@@ -46,9 +47,6 @@
 
 ;; INPUT
 ;(set-input-method 'programmer-dvorak)
-
-;; OwO
-(require 'zen-mode)
 
 ;; Auto made
 (custom-set-variables

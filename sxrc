@@ -12,10 +12,12 @@ nitrogen --restore &
 xdaemon "$wm" &
 xsession "$wm" "$session_type" &
 
-if [[ -z $session_type ]]; then
-  unset session_type
-  exec "$wm"
-else
-  unset session_type
-  exec dbus-launch --exit-with-session "$wm"
-fi
+unset session_type
+exec "$wm"
+
+# we use this with applications themselves, not with the window manager
+#if [[ -z $session_type ]]; then
+# else
+#   unset session_type
+#   exec dbus-launch --exit-with-session "$wm"
+# fi

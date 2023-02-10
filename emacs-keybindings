@@ -82,7 +82,7 @@
                   (highlight-regexp "^-.*+" 'diff-removed)
                   (highlight-regexp "^@@.*" 'diff-hunk-header)))
 
-(global-set-key (kbd "C-x v C-=")
+(global-set-key (kbd "C-x v C-d")
                 (lambda () (interactive)
                   (setq vc-buffer-file-name (buffer-file-name))
                   (shell-command
@@ -101,27 +101,39 @@
                 (lambda () (interactive)
                   (setq-local show-trailing-whitespace (not show-trailing-whitespace))))
 
+;;; toggle input method
+(global-set-key (kbd "C-x t i") 'toggle-input-method)
+
 ;;; toggle line numbers
 (global-set-key (kbd "C-x t l")
                 (lambda () (interactive)
-                  (setq-local display-line-numbers (not display-line-numbers))))
+                  (display-line-numbers-mode 'toggle)))
 
 ;;; toggle visual line
-;; (global-set-key (kbd "C-x t v")
-;;                 (lambda () (interactive)
-;;                   (visual-line-mode 'toggle)))
+(global-set-key (kbd "C-x t v")
+                (lambda () (interactive)
+                  (visual-line-mode 'toggle)))
 
-;;; toggle complex
+;;; toggle visual line
+(global-set-key (kbd "C-x t f")
+                (lambda () (interactive)
+                  (display-fill-column-indicator-mode 'toggle)))
+
+;;; toggle all
 (global-set-key (kbd "C-x t x")
                 (lambda () (interactive)
                   (setq-local show-trailing-whitespace (not show-trailing-whitespace))
-                  (setq-local global-display-line-numbers-mode (not global-display-line-numbers-mode))
-                  (setq-local size-indication-mode (not size-indication-mode))
-                  (setq-local column-number-mode (not column-number-mode))))
+                  (display-fill-column-indicator-mode 'toggle)
+                  (display-line-numbers-mode 'toggle)
+                  ;(line-number-mode 'toggle)
+                  ;(size-indication-mode 'toggle)
+                  ;(column-number-mode 'toggle)
+                  ))
 
 ;;; toggle escape
-(global-set-key (kbd "C-x t e") (lambda () (interactive)
-                                  (global-set-key (kbd "<C-[>") 'viper-intercept-ESC-key)
-                                  (define-key input-decode-map [?\C-\[] (kbd "<C-[>"))))
+(global-set-key (kbd "C-x t e")
+                (lambda () (interactive)
+                  (global-set-key (kbd "<C-[>") 'viper-intercept-ESC-key)
+                  (define-key input-decode-map [?\C-\[] (kbd "<C-[>"))))
 
 (load "/home/p/config/emacs-modes/mh-viper")

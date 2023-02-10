@@ -1,63 +1,51 @@
 # term-mode
 super + control + Return; shift + u
-  /tmp/dbus-launch urxvt -title tmux -e tmux new -A
+  urxvt -title tmux -e tmux new -A
 super + control + Return; shift + s
-  /tmp/dbus-launch st -e tmux new -A
+  st -e tmux new -A
 super + control + Return; shift + x
-  /tmp/dbus-launch xterm -e tmux new -A
+  xterm -e tmux new -A
 super + control + Return; u
-  /tmp/dbus-launch urxvt -title urxvt -e zsh
+  urxvt -title urxvt -e zsh
 super + control + Return; s
-  /tmp/dbus-launch st -e zsh
+  st -e zsh
 super + control + Return; x
-  /tmp/dbus-launch xterm -e zsh
+  xterm -e zsh
 
 # action-mode
 # TODO: add an interactive [Y/n] for the `rc-' ACPI family
 super + control + a; shift + p
-  /tmp/dbus-launch rcshutdown
+  rcshutdown
 super + control + a; shift + r
-  /tmp/dbus-launch rcreboot
+  rcreboot
 super + control + a; shift + s
-  /tmp/dbus-launch rcsuspend
+  rcsuspend
 # super + control + a; shift + h
-#   /tmp/dbus-launch rchibernate
+#   rchibernate
 super + control + a; l
   i3lock -i '/home/mh/Images/Wallpapers/vapor/apollo.png' -e -f -b -n -t -p default
 
 # launch-mode
 super + control + l; a
-  /tmp/dbus-launch alsa-dmenu
+  alsa-dmenu
 super + control + l; b
-  /tmp/dbus-launch ungoogled-chromium
-super + control + l; shift + b
-  /tmp/dbus-launch ungoogled-chromium /tmp/index.html
+  ungoogled-chromium
 super + control + l; f
-  /tmp/dbus-launch firefox
+  firefox
 super + control + l; m
-  /tmp/dbus-launch mpc-dmenu
+  mpc-dmenu
 super + control + l; s
-  /tmp/dbus-launch screenshot-dir
+  screenshot-dir
 super + control + l; q
-  /tmp/dbus-launch screenshot-quick
+  screenshot-quick
 super + control + l; j
-  /tmp/dbus-launch japanese-dmenu
+  japanese-dmenu
 super + control + l; l
-  /tmp/dbus-launch st -e lf -single
+  st -e lf -single
 super + control + l; e
-  /tmp/dbus-launch emacsxc
+  urxvt -e emacsnc
 super + control + l; shift + e
-  /tmp/dbus-launch emacs
-
-# docs-mode
-super + control + d; j
-  docs -I journal emacsclient
-super + control + d; w
-  docs -I wiki emacsclient
-super + control + d; shift + j
-  docs -I journal emacsxc
-super + control + d; shift + w
-  docs -I wiki emacsxc
+  emacs
 
 # misc
 # we start `wm' in a dbus session, we need everything that is started

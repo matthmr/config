@@ -13,7 +13,7 @@ alang=ja,jp,jpn,en,eng
 
 term-osd-bar=yes
 osd-font="Iosevka Term"
-cursor-autohide=5000
+cursor-autohide=3000
 
 [protocol.http]
 profile-desc=http

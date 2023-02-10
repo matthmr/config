@@ -42,7 +42,7 @@ Xft.rgba: rgb
 
 ! Transparency
 
-!URxvt*geometry:                 85x30
+URxvt.geometry:                 400x400
 !URxvt*inheritPixmap:            true
 urxvt*background:               rgba:0026/0026/0026/7777
 URxvt*reverseVideo:             false

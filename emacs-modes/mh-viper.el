@@ -33,6 +33,7 @@
 (require 'viper)
 
 (setq viper-vi-state-id "<N> ")
+(setq viper-vi-style-in-minibuffer nil)
 
 (setq mh--cursor-block      "\e[1 q")
 (setq mh--cursor-underscore "\e[3 q")
@@ -103,6 +104,7 @@
 ;; DEFINE-KEY: END
 
 ;; allow SPC to operate on region
+;; from: /usr/share/emacs/28.2/lisp/emulation/viper-cmd.el.gz
 (defun viper-prefix-arg-com (char value com)
   (let ((cont t)
 	cmd-info
