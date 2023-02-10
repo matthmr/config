@@ -1,0 +1,67 @@
+# mice are for pussies
+MBTN_LEFT     ignore
+MBTN_LEFT_DBL ignore
+MBTN_RIGHT    ignore
+MBTN_BACK     ignore
+MBTN_FORWARD  ignore
+WHEEL_UP      ignore
+WHEEL_DOWN    ignore
+WHEEL_LEFT    ignore
+WHEEL_RIGHT   ignore
+
+### VI
+h       no-osd seek  -3 exact
+l       no-osd seek   3 exact
+Ctrl+h  no-osd seek  30 exact
+Ctrl+l  no-osd seek -30 exact
+Alt+h   frame-back-step
+Alt+l   frame-step
+Ctrl+Shift+h multiply speed 1/1.1
+Ctrl+Shift+l multiply speed 1.1
+Ctrl+Alt+h   multiply speed 0.5
+Ctrl+Shift+l multiply speed 2.0
+
+j       add volume   -5
+k       add volume    5
+Ctrl+j  add volume  -30
+Ctrl+k  add volume   30
+Alt+j   playlist-next
+Alt+k   playlist-prev
+Shift+j add sub-pos  -1
+Shift+k add sub-pos  +1
+
+## MISC
+q          quit
+Q          quit-watch-later
+Ctrl+c     quit
+Ctrl+Alt+c quit-watch-later
+
+Space   cycle pause
+p       cycle pause
+
+m       cycle mute
+Ctrl+m  ab-loop
+f       cycle fullscreen
+s       cycle sub down
+Shift+s cycle sub
+Ctrl+s  ignore
+Alt+s   ignore
+
+= add audio-delay  0.100
+- add audio-delay -0.100
+
+1 add contrast   -1
+2 add contrast    1
+3 add brightness -1
+4 add brightness  1
+5 add gamma      -1
+6 add gamma       1
+7 add saturation -1
+8 add saturation  1
+
+## SUBS
+v      cycle sub-visibility
+z      add sub-delay -0.1
+x      add sub-delay +0.1
+Ctrl+= add sub-scale +0.1
+Ctrl+- add sub-scale -0.1
