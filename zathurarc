@@ -1,0 +1,5 @@
+set selection-clipboard clipboard
+set default-bg    "#303030"
+set statusbar-bg  "#1a1a1a"
+set font          "Iosevka Term 14"
+set pages-per-row  1
