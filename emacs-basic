@@ -39,6 +39,7 @@
 (setq-default confirm-kill-emacs 'y-or-n-p)
 (setq-default backup-inhibited nil)
 (setq-default auto-save-default t)
+(setq-default hi-lock-face-defaults '("underline"))
 
 ;; Autosave
 (auto-save-mode)
@@ -89,12 +90,6 @@
 
 (global-display-fill-column-indicator-mode)
 (global-hl-line-mode)
-
-;; emacsclient
-(defun mode-line-frame-control ()
-  "Compute mode line construct for frame identification.
-Value is used for `mode-line-frame-identification', which see."
-  "  ")
 
 ;; HOOKS
 (add-hook 'text-mode-hook   'auto-fill-mode)

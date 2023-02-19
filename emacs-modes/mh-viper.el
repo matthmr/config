@@ -3,7 +3,7 @@
 ;; Copyright (C) 2023 mH
 
 ;; Author: mH <github.com/matthmr>
-;; Version: 1.1.0
+;; Version: 1.2.0
 
 ;; Permission is hereby granted, free of charge, to any person
 ;; obtaining a copy of this software and associated documentation
@@ -32,7 +32,11 @@
 (setq viper-mode t)
 (require 'viper)
 
+(setq viper-emacs-state-id "<E> ")
+(setq viper-replace-state-id "<R> ")
+(setq viper-insert-state-id "<I> ")
 (setq viper-vi-state-id "<N> ")
+
 (setq viper-vi-style-in-minibuffer nil)
 
 (setq mh--cursor-block      "\e[1 q")
@@ -73,6 +77,8 @@
     (if (eq current-prefix-arg nil)
         (setq current-prefix-arg 0))
     (call-interactively 'kill-line)))
+(define-key viper-insert-basic-map "\C-\\"  'toggle-input-method)
+
 (define-key viper-vi-basic-map  "\C-o"
   (lambda () (interactive)
     (if (eq current-prefix-arg nil)
@@ -89,6 +95,7 @@
 (define-key viper-minibuffer-map "\C-j" 'icomplete-fido-exit)
 (define-key viper-vi-basic-map "\C-b"   'backward-char)
 (define-key viper-vi-basic-map "\C-f"   'forward-char)
+(define-key viper-vi-basic-map "\C-\\"  'toggle-input-method)
 (define-key viper-vi-basic-map "-"      'viper-goto-eol)
 (define-key viper-vi-basic-map "u"      'undo)
 (define-key viper-vi-basic-map "U"      'undo-redo)

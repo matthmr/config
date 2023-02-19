@@ -4,11 +4,8 @@
       (setq current-prefix-arg prefix))
   (call-interactively function))
 
-;; (global-set-key (kbd "M-<tab>") 'other-window)
-;; (global-set-key (kbd "M-S-<iso-lefttab>") (lambda () (interactive) (call-prefix -1 'other-window)))
 (global-set-key (kbd "C-v")   (lambda () (interactive) (call-prefix 10 'scroll-up-command)))
 ;; (global-set-key (kbd "C-M-v") (lambda () (interactive) (call-prefix 10 'scroll-down-command)))
-(global-set-key (kbd "M-k") (lambda () (interactive) (call-prefix 0 'kill-line)))
 (global-set-key (kbd "M-o")     'overwrite-mode)
 (global-set-key (kbd "C-x C-p") 'set-goal-column)
 (global-set-key (kbd "M-#")     'query-replace)
@@ -20,27 +17,20 @@
 (global-set-key (kbd "C-x }")   (lambda () (interactive) (call-prefix 5 'enlarge-window-horizontally)))
 (global-set-key (kbd "C-x <")   (lambda () (interactive) (call-prefix 15 'scroll-right)))
 (global-set-key (kbd "C-x >")   (lambda () (interactive) (call-prefix 15 'scroll-left)))
+(global-set-key (kbd "C-M-_")   'dabbrev-completion)
+(global-set-key (kbd "C-x M-l") 'count-words-region)
+
+(global-unset-key (kbd "C-x C-t"))
+(global-set-key (kbd "C-x C-t") 'transpose-regions)
 
 (global-unset-key (kbd "C-x o"))
 (global-set-key (kbd "C-x C-o")   'other-window) ; I don't use `delete-blank-lines'
 (global-set-key (kbd "C-x C-M-o") (lambda () (interactive) (call-prefix -1 'other-window)))
 
-;; `outline-minor-mode'
-(global-set-key (kbd "C-x o a")   'outline-show-all)
-(global-set-key (kbd "C-x o c")   'outline-hide-subtree)
-(global-set-key (kbd "C-x o o")   'outline-show-children)
-(global-set-key (kbd "C-x o s")   'outline-show-subtree)
-(global-set-key (kbd "C-x o TAB") 'outline-cycle)
-(global-set-key (kbd "C-x o n")   'outline-cycle-buffer)
-
 ;; emacs' bullshit
 (global-set-key (kbd "C-x x C-w") 'delete-region)
 (global-set-key (kbd "C-x x C-k") 'kill-whole-line)
 (global-set-key (kbd "C-x x C-i") 'imenu)
-
-;; keep-cursor-scroll
-;; (global-set-key (kbd "C-x x C-n") 'scroll-up-line)
-;; (global-set-key (kbd "C-x x C-p") 'scroll-down-line)
 
 (global-set-key (kbd "C-M-p")
                 (lambda () (interactive)
@@ -120,15 +110,11 @@
                   (display-fill-column-indicator-mode 'toggle)))
 
 ;;; toggle all
-(global-set-key (kbd "C-x t x")
+(global-set-key (kbd "C-x t s")
                 (lambda () (interactive)
                   (setq-local show-trailing-whitespace (not show-trailing-whitespace))
                   (display-fill-column-indicator-mode 'toggle)
-                  (display-line-numbers-mode 'toggle)
-                  ;(line-number-mode 'toggle)
-                  ;(size-indication-mode 'toggle)
-                  ;(column-number-mode 'toggle)
-                  ))
+                  (display-line-numbers-mode 'toggle)))
 
 ;;; toggle escape
 (global-set-key (kbd "C-x t e")

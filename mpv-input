@@ -10,16 +10,16 @@ WHEEL_LEFT    ignore
 WHEEL_RIGHT   ignore
 
 ### VI
-h       no-osd seek  -3 exact
-l       no-osd seek   3 exact
-Ctrl+h  no-osd seek  30 exact
-Ctrl+l  no-osd seek -30 exact
-Alt+h   frame-back-step
-Alt+l   frame-step
-Ctrl+Shift+h multiply speed 1/1.1
-Ctrl+Shift+l multiply speed 1.1
-Ctrl+Alt+h   multiply speed 0.5
-Ctrl+Shift+l multiply speed 2.0
+h           no-osd seek  -3 exact
+l           no-osd seek   3 exact
+Ctrl+h      no-osd seek  30 exact
+Ctrl+l      no-osd seek -30 exact
+Alt+h       frame-back-step
+Alt+l       frame-step
+Ctrl+Alt+h  multiply speed 1/1.1
+Ctrl+Alt+l  multiply speed 1.1
+Alt+Shift+h multiply speed 0.5
+Alt+Shift+l multiply speed 2.0
 
 j       add volume   -5
 k       add volume    5
