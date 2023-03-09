@@ -39,36 +39,9 @@
 
 (setq viper-vi-style-in-minibuffer nil)
 
-(setq mh--cursor-block      "\e[1 q")
-(setq mh--cursor-underscore "\e[3 q")
-(setq mh--cursor-bar        "\e[5 q")
-;;(setq mh--cursor-emacs      "\e[1 q")
-
-(defun mh--send-terminal (msg)
-  (send-string-to-terminal msg))
-
-;; Fix up
-
-;; Fix up for C-[ as ESC
-(if (or (display-graphic-p))
-    ;; (define-key input-decode-map [?\C-\[] (kbd "<C-[>"))
-    (global-set-key (kbd "<C-[>") 'viper-intercept-ESC-key)
-  (progn
-    (setq viper-insert-state-hook  `(,viper-insert-state-hook
-                                     ,(lambda ()
-                                        (mh--send-terminal mh--cursor-bar))))
-    (setq viper-vi-state-hook      `(,viper-vi-state-hook
-                                     ,(lambda ()
-                                       (mh--send-terminal mh--cursor-block))))
-    (setq viper-emacs-state-hook   `(,viper-emacs-state-hook
-                                     ,(lambda ()
-                                        (mh--send-terminal mh--cursor-block))))
-    (setq viper-replace-state-hook `(,viper-replace-state-hook
-                                     ,(lambda ()
-                                        (mh--send-terminal mh--cursor-underscore))))))
-
 ;; DEFINE-KEY: BEGIN
 
+(define-key viper-insert-basic-map "\M-["   'universal-argument)
 (define-key viper-insert-basic-map "\C-d"  'delete-char)
 ;(define-key viper-insert-basic-map "\C-w" 'viper-delete-backward-word)
 (define-key viper-insert-basic-map  "\C-t" 'transpose-chars)
@@ -77,7 +50,7 @@
     (if (eq current-prefix-arg nil)
         (setq current-prefix-arg 0))
     (call-interactively 'kill-line)))
-(define-key viper-insert-basic-map "\C-\\"  'toggle-input-method)
+;;(define-key viper-insert-basic-map "\C-\\"  'toggle-input-method)
 
 (define-key viper-vi-basic-map  "\C-o"
   (lambda () (interactive)
@@ -92,10 +65,9 @@
       (when (null (mark t)) (ding))
       (setq mark-ring (nbutlast mark-ring))
       (goto-char (marker-position (car (last mark-ring)))))))
-(define-key viper-minibuffer-map "\C-j" 'icomplete-fido-exit)
 (define-key viper-vi-basic-map "\C-b"   'backward-char)
 (define-key viper-vi-basic-map "\C-f"   'forward-char)
-(define-key viper-vi-basic-map "\C-\\"  'toggle-input-method)
+;;(define-key viper-vi-basic-map "\C-\\"  'toggle-input-method)
 (define-key viper-vi-basic-map "-"      'viper-goto-eol)
 (define-key viper-vi-basic-map "u"      'undo)
 (define-key viper-vi-basic-map "U"      'undo-redo)
@@ -107,6 +79,10 @@
                                           (move-beginning-of-line nil)))
 (define-key viper-vi-basic-map "g"      'beginning-of-buffer)
 ;; (define-key viper-vi-basic-map "\C-v"    'rectangle-mark-mode)
+
+(define-key viper-vi-basic-map "\M-["   'universal-argument)
+
+(define-key viper-minibuffer-map "\C-j" 'icomplete-fido-exit)
 
 ;; DEFINE-KEY: END
 

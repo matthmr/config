@@ -30,8 +30,8 @@
   date = format:%Y%m%d%H%M
 [pager]
   branch = false
-  tag = false
-  stash = false
+  tag    = false
+  stash  = false
 
 # Git aliases
 [alias]
@@ -43,16 +43,17 @@
   br = branch
   mg = merge
   sm = merge --squash
-  bl = blame
   sh = show --stat --patch
   st = status
   ss = stash
   ch = checkout
   cp = cherry-pick
   rs = restore
+  rt = reset
   rv = revert
   rt = reset
   tg = tag
   ap = add -p
+  ss = stash
   mm = merge --no-ff --no-commit
   mp = pull  --no-ff --no-commit
