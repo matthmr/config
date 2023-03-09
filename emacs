@@ -5,7 +5,7 @@
 (add-to-list 'custom-theme-load-path
              "/home/mh/.emacs.d/themes") ;; gruber-darker,vscode-dark-plus
 (add-to-list 'custom-theme-load-path
-             "/home/mh/.emacs.d/themes/base16-theme/build") ;; base16
+             "/home/mh/.emacs.d/themes/base16-emacs/build") ;; base16
 ; git-managed packages
 (add-to-list 'load-path
              "/home/mh/Git/EMACS/PKG") ;; markdown-mode

@@ -99,12 +99,7 @@
                 (lambda () (interactive)
                   (display-line-numbers-mode 'toggle)))
 
-;;; toggle visual line
-(global-set-key (kbd "C-x t v")
-                (lambda () (interactive)
-                  (visual-line-mode 'toggle)))
-
-;;; toggle visual line
+;;; toggle fill column
 (global-set-key (kbd "C-x t f")
                 (lambda () (interactive)
                   (display-fill-column-indicator-mode 'toggle)))

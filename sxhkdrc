@@ -43,7 +43,7 @@ super + control + l; j
 super + control + l; l
   st -e lf -single
 super + control + l; e
-  urxvt -e emacsnc
+  urxvt -e emacsc
 super + control + l; shift + e
   emacs
 

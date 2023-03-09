@@ -14,7 +14,7 @@
   ui = true
 [core]
   pager = less -r
-  editor = nvim
+  editor = emacsc
 [merge]
   conflictstyle = diff3
 [diff]
@@ -39,20 +39,19 @@
   gl = log --oneline --abbrev-commit --graph
   df = diff --stat --patch
   cm = commit
-  fe = fetch
   ad = add
   br = branch
   mg = merge
   sm = merge --squash
-  pl = pull
   bl = blame
-  ps = push
   sh = show --stat --patch
   st = status
+  ss = stash
   ch = checkout
   cp = cherry-pick
   rs = restore
   rv = revert
+  rt = reset
   tg = tag
   ap = add -p
   mm = merge --no-ff --no-commit

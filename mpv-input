@@ -12,12 +12,16 @@ WHEEL_RIGHT   ignore
 ### VI
 h           no-osd seek  -3 exact
 l           no-osd seek   3 exact
-Ctrl+h      no-osd seek  30 exact
-Ctrl+l      no-osd seek -30 exact
+Shift+h     no-osd seek  -5 exact
+Shift+l     no-osd seek   5 exact
 Alt+h       frame-back-step
 Alt+l       frame-step
-Ctrl+Alt+h  multiply speed 1/1.1
-Ctrl+Alt+l  multiply speed 1.1
+Ctrl+l      no-osd seek  30 exact
+Ctrl+h      no-osd seek -30 exact
+Ctrl+Alt+h  frame-back-step
+Ctrl+Alt+l  frame-step
+Alt+Ctrl+h  multiply speed 1/1.1
+Alt+Ctrl+l  multiply speed 1.1
 Alt+Shift+h multiply speed 0.5
 Alt+Shift+l multiply speed 2.0
 
@@ -41,6 +45,7 @@ p       cycle pause
 
 m       cycle mute
 Ctrl+m  ab-loop
+Shift+m cycle-values loop-file "inf" "no"
 f       cycle fullscreen
 s       cycle sub down
 Shift+s cycle sub
