@@ -14,12 +14,12 @@ map i $LESSOPEN='| ~/.config/lf/preview %s' less -R $f
 cmd open ${{
     test -L $f && f=$(readlink -f $f)
     case $f in
-        *.org) emacstc $f &;;
+        *.org) emacsc $f &;;
     esac
 
     case $(file --mime-type $f -b) in
         text/html) setsid ungoogled-chromium $f &;;
-        text/*) $EDITOR $fx;;
+        text/*) emacsc $fx;;
         image/*) setsid feh --scale-down -B "#303030" $f &;;
         */pdf) setsid mupdf $f &;;
         audio/*|video/*) setsid mpv $f &;;

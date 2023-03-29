@@ -20,8 +20,8 @@ super + control + a; shift + r
   rcreboot
 super + control + a; shift + s
   rcsuspend
-# super + control + a; shift + h
-#   rchibernate
+super + control + a; shift + h
+  rchibernate
 super + control + a; l
   i3lock -i '/home/mh/Images/Wallpapers/vapor/apollo.png' -e -f -b -n -t -p default
 
@@ -55,5 +55,9 @@ super + control + l; shift + e
 #	dmenu_run
 super + c
   clipmenu
+super + control + q
+  xkill
 super + control + r
+  /home/mh/Scripts/x/resize
+super + control + d
   /home/mh/Scripts/sxhkd-reload.sh

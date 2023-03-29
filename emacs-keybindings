@@ -4,6 +4,8 @@
       (setq current-prefix-arg prefix))
   (call-interactively function))
 
+(global-set-key (kbd "M-]")     'universal-argument)
+
 (global-set-key (kbd "C-v")   (lambda () (interactive) (call-prefix 10 'scroll-up-command)))
 ;; (global-set-key (kbd "C-M-v") (lambda () (interactive) (call-prefix 10 'scroll-down-command)))
 (global-set-key (kbd "M-o")     'overwrite-mode)
@@ -11,8 +13,7 @@
 (global-set-key (kbd "M-#")     'query-replace)
 (global-set-key (kbd "M-*")     'query-replace-regexp)
 (global-set-key (kbd "C-x ;")   'comment-line)
-(global-set-key (kbd "C-x C-M--")   (lambda () (interactive) (call-prefix -5 'enlarge-window)))
-(global-set-key (kbd "C-x C-M-=")   (lambda () (interactive) (call-prefix 5 'enlarge-window)))
+(global-set-key (kbd "C-x ^")   (lambda () (interactive) (call-prefix 5 'enlarge-window)))
 (global-set-key (kbd "C-x {")   (lambda () (interactive) (call-prefix 5 'shrink-window-horizontally)))
 (global-set-key (kbd "C-x }")   (lambda () (interactive) (call-prefix 5 'enlarge-window-horizontally)))
 (global-set-key (kbd "C-x <")   (lambda () (interactive) (call-prefix 15 'scroll-right)))
@@ -26,6 +27,14 @@
 (global-unset-key (kbd "C-x o"))
 (global-set-key (kbd "C-x C-o")   'other-window) ; I don't use `delete-blank-lines'
 (global-set-key (kbd "C-x C-M-o") (lambda () (interactive) (call-prefix -1 'other-window)))
+
+(global-unset-key (kbd "C-x m")) ;; this is fucking retarded
+
+;; vimish-fold
+(global-set-key (kbd "C-c C-m f")   'vimish-fold)
+(global-set-key (kbd "C-c C-m u")   'vimish-fold-unfold)
+(global-set-key (kbd "C-c C-m RET") 'vimish-fold-toggle)
+(global-set-key (kbd "C-c C-m C-u") 'vimish-fold-unfold-all)
 
 ;; emacs' bullshit
 (global-set-key (kbd "C-x x C-w") 'delete-region)
@@ -42,6 +51,25 @@
                   (next-line 1)
                   (transpose-lines 1)
                   (previous-line 1)))
+
+;; Daemon
+
+(defun mh--confirm-suspend ()
+  "Prompt for confirming suspension"
+  (interactive)
+  (if (y-or-n-p (format "Really suspend frame? "))
+    (suspend-frame)
+    (message "Canceled frame suspension")))
+
+(global-set-key (kbd "C-z")     'repeat)
+(global-set-key (kbd "C-x C-z") 'mh--confirm-suspend)
+
+(when (daemonp)
+  (global-set-key (kbd "C-x C-c")
+                  (lambda () (interactive)
+                    (if (y-or-n-p (format "Kill Emacs frame? "))
+                        (save-buffers-kill-terminal)
+                      (message "Canceled frame kill")))))
 
 ;; clipboard (aka `edit-copy')
 (global-set-key (kbd "C-x c w") (lambda () (interactive)
@@ -116,5 +144,3 @@
                 (lambda () (interactive)
                   (global-set-key (kbd "<C-[>") 'viper-intercept-ESC-key)
                   (define-key input-decode-map [?\C-\[] (kbd "<C-[>"))))
-
-(load "/home/p/config/emacs-modes/mh-viper")

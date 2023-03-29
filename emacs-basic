@@ -89,15 +89,12 @@
 (icomplete-mode t)
 
 (global-display-fill-column-indicator-mode)
-(global-hl-line-mode)
+;; (global-hl-line-mode)
 
 ;; HOOKS
 (add-hook 'text-mode-hook   'auto-fill-mode)
 (add-hook 'c-mode-hook      (lambda () (interactive)
                               (setq comment-start "//")
                               (setq comment-end "")
-                              (abbrev-mode -1)
-                              (outline-minor-mode)))
-(add-hook 'diff-mode-hook   'outline-minor-mode)
-(add-hook 'lisp-mode-hook   'outline-minor-mode)
-(add-hook 'python-mode-hook 'outline-minor-mode)
+                              (abbrev-mode -1)))
+

@@ -3,19 +3,19 @@
 
 ; color theme
 (add-to-list 'custom-theme-load-path
-             "/home/mh/.emacs.d/themes") ;; gruber-darker,vscode-dark-plus
+             "/home/mh/Emacs/themes")
 (add-to-list 'custom-theme-load-path
-             "/home/mh/.emacs.d/themes/base16-emacs/build") ;; base16
-; git-managed packages
+             "/home/mh/Emacs/themes/base16-themes")
 (add-to-list 'load-path
-             "/home/mh/Git/EMACS/PKG") ;; markdown-mode
-(add-to-list 'load-path
-             "/home/mh/.emacs.d/themes") ;; base16
-(add-to-list 'load-path
-             "/mnt/ssd/root/usr/share/emacs/site-lisp") ;; local
+             "/home/mh/Emacs/lisp")
 
 (require 'eglot)
 (require 'zen-mode)
+(require 'caps)
+(require 'vimish-fold)
+
+(load "/home/p/config/emacs-modes/mh-viper")
+(load "/home/p/config/emacs-modes/mh-mpc")
 
 (setq max-mini-window-height 1)
 ;;(setq eglot-stay-out-of '("imenu"))
@@ -55,8 +55,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(auto-save-file-name-transforms '((".*" "/tmp/emacs/" t)))
- '(auto-save-interval 500)
- '(auto-save-no-message t)
+ '(auto-save-interval 300)
  '(backup-by-copying t)
  '(backup-directory-alist '((".*" . "/mnt/hdd/backup/EMACS/")))
  '(base16-theme-256-color-source 'colors)
@@ -65,6 +64,10 @@
  '(completion-styles '(basic partial-completion emacs22 substring))
  '(delete-auto-save-files nil)
  '(delete-old-versions t)
+ '(desktop-base-file-name "desktop")
+ '(desktop-base-lock-name "desktop-lock")
+ '(desktop-load-locked-desktop t)
+ '(desktop-path '("~/Emacs/desktop"))
  '(diff-refine nil)
  '(eglot-autoshutdown t)
  '(eglot-events-buffer-size 100000)

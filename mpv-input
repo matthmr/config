@@ -10,16 +10,14 @@ WHEEL_LEFT    ignore
 WHEEL_RIGHT   ignore
 
 ### VI
-h           no-osd seek  -3 exact
-l           no-osd seek   3 exact
-Shift+h     no-osd seek  -5 exact
-Shift+l     no-osd seek   5 exact
+h           no-osd seek   -5 exact
+l           no-osd seek    5 exact
+Shift+h     no-osd seek  -10 exact
+Shift+l     no-osd seek   10 exact
 Alt+h       frame-back-step
 Alt+l       frame-step
-Ctrl+l      no-osd seek  30 exact
-Ctrl+h      no-osd seek -30 exact
-Ctrl+Alt+h  frame-back-step
-Ctrl+Alt+l  frame-step
+Ctrl+l      no-osd seek   30 exact
+Ctrl+h      no-osd seek  -30 exact
 Alt+Ctrl+h  multiply speed 1/1.1
 Alt+Ctrl+l  multiply speed 1.1
 Alt+Shift+h multiply speed 0.5
@@ -29,10 +27,14 @@ j       add volume   -5
 k       add volume    5
 Ctrl+j  add volume  -30
 Ctrl+k  add volume   30
-Alt+j   playlist-next
-Alt+k   playlist-prev
 Shift+j add sub-pos  -1
 Shift+k add sub-pos  +1
+
+Ctrl+n  playlist-next
+Ctrl+p  playlist-prev
+
+Ctrl+b  frame-back-step
+Ctrl+f  frame-step
 
 ## MISC
 q          quit

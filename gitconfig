@@ -38,6 +38,7 @@
   lg = log --all --stat --patch
   gl = log --oneline --abbrev-commit --graph
   df = diff --stat --patch
+  fe = fetch
   cm = commit
   ad = add
   br = branch
@@ -47,13 +48,13 @@
   st = status
   ss = stash
   ch = checkout
-  cp = cherry-pick
+  cp = cherry-pick -n
   rs = restore
   rt = reset
   rv = revert
-  rt = reset
   tg = tag
   ap = add -p
+  rp = restore -p
   ss = stash
   mm = merge --no-ff --no-commit
   mp = pull  --no-ff --no-commit

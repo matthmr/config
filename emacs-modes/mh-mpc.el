@@ -31,7 +31,7 @@
   "Command prefix for mh-mpc")
 
 (defun mh-mpc--shell-command (cmd)
-  (shell-command (concat "mpc " cmd) nil "*Mpc-Error*"))
+  (shell-command (concat "mpc " cmd) "*Mpc*" "*Mpc-Error*"))
 
 (defun mh-mpc-toggle ()
   "Toggles the play/pause state of MPD"
@@ -60,7 +60,7 @@
 (defun mh-mpc-playlist ()
   "Display the current playlist"
   (interactive)
-  (shell-command "mpc playlist" "*Mpc playlist*" "*Mpc-Error*"))
+  (mh-mpc--shell-command "playlist"))
 
 (defun mh-mpc-next ()
   "Plays the next song in the playlist"

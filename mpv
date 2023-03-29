@@ -2,6 +2,7 @@ osc=yes
 audio-device=alsa/default
 audio-pitch-correction=yes
 volume=80
+ontop=yes
 
 user-agent="Mozilla/5.0"
 

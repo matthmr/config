@@ -41,7 +41,6 @@
 
 ;; DEFINE-KEY: BEGIN
 
-(define-key viper-insert-basic-map "\M-["   'universal-argument)
 (define-key viper-insert-basic-map "\C-d"  'delete-char)
 ;(define-key viper-insert-basic-map "\C-w" 'viper-delete-backward-word)
 (define-key viper-insert-basic-map  "\C-t" 'transpose-chars)
@@ -80,7 +79,7 @@
 (define-key viper-vi-basic-map "g"      'beginning-of-buffer)
 ;; (define-key viper-vi-basic-map "\C-v"    'rectangle-mark-mode)
 
-(define-key viper-vi-basic-map "\M-["   'universal-argument)
+(define-key viper-vi-basic-map "\M-]"   'universal-argument)
 
 (define-key viper-minibuffer-map "\C-j" 'icomplete-fido-exit)
 
