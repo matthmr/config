@@ -79,6 +79,7 @@
     ;(define-key map [remap minibuffer-complete-and-exit] 'icomplete-ret)
     (define-key map (kbd "TAB")   'icomplete-force-complete)
     (define-key map (kbd "C-j")   'icomplete-fido-exit)
+    (define-key map (kbd "C-M-j") 'exit-minibuffer) ;; select default
     (define-key map (kbd "RET")   'icomplete-force-complete-and-exit)
     (define-key map (kbd "C-s")   'icomplete-forward-completions)
     (define-key map (kbd "C-r")   'icomplete-backward-completions)
@@ -87,14 +88,35 @@
   "Keymap used by `icomplete-mode' in the minibuffer'.")
 
 (icomplete-mode t)
+(electric-pair-mode t)
+;; (xterm-mouse-mode t)
 
 (global-display-fill-column-indicator-mode)
 ;; (global-hl-line-mode)
 
 ;; HOOKS
+(defun mh--desktop-save (desktop-dirname)
+  (shell-command (format "mv -v %s/desktop %s/desktop-$(/home/mh/Scripts/date/short.sh)"
+                   desktop-dirname desktop-dirname)))
+
+(defun mh--desktop-read (desktop-dirname)
+  (shell-command (format "ls -l %s" desktop-dirname))
+  (setq desktop-base-file-name (read-from-minibuffer "Desktop filename: "))
+
+  (desktop-read desktop-dirname)
+  ; next saves are done in `desktop'
+  (setq desktop-base-file-name "desktop"))
+
 (add-hook 'text-mode-hook   'auto-fill-mode)
 (add-hook 'c-mode-hook      (lambda () (interactive)
                               (setq comment-start "//")
                               (setq comment-end "")
+                              (outline-minor-mode 1)
                               (abbrev-mode -1)))
 
+(add-hook 'kill-emacs-hook
+  (lambda () (interactive) (mh--desktop-save
+                              "/home/mh/Emacs/desktop")))
+(add-hook 'desktop-no-desktop-file-hook
+  (lambda () (interactive) (mh--desktop-read
+                             "/home/mh/Emacs/desktop")))

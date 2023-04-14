@@ -18,7 +18,7 @@
 (load "/home/p/config/emacs-modes/mh-mpc")
 
 (setq max-mini-window-height 1)
-;;(setq eglot-stay-out-of '("imenu"))
+(setq eglot-stay-out-of '("flymake"))
 
 ; Markdown
 (autoload 'markdown-mode "markdown-mode"
@@ -35,7 +35,10 @@
 (add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
 
 ;; THEMES
-(load-theme 'base16-default-dark t)
+(unless (or
+          (string= (getenv "TERM") "linux")
+          (string= (getenv "TERM") "dumb"))
+        (load-theme 'base16-default-dark t))
 ;;; chosen in the past:
 ;; - default-dark
 
@@ -73,6 +76,7 @@
  '(eglot-events-buffer-size 100000)
  '(eglot-highlight-symbol-face ((t (:inherit underline))))
  '(eglot-menu-string "")
+ '(eww-search-prefix "https://google.com/search?q=")
  '(fill-column 80)
  '(fringe-mode 0 nil (fringe))
  '(global-display-line-numbers-mode t)

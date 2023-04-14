@@ -10,16 +10,16 @@
                    "#+AUTHOR: "))
 
 (set-register ?c '(
-                   "*
- "
-                   "** as per
- "
-                   "-
- "
+                   "* 
+"
+                   "** as per 
+"
+                   "- 
+"
                    "** SELF
- "
-                   "- slept at ~, woke up at ~"
-                   "- started the computing day at ~, stopped at ~"))
+"
+                   "- slept at ~ , woke up at ~ "
+                   "- started the computing day at ~ , stopped at ~ "))
 
 (set-register ?l '(
                    "#ifndef LOCK_"

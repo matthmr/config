@@ -15,13 +15,13 @@ super + control + Return; x
 # action-mode
 # TODO: add an interactive [Y/n] for the `rc-' ACPI family
 super + control + a; shift + p
-  rcshutdown
+  rcshutdown -x
 super + control + a; shift + r
-  rcreboot
+  rcreboot -x
 super + control + a; shift + s
-  rcsuspend
+  rcsuspend -x
 super + control + a; shift + h
-  rchibernate
+  rchibernate -x
 super + control + a; l
   i3lock -i '/home/mh/Images/Wallpapers/vapor/apollo.png' -e -f -b -n -t -p default
 
@@ -41,7 +41,7 @@ super + control + l; q
 super + control + l; j
   japanese-dmenu
 super + control + l; l
-  st -e lf -single
+  urxvt -e lf -single
 super + control + l; e
   urxvt -e emacsc
 super + control + l; shift + e

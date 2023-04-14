@@ -1,23 +1,9 @@
-### KEYBOARD / MOUSEKEYS ###
-# `xkbset ma` syntax:
-#    [mk-delay> <mk_interval> <mk_time_to_max mk-max_speed> <mk_curve]
-#xmodmap /home/mh/.Xmodmap &
-#xcape -e 'Control_L=Escape' &
-xkbset ma 30 10 25 15 2 &
-xset b off &
-xrdb /home/mh/.Xresources &
-nitrogen --restore &
+# By wmpick:
+#   $1: wm
+#   $2: session type
 
 ### WINDOW MANAGER ###
-xdaemon "$wm" &
-xsession "$wm" "$session_type" &
+/home/mh/.local/bin/xdaemon  "$1" "$2" &
+/home/mh/.local/bin/xsession "$1" "$2" &
 
-unset session_type
-exec "$wm"
-
-# we use this with applications themselves, not with the window manager
-#if [[ -z $session_type ]]; then
-# else
-#   unset session_type
-#   exec dbus-launch --exit-with-session "$wm"
-# fi
+exec "$1"

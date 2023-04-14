@@ -7,9 +7,10 @@
 (global-set-key (kbd "M-]")     'universal-argument)
 
 (global-set-key (kbd "C-v")   (lambda () (interactive) (call-prefix 10 'scroll-up-command)))
+(global-set-key (kbd "C-M-x a") 'abort-recursive-edit)
+(global-set-key (kbd "C-M-x e") 'exit-recursive-edit)
 ;; (global-set-key (kbd "C-M-v") (lambda () (interactive) (call-prefix 10 'scroll-down-command)))
 (global-set-key (kbd "M-o")     'overwrite-mode)
-(global-set-key (kbd "C-x C-p") 'set-goal-column)
 (global-set-key (kbd "M-#")     'query-replace)
 (global-set-key (kbd "M-*")     'query-replace-regexp)
 (global-set-key (kbd "C-x ;")   'comment-line)
@@ -20,6 +21,7 @@
 (global-set-key (kbd "C-x >")   (lambda () (interactive) (call-prefix 15 'scroll-left)))
 (global-set-key (kbd "C-M-_")   'dabbrev-completion)
 (global-set-key (kbd "C-x M-l") 'count-words-region)
+(global-set-key (kbd "C-M-z")   'repeat-complex-command)
 
 (global-unset-key (kbd "C-x C-t"))
 (global-set-key (kbd "C-x C-t") 'transpose-regions)
@@ -114,13 +116,21 @@
 
 ;; TOGGLE
 
+(defun mh--zen ()
+  "Enables `zen-mode' with all its bells and whistles :)"
+  (interactive)
+  (setq-local show-trailing-whitespace
+              (not show-trailing-whitespace))
+  (display-fill-column-indicator-mode 'toggle)
+  (display-line-numbers-mode 'toggle))
+
+;;; toggle input method
+(global-set-key (kbd "C-x t i") 'toggle-input-method)
+
 ;;; toggle whitespace
 (global-set-key (kbd "C-x t w")
                 (lambda () (interactive)
                   (setq-local show-trailing-whitespace (not show-trailing-whitespace))))
-
-;;; toggle input method
-(global-set-key (kbd "C-x t i") 'toggle-input-method)
 
 ;;; toggle line numbers
 (global-set-key (kbd "C-x t l")
@@ -133,11 +143,10 @@
                   (display-fill-column-indicator-mode 'toggle)))
 
 ;;; toggle all
-(global-set-key (kbd "C-x t s")
-                (lambda () (interactive)
-                  (setq-local show-trailing-whitespace (not show-trailing-whitespace))
-                  (display-fill-column-indicator-mode 'toggle)
-                  (display-line-numbers-mode 'toggle)))
+(global-set-key (kbd "C-x t s") 'mh--zen)
+(global-set-key (kbd "C-x t z") (lambda () (interactive)
+                                  (zen-mode 'toggle)
+                                  (mh--zen)))
 
 ;;; toggle escape
 (global-set-key (kbd "C-x t e")
