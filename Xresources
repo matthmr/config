@@ -24,7 +24,7 @@ URxvt*borderless: 1
 URxvt*scrollBar: false
 URxvt*loginShell: false
 Urxvt*secondaryScroll:  true
-URxvt*saveLines: 1000
+URxvt*saveLines: 4000
 !URxvt*termName: rxvt-unicode
 URxvt*termName: xterm-256color
 URxvt*pointerBlank: true

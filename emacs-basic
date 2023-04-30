@@ -89,7 +89,6 @@
 
 (icomplete-mode t)
 (electric-pair-mode t)
-;; (xterm-mouse-mode t)
 
 (global-display-fill-column-indicator-mode)
 ;; (global-hl-line-mode)
@@ -111,6 +110,7 @@
 (add-hook 'c-mode-hook      (lambda () (interactive)
                               (setq comment-start "//")
                               (setq comment-end "")
+                              (setq page-delimiter "^/\\{4\\}")
                               (outline-minor-mode 1)
                               (abbrev-mode -1)))
 

@@ -34,19 +34,18 @@
   "Major mode for editing GitHub Flavored Markdown files" t)
 (add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
 
-;; THEMES
-(unless (or
-          (string= (getenv "TERM") "linux")
-          (string= (getenv "TERM") "dumb"))
-        (load-theme 'base16-default-dark t))
-;;; chosen in the past:
-;; - default-dark
-
-;; Style
-(set-display-table-slot standard-display-table 'truncation ?…)
-(set-display-table-slot standard-display-table 'wrap ?↩)
-(set-display-table-slot standard-display-table 'selective-display
-                        (string-to-vector "↷"))
+;; TTY vs PTS
+(if (string= (getenv "TTYSESSION") "yes")
+      (progn
+        (display-time-mode t)
+        (global-visual-line-mode t))
+      (progn
+        (set-display-table-slot standard-display-table 'truncation ?…)
+        (set-display-table-slot standard-display-table 'wrap ?↩)
+        (set-display-table-slot standard-display-table 'selective-display
+                                (string-to-vector "↷"))
+        (load-theme 'base16-default-dark t)
+        (xterm-mouse-mode t)))
 
 ;; INPUT
 ;(set-input-method 'programmer-dvorak)
@@ -72,6 +71,9 @@
  '(desktop-load-locked-desktop t)
  '(desktop-path '("~/Emacs/desktop"))
  '(diff-refine nil)
+ '(display-time-default-load-average nil)
+ '(display-time-format "%Y%m%d%H%M")
+ '(display-time-mode t)
  '(eglot-autoshutdown t)
  '(eglot-events-buffer-size 100000)
  '(eglot-highlight-symbol-face ((t (:inherit underline))))
@@ -84,6 +86,7 @@
  '(icomplete-mode t)
  '(icomplete-show-matches-on-no-input t)
  '(inhibit-startup-screen t)
+ '(ispell-alternate-dictionary "/home/mh/Emacs/english-dict.txt")
  '(kept-new-versions 1)
  '(kept-old-versions 1)
  '(menu-bar-mode nil)
@@ -92,6 +95,7 @@
    '("%e" " " mode-line-misc-info mode-line-mule-info mode-line-client mode-line-modified mode-line-remote " " mode-line-buffer-identification "   " mode-line-position
      (vc-mode vc-mode)
      "  " mode-line-modes))
+ '(org-agenda-files nil)
  '(outline-minor-mode-prefix "")
  '(read-file-name-completion-ignore-case t)
  '(scroll-bar-mode nil)
@@ -99,6 +103,7 @@
  '(set-mark-command-repeat-pop t)
  '(size-indication-mode t)
  '(smerge-command-prefix "m")
+ '(standard-indent 2)
  '(tool-bar-mode nil)
  '(tooltip-mode nil)
  '(truncate-partial-width-windows nil)

@@ -35,9 +35,10 @@
 
 # Git aliases
 [alias]
-  lg = log --all --stat --patch
+  lg = log --stat --patch
+  sl = log --oneline
   gl = log --oneline --abbrev-commit --graph
-  df = diff --stat --patch
+  df = diff --stat --patch --color=always
   fe = fetch
   cm = commit
   ad = add

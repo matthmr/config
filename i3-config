@@ -98,7 +98,7 @@ client.background       #ffffff
 
 # Modes
 mode "action" {
-  bindsym q exec xserver-kill; mode "default"
+  bindsym q exec i3-msg exit; mode "default"
   bindsym c reload; mode "default"
   bindsym r restart; mode "default"
 
@@ -136,15 +136,17 @@ bar {
   # status_command i3status
   status_command i3blocks
 
+  # <class> <border> <bg> <txt>
   colors {
-    background         #303030
+    background         #222222
+    statusline         #FFFFFF
     active_workspace   #303030 #303030 #FFFFFF
-    inactive_workspace #303030 #303030 #888888
+    inactive_workspace #222222 #222222 #888888
     focused_workspace  #303030 #303030 #FFFFFF
   }
 
   font pango:JetBrains Mono 14
 
-  position top
-  #position bottom
+  # position top
+  position bottom
 }
