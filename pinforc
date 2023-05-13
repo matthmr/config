@@ -3,6 +3,7 @@ KEY_TOTALSEARCH_1  = 's'
 KEY_SEARCH_1       = '/'
 KEY_SEARCH_AGAIN_1 = '.'
 KEY_GOTO_1         = 'N'
+KEY_GOTO_2         = 0
 
 KEY_PREVNODE_1     = 'p'
 KEY_NEXTNODE_1     = 'n'
@@ -11,7 +12,9 @@ KEY_UP_2           = 'k'
 KEY_DOWN_2         = 'j'
 
 KEY_HOME_1         = 'g'
+KEY_HOME_2         = '<'
 KEY_END_1          = 'G'
+KEY_END_2          = '>'
 
 KEY_PGUP_1         = 'u'
 KEY_PGUP_2         = KEY_CTRL('u')

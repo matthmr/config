@@ -3,8 +3,8 @@ Xcursor.size: 32
 Xcursor.theme: McMojave-cursors
 
 !!! Urxvt !!!
-URxvt.keysym.C-M-d: eval:scroll_down(10)
-URxvt.keysym.C-M-u: eval:scroll_up(10)
+URxvt.keysym.M-Down: eval:scroll_down(10)
+URxvt.keysym.M-Up: eval:scroll_up(10)
 
 !URxvt*buffered: false
 URxvt*cursorBlink: true

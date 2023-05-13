@@ -87,7 +87,8 @@
     map)
   "Keymap used by `icomplete-mode' in the minibuffer'.")
 
-(icomplete-mode t)
+;; (icomplete-mode t)
+(icomplete-vertical-mode t)
 (electric-pair-mode t)
 
 (global-display-fill-column-indicator-mode)
@@ -111,8 +112,22 @@
                               (setq comment-start "//")
                               (setq comment-end "")
                               (setq page-delimiter "^/\\{4\\}")
-                              (outline-minor-mode 1)
+                              (outline-minor-mode t)
                               (abbrev-mode -1)))
+(add-hook 'python-mode-hook  (lambda () (interactive)
+                               (setq page-delimiter "^#\\{4\\}")
+                               (outline-minor-mode t)))
+(add-hook 'sh-mode-hook      (lambda () (interactive)
+                               (setq page-delimiter "^#\\{4\\}")))
+
+(add-hook 'lisp-mode-hook    (lambda () (interactive)
+                               (setq page-delimiter "^;\\{4\\}")
+                               (outline-minor-mode t)
+                               (rainbow-delimiters-mode t)))
+(add-hook 'scheme-mode-hook  (lambda () (interactive)
+                               (setq page-delimiter "^;\\{4\\}")
+                               (outline-minor-mode t)
+                               (rainbow-delimiters-mode t)))
 
 (add-hook 'kill-emacs-hook
   (lambda () (interactive) (mh--desktop-save

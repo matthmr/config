@@ -6,18 +6,23 @@
              "/home/mh/Emacs/themes")
 (add-to-list 'custom-theme-load-path
              "/home/mh/Emacs/themes/base16-themes")
+
 (add-to-list 'load-path
              "/home/mh/Emacs/lisp")
+(add-to-list 'load-path
+             "/home/mh/Git/EMACS/xelb")
+(add-to-list 'load-path
+             "/home/mh/Git/EMACS/exwm")
 
 (require 'eglot)
 (require 'zen-mode)
 (require 'caps)
-(require 'vimish-fold)
+(require 'rainbow-delimiters)
 
 (load "/home/p/config/emacs-modes/mh-viper")
 (load "/home/p/config/emacs-modes/mh-mpc")
 
-(setq max-mini-window-height 1)
+; (setq max-mini-window-height 1)
 (setq eglot-stay-out-of '("flymake"))
 
 ; Markdown
@@ -47,6 +52,17 @@
         (load-theme 'base16-default-dark t)
         (xterm-mouse-mode t)))
 
+;; EXWM
+(let ((env/wm (getenv "WM")))
+  (cond
+   ((string= env/wm "exwm")
+    (require 'exwm)
+    (require 'exwm-config)
+    (exwm-config-default)
+    (display-time-mode t))
+   ((string= env/wm "xsession")
+    (display-time-mode t))))
+
 ;; INPUT
 ;(set-input-method 'programmer-dvorak)
 
@@ -61,7 +77,7 @@
  '(backup-by-copying t)
  '(backup-directory-alist '((".*" . "/mnt/hdd/backup/EMACS/")))
  '(base16-theme-256-color-source 'colors)
- '(base16-theme-distinct-fringe-background t)
+ '(base16-theme-distinct-fringe-background nil)
  '(column-number-mode t)
  '(completion-styles '(basic partial-completion emacs22 substring))
  '(delete-auto-save-files nil)
@@ -71,9 +87,9 @@
  '(desktop-load-locked-desktop t)
  '(desktop-path '("~/Emacs/desktop"))
  '(diff-refine nil)
+ '(display-line-numbers-widen t)
  '(display-time-default-load-average nil)
  '(display-time-format "%Y%m%d%H%M")
- '(display-time-mode t)
  '(eglot-autoshutdown t)
  '(eglot-events-buffer-size 100000)
  '(eglot-highlight-symbol-face ((t (:inherit underline))))
@@ -98,6 +114,7 @@
  '(org-agenda-files nil)
  '(outline-minor-mode-prefix "")
  '(read-file-name-completion-ignore-case t)
+ '(scheme-program-name "guile")
  '(scroll-bar-mode nil)
  '(search-default-mode t)
  '(set-mark-command-repeat-pop t)
@@ -128,6 +145,7 @@
  '(eglot-highlight-symbol-face ((t (:inherit underline))))
  '(eglot-mode-line ((t nil)))
  '(icomplete-first-match ((t (:foreground "#dc9656"))))
+ '(line-number-current-line ((t (:inherit default))))
  '(log-view-message ((t (:extend t :background "grey85" :foreground "black"))))
  '(smerge-base ((t (:extend t :background "#ffffaa" :foreground "black"))))
  '(smerge-lower ((t (:extend t :background "#ddffdd" :foreground "black"))))

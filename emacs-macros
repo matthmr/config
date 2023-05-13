@@ -10,13 +10,13 @@
                    "#+AUTHOR: "))
 
 (set-register ?c '(
-                   "* 
+                   "** 
 "
-                   "** as per 
+                   "*** as per 
 "
                    "- 
 "
-                   "** SELF
+                   "*** SELF
 "
                    "- slept at ~ , woke up at ~ "
                    "- started the computing day at ~ , stopped at ~ "))
