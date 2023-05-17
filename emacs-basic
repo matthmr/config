@@ -3,6 +3,8 @@
 
 (shell-command "mkdir /tmp/emacs/ 1>/dev/null 2>/dev/null")
 
+;;;; PREAMBLE ^^ / SETQ vv
+
 ; (in)sane defaults
 (setq create-lockfiles nil) ; these are *trully* useless
 (setq inhibit-startup-message t)
@@ -40,6 +42,9 @@
 (setq-default backup-inhibited nil)
 (setq-default auto-save-default t)
 (setq-default hi-lock-face-defaults '("underline"))
+(setq-local default-directory "/tmp/emacs/")
+
+;;;; NON-SETQ
 
 ;; Autosave
 (auto-save-mode)
@@ -48,6 +53,7 @@
 (fset 'yes-or-no-p 'y-or-n-p) ;; make every "yes or no" question a "y or n" question
 
 ; remap
+
 ;; MODES
 
 ; C
@@ -61,10 +67,9 @@
 ; Shell
 (setq sh-basic-offset 2)
 
-;; EMACS DISABLED MODES (why?)
+; EMACS DISABLED MODES (why?)
 (setq-default disabled-command-function nil)
 
-;; MODES
 ; WS
 (setq-default whitespace-space-regexp "\\( +$\\)")
 (setq-default whitespace-style
@@ -73,7 +78,7 @@
               (tab-mark ?\x09 [?¦ ?\ ])))
 (setq-default show-trailing-whitespace t)
 
-;; Icomplete
+; Icomplete
 (defvar icomplete-minibuffer-map
   (let ((map (make-sparse-keymap)))
     ;(define-key map [remap minibuffer-complete-and-exit] 'icomplete-ret)
@@ -94,7 +99,8 @@
 (global-display-fill-column-indicator-mode)
 ;; (global-hl-line-mode)
 
-;; HOOKS
+;;;; HOOKS
+
 (defun mh--desktop-save (desktop-dirname)
   (shell-command (format "mv -v %s/desktop %s/desktop-$(/home/mh/Scripts/date/short.sh)"
                    desktop-dirname desktop-dirname)))
@@ -129,9 +135,29 @@
                                (outline-minor-mode t)
                                (rainbow-delimiters-mode t)))
 
+(add-hook 'emacs-lisp-mode-hook  (lambda () (interactive)
+                                            (setq page-delimiter "^;\\{4\\}")
+                                            (outline-minor-mode t)
+                                            (rainbow-delimiters-mode t)))
+
+
 (add-hook 'kill-emacs-hook
   (lambda () (interactive) (mh--desktop-save
                               "/home/mh/Emacs/desktop")))
 (add-hook 'desktop-no-desktop-file-hook
   (lambda () (interactive) (mh--desktop-read
                              "/home/mh/Emacs/desktop")))
+
+(defalias 'wm-mode 'edwina-mode)
+
+;;; Auto-save
+;; (defvar mh/tmpdir "/tmp/emacs/")
+;;
+;; (defadvice auto-save-mode (around mh/tmpdir)
+;;   "Use a standard location for auto-save files for non-file buffers"
+;;   (if (not buffer-file-name)
+;;       (let ((default-directory mh/tmpdir))
+;;         ad-do-it)
+;;     ad-do-it))
+;;
+;; (ad-activate 'auto-save-mode)

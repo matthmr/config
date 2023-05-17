@@ -26,17 +26,11 @@
 (global-unset-key (kbd "C-x C-t"))
 (global-set-key (kbd "C-x C-t") 'transpose-regions)
 
-(global-unset-key (kbd "C-x o"))
+(global-set-key (kbd "C-x o")     'delete-blank-lines)
 (global-set-key (kbd "C-x C-o")   'other-window) ; I don't use `delete-blank-lines'
 (global-set-key (kbd "C-x C-M-o") (lambda () (interactive) (call-prefix -1 'other-window)))
 
 (global-unset-key (kbd "C-x m")) ;; this is fucking retarded
-
-;; vimish-fold
-(global-set-key (kbd "C-c C-m f")   'vimish-fold)
-(global-set-key (kbd "C-c C-m u")   'vimish-fold-unfold)
-(global-set-key (kbd "C-c C-m RET") 'vimish-fold-toggle)
-(global-set-key (kbd "C-c C-m C-u") 'vimish-fold-unfold-all)
 
 ;; emacs' bullshit
 (global-set-key (kbd "C-x x C-w") 'delete-region)
@@ -71,7 +65,12 @@
                   (lambda () (interactive)
                     (if (y-or-n-p (format "Kill Emacs frame? "))
                         (save-buffers-kill-terminal)
-                      (message "Canceled frame kill")))))
+                      (message "Canceled frame kill"))))
+  (global-set-key (kbd "C-x x C-c")
+                  (lambda () (interactive)
+                    (if (y-or-n-p (format "Kill Emacs daemon? "))
+                        (kill-emacs)
+                      (message "Canceled daemon kill")))))
 
 ;; clipboard (aka `edit-copy')
 (global-set-key (kbd "C-x c w") (lambda () (interactive)
@@ -88,7 +87,8 @@
                                   (shell-command "/home/mh/Scripts/edit-copy.sh -d")
                                   (insert-file "/tmp/clipboard")))
 
-;; VC
+;;;; VC
+
 (global-set-key (kbd "C-x v C-i")
                 (lambda () (interactive)
                   (setq vc-buffer-file-name (buffer-file-name))
@@ -114,7 +114,7 @@
                   (read-only-mode)
                   (diff-mode)))
 
-;; TOGGLE
+;;;; TOGGLE
 
 (defun mh--zen ()
   "Enables `zen-mode' with all its bells and whistles :)"

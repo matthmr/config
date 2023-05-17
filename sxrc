@@ -2,6 +2,21 @@
 #   $1: wm
 #   $2: session type
 
+export WM="$1"
+
+case $WM in
+  'emacs-xwm'|'emacs-xsession')
+    # we don't want it set for everything because `xsession' is supposed to
+    # take care of that for 'proper' window managers
+    export XSESSION="$2"
+    if [[ $XSESSION == "1" && ! -f /tmp/xsession.lock ]]; then
+      touch /tmp/xsession.lock
+
+      export XINITSLEEP=/home/mh/Scripts/system/linux.sh
+      # export XINITSLEEPARGS=-x
+    fi;;
+esac
+
 ### WINDOW MANAGER ###
 /home/mh/.local/bin/xdaemon  "$1" "$2" &
 /home/mh/.local/bin/xsession "$1" "$2" &

@@ -1,12 +1,14 @@
-;; Preamble
+;;;; Preamble
+
 (load "/home/p/config/emacs-basic")
 
-; color theme
+;;; color themes
 (add-to-list 'custom-theme-load-path
              "/home/mh/Emacs/themes")
 (add-to-list 'custom-theme-load-path
              "/home/mh/Emacs/themes/base16-themes")
 
+;;; load-paths
 (add-to-list 'load-path
              "/home/mh/Emacs/lisp")
 (add-to-list 'load-path
@@ -14,32 +16,30 @@
 (add-to-list 'load-path
              "/home/mh/Git/EMACS/exwm")
 
+;;; load some programs
 (require 'eglot)
 (require 'zen-mode)
 (require 'caps)
 (require 'rainbow-delimiters)
+(require 'edwina)
 
 (load "/home/p/config/emacs-modes/mh-viper")
 (load "/home/p/config/emacs-modes/mh-mpc")
 
-; (setq max-mini-window-height 1)
+;; (setq max-mini-window-height 1)
 (setq eglot-stay-out-of '("flymake"))
 
-; Markdown
+;;; Markdown
 (autoload 'markdown-mode "markdown-mode"
   "Major mode for editing Markdown files" t)
 (add-to-list 'auto-mode-alist
              '("\\.md\\'" . markdown-mode))
 
-(add-hook 'emacs-startup-hook (lambda ()
-                               (when (get-buffer "*scratch*")
-                                (kill-buffer "*scratch*"))))
-
 (autoload 'gfm-mode "markdown-mode"
   "Major mode for editing GitHub Flavored Markdown files" t)
 (add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
 
-;; TTY vs PTS
+;;; TTY vs PTS
 (if (string= (getenv "TTYSESSION") "yes")
       (progn
         (display-time-mode t)
@@ -52,21 +52,31 @@
         (load-theme 'base16-default-dark t)
         (xterm-mouse-mode t)))
 
-;; EXWM
-(let ((env/wm (getenv "WM")))
+;;; EXWM/XSESSION (also emulates xsession's)
+(let ((env/wm (getenv "WM"))
+      (env/xsession (getenv "XSESSION")))
   (cond
-   ((string= env/wm "exwm")
+   ((string= env/wm "emacs-xwm")
     (require 'exwm)
     (require 'exwm-config)
     (exwm-config-default)
-    (display-time-mode t))
-   ((string= env/wm "xsession")
-    (display-time-mode t))))
+    (find-file (format "%s/%s/%s.org" "/home/p/ORG/journal"
+                       (format-time-string "%Y")
+                       (format-time-string "%m")))
+    (display-time-mode t)
+    (when (and (string= env/xsession "1")
+               (not (file-exists-p "/tmp/xsession.lock")))
+      (ansi-term "zsh" "xsession")))
+   ((string= env/wm "emacs-xsession")
+    (find-file (format "%s/%s/%s.org" "/home/p/ORG/journal"
+                       (format-time-string "%Y")
+                       (format-time-string "%m")))
+    (display-time-mode t)
+    (when (and (string= env/xsession "1")
+               (not (file-exists-p "/tmp/xsession.lock")))
+      (ansi-term "zsh" "xsession")))))
 
-;; INPUT
-;(set-input-method 'programmer-dvorak)
-
-;; Auto made
+;;; Auto made
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -102,6 +112,7 @@
  '(icomplete-mode t)
  '(icomplete-show-matches-on-no-input t)
  '(inhibit-startup-screen t)
+ '(initial-scratch-message nil)
  '(ispell-alternate-dictionary "/home/mh/Emacs/english-dict.txt")
  '(kept-new-versions 1)
  '(kept-old-versions 1)

@@ -86,7 +86,7 @@
 ;; DEFINE-KEY: END
 
 ;; allow SPC to operate on region
-;; from: /usr/share/emacs/28.2/lisp/emulation/viper-cmd.el.gz
+;; from: /usr/share/emacs/(emacs-version)/lisp/emulation/viper-cmd.el.gz
 (defun viper-prefix-arg-com (char value com)
   (let ((cont t)
 	cmd-info
