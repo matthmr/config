@@ -14,13 +14,13 @@ super + control + Return; x
 
 # action-mode
 # TODO: add an interactive [Y/n] for the `rc-' ACPI family
-super + control + a; shift + p
+super + control + a; shift + h
   rcshutdown -x
 super + control + a; shift + r
   rcreboot -x
 super + control + a; shift + s
   rcsuspend -x
-super + control + a; shift + h
+super + control + a; shift + d
   rchibernate -x
 super + control + a; l
   i3lock -i '/home/mh/Images/Wallpapers/vapor/apollo.png' -e -f -b -n -t -p default

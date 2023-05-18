@@ -40,41 +40,22 @@
 (add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
 
 ;;; TTY vs PTS
-(if (string= (getenv "TTYSESSION") "yes")
+
+(let ((env/wm (getenv "WM")))
+  (if (or (not env/wm) (string= env/wm "emacs-tty")
+                       (string= env/wm "tty"))
+      ;; display time, and use visual line
       (progn
         (display-time-mode t)
         (global-visual-line-mode t))
-      (progn
-        (set-display-table-slot standard-display-table 'truncation ?…)
-        (set-display-table-slot standard-display-table 'wrap ?↩)
-        (set-display-table-slot standard-display-table 'selective-display
-                                (string-to-vector "↷"))
-        (load-theme 'base16-default-dark t)
-        (xterm-mouse-mode t)))
-
-;;; EXWM/XSESSION (also emulates xsession's)
-(let ((env/wm (getenv "WM"))
-      (env/xsession (getenv "XSESSION")))
-  (cond
-   ((string= env/wm "emacs-xwm")
-    (require 'exwm)
-    (require 'exwm-config)
-    (exwm-config-default)
-    (find-file (format "%s/%s/%s.org" "/home/p/ORG/journal"
-                       (format-time-string "%Y")
-                       (format-time-string "%m")))
-    (display-time-mode t)
-    (when (and (string= env/xsession "1")
-               (not (file-exists-p "/tmp/xsession.lock")))
-      (ansi-term "zsh" "xsession")))
-   ((string= env/wm "emacs-xsession")
-    (find-file (format "%s/%s/%s.org" "/home/p/ORG/journal"
-                       (format-time-string "%Y")
-                       (format-time-string "%m")))
-    (display-time-mode t)
-    (when (and (string= env/xsession "1")
-               (not (file-exists-p "/tmp/xsession.lock")))
-      (ansi-term "zsh" "xsession")))))
+    ;; some character which TTYs can't display properly, xterm-mouse-mode, themes
+    (progn
+      (set-display-table-slot standard-display-table 'truncation ?…)
+      (set-display-table-slot standard-display-table 'wrap ?↩)
+      (set-display-table-slot standard-display-table 'selective-display
+                              (string-to-vector "↷"))
+      (load-theme 'base16-default-dark t)
+      (xterm-mouse-mode t))))
 
 ;;; Auto made
 (custom-set-variables

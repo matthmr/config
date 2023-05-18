@@ -124,6 +124,12 @@
   (display-fill-column-indicator-mode 'toggle)
   (display-line-numbers-mode 'toggle))
 
+;;; toggle local MPD
+(global-set-key (kbd "C-x t m")
+                (lambda ()
+                  (interactive)
+                  (setenv "MPD_HOST" "/tmp/mpd-socket")))
+
 ;;; toggle input method
 (global-set-key (kbd "C-x t i") 'toggle-input-method)
 
