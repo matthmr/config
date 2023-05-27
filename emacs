@@ -94,7 +94,7 @@
  '(icomplete-show-matches-on-no-input t)
  '(inhibit-startup-screen t)
  '(initial-scratch-message nil)
- '(ispell-alternate-dictionary "/home/mh/Emacs/english-dict.txt")
+ '(ispell-alternate-dictionary "/home/mh/Documents/Dict/english-words")
  '(kept-new-versions 1)
  '(kept-old-versions 1)
  '(menu-bar-mode nil)

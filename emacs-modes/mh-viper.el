@@ -82,6 +82,7 @@
 (define-key viper-vi-basic-map "\M-]"   'universal-argument)
 
 (define-key viper-minibuffer-map "\C-j" 'icomplete-fido-exit)
+(define-key viper-emacs-kbd-map "/"     'self-insert-command)
 
 ;; DEFINE-KEY: END
 

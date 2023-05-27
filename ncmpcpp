@@ -23,7 +23,7 @@
 #
 ##### connection settings #####
 #
-mpd_host = /run/mpd/socket
+mpd_host = /tmp/mpd-socket
 #
 #mpd_port = 6600
 #
