@@ -1,15 +1,17 @@
 ;; prefix function
 (defun call-prefix (prefix function)
-  (if (eq current-prefix-arg nil)
-      (setq current-prefix-arg prefix))
+  (when (eq current-prefix-arg nil)
+    (setq current-prefix-arg prefix))
   (call-interactively function))
 
 (global-set-key (kbd "M-]")     'universal-argument)
 
-(global-set-key (kbd "C-v")   (lambda () (interactive) (call-prefix 10 'scroll-up-command)))
+(global-set-key (kbd "C-v") (lambda () (interactive)
+                              (call-prefix 10 'scroll-up-command)))
+(global-set-key (kbd "M-v") (lambda () (interactive)
+                              (call-prefix 10 'scroll-down-command)))
 (global-set-key (kbd "C-M-x a") 'abort-recursive-edit)
 (global-set-key (kbd "C-M-x e") 'exit-recursive-edit)
-;; (global-set-key (kbd "C-M-v") (lambda () (interactive) (call-prefix 10 'scroll-down-command)))
 (global-set-key (kbd "M-o")     'overwrite-mode)
 (global-set-key (kbd "M-#")     'query-replace)
 (global-set-key (kbd "M-*")     'query-replace-regexp)
@@ -19,9 +21,10 @@
 (global-set-key (kbd "C-x }")   (lambda () (interactive) (call-prefix 5 'enlarge-window-horizontally)))
 (global-set-key (kbd "C-x <")   (lambda () (interactive) (call-prefix 15 'scroll-right)))
 (global-set-key (kbd "C-x >")   (lambda () (interactive) (call-prefix 15 'scroll-left)))
-(global-set-key (kbd "C-M-_")   'dabbrev-completion)
 (global-set-key (kbd "C-x M-l") 'count-words-region)
 (global-set-key (kbd "C-M-z")   'repeat-complex-command)
+(global-set-key (kbd "C-M-_")   'undo-redo)
+(global-set-key (kbd "M-_")     'dabbrev-completion)
 
 (global-unset-key (kbd "C-x C-t"))
 (global-set-key (kbd "C-x C-t") 'transpose-regions)

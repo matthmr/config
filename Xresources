@@ -30,7 +30,7 @@ URxvt*termName: xterm-256color
 URxvt*pointerBlank: true
 URxvt*pointerBlankDelay: 10
 !URxvt.perl-ext-common: default,matcher,resize-font
-URxvt.perl-ext-common: default,resize-font
+URxvt.perl-ext-common: default,resize-font,-confirm-paste
 URxvt.searchable-scrollback: Meta-Shift-S
 
 ! URxvt.Xft

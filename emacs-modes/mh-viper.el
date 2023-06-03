@@ -42,7 +42,6 @@
 ;; DEFINE-KEY: BEGIN
 
 (define-key viper-insert-basic-map "\C-d"  'delete-char)
-;(define-key viper-insert-basic-map "\C-w" 'viper-delete-backward-word)
 (define-key viper-insert-basic-map  "\C-t" 'transpose-chars)
 (define-key viper-insert-basic-map  "\C-u"
   (lambda () (interactive)
@@ -71,14 +70,19 @@
 (define-key viper-vi-basic-map "u"      'undo)
 (define-key viper-vi-basic-map "U"      'undo-redo)
 (define-key viper-vi-basic-map "\x20"   'set-mark-command)
-(define-key viper-vi-basic-map "v"      'set-mark-command)
-(define-key viper-vi-basic-map "V"      (lambda () (interactive)
-                                          (end-of-line)
-                                          (set-mark-command nil)
-                                          (move-beginning-of-line nil)))
 (define-key viper-vi-basic-map "g"      'beginning-of-buffer)
-;; (define-key viper-vi-basic-map "\C-v"    'rectangle-mark-mode)
-
+(define-key viper-vi-basic-map "\C-v"    (lambda () (interactive)
+                                           (when (eq current-prefix-arg nil)
+                                             (setq current-prefix-arg 10))
+                                           (call-interactively 'scroll-up-command)))
+(define-key viper-insert-basic-map "\C-v" (lambda () (interactive)
+                                           (when (eq current-prefix-arg nil)
+                                             (setq current-prefix-arg 10))
+                                           (call-interactively 'scroll-up-command)))
+(define-key viper-vi-basic-map "\M-v"   (lambda () (interactive)
+                                           (when (eq current-prefix-arg nil)
+                                             (setq current-prefix-arg 10))
+                                           (call-interactively 'scroll-down-command)))
 (define-key viper-vi-basic-map "\M-]"   'universal-argument)
 
 (define-key viper-minibuffer-map "\C-j" 'icomplete-fido-exit)

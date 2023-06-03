@@ -92,6 +92,26 @@
     map)
   "Keymap used by `icomplete-mode' in the minibuffer'.")
 
+; Hideshow
+(defvar hs-minor-mode-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "C-c C-s C-h") 'hs-hide-block)
+    (define-key map (kbd "C-c C-s C-s") 'hs-show-block)
+    (define-key map (kbd "C-c C-s M-h") 'hs-hide-all)
+    (define-key map (kbd "C-c C-s M-s") 'hs-show-all)
+    (define-key map (kbd "C-c C-s C-l") 'hs-hide-level)
+    (define-key map (kbd "C-c C-s C-c") 'hs-toggle-hiding)
+    map))
+
+; Indent
+(setq indent-rigidly-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "h") 'indent-rigidly-left)
+    (define-key map (kbd "l") 'indent-rigidly-right)
+    (define-key map (kbd "H") 'indent-rigidly-left-to-tab-stop)
+    (define-key map (kbd "L") 'indent-rigidly-right-to-tab-stop)
+    map))
+
 ;; (icomplete-mode t)
 (icomplete-vertical-mode t)
 (electric-pair-mode t)
@@ -117,28 +137,27 @@
 (add-hook 'c-mode-hook      (lambda () (interactive)
                               (setq comment-start "//")
                               (setq comment-end "")
-                              (setq page-delimiter "^/\\{4\\}")
-                              (outline-minor-mode t)
+                              (setq-local page-delimiter "^/\\{4\\}")
+                              (hs-minor-mode t)
                               (abbrev-mode -1)))
 (add-hook 'python-mode-hook  (lambda () (interactive)
-                               (setq page-delimiter "^#\\{4\\}")
-                               (outline-minor-mode t)))
+                               (setq-local page-delimiter "^#\\{4\\}")
+                               (hs-minor-mode t)))
 (add-hook 'sh-mode-hook      (lambda () (interactive)
-                               (setq page-delimiter "^#\\{4\\}")))
+                               (setq-local page-delimiter "^#\\{4\\}")))
 
 (add-hook 'lisp-mode-hook    (lambda () (interactive)
-                               (setq page-delimiter "^;\\{4\\}")
-                               (outline-minor-mode t)
+                               (setq-local page-delimiter "^;\\{4\\}")
+                               (hs-minor-mode t)
                                (rainbow-delimiters-mode t)))
 (add-hook 'scheme-mode-hook  (lambda () (interactive)
-                               (setq page-delimiter "^;\\{4\\}")
-                               (outline-minor-mode t)
+                               (setq-local page-delimiter "^;\\{4\\}")
+                               (hs-minor-mode t)
                                (rainbow-delimiters-mode t)))
-
 (add-hook 'emacs-lisp-mode-hook  (lambda () (interactive)
-                                            (setq page-delimiter "^;\\{4\\}")
-                                            (outline-minor-mode t)
-                                            (rainbow-delimiters-mode t)))
+                                   (setq-local page-delimiter "^;\\{4\\}")
+                                   (hs-minor-mode t)
+                                   (rainbow-delimiters-mode t)))
 
 
 (add-hook 'kill-emacs-hook
