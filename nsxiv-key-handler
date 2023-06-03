@@ -1,0 +1,6 @@
+#!/usr/bin/sh
+
+case $1 in
+  'w') read file && ~p/scripts/x/wpset $file ;;
+  't') read file && ~p/scripts/x/wpset -t $file ;;
+esac
