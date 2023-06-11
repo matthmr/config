@@ -54,6 +54,7 @@
   rt = reset
   rv = revert
   tg = tag
+  bl = blame
   ap = add -p
   rp = restore -p
   ss = stash
