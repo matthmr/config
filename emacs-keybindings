@@ -21,7 +21,7 @@
 (global-set-key (kbd "C-x }")   (lambda () (interactive) (call-prefix 5 'enlarge-window-horizontally)))
 (global-set-key (kbd "C-x <")   (lambda () (interactive) (call-prefix 15 'scroll-right)))
 (global-set-key (kbd "C-x >")   (lambda () (interactive) (call-prefix 15 'scroll-left)))
-(global-set-key (kbd "C-x M-l") 'count-words-region)
+;; (global-set-key (kbd "C-x M-l") 'count-words-region)
 (global-set-key (kbd "C-M-z")   'repeat-complex-command)
 (global-set-key (kbd "C-M-_")   'undo-redo)
 (global-set-key (kbd "M-_")     'dabbrev-completion)
@@ -36,9 +36,10 @@
 (global-unset-key (kbd "C-x m")) ;; this is fucking retarded
 
 ;; emacs' bullshit
-(global-set-key (kbd "C-x x C-w") 'delete-region)
-(global-set-key (kbd "C-x x C-k") 'kill-whole-line)
-(global-set-key (kbd "C-x x C-i") 'imenu)
+(global-set-key (kbd "C-x C-M-w") 'delete-region)
+(global-set-key (kbd "C-x C-M-k") 'kill-whole-line)
+(global-set-key (kbd "C-x C-M-i") 'imenu)
+(global-set-key (kbd "C-x C-M-u") 'raise-sexp)
 
 (global-set-key (kbd "C-M-p")
                 (lambda () (interactive)
@@ -156,3 +157,7 @@
                 (lambda () (interactive)
                   (global-set-key (kbd "<C-[>") 'viper-intercept-ESC-key)
                   (define-key input-decode-map [?\C-\[] (kbd "<C-[>"))))
+
+;;;; Minor modes maps
+
+(define-key minibuffer-local-map "\C-h" 'delete-backward-char)

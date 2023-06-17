@@ -48,7 +48,7 @@
     (if (eq current-prefix-arg nil)
         (setq current-prefix-arg 0))
     (call-interactively 'kill-line)))
-;;(define-key viper-insert-basic-map "\C-\\"  'toggle-input-method)
+(define-key viper-insert-basic-map "\C-\\"  'toggle-input-method)
 
 (define-key viper-vi-basic-map  "\C-o"
   (lambda () (interactive)
@@ -65,7 +65,7 @@
       (goto-char (marker-position (car (last mark-ring)))))))
 (define-key viper-vi-basic-map "\C-b"   'backward-char)
 (define-key viper-vi-basic-map "\C-f"   'forward-char)
-;;(define-key viper-vi-basic-map "\C-\\"  'toggle-input-method)
+(define-key viper-vi-basic-map "\C-\\"  'toggle-input-method)
 (define-key viper-vi-basic-map "-"      'viper-goto-eol)
 (define-key viper-vi-basic-map "u"      'undo)
 (define-key viper-vi-basic-map "U"      'undo-redo)
@@ -191,3 +191,42 @@
 	    (error
 	     (error "%s" (error-message-string err))))))
     ))
+
+
+;; allow C-h to be DEL, unless on normal mode
+;; from: /usr/share/emacs/(emacs-version)/lisp/emulation/viper-cmd.el.gz
+(defun viper-adjust-keys-for (state)
+  "Make necessary adjustments to keymaps before entering STATE."
+  (cond ((memq state '(insert-state replace-state))
+	 (if viper-auto-indent
+	     (progn
+	       (define-key viper-insert-basic-map "\C-m" #'viper-autoindent)
+	       (if viper-want-emacs-keys-in-insert
+		   ;; expert
+		   (define-key viper-insert-basic-map "\C-j" nil)
+		 ;; novice
+		 (define-key viper-insert-basic-map "\C-j" #'viper-autoindent)))
+	   (define-key viper-insert-basic-map "\C-m" nil)
+	   (define-key viper-insert-basic-map "\C-j" nil))
+
+	 (setq viper-insert-diehard-minor-mode
+	       (not viper-want-emacs-keys-in-insert))
+
+	 (define-key viper-insert-basic-map
+	   "\C-h" #'viper-del-backward-char-in-insert)
+	 (define-key viper-replace-map
+	   "\C-h" #'viper-del-backward-char-in-replace)
+	 (define-key viper-minibuffer-map
+	   "\C-h" #'viper-del-backward-char-in-insert)
+	 ;; In XEmacs, C-h overrides backspace, so we make sure it doesn't.
+	 (define-key viper-insert-basic-map
+	   [backspace] #'viper-del-backward-char-in-insert)
+	 (define-key viper-replace-map
+	   [backspace] #'viper-del-backward-char-in-replace)
+	 ) ; end insert/replace case
+	(t ; Vi state
+	 (setq viper-vi-diehard-minor-mode (not viper-want-emacs-keys-in-vi))
+	 (define-key viper-vi-basic-map "\C-h" #'help-command)
+	 ;; In XEmacs, C-h overrides backspace, so we make sure it doesn't.
+	 (define-key viper-vi-basic-map [backspace] #'viper-backward-char))
+	))

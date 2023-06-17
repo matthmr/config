@@ -45,7 +45,7 @@ super + control + l; l
 super + control + l; e
   urxvt -e tmux new -s emacs -A emacsc
 super + control + l; shift + e
-  emacs
+  emacs-x
 
 # misc
 # we start `wm' in a dbus session, we need everything that is started

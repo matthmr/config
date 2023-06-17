@@ -11,10 +11,6 @@
 ;;; load-paths
 (add-to-list 'load-path
              "/home/mh/Emacs/lisp")
-(add-to-list 'load-path
-             "/home/mh/Git/EMACS/xelb")
-(add-to-list 'load-path
-             "/home/mh/Git/EMACS/exwm")
 
 ;;; load some programs
 (require 'eglot)
@@ -105,6 +101,7 @@
      "  " mode-line-modes))
  '(org-agenda-files nil)
  '(outline-minor-mode-prefix "")
+ '(package-selected-packages '(with-editor compat))
  '(read-file-name-completion-ignore-case t)
  '(scheme-program-name "guile")
  '(scroll-bar-mode nil)
@@ -115,6 +112,7 @@
  '(tool-bar-mode nil)
  '(tooltip-mode nil)
  '(truncate-partial-width-windows nil)
+ '(tsc-dyn-get-from nil)
  '(vc-follow-symlinks t)
  '(vc-make-backup-files t)
  '(version-control t)
@@ -126,7 +124,7 @@
  '(viper-shift-width 2)
  '(viper-toggle-key "")
  '(viper-use-replace-region-delimiters nil)
- '(viper-want-ctl-h-help t))
+ '(viper-want-ctl-h-help nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

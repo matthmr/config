@@ -117,7 +117,7 @@
 (electric-pair-mode t)
 
 (global-display-fill-column-indicator-mode)
-;; (global-hl-line-mode)
+(global-hl-line-mode)
 
 ;;;; HOOKS
 
@@ -210,6 +210,8 @@
    ;; emacs-xwm: exwm
    ((string= env/wm "emacs-xwm")
     ;; set and configure `exwm'
+    (add-to-list 'load-path "/home/mh/Git/EMACS/xelb")
+    (add-to-list 'load-path "/home/mh/Git/EMACS/exwm")
     (require 'exwm)
     (require 'exwm-config)
     (exwm-config-default)
