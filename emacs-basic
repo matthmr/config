@@ -17,7 +17,6 @@
 (setq split-height-threshold 30) ; prefer spliting horizontally ; 90
 (setq vc-handled-backends '(Git))
 (setq-default temporary-file-directory "/tmp/emacs")
-(setq-default truncate-lines 0)
 (setq-default tab-width 2)
 (setq-default window-divider-default-places 'right-only)
 (setq-default kill-ring-max 30)
@@ -112,12 +111,10 @@
     (define-key map (kbd "L") 'indent-rigidly-right-to-tab-stop)
     map))
 
-;; (icomplete-mode t)
-(icomplete-vertical-mode t)
-(electric-pair-mode t)
+(icomplete-mode)
+(electric-pair-mode)
 
 (global-display-fill-column-indicator-mode)
-(global-hl-line-mode)
 
 ;;;; HOOKS
 
@@ -184,7 +181,6 @@
   (find-file (format "%s/%s/%s.org" "/home/p/ORG/journal"
                      (format-time-string "%Y")
                      (format-time-string "%m")))
-  (display-time-mode t)
 
   ;; suspend
   (global-set-key (kbd "C-x x M-s") (acpi-for "suspend"))
@@ -219,7 +215,8 @@
     (emacsos/init env/xsession))
 
    ;; emacs-xsession: standard Xemacs
-   ((string= env/wm "emacs-xsession")
-    (emacsos/init env/xsession))
-   ((string= env/wm "emacs-tty")
+   ((or (string= env/wm "emacs-xsession")
+        (string= env/wm "emacs-tty")
+        (string= env/wm "tmux-tty")
+        (string= env/wm "tty"))
     (emacsos/init env/xsession))))

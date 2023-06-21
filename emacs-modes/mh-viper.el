@@ -37,6 +37,8 @@
 (setq viper-insert-state-id "<I> ")
 (setq viper-vi-state-id "<N> ")
 
+(setq viper-ex-style-editing nil)
+(setq viper-ex-style-motion nil)
 (setq viper-vi-style-in-minibuffer nil)
 
 ;; DEFINE-KEY: BEGIN

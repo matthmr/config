@@ -40,6 +40,7 @@
 (global-set-key (kbd "C-x C-M-k") 'kill-whole-line)
 (global-set-key (kbd "C-x C-M-i") 'imenu)
 (global-set-key (kbd "C-x C-M-u") 'raise-sexp)
+(global-set-key (kbd "C-x C-M-f") 'find-file-at-point)
 
 (global-set-key (kbd "C-M-p")
                 (lambda () (interactive)
@@ -51,6 +52,18 @@
                   (next-line 1)
                   (transpose-lines 1)
                   (previous-line 1)))
+
+(global-set-key (kbd "C-M-y")
+                (lambda ()
+                  (interactive)
+                  (let ((column (- (point) (point-at-bol)))
+                        (line (let ((s (thing-at-point 'line t)))
+                                (if s (string-remove-suffix "\n" s) ""))))
+                    (move-end-of-line 1)
+                    (newline)
+                    (insert line)
+                    (move-beginning-of-line 1)
+                    (forward-char column))))
 
 ;; Daemon
 
@@ -136,13 +149,18 @@
                 (lambda () (interactive)
                   (setq-local show-trailing-whitespace (not show-trailing-whitespace))))
 
+;;; toggle truncation
+(global-set-key (kbd "C-x t v")
+                (lambda () (interactive)
+                  (setq-local truncate-lines (not truncate-lines))))
+
 ;;; toggle line numbers
 (global-set-key (kbd "C-x t l")
                 (lambda () (interactive)
                   (display-line-numbers-mode 'toggle)))
 
 ;;; toggle fill column
-(global-set-key (kbd "C-x t f")
+(global-set-key (kbd "C-x t c")
                 (lambda () (interactive)
                   (display-fill-column-indicator-mode 'toggle)))
 

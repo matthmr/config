@@ -9,8 +9,9 @@
              "/home/mh/Emacs/themes/base16-themes")
 
 ;;; load-paths
-(add-to-list 'load-path
-             "/home/mh/Emacs/lisp")
+
+(add-to-list 'load-path "/home/mh/Emacs/lisp")
+(add-to-list 'load-path "/home/mh/Git/EMACS/multiple-cursors.el")
 
 ;;; load some programs
 (require 'eglot)
@@ -18,12 +19,22 @@
 (require 'caps)
 (require 'rainbow-delimiters)
 (require 'edwina)
+(require 'multiple-cursors)
 
 (load "/home/p/config/emacs-modes/mh-viper")
 (load "/home/p/config/emacs-modes/mh-mpc")
 
 ;; (setq max-mini-window-height 1)
 (setq eglot-stay-out-of '("flymake"))
+
+;;; Multiple Cursors
+
+(global-set-key (kbd "C-x C-M-e") 'mc/edit-lines)
+(global-set-key (kbd "C-x C-M-n") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-x C-M-p") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-x C-M-a") 'mc/mark-all-like-this)
+(global-set-key (kbd "C-x M-n") 'mc/skip-to-next-like-this)
+(global-set-key (kbd "C-x M-p") 'mc/skip-to-previous-like-this)
 
 ;;; Markdown
 (autoload 'markdown-mode "markdown-mode"
@@ -37,21 +48,26 @@
 
 ;;; TTY vs PTS
 
+(setq truncate-lines t)
+
 (let ((env/wm (getenv "WM")))
   (if (or (not env/wm) (string= env/wm "emacs-tty")
+                       (string= env/wm "tmux-tty")
                        (string= env/wm "tty"))
       ;; display time, and use visual line
       (progn
-        (display-time-mode t)
-        (global-visual-line-mode t))
+        (setq viper-ex-style-editing nil
+              viper-ex-style-motion nil)
+        (setq truncate-lines nil))
     ;; some character which TTYs can't display properly, xterm-mouse-mode, themes
     (progn
       (set-display-table-slot standard-display-table 'truncation ?…)
       (set-display-table-slot standard-display-table 'wrap ?↩)
       (set-display-table-slot standard-display-table 'selective-display
                               (string-to-vector "↷"))
-      (load-theme 'base16-default-dark t)
-      (xterm-mouse-mode t))))
+      (xterm-mouse-mode t)
+      (global-hl-line-mode)
+      (load-theme 'base16-default-dark t))))
 
 ;;; Auto made
 (custom-set-variables
@@ -93,6 +109,7 @@
  '(ispell-alternate-dictionary "/home/mh/Documents/Dict/english-words")
  '(kept-new-versions 1)
  '(kept-old-versions 1)
+ '(mc/always-run-for-all t)
  '(menu-bar-mode nil)
  '(mode-line-compact nil)
  '(mode-line-format
@@ -123,7 +140,7 @@
  '(viper-insert-state-cursor-color "#ab4642")
  '(viper-shift-width 2)
  '(viper-toggle-key "")
- '(viper-use-replace-region-delimiters nil)
+ '(viper-use-replace-region-delimiters t)
  '(viper-want-ctl-h-help nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
