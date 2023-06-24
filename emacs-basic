@@ -177,10 +177,11 @@
     (setenv "XINITSLEEP" nil)))
 
 (defun emacsos/init (env/xsession)
-  ;; always open journal
-  (find-file (format "%s/%s/%s.org" "/home/p/ORG/journal"
-                     (format-time-string "%Y")
-                     (format-time-string "%m")))
+  (unless (or (string= env/wm "tmux-tty")
+              (string= env/wm "tty"))
+    (find-file (format "%s/%s/%s.org" "/home/p/ORG/journal"
+                       (format-time-string "%Y")
+                       (format-time-string "%m"))))
 
   ;; suspend
   (global-set-key (kbd "C-x x M-s") (acpi-for "suspend"))

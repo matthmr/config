@@ -48,8 +48,6 @@
 
 ;;; TTY vs PTS
 
-(setq truncate-lines t)
-
 (let ((env/wm (getenv "WM")))
   (if (or (not env/wm) (string= env/wm "emacs-tty")
                        (string= env/wm "tmux-tty")
@@ -65,6 +63,7 @@
       (set-display-table-slot standard-display-table 'wrap ?↩)
       (set-display-table-slot standard-display-table 'selective-display
                               (string-to-vector "↷"))
+      (setq-default truncate-lines t)
       (xterm-mouse-mode t)
       (global-hl-line-mode)
       (load-theme 'base16-default-dark t))))
@@ -117,7 +116,7 @@
      (vc-mode vc-mode)
      "  " mode-line-modes))
  '(org-agenda-files nil)
- '(outline-minor-mode-prefix "")
+ '(outline-minor-mode-prefix "")
  '(package-selected-packages '(with-editor compat))
  '(read-file-name-completion-ignore-case t)
  '(scheme-program-name "guile")
