@@ -115,13 +115,6 @@
                                   (zen-mode 'toggle)
                                   (mh/zen)))
 
-;;; Toggle Escape
-(global-set-key (kbd "C-x t e")
-                (lambda () (interactive)
-                  (global-set-key (kbd "<C-[>") 'viper-intercept-ESC-key)
-                  (define-key input-decode-map [?\C-\[] (kbd "<C-[>"))))
-
-
 ;;;; Scrolling
 
 (defun mh/scroll-up (arg)
