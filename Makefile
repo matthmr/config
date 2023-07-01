@@ -1,12 +1,9 @@
 EMACS?=emacs
 
-EMACS_SOURCES_ELC=emacs-modes/mh-viper.elc emacs-modes/mh-emacsos.elc \
-                  emacs-modes/mh-basic.elc emacs-modes/mh-cxm.elc \
-                  emacs-modes/mh-mpc.elc emacs-basic.elc emacs-keybindings.elc \
-                  emacs-macros.elc
+EMACS_SOURCES_ELC=emacs-modes/mh-emacsos.elc emacs-modes/mh-basic.elc \
+                  emacs-modes/mh-cxm.elc emacs-modes/mh-mpc.elc \
+                  emacs-basic.elc emacs-keybindings.elc emacs-macros.elc
 
-emacs-modes/mh-viper.elc: emacs-modes/mh-viper.el
-	$(EMACS) --batch --exec "(byte-compile-file \"$?\")"
 emacs-modes/mh-emacsos.elc: emacs-modes/mh-emacsos.el
 	$(EMACS) --batch --exec "(byte-compile-file \"$?\")"
 emacs-modes/mh-basic.elc: emacs-modes/mh-basic.el

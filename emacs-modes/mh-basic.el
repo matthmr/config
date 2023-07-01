@@ -141,21 +141,35 @@
 	   (goto-char (point-min)))))
 
 (global-set-key (kbd "C-v") 'mh/scroll-up)
-(global-set-key (kbd "C-M-v") 'mh/scroll-down)
-(global-set-key (kbd "M-v") (lambda () (interactive)
-                              (scroll-lock-mode 'toggle)))
+(global-set-key (kbd "M-v") 'mh/scroll-down)
+(global-set-key (kbd "C-M-v") (lambda () (interactive)
+                                (scroll-lock-mode 'toggle)))
 
 ;;;; Up-to-Char
 
-(defun mh/to-char (arg char)
+(defun mh/up-to-char (arg char)
   "Points to char given by interactive `char'. If called interactively with
-prefix, points up to, but not including `char'"
+prefix, points over `char'."
   (interactive "P\ncTo char: ")
   (if (eq arg '-)
       (search-backward (char-to-string char) nil nil 1)
     (progn
       (search-forward (char-to-string char) nil nil 1)
-      (when arg (backward-char)))))
+      (backward-char)
+      (when arg (forward-char)))))
 
-(global-set-key (kbd "M-z") 'mh/to-char)
+(global-set-key (kbd "M-z") 'mh/up-to-char)
 (global-set-key (kbd "M-Z") 'zap-up-to-char)
+
+;;;; Formating
+
+(defun mh/delete-space-after-point ()
+  (interactive)
+  (let ((point (point)))
+    (delete-region
+      point
+      (progn
+        (skip-chars-forward " \t")
+	      (constrain-to-field nil point t)))))
+
+(global-set-key (kbd "C-x C-M-\\") 'mh/delete-space-after-point)

@@ -43,6 +43,9 @@
   hi-lock-face-defaults '("underline")
   disabled-command-function nil)
 
+(setq search-whitespace-regexp ".*?"
+      lazy-count-prefix-format "(%s/%s) ")
+
 (setq-local default-directory "/tmp/emacs/")
 
 ;;; Autosave
@@ -184,6 +187,10 @@
     (define-key map "\M-y" 'isearch-yank-pop-only)
 
     (define-key map "\M-\t" 'isearch-complete)
+    (define-key map "\M-_"  'isearch-toggle-symbol)
+    (define-key map "\M-w"  'isearch-toggle-word)
+    (define-key map "\M-i"  'isearch-toggle-invisible)
+    (define-key map "\M-\ " 'isearch-toggle-lax-whitespace)
 
     ;; Pass frame events transparently so they won't exit the search.
     ;; In particular, if we have more than one display open, then a
