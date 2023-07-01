@@ -1,6 +1,6 @@
 ;;;; Emacs Keybindings
 
-(load "~p/config/emacs-modes/mh-cxm")
+(load "/home/p/config/emacs-modes/mh-cxm")
 
 ;; Prefix function
 (defun call-prefix (prefix function)
@@ -37,12 +37,16 @@
 
 (global-set-key (kbd "C-x o")     'delete-blank-lines)
 (global-set-key (kbd "C-x C-o")   'other-window) ; I don't use `delete-blank-lines'
-(global-set-key (kbd "C-x C-M-o") (lambda () (interactive) (call-prefix -1 'other-window)))
+(global-set-key (kbd "C-x C-M-o") (lambda () (interactive)
+                                    (call-prefix -1 'other-window)))
 
 (global-set-key (kbd "C-x x C-n") 'clone-indirect-buffer)
 
-(global-set-key (kbd "C-x C-] C-g") 'abort-recursive-edit)
-(global-set-key (kbd "C-x C-] C-e") 'exit-recursive-edit)
+(global-unset-key (kbd "C-x m"))
+
+;; (global-set-key (kbd "C-x C-] C-g") 'abort-recursive-edit)
+;; (global-set-key (kbd "C-x C-] C-e") 'exit-recursive-edit)
+(global-set-key (kbd "C-M-g")          'abort-recursive-edit)
 
 (global-set-key (kbd "C-h")     'delete-backward-char)
 (global-set-key (kbd "M-h")     'backward-kill-word)
@@ -50,9 +54,7 @@
 ; (global-set-key (kbd "M-DEL")   'backward-kill-sexp)
 (global-set-key (kbd "C-x C-h") 'help-command)
 (global-set-key (kbd "C-M-m")   'mark-defun)
-(global-set-key (kbd "M-M")     'mark-paragraph)
-
-(global-set-key (kbd "C-x m")   'cxm-mode)
+(global-set-key (kbd "C-M-l")   'mark-paragraph)
 
 ;;; `C-x ESC' Commands
 
@@ -65,6 +67,7 @@
 
 (global-set-key (kbd "C-x C-M-b C-M-n") 'switch-to-next-buffer)
 (global-set-key (kbd "C-x C-M-b C-M-p") 'switch-to-prev-buffer)
+(global-set-key (kbd "C-x C-M-b C-M-k") 'kill-current-buffer)
 (global-set-key (kbd "C-x C-M-d")   'delete-region)
 (global-set-key (kbd "C-x C-M-k")   'kill-whole-line)
 (global-set-key (kbd "C-x C-M-i")   'imenu)
@@ -74,7 +77,7 @@
 (global-set-key (kbd "C-x C-M-l")   'desktop-read)
 (global-set-key (kbd "C-x C-M-f")   'find-file-at-point)
 (global-set-key (kbd "C-x C-M-w")   'copy-thing-at-point)
-(global-set-key (kbd "C-x C-M-m")   'mh/commit)
+(global-set-key (kbd "C-x C-M-c")   'mh/commit)
 (global-set-key (kbd "C-x C-M-SPC") 'mark-thing-at-point)
 (global-set-key (kbd "C-x C-M-_")   'dabbrev-completion)
 (global-set-key (kbd "C-M-y")    ;; 'duplicate-line (depracted on Emacs 29)
@@ -124,6 +127,11 @@
 (global-set-key (kbd "C-x ' C-f")     'read-abbrev-file)
 (global-set-key (kbd "C-x ' C-w")     'write-abbrev-file)
 (global-set-key (kbd "C-x ' C-l")     'list-abbrevs)
+
+;;; Cmx
+
+(global-set-key (kbd "C-]")       'cxm-mode)
+(global-set-key (kbd "C-x C-M-m") 'cxm-mode)
 
 ;;;; Minor Modes Remaps
 

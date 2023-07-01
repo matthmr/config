@@ -1,5 +1,4 @@
 ;;;; mh-cmx.el --- Very small minor mode that makes `hjkl' work like VI keys
-;;                 and nothing else
 
 ;; Copyright (C) 2023 mH
 
@@ -28,20 +27,32 @@
 
 ;;; Commentary:
 ;;
-;;  Very small minor mode that makes `hjkl' work like VI keys and nothing else
+;;  Very small minor mode that makes `hjkl' work like VI keys
+
+;; Ignore any self-inserting keybindings that are not bound to cursor movements
+(defvar cxm-mode-map
+  (let ((map (make-sparse-keymap)))
+    (suppress-keymap map)
+    (define-key map "h" 'backward-char)
+    (define-key map "j" 'next-line)
+    (define-key map "k" 'previous-line)
+    (define-key map "l" 'forward-char)
+    (define-key map "J" 'mh/scroll-up)
+    (define-key map "K" 'mh/scroll-down)
+    (define-key map "L" 'recenter-top-bottom)
+    (define-key map "0" 'beginning-of-line)
+    (define-key map "$" 'end-of-line)
+    (define-key map "-" 'end-of-line)
+    (define-key map "{" 'forward-paragraph)
+    (define-key map "}" 'backward-paragraph)
+    (define-key map " " 'set-mark-command)
+    (define-key map "i" 'cxm-mode)
+    (define-key map "m" 'cxm-mode)
+    map))
 
 (define-minor-mode cxm-mode
   "This mode will make `hjkl' act like VI keys. Useful for one-handed
 scrolling"
   :lighter " cxm"
-  :keymap '(("h" . backward-char)
-            ("j" . next-line)
-            ("k" . previous-line)
-            ("l" . forward-char)
-            ("0" . beginning-of-line)
-            ("$" . end-of-line)
-            ("{" . forward-paragraph)
-            ("}" . backward-paragraph)
-            ("-" . end-of-line)
-            (" " . set-mark-command)
-            ("m" . cxm-mode)))
+  :global t
+  :keymap cxm-mode-map)
