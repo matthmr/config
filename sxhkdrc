@@ -1,10 +1,10 @@
 # term-mode
 super + control + Return; shift + u
-  urxvt -e tmux new -A
+  urxvt -e tmux new-session -A
 super + control + Return; shift + s
-  st -e tmux new -A
+  st -e tmux new-session -A
 super + control + Return; shift + x
-  xterm -e tmux new -A
+  xterm -e tmux new-session -A
 super + control + Return; u
   urxvt -e zsh
 super + control + Return; s
@@ -43,7 +43,7 @@ super + control + l; j
 super + control + l; l
   urxvt -e lf -single
 super + control + l; e
-  urxvt -e tmux new -s emacs -A emacsc
+  emacstc
 super + control + l; shift + e
   emacs-x
 

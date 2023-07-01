@@ -60,3 +60,5 @@
   ss = stash
   mm = merge --no-ff --no-commit
   mp = pull  --no-ff --no-commit
+  sr = show-ref
+  sw = switch

@@ -1,4 +1,8 @@
-;; prefix function
+;;;; Emacs Keybindings
+
+(load "~p/config/emacs-modes/mh-cxm")
+
+;; Prefix function
 (defun call-prefix (prefix function)
   (when (eq current-prefix-arg nil)
     (setq current-prefix-arg prefix))
@@ -6,25 +10,27 @@
 
 (global-set-key (kbd "M-]")     'universal-argument)
 
-(global-set-key (kbd "C-v") (lambda () (interactive)
-                              (call-prefix 10 'scroll-up-command)))
-(global-set-key (kbd "M-v") (lambda () (interactive)
-                              (call-prefix 10 'scroll-down-command)))
-(global-set-key (kbd "C-M-x a") 'abort-recursive-edit)
-(global-set-key (kbd "C-M-x e") 'exit-recursive-edit)
+(global-set-key (kbd "M-K") (lambda () (interactive)
+                              (call-prefix -1 'kill-line)))
+
+(global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "M-o")     'overwrite-mode)
 (global-set-key (kbd "M-#")     'query-replace)
 (global-set-key (kbd "M-*")     'query-replace-regexp)
 (global-set-key (kbd "C-x ;")   'comment-line)
-(global-set-key (kbd "C-x ^")   (lambda () (interactive) (call-prefix 5 'enlarge-window)))
-(global-set-key (kbd "C-x {")   (lambda () (interactive) (call-prefix 5 'shrink-window-horizontally)))
-(global-set-key (kbd "C-x }")   (lambda () (interactive) (call-prefix 5 'enlarge-window-horizontally)))
-(global-set-key (kbd "C-x <")   (lambda () (interactive) (call-prefix 15 'scroll-right)))
-(global-set-key (kbd "C-x >")   (lambda () (interactive) (call-prefix 15 'scroll-left)))
-;; (global-set-key (kbd "C-x M-l") 'count-words-region)
+(global-set-key (kbd "C-x ^")   (lambda () (interactive)
+                                  (call-prefix 5 'enlarge-window)))
+(global-set-key (kbd "C-x {")   (lambda () (interactive)
+                                  (call-prefix 5 'shrink-window-horizontally)))
+(global-set-key (kbd "C-x }")   (lambda () (interactive)
+                                  (call-prefix 5 'enlarge-window-horizontally)))
+(global-set-key (kbd "C-x <")   (lambda () (interactive)
+                                  (call-prefix 15 'scroll-right)))
+(global-set-key (kbd "C-x >")   (lambda () (interactive)
+                                  (call-prefix 15 'scroll-left)))
 (global-set-key (kbd "C-M-z")   'repeat-complex-command)
 (global-set-key (kbd "C-M-_")   'undo-redo)
-(global-set-key (kbd "M-_")     'dabbrev-completion)
+(global-set-key (kbd "C-x C-_") 'dabbrev-expand)
 
 (global-unset-key (kbd "C-x C-t"))
 (global-set-key (kbd "C-x C-t") 'transpose-regions)
@@ -33,27 +39,45 @@
 (global-set-key (kbd "C-x C-o")   'other-window) ; I don't use `delete-blank-lines'
 (global-set-key (kbd "C-x C-M-o") (lambda () (interactive) (call-prefix -1 'other-window)))
 
-(global-unset-key (kbd "C-x m")) ;; this is fucking retarded
+(global-set-key (kbd "C-x x C-n") 'clone-indirect-buffer)
 
-;; emacs' bullshit
-(global-set-key (kbd "C-x C-M-w") 'delete-region)
-(global-set-key (kbd "C-x C-M-k") 'kill-whole-line)
-(global-set-key (kbd "C-x C-M-i") 'imenu)
-(global-set-key (kbd "C-x C-M-u") 'raise-sexp)
-(global-set-key (kbd "C-x C-M-f") 'find-file-at-point)
+(global-set-key (kbd "C-x C-] C-g") 'abort-recursive-edit)
+(global-set-key (kbd "C-x C-] C-e") 'exit-recursive-edit)
 
-(global-set-key (kbd "C-M-p")
-                (lambda () (interactive)
-                 (transpose-lines 1)
-                 (previous-line 2)))
+(global-set-key (kbd "C-h")     'delete-backward-char)
+(global-set-key (kbd "M-h")     'backward-kill-word)
+(global-set-key (kbd "C-M-h")   'backward-kill-sexp)
+; (global-set-key (kbd "M-DEL")   'backward-kill-sexp)
+(global-set-key (kbd "C-x C-h") 'help-command)
+(global-set-key (kbd "C-M-m")   'mark-defun)
+(global-set-key (kbd "M-M")     'mark-paragraph)
 
-(global-set-key (kbd "C-M-n")
-                (lambda () (interactive)
-                  (next-line 1)
-                  (transpose-lines 1)
-                  (previous-line 1)))
+(global-set-key (kbd "C-x m")   'cxm-mode)
 
-(global-set-key (kbd "C-M-y")
+;;; `C-x ESC' Commands
+
+(defun imenu-at-point ()
+  "Uses `imenu' to find symbol at point"
+  (interactive)
+  (let ((symbol (symbol-at-point)))
+    (when symbol
+      (imenu (symbol-name symbol)))))
+
+(global-set-key (kbd "C-x C-M-b C-M-n") 'switch-to-next-buffer)
+(global-set-key (kbd "C-x C-M-b C-M-p") 'switch-to-prev-buffer)
+(global-set-key (kbd "C-x C-M-d")   'delete-region)
+(global-set-key (kbd "C-x C-M-k")   'kill-whole-line)
+(global-set-key (kbd "C-x C-M-i")   'imenu)
+(global-set-key (kbd "C-x C-M-j")   'imenu-at-point)
+(global-set-key (kbd "C-x C-M-s")   'ispell-complete-word)
+(global-set-key (kbd "C-x C-M-u")   'raise-sexp)
+(global-set-key (kbd "C-x C-M-l")   'desktop-read)
+(global-set-key (kbd "C-x C-M-f")   'find-file-at-point)
+(global-set-key (kbd "C-x C-M-w")   'copy-thing-at-point)
+(global-set-key (kbd "C-x C-M-m")   'mh/commit)
+(global-set-key (kbd "C-x C-M-SPC") 'mark-thing-at-point)
+(global-set-key (kbd "C-x C-M-_")   'dabbrev-completion)
+(global-set-key (kbd "C-M-y")    ;; 'duplicate-line (depracted on Emacs 29)
                 (lambda ()
                   (interactive)
                   (let ((column (- (point) (point-at-bol)))
@@ -65,9 +89,9 @@
                     (move-beginning-of-line 1)
                     (forward-char column))))
 
-;; Daemon
+;;; Daemon
 
-(defun mh--confirm-suspend ()
+(defun mh/confirm-suspend ()
   "Prompt for confirming suspension"
   (interactive)
   (if (y-or-n-p (format "Really suspend frame? "))
@@ -75,7 +99,7 @@
     (message "Canceled frame suspension")))
 
 (global-set-key (kbd "C-z")     'repeat)
-(global-set-key (kbd "C-x C-z") 'mh--confirm-suspend)
+(global-set-key (kbd "C-x C-z") 'mh/confirm-suspend)
 
 (when (daemonp)
   (global-set-key (kbd "C-x C-c")
@@ -88,94 +112,19 @@
                     (if (y-or-n-p (format "Kill Emacs daemon? "))
                         (kill-emacs)
                       (message "Canceled daemon kill")))))
+;;; Abbrev
 
-;; clipboard (aka `edit-copy')
-(global-set-key (kbd "C-x c w") (lambda () (interactive)
-                                  (write-file "/tmp/clipboard")
-                                  (shell-command "/home/mh/Scripts/edit-copy.sh -i")))
-(global-set-key (kbd "C-x c e") (lambda () (interactive)
-                                  (find-file "/tmp/clipboard")
-                                  (shell-command "/home/mh/Scripts/edit-copy.sh -d")
-                                  (revert-buffer-quick)))
-(global-set-key (kbd "C-x c r") (lambda () (interactive)
-                                  (find-file "/tmp/clipboard")
-                                  (revert-buffer-quick)))
-(global-set-key (kbd "C-x c y") (lambda () (interactive)
-                                  (shell-command "/home/mh/Scripts/edit-copy.sh -d")
-                                  (insert-file "/tmp/clipboard")))
+(global-unset-key (kbd "C-x '"))
 
-;;;; VC
+(global-set-key (kbd "M-'")         'expand-abbrev)
+(global-set-key (kbd "C-x ' '")   'add-mode-abbrev)
+(global-set-key (kbd "C-x ' C-\\")   'add-global-abbrev)
+(global-set-key (kbd "C-x ' M-'") 'inverse-add-mode-abbrev)
+(global-set-key (kbd "C-x ' C-M-\\") 'inverse-add-global-abbrev)
+(global-set-key (kbd "C-x ' C-f")     'read-abbrev-file)
+(global-set-key (kbd "C-x ' C-w")     'write-abbrev-file)
+(global-set-key (kbd "C-x ' C-l")     'list-abbrevs)
 
-(global-set-key (kbd "C-x v C-i")
-                (lambda () (interactive)
-                  (setq vc-buffer-file-name (buffer-file-name))
-                  (async-shell-command
-                   (format "git add --patch %s"
-                           (if vc-buffer-file-name
-                               vc-buffer-file-name
-                             ".")))
-                  (switch-to-buffer-other-window "*Async Shell Command*")
-                  (highlight-regexp "^+.*"  'diff-added)
-                  (highlight-regexp "^-.*+" 'diff-removed)
-                  (highlight-regexp "^@@.*" 'diff-hunk-header)))
-
-(global-set-key (kbd "C-x v C-d")
-                (lambda () (interactive)
-                  (setq vc-buffer-file-name (buffer-file-name))
-                  (shell-command
-                   (format "git diff %s"
-                           (if vc-buffer-file-name
-                               vc-buffer-file-name
-                             ".")))
-                  (switch-to-buffer-other-window "*Shell Command Output*")
-                  (read-only-mode)
-                  (diff-mode)))
-
-;;;; TOGGLE
-
-(defun mh--zen ()
-  "Enables `zen-mode' with all its bells and whistles :)"
-  (interactive)
-  (setq-local show-trailing-whitespace
-              (not show-trailing-whitespace))
-  (display-fill-column-indicator-mode 'toggle)
-  (display-line-numbers-mode 'toggle))
-
-;;; toggle input method
-(global-set-key (kbd "C-x t i") 'toggle-input-method)
-
-;;; toggle whitespace
-(global-set-key (kbd "C-x t w")
-                (lambda () (interactive)
-                  (setq-local show-trailing-whitespace (not show-trailing-whitespace))))
-
-;;; toggle truncation
-(global-set-key (kbd "C-x t v")
-                (lambda () (interactive)
-                  (setq-local truncate-lines (not truncate-lines))))
-
-;;; toggle line numbers
-(global-set-key (kbd "C-x t l")
-                (lambda () (interactive)
-                  (display-line-numbers-mode 'toggle)))
-
-;;; toggle fill column
-(global-set-key (kbd "C-x t c")
-                (lambda () (interactive)
-                  (display-fill-column-indicator-mode 'toggle)))
-
-;;; toggle all
-(global-set-key (kbd "C-x t s") 'mh--zen)
-(global-set-key (kbd "C-x t z") (lambda () (interactive)
-                                  (zen-mode 'toggle)
-                                  (mh--zen)))
-
-;;; toggle escape
-(global-set-key (kbd "C-x t e")
-                (lambda () (interactive)
-                  (global-set-key (kbd "<C-[>") 'viper-intercept-ESC-key)
-                  (define-key input-decode-map [?\C-\[] (kbd "<C-[>"))))
-
-;;;; Minor modes maps
+;;;; Minor Modes Remaps
 
 (define-key minibuffer-local-map "\C-h" 'delete-backward-char)

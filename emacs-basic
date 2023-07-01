@@ -1,75 +1,73 @@
-(load "/home/p/config/emacs-keybindings")
+;;;; Emacs Basic Config
+
 (load "/home/p/config/emacs-macros")
+(load "/home/p/config/emacs-keybindings")
 
 (shell-command "mkdir /tmp/emacs/ 1>/dev/null 2>/dev/null")
 
-;;;; PREAMBLE ^^ / SETQ vv
+(setq-default
+  create-lockfiles nil ; these are *trully* useless
+  inhibit-startup-message t
+  scroll-error-top-bottom t
+  scroll-preserve-screen-position t
+  scroll-margin 2
+  scroll-conservatively 100
+  next-screen-context-lines 2
+  column-number-indicator-zero-based nil
+  split-height-threshold 30 ; prefer spliting horizontally ; 90
+  vc-handled-backends '(Git)
+  temporary-file-directory "/tmp/emacs"
+  tab-width 2
+  window-divider-default-places 'right-only
+  kill-ring-max 100
+  message-log-max 100 ; as per `https://www.emacswiki.org/emacs/MessagesBuffers'
+  select-enable-clipboard nil ; as per `edoc://Clipboard.html'
+  select-active-regions nil ; as per `edoc://Primary-Selection.html'
+  frame-title-format '("emacs@linux - %b") ; as per `https://emacs.stackexchange.com/questions/16834/how-to-change-the-frame-title-from-emacshost-to-visited-file-name'
+  inhibit-x-resources t ; as per [C-h v inhibit-x-resources]
+  indent-tabs-mode nil
+  sentence-end-double-space nil ; Why the fuck would I do that?
+  local-enable-local-variables nil ; Why the fuck would I do that?
+  ring-bell-function 'ignore ; SHUT THE FUCK UP
+  tab-bar-show 1
+  echo-keystrokes 0.1
+  vc-find-revision-no-save t
+  auto-save-list-file-prefix nil ; STOP
+  completion-ignore-case t ; case-insensitive
+  read-buffer-completion-ignore-case t ; case-insensitive
+  goal-column nil
+  gc-cons-threshold 600000 ; 600 M
+  confirm-kill-emacs 'y-or-n-p
+  backup-inhibited nil
+  auto-save-default t
+  hi-lock-face-defaults '("underline")
+  disabled-command-function nil)
 
-; (in)sane defaults
-(setq create-lockfiles nil) ; these are *trully* useless
-(setq inhibit-startup-message t)
-(setq scroll-error-top-bottom t)
-(setq scroll-preserve-screen-position t)
-(setq scroll-margin 2)
-(setq scroll-conservatively 100)
-(setq next-screen-context-lines 2)
-(setq column-number-indicator-zero-based nil)
-(setq split-height-threshold 30) ; prefer spliting horizontally ; 90
-(setq vc-handled-backends '(Git))
-(setq-default temporary-file-directory "/tmp/emacs")
-(setq-default tab-width 2)
-(setq-default window-divider-default-places 'right-only)
-(setq-default kill-ring-max 30)
-(setq-default message-log-max 100) ; as per `https://www.emacswiki.org/emacs/MessagesBuffers'
-(setq-default select-enable-clipboard nil) ; as per `edoc://Clipboard.html'
-(setq-default select-active-regions nil) ; as per `edoc://Primary-Selection.html'
-(setq-default frame-title-format '("emacs@linux - %b")) ; as per `https://emacs.stackexchange.com/questions/16834/how-to-change-the-frame-title-from-emacshost-to-visited-file-name'
-(setq-default inhibit-x-resources t) ; as per [C-h v inhibit-x-resources]
-(setq-default indent-tabs-mode nil)
-(setq-default sentence-end-double-space nil) ; Why the fuck would I do that?
-(setq-default local-enable-local-variables nil) ; Why the fuck would I do that?
-(setq-default ring-bell-function 'ignore) ; SHUT THE FUCK UP
-(setq-default tab-bar-show 1)
-(setq-default echo-keystrokes 0.1)
-(setq-default vc-find-revision-no-save t)
-(setq-default auto-save-list-file-prefix nil) ; STOP
-(setq-default completion-ignore-case t) ; case-insensitive
-(setq-default read-buffer-completion-ignore-case t) ; case-insensitive
-(setq-default goal-column nil)
-(setq-default gc-cons-threshold 600000) ;; 600 M
-(setq-default confirm-kill-emacs 'y-or-n-p)
-(setq-default backup-inhibited nil)
-(setq-default auto-save-default t)
-(setq-default hi-lock-face-defaults '("underline"))
 (setq-local default-directory "/tmp/emacs/")
 
-;;;; NON-SETQ
+;;; Autosave
 
-;; Autosave
 (auto-save-mode)
+(fset 'yes-or-no-p 'y-or-n-p)
 
-; even more (in)sane defaults
-(fset 'yes-or-no-p 'y-or-n-p) ;; make every "yes or no" question a "y or n" question
+;;;; Major Modes
 
-; remap
+;;; C
 
-;; MODES
-
-; C
 (setq c-default-style "linux")
 (setq c-basic-offset 2)
 
-; Python
+;;; Python
+
 (setq python-basic-offset 2)
 (setq python-indent-offset 2)
 
-; Shell
+;;; Shell
+
 (setq sh-basic-offset 2)
 
-; EMACS DISABLED MODES (why?)
-(setq-default disabled-command-function nil)
+;;; WS
 
-; WS
 (setq-default whitespace-space-regexp "\\( +$\\)")
 (setq-default whitespace-style
               '(face empty trailing spaces tab-mark))
@@ -77,7 +75,10 @@
               (tab-mark ?\x09 [?¦ ?\ ])))
 (setq-default show-trailing-whitespace t)
 
-; Icomplete
+;;;; Minor Modes Remaps
+
+;;; Icomplete
+
 (defvar icomplete-minibuffer-map
   (let ((map (make-sparse-keymap)))
     ;(define-key map [remap minibuffer-complete-and-exit] 'icomplete-ret)
@@ -91,7 +92,8 @@
     map)
   "Keymap used by `icomplete-mode' in the minibuffer'.")
 
-; Hideshow
+;;; Hideshow
+
 (defvar hs-minor-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "C-c C-s C-h") 'hs-hide-block)
@@ -102,7 +104,8 @@
     (define-key map (kbd "C-c C-s C-c") 'hs-toggle-hiding)
     map))
 
-; Indent
+;;; Indent
+
 (setq indent-rigidly-map
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "h") 'indent-rigidly-left)
@@ -111,18 +114,132 @@
     (define-key map (kbd "L") 'indent-rigidly-right-to-tab-stop)
     map))
 
+;;; Isearch
+
+(setq isearch-mode-map
+  (let ((i 0)
+	(map (make-keymap)))
+    (or (char-table-p (nth 1 map))
+	(error "The initialization of isearch-mode-map must be updated"))
+    ;; Make all multibyte characters search for themselves.
+    (set-char-table-range (nth 1 map) (cons #x100 (max-char))
+			  'isearch-printing-char)
+
+    ;; Single-byte printing chars extend the search string by default.
+    (setq i ?\s)
+    (while (< i 256)
+      (define-key map (vector i) 'isearch-printing-char)
+      (setq i (1+ i)))
+
+    ;; To handle local bindings with meta char prefix keys, define
+    ;; another full keymap.  This must be done for any other prefix
+    ;; keys as well, one full keymap per char of the prefix key.  It
+    ;; would be simpler to disable the global keymap, and/or have a
+    ;; default local key binding for any key not otherwise bound.
+    (let ((meta-map (make-sparse-keymap)))
+      (define-key map (char-to-string meta-prefix-char) meta-map))
+
+    ;; Several non-printing chars change the searching behavior.
+    (define-key map "\C-s" 'isearch-repeat-forward)
+    (define-key map "\C-r" 'isearch-repeat-backward)
+    ;; Define M-C-s and M-C-r like C-s and C-r so that the same key
+    ;; combinations can be used to repeat regexp isearches that can
+    ;; be used to start these searches.
+    (define-key map "\M-\C-s" 'isearch-repeat-forward)
+    (define-key map "\M-\C-r" 'isearch-repeat-backward)
+    (define-key map "\177" 'isearch-delete-char)
+    (define-key map [backspace] 'undefined) ;bug#20466.
+    (define-key map "\C-g" 'isearch-abort)
+
+    ;; This assumes \e is the meta-prefix-char.
+    (or (= ?\e meta-prefix-char)
+	(error "Inconsistency in isearch.el"))
+    (define-key map "\e\e\e" 'isearch-cancel)
+
+    (define-key map "\C-q" 'isearch-quote-char)
+
+    (define-key map "\r" 'isearch-exit)
+    (define-key map [return] 'isearch-exit)
+    (define-key map "\C-j" 'isearch-printing-char)
+    (define-key map "\t" 'isearch-printing-char)
+    (define-key map [?\S-\ ] 'isearch-printing-char)
+
+    (define-key map    "\C-w" 'isearch-yank-word-or-char)
+    (define-key map "\M-\C-w" 'isearch-yank-symbol-or-char)
+    (define-key map "\M-\C-d" 'isearch-del-char)
+    (define-key map "\M-\C-y" 'isearch-yank-char)
+    (define-key map    "\C-y" 'isearch-yank-kill)
+    (define-key map    "\M-z" 'isearch-yank-until-char)
+    (define-key map    "\C-e" 'isearch-yank-line)
+
+    (define-key map    "\M-<" 'isearch-beginning-of-buffer)
+    (define-key map    "\M->" 'isearch-end-of-buffer)
+
+    (define-key map (char-to-string help-char) isearch-help-map)
+    (define-key map [help] isearch-help-map)
+    (define-key map [f1] isearch-help-map)
+
+    (define-key map "\M-n" 'isearch-ring-advance)
+    (define-key map "\M-p" 'isearch-ring-retreat)
+    (define-key map "\M-y" 'isearch-yank-pop-only)
+
+    (define-key map "\M-\t" 'isearch-complete)
+
+    ;; Pass frame events transparently so they won't exit the search.
+    ;; In particular, if we have more than one display open, then a
+    ;; switch-frame might be generated by someone typing at another keyboard.
+    (define-key map [switch-frame] nil)
+    (define-key map [delete-frame] nil)
+    (define-key map [iconify-frame] nil)
+    (define-key map [make-frame-visible] nil)
+    (define-key map [mouse-movement] nil)
+    (define-key map [language-change] nil)
+
+    ;; For searching multilingual text.
+    (define-key map "\C-\\" 'isearch-toggle-input-method)
+    (define-key map "\C-^" 'isearch-toggle-specified-input-method)
+    (define-key map "\C-x\\" 'isearch-transient-input-method)
+
+    ;; People expect to be able to paste with the mouse.
+    (define-key map [mouse-2] #'isearch-mouse-2)
+    (define-key map [down-mouse-2] nil)
+    (define-key map [xterm-paste] #'isearch-xterm-paste)
+
+    ;; Some bindings you may want to put in your isearch-mode-hook.
+    ;; Suggest some alternates...
+    (define-key map "\M-c" 'isearch-toggle-case-fold)
+    (define-key map "\M-r" 'isearch-toggle-regexp)
+    (define-key map "\M-e" 'isearch-edit-string)
+
+    (put 'isearch-toggle-case-fold :advertised-binding "\M-sc")
+    (put 'isearch-toggle-regexp    :advertised-binding "\M-sr")
+    (put 'isearch-edit-string      :advertised-binding "\M-se")
+
+    (define-key map "\M-se" 'isearch-edit-string)
+    ;; More toggles defined by `isearch-define-mode-toggle'.
+
+    (define-key map "\M-#"  'isearch-query-replace)
+    (define-key map "\M-*"  'isearch-query-replace-regexp)
+    (define-key map "\M-o"  'isearch-occur)
+    (define-key map "\M-hr" 'isearch-highlight-regexp)
+    (define-key map "\M-hl" 'isearch-highlight-lines-matching-regexp)
+
+    ;; The key translations defined in the C-x 8 prefix should add
+    ;; characters to the search string.  See iso-transl.el.
+    (define-key map "\C-x8\r" 'isearch-char-by-name)
+    map))
+
 (icomplete-mode)
 (electric-pair-mode)
-
 (global-display-fill-column-indicator-mode)
 
 ;;;; HOOKS
 
-(defun mh--desktop-save (desktop-dirname)
+(defun mh/desktop-save (desktop-dirname)
   (shell-command (format "mv -v %s/desktop %s/desktop-$(/home/mh/Scripts/date/short.sh)"
                    desktop-dirname desktop-dirname)))
 
-(defun mh--desktop-read (desktop-dirname)
+(defun mh/desktop-read (desktop-dirname)
   (shell-command (format "ls -l %s" desktop-dirname))
   (setq desktop-base-file-name (read-from-minibuffer "Desktop filename: "))
 
@@ -156,68 +273,14 @@
                                    (hs-minor-mode t)
                                    (rainbow-delimiters-mode t)))
 
+(add-hook 'html-mode-hook 'nxml-mode)   ; Emacs' default HTML is meh, nXML is
+                                        ; better
 
 (add-hook 'kill-emacs-hook
-  (lambda () (interactive) (mh--desktop-save
+  (lambda () (interactive) (mh/desktop-save
                               "/home/mh/Emacs/desktop")))
 (add-hook 'desktop-no-desktop-file-hook
-  (lambda () (interactive) (mh--desktop-read
+  (lambda () (interactive) (mh/desktop-read
                              "/home/mh/Emacs/desktop")))
 
 (defalias 'wm-mode 'edwina-mode)
-
-;;;; EXWM/XSESSION (also emulates xsession's)
-
-;; functor returning closures for shutdown/reboot
-(defmacro acpi-for (acpi)
-  `(lambda ()
-    (interactive)
-    (setenv "XINITSLEEP" (format "/home/mh/Scripts/bin/rc%s" ,acpi))
-    (ansi-term "zsh" (format "%s-shell" ,acpi))
-    (setenv "XINITSLEEP" nil)))
-
-(defun emacsos/init (env/xsession)
-  (unless (or (string= env/wm "tmux-tty")
-              (string= env/wm "tty"))
-    (find-file (format "%s/%s/%s.org" "/home/p/ORG/journal"
-                       (format-time-string "%Y")
-                       (format-time-string "%m"))))
-
-  ;; suspend
-  (global-set-key (kbd "C-x x M-s") (acpi-for "suspend"))
-
-  ;; hibernate
-  (global-set-key (kbd "C-x x M-d") (acpi-for "hibernate"))
-
-  ;; halt (shutdown)
-  (global-set-key (kbd "C-x x M-h") (acpi-for "shutdown"))
-
-  ;; reboot
-  (global-set-key (kbd "C-x x M-r") (acpi-for "reboot"))
-
-  ;; start xsession of XESSION is set to 1
-  (when (and (string= env/xsession "1")
-             (not (file-exists-p "/tmp/xsession.lock")))
-    (ansi-term "zsh" "xsession")
-    (setenv "XINITSLEEP" nil)))
-
-(let ((env/wm (getenv "WM"))
-      (env/xsession (getenv "XSESSION")))
-  (cond
-   ;; emacs-xwm: exwm
-   ((string= env/wm "emacs-xwm")
-    ;; set and configure `exwm'
-    (add-to-list 'load-path "/home/mh/Git/EMACS/xelb")
-    (add-to-list 'load-path "/home/mh/Git/EMACS/exwm")
-    (require 'exwm)
-    (require 'exwm-config)
-    (exwm-config-default)
-
-    (emacsos/init env/xsession))
-
-   ;; emacs-xsession: standard Xemacs
-   ((or (string= env/wm "emacs-xsession")
-        (string= env/wm "emacs-tty")
-        (string= env/wm "tmux-tty")
-        (string= env/wm "tty"))
-    (emacsos/init env/xsession))))

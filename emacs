@@ -1,42 +1,58 @@
-;;;; Preamble
+;;;; Dot Emacs
 
 (load "/home/p/config/emacs-basic")
 
-;;; color themes
+;;; Color Themes
 (add-to-list 'custom-theme-load-path
              "/home/mh/Emacs/themes")
 (add-to-list 'custom-theme-load-path
              "/home/mh/Emacs/themes/base16-themes")
 
-;;; load-paths
+;;; Load Paths
 
 (add-to-list 'load-path "/home/mh/Emacs/lisp")
 (add-to-list 'load-path "/home/mh/Git/EMACS/multiple-cursors.el")
+(add-to-list 'load-path "/home/mh/Git/EMACS/company-mode")
 
-;;; load some programs
+;;; Load Some Programs
 (require 'eglot)
 (require 'zen-mode)
 (require 'caps)
 (require 'rainbow-delimiters)
 (require 'edwina)
 (require 'multiple-cursors)
+(require 'company)
+(require 'move-text)
 
+(load "/home/p/config/emacs-modes/mh-emacsos")
+(load "/home/p/config/emacs-modes/mh-basic")
 (load "/home/p/config/emacs-modes/mh-viper")
 (load "/home/p/config/emacs-modes/mh-mpc")
+(load "/home/p/config/emacs-modes/mh-cxm")
 
 ;; (setq max-mini-window-height 1)
 (setq eglot-stay-out-of '("flymake"))
 
 ;;; Multiple Cursors
 
+(global-set-key (kbd "C-x C-M-a") 'mc/mark-all-like-this)
 (global-set-key (kbd "C-x C-M-e") 'mc/edit-lines)
 (global-set-key (kbd "C-x C-M-n") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-x C-M-p") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-x C-M-a") 'mc/mark-all-like-this)
-(global-set-key (kbd "C-x M-n") 'mc/skip-to-next-like-this)
-(global-set-key (kbd "C-x M-p") 'mc/skip-to-previous-like-this)
+(global-set-key (kbd "C-x M-n")   'mc/skip-to-next-like-this)
+(global-set-key (kbd "C-x M-p")   'mc/skip-to-previous-like-this)
+
+;;; Move Text
+
+(global-set-key (kbd "M-P")       'move-text-up)
+(global-set-key (kbd "M-N")       'move-text-down)
+
+;;; Company
+
+(global-set-key (kbd "M-/")       'company-complete)
 
 ;;; Markdown
+
 (autoload 'markdown-mode "markdown-mode"
   "Major mode for editing Markdown files" t)
 (add-to-list 'auto-mode-alist
@@ -45,6 +61,10 @@
 (autoload 'gfm-mode "markdown-mode"
   "Major mode for editing GitHub Flavored Markdown files" t)
 (add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
+
+;;; Abbrev
+
+(read-abbrev-file "/home/mh/Emacs/abbrevs")
 
 ;;; TTY vs PTS
 
@@ -56,8 +76,9 @@
       (progn
         (setq viper-ex-style-editing nil
               viper-ex-style-motion nil)
-        (setq truncate-lines nil))
-    ;; some character which TTYs can't display properly, xterm-mouse-mode, themes
+        (setq-default truncate-lines nil))
+    ;; some character which TTYs can't display properly, xterm-mouse-mode,
+    ;; themes
     (progn
       (set-display-table-slot standard-display-table 'truncation ?…)
       (set-display-table-slot standard-display-table 'wrap ?↩)
@@ -68,7 +89,7 @@
       (global-hl-line-mode)
       (load-theme 'base16-default-dark t))))
 
-;;; Auto made
+;;; Customize
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -81,6 +102,11 @@
  '(base16-theme-256-color-source 'colors)
  '(base16-theme-distinct-fringe-background nil)
  '(column-number-mode t)
+ '(company-backends
+   '(company-bbdb company-semantic company-cmake company-dabbrev-code company-dabbrev company-capf company-clang company-files
+                  (company-gtags company-etags company-keywords)
+                  company-oddmuse))
+ '(company-idle-delay nil)
  '(completion-styles '(basic partial-completion emacs22 substring))
  '(delete-auto-save-files nil)
  '(delete-old-versions t)
@@ -99,12 +125,14 @@
  '(eww-search-prefix "https://google.com/search?q=")
  '(fill-column 80)
  '(fringe-mode 0 nil (fringe))
+ '(global-company-mode t)
  '(global-display-line-numbers-mode t)
  '(goal-column nil)
  '(icomplete-mode t)
  '(icomplete-show-matches-on-no-input t)
  '(inhibit-startup-screen t)
  '(initial-scratch-message nil)
+ '(isearch-lazy-count t)
  '(ispell-alternate-dictionary "/home/mh/Documents/Dict/english-words")
  '(kept-new-versions 1)
  '(kept-old-versions 1)
@@ -119,6 +147,7 @@
  '(outline-minor-mode-prefix "")
  '(package-selected-packages '(with-editor compat))
  '(read-file-name-completion-ignore-case t)
+ '(save-abbrevs nil)
  '(scheme-program-name "guile")
  '(scroll-bar-mode nil)
  '(set-mark-command-repeat-pop t)

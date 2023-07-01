@@ -3,6 +3,7 @@ audio-device=alsa/default
 audio-pitch-correction=yes
 volume=80
 ontop=yes
+screenshot-directory=/tmp
 
 user-agent="Mozilla/5.0"
 
