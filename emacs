@@ -26,7 +26,6 @@
 
 (load "/home/p/config/emacs-modes/mh-emacsos")
 (load "/home/p/config/emacs-modes/mh-basic")
-(load "/home/p/config/emacs-modes/mh-viper")
 (load "/home/p/config/emacs-modes/mh-mpc")
 (load "/home/p/config/emacs-modes/mh-cxm")
 
@@ -73,10 +72,7 @@
                        (string= env/wm "tmux-tty")
                        (string= env/wm "tty"))
       ;; display time, and use visual line
-      (progn
-        (setq viper-ex-style-editing nil
-              viper-ex-style-motion nil)
-        (setq-default truncate-lines nil))
+      (setq-default truncate-lines nil)
     ;; some character which TTYs can't display properly, xterm-mouse-mode,
     ;; themes
     (progn
@@ -160,16 +156,7 @@
  '(tsc-dyn-get-from nil)
  '(vc-follow-symlinks t)
  '(vc-make-backup-files t)
- '(version-control t)
- '(viper-case-fold-search t)
- '(viper-emacs-state-cursor-color "#ab4642")
- '(viper-ex-style-editing nil)
- '(viper-ex-style-motion nil)
- '(viper-insert-state-cursor-color "#ab4642")
- '(viper-shift-width 2)
- '(viper-toggle-key "")
- '(viper-use-replace-region-delimiters t)
- '(viper-want-ctl-h-help nil))
+ '(version-control t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -186,8 +173,4 @@
  '(smerge-refined-added ((t (:inherit smerge-refined-change :background "#aaffaa" :foreground "black"))))
  '(smerge-refined-removed ((t (:inherit smerge-refined-change :background "#ffbbbb" :foreground "black"))))
  '(smerge-upper ((t (:extend t :background "#ffdddd" :foreground "black"))))
- '(trailing-whitespace ((t (:background "#fb4934" :foreground "#fabd2f"))))
- '(viper-minibuffer-emacs ((t nil)))
- '(viper-minibuffer-insert ((t nil)))
- '(viper-minibuffer-vi ((t nil)))
- '(viper-replace-overlay ((t nil))))
+ '(trailing-whitespace ((t (:background "#fb4934" :foreground "#fabd2f")))))
