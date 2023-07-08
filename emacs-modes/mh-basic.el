@@ -148,18 +148,25 @@
 ;;;; Up-to-Char
 
 (defun mh/up-to-char (arg char)
-  "Points to char given by interactive `char'. If called interactively with
-prefix, points over `char'."
-  (interactive "P\ncTo char: ")
+  "Points to char given by interactive `char'"
+  (interactive "P\ncUp to char: ")
   (if (eq arg '-)
       (search-backward (char-to-string char) nil nil 1)
     (progn
       (search-forward (char-to-string char) nil nil 1)
-      (backward-char)
-      (when arg (forward-char)))))
+      (backward-char))))
 
-(global-set-key (kbd "M-z") 'mh/up-to-char)
-(global-set-key (kbd "M-Z") 'zap-up-to-char)
+(defun mh/to-char (arg char)
+  "Points over char given by interactive `char'"
+  (interactive "P\ncTo char: ")
+  (mh/up-to-char arg char)
+  (if (eq arg '-)
+      (backward-char)
+    (forward-char)))
+
+(global-set-key (kbd "M-z")   'mh/up-to-char)
+(global-set-key (kbd "C-M-z") 'mh/to-char)
+(global-set-key (kbd "M-Z")   'zap-up-to-char)
 
 ;;;; Formating
 
@@ -173,3 +180,15 @@ prefix, points over `char'."
 	      (constrain-to-field nil point t)))))
 
 (global-set-key (kbd "C-x C-M-\\") 'mh/delete-space-after-point)
+
+;;;; Yanking
+
+(defun mh/yank (times)
+  (interactive "P")
+  (if (numberp times)
+      (progn
+        (dotimes (i (abs times)) (yank)))
+      (yank times)))
+
+(global-set-key (kbd "C-y")   'mh/yank)
+(global-set-key (kbd "C-M-y") 'yank)

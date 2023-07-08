@@ -44,9 +44,14 @@
   disabled-command-function nil)
 
 (setq search-whitespace-regexp ".*?"
-      lazy-count-prefix-format "(%s/%s) ")
+      lazy-count-prefix-format "[%s/%s] ")
 
 (setq-local default-directory "/tmp/emacs/")
+
+;; Gnus
+
+(setq-default gnus-article-save-directory "/home/mh/Documents/Gnus/"
+              gnus-startup-file "/home/mh/Documents/Gnus/newsrc")
 
 ;;; Autosave
 
@@ -148,11 +153,11 @@
     ;; Define M-C-s and M-C-r like C-s and C-r so that the same key
     ;; combinations can be used to repeat regexp isearches that can
     ;; be used to start these searches.
-    (define-key map "\M-\C-s" 'isearch-repeat-forward)
-    (define-key map "\M-\C-r" 'isearch-repeat-backward)
-    (define-key map "\177" 'isearch-delete-char)
+    (define-key map "\M-\C-s"   'isearch-repeat-forward)
+    (define-key map "\M-\C-r"   'isearch-repeat-backward)
+    (define-key map "\177"      'isearch-delete-char)
     (define-key map [backspace] 'undefined) ;bug#20466.
-    (define-key map "\C-g" 'isearch-abort)
+    (define-key map "\C-g"      'isearch-abort)
 
     ;; This assumes \e is the meta-prefix-char.
     (or (= ?\e meta-prefix-char)
@@ -161,30 +166,32 @@
 
     (define-key map "\C-q" 'isearch-quote-char)
 
-    (define-key map "\r" 'isearch-exit)
+    (define-key map "\r"     'isearch-exit)
     (define-key map [return] 'isearch-exit)
-    (define-key map "\C-j" 'isearch-printing-char)
-    (define-key map "\t" 'isearch-printing-char)
+    (define-key map "\C-j"   'isearch-printing-char)
+    (define-key map "\t"     'isearch-printing-char)
     (define-key map [?\S-\ ] 'isearch-printing-char)
 
-    (define-key map    "\C-w" 'isearch-yank-word-or-char)
-    (define-key map "\M-\C-w" 'isearch-yank-symbol-or-char)
-    (define-key map "\M-\C-d" 'isearch-del-char)
-    (define-key map "\M-\C-y" 'isearch-yank-char)
-    (define-key map    "\C-y" 'isearch-yank-kill)
-    (define-key map    "\M-z" 'isearch-yank-until-char)
-    (define-key map    "\C-e" 'isearch-yank-line)
+    (define-key map "\M-f"    'isearch-yank-word)
+    (define-key map "\C-w"    'isearch-yank-word-or-char)
+    (define-key map "\C-\M-f" 'isearch-yank-symbol-or-char)
+    (define-key map "\C-b"    'isearch-del-char)
+    (define-key map "\C-f"    'isearch-yank-char)
+    (define-key map "\C-y"    'isearch-yank-kill)
+    (define-key map "\M-z"    'isearch-yank-until-char)
+    (define-key map "\C-\M-e" 'isearch-yank-line)
 
-    (define-key map    "\M-<" 'isearch-beginning-of-buffer)
-    (define-key map    "\M->" 'isearch-end-of-buffer)
+    (define-key map "\M-<" 'isearch-beginning-of-buffer)
+    (define-key map "\M->" 'isearch-end-of-buffer)
 
     (define-key map (char-to-string help-char) isearch-help-map)
     (define-key map [help] isearch-help-map)
     (define-key map [f1] isearch-help-map)
 
-    (define-key map "\M-n" 'isearch-ring-advance)
-    (define-key map "\M-p" 'isearch-ring-retreat)
-    (define-key map "\M-y" 'isearch-yank-pop-only)
+    (define-key map "\M-n"    'isearch-ring-advance)
+    (define-key map "\M-p"    'isearch-ring-retreat)
+    (define-key map "\M-y"    'isearch-yank-pop-only)
+    (define-key map "\C-\M-y" 'isearch-yank-pop)
 
     (define-key map "\M-\t" 'isearch-complete)
     (define-key map "\M-_"  'isearch-toggle-symbol)
@@ -214,9 +221,10 @@
 
     ;; Some bindings you may want to put in your isearch-mode-hook.
     ;; Suggest some alternates...
-    (define-key map "\M-c" 'isearch-toggle-case-fold)
-    (define-key map "\M-r" 'isearch-toggle-regexp)
-    (define-key map "\M-e" 'isearch-edit-string)
+    (define-key map "\C-c" 'isearch-toggle-case-fold)
+    (define-key map "\C-l" 'isearch-toggle-regexp)
+    (define-key map "\C-e" 'isearch-edit-string)
+    (define-key map "\C-_" 'isearch-toggle-symbol)
 
     (put 'isearch-toggle-case-fold :advertised-binding "\M-sc")
     (put 'isearch-toggle-regexp    :advertised-binding "\M-sr")
@@ -228,6 +236,7 @@
     (define-key map "\M-#"  'isearch-query-replace)
     (define-key map "\M-*"  'isearch-query-replace-regexp)
     (define-key map "\M-o"  'isearch-occur)
+    (define-key map "\C-o"  'isearch-occur)
     (define-key map "\M-hr" 'isearch-highlight-regexp)
     (define-key map "\M-hl" 'isearch-highlight-lines-matching-regexp)
 
@@ -240,7 +249,7 @@
 (electric-pair-mode)
 (global-display-fill-column-indicator-mode)
 
-;;;; HOOKS
+;;;; Hooks
 
 (defun mh/desktop-save (desktop-dirname)
   (shell-command (format "mv -v %s/desktop %s/desktop-$(/home/mh/Scripts/date/short.sh)"
@@ -283,6 +292,9 @@
 (add-hook 'html-mode-hook 'nxml-mode)   ; Emacs' default HTML is meh, nXML is
                                         ; better
 
+(add-hook 'mail-mode-hook (lambda () (interactive)
+                            (cd "/tmp/emacs")))
+
 (add-hook 'kill-emacs-hook
   (lambda () (interactive) (mh/desktop-save
                               "/home/mh/Emacs/desktop")))
@@ -291,3 +303,7 @@
                              "/home/mh/Emacs/desktop")))
 
 (defalias 'wm-mode 'edwina-mode)
+
+;;;; Auto-mode
+
+(add-to-list 'auto-mode-alist '("\\(neo\\)?mutt-.*" . message-mode))

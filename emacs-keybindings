@@ -28,7 +28,6 @@
                                   (call-prefix 15 'scroll-right)))
 (global-set-key (kbd "C-x >")   (lambda () (interactive)
                                   (call-prefix 15 'scroll-left)))
-(global-set-key (kbd "C-M-z")   'repeat-complex-command)
 (global-set-key (kbd "C-M-_")   'undo-redo)
 (global-set-key (kbd "C-x C-_") 'dabbrev-expand)
 
@@ -44,17 +43,17 @@
 
 (global-unset-key (kbd "C-x m"))
 
-;; (global-set-key (kbd "C-x C-] C-g") 'abort-recursive-edit)
-;; (global-set-key (kbd "C-x C-] C-e") 'exit-recursive-edit)
-(global-set-key (kbd "C-M-g")          'abort-recursive-edit)
+(global-set-key (kbd "C-x C-] C-g") 'abort-recursive-edit)
+(global-set-key (kbd "C-x C-] C-e") 'exit-recursive-edit)
+(global-set-key (kbd "C-M-c")       'caps-mode)
 
 (global-set-key (kbd "C-h")     'delete-backward-char)
 (global-set-key (kbd "M-h")     'backward-kill-word)
 (global-set-key (kbd "C-M-h")   'backward-kill-sexp)
 ; (global-set-key (kbd "M-DEL")   'backward-kill-sexp)
 (global-set-key (kbd "C-x C-h") 'help-command)
-(global-set-key (kbd "C-M-m")   'mark-defun)
-(global-set-key (kbd "C-M-l")   'mark-paragraph)
+(global-set-key (kbd "C-M-l")   'mark-defun)
+(global-set-key (kbd "C-M-m")   'mark-paragraph)
 
 ;;; `C-x ESC' Commands
 
@@ -80,7 +79,7 @@
 (global-set-key (kbd "C-x C-M-c")   'mh/commit)
 (global-set-key (kbd "C-x C-M-SPC") 'mark-thing-at-point)
 (global-set-key (kbd "C-x C-M-_")   'dabbrev-completion)
-(global-set-key (kbd "C-M-y")    ;; 'duplicate-line (depracted on Emacs 29)
+(global-set-key (kbd "C-M-j")    ;; 'duplicate-line (depracted on Emacs 29)
                 (lambda ()
                   (interactive)
                   (let ((column (- (point) (point-at-bol)))
@@ -101,8 +100,9 @@
     (suspend-frame)
     (message "Canceled frame suspension")))
 
-(global-set-key (kbd "C-z")     'repeat)
-(global-set-key (kbd "C-x C-z") 'mh/confirm-suspend)
+(global-set-key (kbd "C-z")       'repeat)
+(global-set-key (kbd "C-x C-M-z") 'repeat-complex-command)
+(global-set-key (kbd "C-x C-z")   'mh/confirm-suspend)
 
 (when (daemonp)
   (global-set-key (kbd "C-x C-c")

@@ -43,8 +43,8 @@
 
 ;;; Move Text
 
-(global-set-key (kbd "M-P")       'move-text-up)
-(global-set-key (kbd "M-N")       'move-text-down)
+(global-set-key (kbd "M-p")       'move-text-up)
+(global-set-key (kbd "M-n")       'move-text-down)
 
 ;;; Company
 
@@ -83,7 +83,9 @@
       (setq-default truncate-lines t)
       (xterm-mouse-mode t)
       (global-hl-line-mode)
-      (load-theme 'base16-default-dark t))))
+      (if (eq (window-system) 'x)
+          (load-theme 'gruber-darker t)
+          (load-theme 'base16-default-dark t)))))
 
 ;;; Customize
 (custom-set-variables
@@ -91,6 +93,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(Man-width-max nil)
  '(auto-save-file-name-transforms '((".*" "/tmp/emacs/" t)))
  '(auto-save-interval 300)
  '(backup-by-copying t)
@@ -143,6 +146,7 @@
  '(outline-minor-mode-prefix "")
  '(package-selected-packages '(with-editor compat))
  '(read-file-name-completion-ignore-case t)
+ '(rmail-preserve-inbox t)
  '(save-abbrevs nil)
  '(scheme-program-name "guile")
  '(scroll-bar-mode nil)
@@ -162,7 +166,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Iosevka Term" :foundry "UKWN" :slant normal :weight medium :height 169 :width normal))))
+ '(default ((t (:family "Iosevka Comfy" :foundry "UKWN" :slant normal :weight medium :height 169 :width normal))))
  '(eglot-highlight-symbol-face ((t (:inherit underline))))
  '(eglot-mode-line ((t nil)))
  '(icomplete-first-match ((t (:foreground "#dc9656"))))

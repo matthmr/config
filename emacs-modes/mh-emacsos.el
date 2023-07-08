@@ -35,16 +35,17 @@
 (defmacro acpi-for (acpi)
   `(lambda ()
     (interactive)
-    (setenv "XINITSLEEP" (format "/home/mh/Scripts/bin/rc%s" ,acpi))
+    (setenv "XINITSLEEP" (format "/home/mh/Scripts/bin/do%s" ,acpi))
     (ansi-term "zsh" (format "%s-shell" ,acpi))
     (setenv "XINITSLEEP" nil)))
 
-;; Functor returning closures for shutdown/reboot for slave Emacs (inside tmux)
-(defmacro acpi-for:slave (acpi)
+;; Functor returning closures for shutdown/reboot for inside tmux
+(defmacro acpi-for-tmux (acpi x?)
   `(lambda ()
     (interactive)
-    (shell-command (format "/home/mh/Scripts/bin/rc%s" ,acpi))))
-
+    (shell-command (format ,(if x?
+                                "/home/mh/Scripts/bin/do%s -x"
+                             "/home/mh/Scripts/bin/do%s") ,acpi))))
 
 (defun emacsos/init (env/xsession)
   (unless (string= env/wm "tty")
@@ -53,16 +54,16 @@
                        (format-time-string "%m"))))
 
   ;; suspend
-  (global-set-key (kbd "C-x x M-s") (acpi-for "suspend"))
+  (global-set-key (kbd "C-x M-x M-s") (acpi-for "suspend"))
 
   ;; hibernate
-  (global-set-key (kbd "C-x x M-d") (acpi-for "hibernate"))
+  (global-set-key (kbd "C-x M-x M-d") (acpi-for "hibernate"))
 
   ;; halt (shutdown)
-  (global-set-key (kbd "C-x x M-h") (acpi-for "shutdown"))
+  (global-set-key (kbd "C-x M-x M-h") (acpi-for "shutdown"))
 
   ;; reboot
-  (global-set-key (kbd "C-x x M-r") (acpi-for "reboot"))
+  (global-set-key (kbd "C-x M-x M-r") (acpi-for "reboot"))
 
   ;; start xsession of XESSION is set to 1
   (when (and (string= env/xsession "1")
@@ -70,19 +71,18 @@
     (ansi-term "zsh" "xsession")
     (setenv "XINITSLEEP" nil)))
 
-
-(defun emacsos/init:slave ()
+(defun emacsos/init-tmux (x?)
   ;; suspend
-  (global-set-key (kbd "C-x x M-s") (acpi-for:slave "suspend"))
+  (global-set-key (kbd "C-x M-x M-s") (acpi-for-tmux "suspend" x?))
 
   ;; hibernate
-  (global-set-key (kbd "C-x x M-d") (acpi-for:slave "hibernate"))
+  (global-set-key (kbd "C-x M-x M-d") (acpi-for-tmux "hibernate" x?))
 
   ;; halt (shutdown)
-  (global-set-key (kbd "C-x x M-h") (acpi-for:slave "shutdown"))
+  (global-set-key (kbd "C-x M-x M-h") (acpi-for-tmux "shutdown" x?))
 
   ;; reboot
-  (global-set-key (kbd "C-x x M-r") (acpi-for:slave "reboot")))
+  (global-set-key (kbd "C-x M-x M-r") (acpi-for-tmux "reboot" x?)))
 
 
 (let ((env/wm (getenv "WM"))
@@ -108,4 +108,7 @@
 
    ;; tmux-tty: should spawn a new tmux session instead
    ((string= env/wm "tmux-tty")
-    (emacsos/init:slave))))
+    (emacsos/init-tmux nil))
+
+   ;; in a stardard Xsession, start `init-tmux' passing the `-x' or `-xt' flag
+   (t (emacsos/init-tmux t))))
