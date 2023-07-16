@@ -32,6 +32,7 @@
   branch = false
   tag    = false
   stash  = false
+  grep   = false
 
 # Git aliases
 [alias]

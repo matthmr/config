@@ -140,10 +140,9 @@
 	   (message "Beginning of buffer")
 	   (goto-char (point-min)))))
 
-(global-set-key (kbd "C-v") 'mh/scroll-up)
-(global-set-key (kbd "M-v") 'mh/scroll-down)
-(global-set-key (kbd "C-M-v") (lambda () (interactive)
-                                (scroll-lock-mode 'toggle)))
+(global-set-key (kbd "C-v")   'mh/scroll-up)
+(global-set-key (kbd "M-v")   'mh/scroll-down)
+(global-set-key (kbd "C-M-v") 'scroll-lock-mode)
 
 ;;;; Up-to-Char
 
@@ -164,8 +163,8 @@
       (backward-char)
     (forward-char)))
 
-(global-set-key (kbd "M-z")   'mh/up-to-char)
-(global-set-key (kbd "C-M-z") 'mh/to-char)
+(global-set-key (kbd "M-z")   'mh/to-char)
+(global-set-key (kbd "C-M-z") 'mh/up-to-char)
 (global-set-key (kbd "M-Z")   'zap-up-to-char)
 
 ;;;; Formating

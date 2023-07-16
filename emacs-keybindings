@@ -1,7 +1,5 @@
 ;;;; Emacs Keybindings
 
-(load "/home/p/config/emacs-modes/mh-cxm")
-
 ;; Prefix function
 (defun call-prefix (prefix function)
   (when (eq current-prefix-arg nil)
@@ -13,11 +11,11 @@
 (global-set-key (kbd "M-K") (lambda () (interactive)
                               (call-prefix -1 'kill-line)))
 
-(global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "M-o")     'overwrite-mode)
 (global-set-key (kbd "M-#")     'query-replace)
 (global-set-key (kbd "M-*")     'query-replace-regexp)
 (global-set-key (kbd "C-x ;")   'comment-line)
+(global-set-key (kbd "C-x ,")   'next-error)
 (global-set-key (kbd "C-x ^")   (lambda () (interactive)
                                   (call-prefix 5 'enlarge-window)))
 (global-set-key (kbd "C-x {")   (lambda () (interactive)
@@ -50,10 +48,11 @@
 (global-set-key (kbd "C-h")     'delete-backward-char)
 (global-set-key (kbd "M-h")     'backward-kill-word)
 (global-set-key (kbd "C-M-h")   'backward-kill-sexp)
-; (global-set-key (kbd "M-DEL")   'backward-kill-sexp)
 (global-set-key (kbd "C-x C-h") 'help-command)
-(global-set-key (kbd "C-M-l")   'mark-defun)
+(global-set-key (kbd "M-M")     'mark-defun)
 (global-set-key (kbd "C-M-m")   'mark-paragraph)
+
+(global-set-key (kbd "C-M-l")  'forward-list)
 
 ;;; `C-x ESC' Commands
 
@@ -64,9 +63,47 @@
     (when symbol
       (imenu (symbol-name symbol)))))
 
-(global-set-key (kbd "C-x C-M-b C-M-n") 'switch-to-next-buffer)
-(global-set-key (kbd "C-x C-M-b C-M-p") 'switch-to-prev-buffer)
-(global-set-key (kbd "C-x C-M-b C-M-k") 'kill-current-buffer)
+;; With `buffer'
+(global-unset-key (kbd "C-x C-b"))
+
+(global-set-key (kbd "C-x C-M-b")   'ibuffer)
+(global-set-key (kbd "C-x C-b C-n") 'switch-to-next-buffer)
+(global-set-key (kbd "C-x C-b C-p") 'switch-to-prev-buffer)
+(global-set-key (kbd "C-x C-b C-k") 'kill-current-buffer)
+(global-set-key (kbd "C-x C-b C-d") 'kill-buffer-and-window)
+
+;; With `window'
+(global-set-key (kbd "C-x C-b C-M-f") 'window-swap-states)
+(global-set-key (kbd "C-x C-b C-M-b") (lambda () (interactive)
+                                          (call-prefix -1 'window-swap-states)))
+(global-set-key (kbd "C-x C-b C-M-k") 'delete-window)
+(global-set-key (kbd "C-x C-b C-M-o") 'delete-other-windows)
+(global-set-key (kbd "C-x C-b C-M-j") 'split-window-below)
+(global-set-key (kbd "C-x C-b C-M-l") 'split-window-right)
+
+;; With `tab-bar'
+(global-set-key (kbd "C-x C-a C-n")   'tab-bar-switch-to-next-tab)
+(global-set-key (kbd "C-x C-a C-p")   'tab-bar-switch-to-prev-tab)
+(global-set-key (kbd "C-x C-a C-i")   'tab-bar-switch-to-recent-tab)
+(global-set-key (kbd "C-x C-a C-t")   'tab-bar-switch-to-tab)
+(global-set-key (kbd "C-x C-a .")     'tab-bar-switch-to-last-tab)
+(global-set-key (kbd "C-x C-a C-k")   'tab-bar-close-tab)
+(global-set-key (kbd "C-x C-a C-M-k") 'tab-bar-close-other-tabs)
+(global-set-key (kbd "C-x C-a C-f")   'tab-bar-move-tab)
+(global-set-key (kbd "C-x C-a C-b")   'tab-bar-move-tab-backward)
+(global-set-key (kbd "C-x C-a C-a")   'tab-bar-new-tab)
+(global-set-key (kbd "C-x C-a C-s")   'tab-bar-new-tab-to)
+(global-set-key (kbd "C-x C-a C-M-s") 'tab-bar-move-window-to-tab)
+(global-set-key (kbd "C-x C-a C-M-a") 'tab-bar-duplicate-tab)
+(global-set-key (kbd "C-x C-a C-e")   'tab-bar-rename-tab)
+
+(global-set-key (kbd "C-x C-a M-x C-a") 'tab-bar-change-tab-group)
+(global-set-key (kbd "C-x C-a M-x C-f") 'tab-bar-move-tab-to-group)
+(global-set-key (kbd "C-x C-a M-x C-k") 'tab-bar-close-group-tabs)
+(global-set-key (kbd "C-x C-a M-x f")   'tab-bar-move-tab-to)
+(global-set-key (kbd "C-x C-a M-x k")   'tab-bar-close-tab-by-name)
+(global-set-key (kbd "C-x C-a M-x e")   'tab-bar-rename-tab-by-name)
+
 (global-set-key (kbd "C-x C-M-d")   'delete-region)
 (global-set-key (kbd "C-x C-M-k")   'kill-whole-line)
 (global-set-key (kbd "C-x C-M-i")   'imenu)
@@ -74,8 +111,10 @@
 (global-set-key (kbd "C-x C-M-s")   'ispell-complete-word)
 (global-set-key (kbd "C-x C-M-u")   'raise-sexp)
 (global-set-key (kbd "C-x C-M-l")   'desktop-read)
+(global-set-key (kbd "C-x C-M-r")   'desktop-save-in-desktop-dir)
 (global-set-key (kbd "C-x C-M-f")   'find-file-at-point)
-(global-set-key (kbd "C-x C-M-w")   'copy-thing-at-point)
+(global-set-key (kbd "C-x C-M-v")   'view-file)
+(global-set-key (kbd "C-x M-w")     'copy-thing-at-point)
 (global-set-key (kbd "C-x C-M-c")   'mh/commit)
 (global-set-key (kbd "C-x C-M-SPC") 'mark-thing-at-point)
 (global-set-key (kbd "C-x C-M-_")   'dabbrev-completion)
@@ -119,19 +158,18 @@
 
 (global-unset-key (kbd "C-x '"))
 
-(global-set-key (kbd "M-'")         'expand-abbrev)
-(global-set-key (kbd "C-x ' '")   'add-mode-abbrev)
+(global-set-key (kbd "M-'")          'expand-abbrev)
+(global-set-key (kbd "C-x ' '")      'add-mode-abbrev)
 (global-set-key (kbd "C-x ' C-\\")   'add-global-abbrev)
-(global-set-key (kbd "C-x ' M-'") 'inverse-add-mode-abbrev)
+(global-set-key (kbd "C-x ' M-'")    'inverse-add-mode-abbrev)
 (global-set-key (kbd "C-x ' C-M-\\") 'inverse-add-global-abbrev)
-(global-set-key (kbd "C-x ' C-f")     'read-abbrev-file)
-(global-set-key (kbd "C-x ' C-w")     'write-abbrev-file)
-(global-set-key (kbd "C-x ' C-l")     'list-abbrevs)
+(global-set-key (kbd "C-x ' C-f")    'read-abbrev-file)
+(global-set-key (kbd "C-x ' C-w")    'write-abbrev-file)
+(global-set-key (kbd "C-x ' C-l")    'list-abbrevs)
 
 ;;; Cmx
 
 (global-set-key (kbd "C-]")       'cxm-mode)
-(global-set-key (kbd "C-x C-M-m") 'cxm-mode)
 
 ;;;; Minor Modes Remaps
 

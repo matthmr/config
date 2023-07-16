@@ -27,32 +27,73 @@
 
 ;;; Commentary:
 ;;
-;;  Very small minor mode that makes `hjkl' work like VI keys
+;;  Very small minor mode that makes `hjkl' work like VI keys, allowing small
+;;  motions and edits to be done with the right hand alone  plus some othe
+;;  utilities (not exactly like VI)
 
 ;; Ignore any self-inserting keybindings that are not bound to cursor movements
 (defvar cxm-mode-map
   (let ((map (make-sparse-keymap)))
     (suppress-keymap map)
+
     (define-key map "h" 'backward-char)
     (define-key map "j" 'next-line)
     (define-key map "k" 'previous-line)
     (define-key map "l" 'forward-char)
-    (define-key map "J" 'mh/scroll-up)
-    (define-key map "K" 'mh/scroll-down)
-    (define-key map "L" 'recenter-top-bottom)
+
+    (define-key map "H" 'backward-word)
+    (define-key map "J" 'forward-paragraph)
+    (define-key map "K" 'backward-paragraph)
+    (define-key map "L" 'forward-word)
+
+    (define-key map "]" 'forward-sexp)
+    (define-key map "[" 'backward-sexp)
+    (define-key map "{" 'beginning-of-defun)
+    (define-key map "}" 'end-of-defun)
+    (define-key map "<" 'beginning-of-buffer)
+    (define-key map ">" 'end-of-buffer)
+
+
+    (define-key map "p" 'yank)
+    (define-key map "P" 'yank-pop)
+    (define-key map "o" 'kill-region)
+    (define-key map "O" 'kill-ring-save)
+
+    (define-key map "/"  'mh/to-char)
+    (define-key map "\\" 'execute-extended-command)
+
+    (define-key map "g" 'universal-argument)
+    (define-key map "n" 'repeat)
+
+    (define-key map "," 'mh/scroll-up)
+    (define-key map "." 'mh/scroll-down)
+
     (define-key map "0" 'beginning-of-line)
-    (define-key map "$" 'end-of-line)
     (define-key map "-" 'end-of-line)
-    (define-key map "{" 'forward-paragraph)
-    (define-key map "}" 'backward-paragraph)
+
     (define-key map " " 'set-mark-command)
     (define-key map "i" 'cxm-mode)
-    (define-key map "m" 'cxm-mode)
+    (define-key map "a" 'cxm-mode)
+    (define-key map "'" 'cxm-mode)
+
+    (define-key map "m" 'recenter-top-bottom)
+    (define-key map "u" 'undo)
+    (define-key map "y" 'undo-redo)
     map))
+
+(defvar cxm-mode-string "[N] ")
+
+;;;; Minor Mode
 
 (define-minor-mode cxm-mode
   "This mode will make `hjkl' act like VI keys. Useful for one-handed
 scrolling"
-  :lighter " cxm"
-  :global t
-  :keymap cxm-mode-map)
+  :keymap cxm-mode-map
+  :after-hook
+  (if cxm-mode
+      (setq-local global-mode-string
+                  (append '("" cxm-mode-string)
+                          (if (listp global-mode-string)
+                              (cdr global-mode-string)
+                            global-mode-string)))
+    (delq 'cxm-mode-string global-mode-string)))

@@ -3,8 +3,8 @@ Xcursor.size: 32
 Xcursor.theme: McMojave-cursors
 
 !!! Urxvt !!!
-URxvt.keysym.M-Down: eval:scroll_down(10)
-URxvt.keysym.M-Up: eval:scroll_up(10)
+URxvt.keysym.C-J: eval:scroll_down(10)
+URxvt.keysym.C-K: eval:scroll_up(10)
 
 !URxvt*buffered: false
 URxvt*cursorBlink: true
@@ -35,7 +35,7 @@ URxvt*saveLines: 4000
 URxvt*termName: xterm-256color
 URxvt*pointerBlank: true
 URxvt*pointerBlankDelay: 10
-URxvt.perl-ext-common: default,-confirm-paste
+URxvt.perl-ext-common: default,resize-font,-confirm-paste
 URxvt.searchable-scrollback: Meta-Shift-S
 
 ! URxvt.Xft

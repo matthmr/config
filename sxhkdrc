@@ -1,16 +1,16 @@
 # term-mode
 super + control + Return; shift + u
-  urxvt -e tmux new-session -A
-super + control + Return; shift + s
-  st -e tmux new-session -A
-super + control + Return; shift + x
-  xterm -e tmux new-session -A
-super + control + Return; u
   urxvt -e zsh
-super + control + Return; s
+super + control + Return; shift + s
   st -e zsh
-super + control + Return; x
+super + control + Return; shift + x
   xterm -e zsh
+super + control + Return; u
+  urxvt -e tmux new-session -A
+super + control + Return; s
+  st -e tmux new-session -A
+super + control + Return; x
+  xterm -e tmux new-session -A
 
 # action-mode
 # TODO: add an interactive [Y/n] for the `rc-' ACPI family

@@ -43,8 +43,8 @@
 
 ;;; Move Text
 
-(global-set-key (kbd "M-p")       'move-text-up)
-(global-set-key (kbd "M-n")       'move-text-down)
+(global-set-key (kbd "C-M-p")     'move-text-up)
+(global-set-key (kbd "C-M-n")     'move-text-down)
 
 ;;; Company
 
@@ -78,14 +78,15 @@
     (progn
       (set-display-table-slot standard-display-table 'truncation ?…)
       (set-display-table-slot standard-display-table 'wrap ?↩)
-      (set-display-table-slot standard-display-table 'selective-display
-                              (string-to-vector "↷"))
+      (set-display-table-slot standard-display-table 'selective-display ?↷)
       (setq-default truncate-lines t)
       (xterm-mouse-mode t)
       (global-hl-line-mode)
-      (if (eq (window-system) 'x)
-          (load-theme 'gruber-darker t)
-          (load-theme 'base16-default-dark t)))))
+      (load-theme
+        (if (eq (window-system) 'x)
+            'gruber-darker 'base16-classic-dark
+            )
+        t))))
 
 ;;; Customize
 (custom-set-variables
@@ -122,6 +123,7 @@
  '(eglot-highlight-symbol-face ((t (:inherit underline))))
  '(eglot-menu-string "")
  '(eww-search-prefix "https://google.com/search?q=")
+ '(file-name-shadow-tty-properties '(invisible t intangible t field shadow))
  '(fill-column 80)
  '(fringe-mode 0 nil (fringe))
  '(global-company-mode t)

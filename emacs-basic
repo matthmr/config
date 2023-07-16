@@ -116,10 +116,10 @@
 
 (setq indent-rigidly-map
   (let ((map (make-sparse-keymap)))
-    (define-key map (kbd "h") 'indent-rigidly-left)
-    (define-key map (kbd "l") 'indent-rigidly-right)
-    (define-key map (kbd "H") 'indent-rigidly-left-to-tab-stop)
-    (define-key map (kbd "L") 'indent-rigidly-right-to-tab-stop)
+    (define-key map (kbd "C-b") 'indent-rigidly-left)
+    (define-key map (kbd "C-f") 'indent-rigidly-right)
+    (define-key map (kbd "C-M-b") 'indent-rigidly-left-to-tab-stop)
+    (define-key map (kbd "C-M-f") 'indent-rigidly-right-to-tab-stop)
     map))
 
 ;;; Isearch
@@ -156,6 +156,7 @@
     (define-key map "\M-\C-s"   'isearch-repeat-forward)
     (define-key map "\M-\C-r"   'isearch-repeat-backward)
     (define-key map "\177"      'isearch-delete-char)
+    (define-key map "\C-h"      'isearch-delete-char)
     (define-key map [backspace] 'undefined) ;bug#20466.
     (define-key map "\C-g"      'isearch-abort)
 
@@ -294,6 +295,8 @@
 
 (add-hook 'mail-mode-hook (lambda () (interactive)
                             (cd "/tmp/emacs")))
+
+(add-hook 'diff-mode-hook 'outline-minor-mode)
 
 (add-hook 'kill-emacs-hook
   (lambda () (interactive) (mh/desktop-save
