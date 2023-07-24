@@ -11,10 +11,10 @@ URxvt*cursorBlink: true
 URxvt*underlineColor: #eff0eb
 
 URxvt*iso14755: false
-URxvt*font: xft:Iosevka Term Medium:size=16:antialias=true
-URxvt*boldFont: xft:Iosevka Term Heavy:size=16:antialias=true:style=bold
-URxvt*italicFont: xft:Iosevka Term Medium:size=16:antialias=true:style=italic
-URxvt*bolditalicFont: xft:Iosevka Term Medium:size=16:antialias=true:style=bolditalic
+URxvt*font: xft:Iosevka Term Medium:size=14:antialias=true
+URxvt*boldFont: xft:Iosevka Term Heavy:size=14:antialias=true:style=bold
+URxvt*italicFont: xft:Iosevka Term Medium:size=14:antialias=true:style=italic
+URxvt*bolditalicFont: xft:Iosevka Term Medium:size=14:antialias=true:style=bolditalic
 URxvt.borderWidth: 0
 URxvt.internalBorder: 0
 URxvt.externalBorder: 0

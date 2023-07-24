@@ -14,11 +14,11 @@ super + control + Return; x
 
 # action-mode
 # TODO: add an interactive [Y/n] for the `rc-' ACPI family
-super + control + a; shift + h
+super + control + a; shift + s
   doshutdown -x
 super + control + a; shift + r
   doreboot -x
-super + control + a; shift + s
+super + control + a; shift + m
   dosuspend -x
 super + control + a; shift + d
   dohibernate -x

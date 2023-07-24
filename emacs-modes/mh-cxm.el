@@ -81,7 +81,7 @@
     (define-key map "y" 'undo-redo)
     map))
 
-(defvar cxm-mode-string "[N] ")
+(defvar cxm-mode-string "* ")
 
 ;;;; Minor Mode
 
@@ -97,3 +97,6 @@ scrolling"
                               (cdr global-mode-string)
                             global-mode-string)))
     (delq 'cxm-mode-string global-mode-string)))
+
+
+(global-set-key (kbd "C-]") 'cxm-mode)

@@ -4,7 +4,7 @@
 
 # Global configs
 [user]
-  name = mh
+  name  = mh
   email = observermatth@gmail.com
 [pull]
   rebase = false
@@ -13,7 +13,7 @@
 [color]
   ui = true
 [core]
-  pager = less -r
+  pager  = less -r
   editor = emacsc
 [merge]
   conflictstyle = diff3
@@ -27,7 +27,7 @@
 [log]
   date = format:%Y%m%d%H%M
 [blame]
-  date = format:%Y%m%d%H%M
+  date   = format:%Y%m%d%H%M
 [pager]
   branch = false
   tag    = false
@@ -55,7 +55,7 @@
   rt = reset
   rv = revert
   tg = tag
-  bl = blame
+  bl = blame --color-by-age
   ap = add -p
   rp = restore -p
   ss = stash

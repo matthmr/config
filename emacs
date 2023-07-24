@@ -72,7 +72,9 @@
                        (string= env/wm "tmux-tty")
                        (string= env/wm "tty"))
       ;; display time, and use visual line
-      (setq-default truncate-lines nil)
+      (progn
+        (setq-default Man-switches "-Tascii") ;; cannot render UTF-8
+        (setq-default truncate-lines nil))
     ;; some character which TTYs can't display properly, xterm-mouse-mode,
     ;; themes
     (progn
@@ -168,7 +170,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Iosevka Comfy" :foundry "UKWN" :slant normal :weight medium :height 169 :width normal))))
+ '(default ((t (:family "Iosevka Comfy" :foundry "UKWN" :slant normal :weight normal :height 120 :width normal))))
  '(eglot-highlight-symbol-face ((t (:inherit underline))))
  '(eglot-mode-line ((t nil)))
  '(icomplete-first-match ((t (:foreground "#dc9656"))))

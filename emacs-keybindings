@@ -15,7 +15,11 @@
 (global-set-key (kbd "M-#")     'query-replace)
 (global-set-key (kbd "M-*")     'query-replace-regexp)
 (global-set-key (kbd "C-x ;")   'comment-line)
-(global-set-key (kbd "C-x ,")   'next-error)
+(global-set-key (kbd "M-p")     'previous-error)
+(global-set-key (kbd "M-n")     'next-error)
+(global-set-key (kbd "M-P")     'first-error)
+(global-set-key (kbd "M-N")     'next-error-select-buffer)
+(global-set-key (kbd "C-^")     'delete-indentation)
 (global-set-key (kbd "C-x ^")   (lambda () (interactive)
                                   (call-prefix 5 'enlarge-window)))
 (global-set-key (kbd "C-x {")   (lambda () (interactive)
@@ -41,8 +45,8 @@
 
 (global-unset-key (kbd "C-x m"))
 
-(global-set-key (kbd "C-x C-] C-g") 'abort-recursive-edit)
-(global-set-key (kbd "C-x C-] C-e") 'exit-recursive-edit)
+(global-set-key (kbd "C-M-] C-g")   'abort-recursive-edit)
+(global-set-key (kbd "C-M-] C-M-e") 'exit-recursive-edit)
 (global-set-key (kbd "C-M-c")       'caps-mode)
 
 (global-set-key (kbd "C-h")     'delete-backward-char)
@@ -53,6 +57,10 @@
 (global-set-key (kbd "C-M-m")   'mark-paragraph)
 
 (global-set-key (kbd "C-M-l")  'forward-list)
+
+;;; For emacs 29:
+;;;; (global-set-key (kbd "M-+") 'minibuffer-next-completion)
+;;;; (global-set-key (kbd "M-_") 'minibuffer-previous-completion)
 
 ;;; `C-x ESC' Commands
 
@@ -67,6 +75,7 @@
 (global-unset-key (kbd "C-x C-b"))
 
 (global-set-key (kbd "C-x C-M-b")   'ibuffer)
+(global-set-key (kbd "C-x C-b C-b") 'ibuffer)
 (global-set-key (kbd "C-x C-b C-n") 'switch-to-next-buffer)
 (global-set-key (kbd "C-x C-b C-p") 'switch-to-prev-buffer)
 (global-set-key (kbd "C-x C-b C-k") 'kill-current-buffer)
@@ -97,13 +106,6 @@
 (global-set-key (kbd "C-x C-a C-M-a") 'tab-bar-duplicate-tab)
 (global-set-key (kbd "C-x C-a C-e")   'tab-bar-rename-tab)
 
-(global-set-key (kbd "C-x C-a M-x C-a") 'tab-bar-change-tab-group)
-(global-set-key (kbd "C-x C-a M-x C-f") 'tab-bar-move-tab-to-group)
-(global-set-key (kbd "C-x C-a M-x C-k") 'tab-bar-close-group-tabs)
-(global-set-key (kbd "C-x C-a M-x f")   'tab-bar-move-tab-to)
-(global-set-key (kbd "C-x C-a M-x k")   'tab-bar-close-tab-by-name)
-(global-set-key (kbd "C-x C-a M-x e")   'tab-bar-rename-tab-by-name)
-
 (global-set-key (kbd "C-x C-M-d")   'delete-region)
 (global-set-key (kbd "C-x C-M-k")   'kill-whole-line)
 (global-set-key (kbd "C-x C-M-i")   'imenu)
@@ -114,10 +116,13 @@
 (global-set-key (kbd "C-x C-M-r")   'desktop-save-in-desktop-dir)
 (global-set-key (kbd "C-x C-M-f")   'find-file-at-point)
 (global-set-key (kbd "C-x C-M-v")   'view-file)
-(global-set-key (kbd "C-x M-w")     'copy-thing-at-point)
-(global-set-key (kbd "C-x C-M-c")   'mh/commit)
-(global-set-key (kbd "C-x C-M-SPC") 'mark-thing-at-point)
+(global-set-key (kbd "C-x C-M-c")   'server-edit)
 (global-set-key (kbd "C-x C-M-_")   'dabbrev-completion)
+(global-set-key (kbd "C-x C-M-w")   'mh/copy-thing-at-point)
+(global-set-key (kbd "C-x C-M-y")   'mh/isearch-region)
+(global-set-key (kbd "C-x C-M-t")   'undefined)
+(global-set-key (kbd "C-x C-M-SPC") 'mh/mark-thing-at-point)
+(global-set-key (kbd "C-x C-M-q")   'mh/commit)
 (global-set-key (kbd "C-M-j")    ;; 'duplicate-line (depracted on Emacs 29)
                 (lambda ()
                   (interactive)
@@ -166,10 +171,6 @@
 (global-set-key (kbd "C-x ' C-f")    'read-abbrev-file)
 (global-set-key (kbd "C-x ' C-w")    'write-abbrev-file)
 (global-set-key (kbd "C-x ' C-l")    'list-abbrevs)
-
-;;; Cmx
-
-(global-set-key (kbd "C-]")       'cxm-mode)
 
 ;;;; Minor Modes Remaps
 

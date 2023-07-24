@@ -78,42 +78,56 @@
 
 ;;;; Toggle *
 
-(defun mh/zen ()
-  "Enables `zen-mode' with all its bells and whistles :)"
+(defun mh/undo-edit ()
+  "'Undoes' editing configurations. Useful hook for non-editing buffer"
   (interactive)
-  (setq-local show-trailing-whitespace
-              (not show-trailing-whitespace))
-  (display-fill-column-indicator-mode 'toggle)
-  (display-line-numbers-mode 'toggle))
+
+  (if show-trailing-whitespace
+      (setq-local show-trailing-whitespace nil))
+  (if truncate-lines
+      (setq-local truncate-lines nil))
+
+  (display-fill-column-indicator-mode -1)
+  (display-line-numbers-mode -1))
+
+(defun mh/reset-edit ()
+    "'Resets' editing configurations. Useful hook for editing buffer"
+  (interactive)
+
+  (unless show-trailing-whitespace
+    (setq-local show-trailing-whitespace t))
+  (unless truncate-lines
+      (setq-local truncate-lines t))
+
+  (display-fill-column-indicator-mode 1)
+  (display-line-numbers-mode 1))
 
 ;;; Toggle Input Method
-(global-set-key (kbd "C-x t i") 'toggle-input-method)
+(global-set-key (kbd "C-x C-M-m C-M-i") 'toggle-input-method)
 
 ;;; Toggle Whitespace
-(global-set-key (kbd "C-x t w")
+(global-set-key (kbd "C-x C-M-m C-M-w")
                 (lambda () (interactive)
-                  (setq-local show-trailing-whitespace (not show-trailing-whitespace))))
+                  (setq-local show-trailing-whitespace
+                              (not show-trailing-whitespace))))
 
 ;;; Toggle Truncation
-(global-set-key (kbd "C-x t v")
+(global-set-key (kbd "C-x C-M-m C-M-s")
                 (lambda () (interactive)
                   (setq-local truncate-lines (not truncate-lines))))
 
 ;;; Toggle Line Numbers
-(global-set-key (kbd "C-x t l")
-                (lambda () (interactive)
-                  (display-line-numbers-mode 'toggle)))
+(global-set-key (kbd "C-x C-M-m C-M-l") 'display-line-numbers-mode)
 
 ;;; Toggle Fill Column
-(global-set-key (kbd "C-x t c")
-                (lambda () (interactive)
-                  (display-fill-column-indicator-mode 'toggle)))
+(global-set-key (kbd "C-x C-M-m C-M-c") 'display-fill-column-indicator-mode)
 
 ;;; Toggle All
-(global-set-key (kbd "C-x t s") 'mh/zen)
-(global-set-key (kbd "C-x t z") (lambda () (interactive)
-                                  (zen-mode 'toggle)
-                                  (mh/zen)))
+(global-set-key (kbd "C-x C-M-m C-M-e") 'mh/undo-edit)
+(global-set-key (kbd "C-x C-M-m C-M-r") 'mh/reset-edit)
+(global-set-key (kbd "C-x C-M-m C-M-z") (lambda () (interactive)
+                                  (mh/undo-edit)
+                                  (zen-mode 'toggle)))
 
 ;;;; Scrolling
 
@@ -127,7 +141,6 @@
     (error (beep 1)
 	   (message "End of buffer")
 	   (goto-char (point-max)))))
-
 
 (defun mh/scroll-down (arg)
   "Pull down half screen."
