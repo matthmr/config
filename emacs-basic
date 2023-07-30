@@ -41,7 +41,8 @@
   backup-inhibited nil
   auto-save-default t
   hi-lock-face-defaults '("underline")
-  disabled-command-function nil)
+  disabled-command-function nil
+  comment-column 0)
 
 (setq search-whitespace-regexp ".*?"
       lazy-count-prefix-format "[%s/%s] ")
@@ -296,7 +297,8 @@
 (add-hook 'mail-mode-hook (lambda () (interactive)
                             (cd "/tmp/emacs")))
 
-(add-hook 'diff-mode-hook 'outline-minor-mode)
+(add-hook 'outline-mode-hook  'auto-fill-mode)
+(add-hook 'diff-mode-hook     'outline-minor-mode)
 
 (add-hook 'kill-emacs-hook
   (lambda () (interactive) (mh/desktop-save

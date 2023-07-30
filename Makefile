@@ -5,26 +5,26 @@ EMACS_SOURCES_ELC=emacs-modes/mh-emacsos.elc emacs-modes/mh-basic.elc \
                   emacs-basic.elc emacs-keybindings.elc emacs-macros.elc
 
 emacs-modes/mh-emacsos.elc: emacs-modes/mh-emacsos.el
-	echo "[ .. ] Compiling $?"
+	@echo "[ .. ] Compiling $?"
 	$(EMACS) --batch --exec "(byte-compile-file \"$?\")"
 emacs-modes/mh-basic.elc: emacs-modes/mh-basic.el
-	echo "[ .. ] Compiling $?"
+	@echo "[ .. ] Compiling $?"
 	$(EMACS) --batch --exec "(byte-compile-file \"$?\")"
 emacs-modes/mh-cxm.elc: emacs-modes/mh-cxm.el
-	echo "[ .. ] Compiling $?"
+	@echo "[ .. ] Compiling $?"
 	$(EMACS) --batch --exec "(byte-compile-file \"$?\")"
 emacs-modes/mh-mpc.elc: emacs-modes/mh-mpc.el
-	echo "[ .. ] Compiling $?"
+	@echo "[ .. ] Compiling $?"
 	$(EMACS) --batch --exec "(byte-compile-file \"$?\")"
 
 emacs-basic.elc: emacs-basic
-	echo "[ .. ] Compiling $?"
+	@echo "[ .. ] Compiling $?"
 	$(EMACS) --batch --exec "(byte-compile-file \"$?\")"
 emacs-keybindings.elc: emacs-keybindings
-	echo "[ .. ] Compiling $?"
+	@echo "[ .. ] Compiling $?"
 	$(EMACS) --batch --exec "(byte-compile-file \"$?\")"
 emacs-macros.elc: emacs-macros
-	echo "[ .. ] Compiling $?"
+	@echo "[ .. ] Compiling $?"
 	$(EMACS) --batch --exec "(byte-compile-file \"$?\")"
 
 clean:

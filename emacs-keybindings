@@ -11,6 +11,9 @@
 (global-set-key (kbd "M-K") (lambda () (interactive)
                               (call-prefix -1 'kill-line)))
 
+(global-set-key (kbd "M-c")     'capitalize-dwim)
+(global-set-key (kbd "M-u")     'upcase-dwim)
+(global-set-key (kbd "M-l")     'downcase-dwim)
 (global-set-key (kbd "M-o")     'overwrite-mode)
 (global-set-key (kbd "M-#")     'query-replace)
 (global-set-key (kbd "M-*")     'query-replace-regexp)
@@ -31,7 +34,7 @@
 (global-set-key (kbd "C-x >")   (lambda () (interactive)
                                   (call-prefix 15 'scroll-left)))
 (global-set-key (kbd "C-M-_")   'undo-redo)
-(global-set-key (kbd "C-x C-_") 'dabbrev-expand)
+(global-set-key (kbd "C-x C-_") 'company-complete)
 
 (global-unset-key (kbd "C-x C-t"))
 (global-set-key (kbd "C-x C-t") 'transpose-regions)
@@ -41,6 +44,7 @@
 (global-set-key (kbd "C-x C-M-o") (lambda () (interactive)
                                     (call-prefix -1 'other-window)))
 
+(global-set-key (kbd "C-x M-;")   'comment-set-column)
 (global-set-key (kbd "C-x x C-n") 'clone-indirect-buffer)
 
 (global-unset-key (kbd "C-x m"))
@@ -79,7 +83,7 @@
 (global-set-key (kbd "C-x C-b C-n") 'switch-to-next-buffer)
 (global-set-key (kbd "C-x C-b C-p") 'switch-to-prev-buffer)
 (global-set-key (kbd "C-x C-b C-k") 'kill-current-buffer)
-(global-set-key (kbd "C-x C-b C-d") 'kill-buffer-and-window)
+(global-set-key (kbd "C-x C-b C-w") 'kill-buffer-and-window)
 
 ;; With `window'
 (global-set-key (kbd "C-x C-b C-M-f") 'window-swap-states)
@@ -119,10 +123,9 @@
 (global-set-key (kbd "C-x C-M-c")   'server-edit)
 (global-set-key (kbd "C-x C-M-_")   'dabbrev-completion)
 (global-set-key (kbd "C-x C-M-w")   'mh/copy-thing-at-point)
-(global-set-key (kbd "C-x C-M-y")   'mh/isearch-region)
-(global-set-key (kbd "C-x C-M-t")   'undefined)
+(global-set-key (kbd "C-x C-M-q")   'mh/isearch-region)
 (global-set-key (kbd "C-x C-M-SPC") 'mh/mark-thing-at-point)
-(global-set-key (kbd "C-x C-M-q")   'mh/commit)
+(global-set-key (kbd "C-x C-M-t")   'mh/commit)
 (global-set-key (kbd "C-M-j")    ;; 'duplicate-line (depracted on Emacs 29)
                 (lambda ()
                   (interactive)

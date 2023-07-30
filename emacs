@@ -46,10 +46,6 @@
 (global-set-key (kbd "C-M-p")     'move-text-up)
 (global-set-key (kbd "C-M-n")     'move-text-down)
 
-;;; Company
-
-(global-set-key (kbd "M-/")       'company-complete)
-
 ;;; Markdown
 
 (autoload 'markdown-mode "markdown-mode"
@@ -83,7 +79,7 @@
       (set-display-table-slot standard-display-table 'selective-display ?↷)
       (setq-default truncate-lines t)
       (xterm-mouse-mode t)
-      (global-hl-line-mode)
+      ;; (global-hl-line-mode)
       (load-theme
         (if (eq (window-system) 'x)
             'gruber-darker 'base16-classic-dark
@@ -104,11 +100,7 @@
  '(base16-theme-256-color-source 'colors)
  '(base16-theme-distinct-fringe-background nil)
  '(column-number-mode t)
- '(company-backends
-   '(company-bbdb company-semantic company-cmake company-dabbrev-code company-dabbrev company-capf company-clang company-files
-                  (company-gtags company-etags company-keywords)
-                  company-oddmuse))
- '(company-idle-delay nil)
+ '(company-idle-delay 0.5)
  '(completion-styles '(basic partial-completion emacs22 substring))
  '(delete-auto-save-files nil)
  '(delete-old-versions t)
