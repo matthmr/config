@@ -6,23 +6,49 @@
     (setq current-prefix-arg prefix))
   (call-interactively function))
 
-(global-set-key (kbd "M-]")     'universal-argument)
+(global-unset-key (kbd "C-x m"))
 
-(global-set-key (kbd "M-K") (lambda () (interactive)
-                              (call-prefix -1 'kill-line)))
+(global-set-key (kbd "M-]")     'exit-recursive-edit)
+(global-set-key (kbd "C-M-]")   'abort-recursive-edit)
 
-(global-set-key (kbd "M-c")     'capitalize-dwim)
-(global-set-key (kbd "M-u")     'upcase-dwim)
-(global-set-key (kbd "M-l")     'downcase-dwim)
 (global-set-key (kbd "M-o")     'overwrite-mode)
 (global-set-key (kbd "M-#")     'query-replace)
 (global-set-key (kbd "M-*")     'query-replace-regexp)
 (global-set-key (kbd "C-x ;")   'comment-line)
-(global-set-key (kbd "M-p")     'previous-error)
-(global-set-key (kbd "M-n")     'next-error)
-(global-set-key (kbd "M-P")     'first-error)
-(global-set-key (kbd "M-N")     'next-error-select-buffer)
+(global-set-key (kbd "M-_")     'first-error)
+(global-set-key (kbd "M-+")     'next-error-select-buffer)
 (global-set-key (kbd "C-^")     'delete-indentation)
+(global-set-key (kbd "C-M-_")   'undo-redo)
+(global-set-key (kbd "C-x C-_") 'company-complete)
+
+;(global-unset-key (kbd "C-x C-t"))
+(global-set-key (kbd "C-x C-t")    'transpose-regions)
+
+(global-set-key (kbd "C-x C-M-o") (lambda () (interactive)
+                                    (call-prefix -1 'other-window)))
+
+(global-set-key (kbd "C-x M-;")   'comment-set-column)
+(global-set-key (kbd "C-x x C-n") 'clone-indirect-buffer)
+
+(global-set-key (kbd "C-M-c")     'caps-mode)
+
+(global-set-key (kbd "C-h")       'delete-backward-char)
+(global-set-key (kbd "M-h")       'backward-kill-word)
+(global-set-key (kbd "C-M-h")     'backward-kill-sexp)
+(global-set-key (kbd "C-x C-h")   'help-command)
+(global-set-key (kbd "C-M-l")     'mark-defun)
+(global-set-key (kbd "C-M-m")     'mark-paragraph)
+(global-set-key (kbd "C-x M-.")   'xref-find-references)
+(global-set-key (kbd "C-M-j")     'duplicate-dwim)
+
+;;; Overrides
+
+(global-set-key (kbd "M-c")     'capitalize-dwim)
+(global-set-key (kbd "M-u")     'upcase-dwim)
+(global-set-key (kbd "M-l")     'downcase-dwim)
+(global-set-key (kbd "M-?")     'dabbrev-completion)
+(global-set-key (kbd "C-x o")   'delete-blank-lines)
+(global-set-key (kbd "C-x C-o") 'other-window)
 (global-set-key (kbd "C-x ^")   (lambda () (interactive)
                                   (call-prefix 5 'enlarge-window)))
 (global-set-key (kbd "C-x {")   (lambda () (interactive)
@@ -33,49 +59,20 @@
                                   (call-prefix 15 'scroll-right)))
 (global-set-key (kbd "C-x >")   (lambda () (interactive)
                                   (call-prefix 15 'scroll-left)))
-(global-set-key (kbd "C-M-_")   'undo-redo)
-(global-set-key (kbd "C-x C-_") 'company-complete)
+(global-set-key (kbd "M-p")     'previous-error)
+(global-set-key (kbd "M-n")     'next-error)
 
-(global-unset-key (kbd "C-x C-t"))
-(global-set-key (kbd "C-x C-t") 'transpose-regions)
+;;; Emacs 29
 
-(global-set-key (kbd "C-x o")     'delete-blank-lines)
-(global-set-key (kbd "C-x C-o")   'other-window) ; I don't use `delete-blank-lines'
-(global-set-key (kbd "C-x C-M-o") (lambda () (interactive)
-                                    (call-prefix -1 'other-window)))
+(global-set-key (kbd "M-N") 'minibuffer-next-completion)
+(global-set-key (kbd "M-P") 'minibuffer-previous-completion)
 
-(global-set-key (kbd "C-x M-;")   'comment-set-column)
-(global-set-key (kbd "C-x x C-n") 'clone-indirect-buffer)
+;;; With `kmacro'
 
-(global-unset-key (kbd "C-x m"))
+(global-set-key (kbd "C-x C-k C-w") 'insert-kbd-macro)
 
-(global-set-key (kbd "C-M-] C-g")   'abort-recursive-edit)
-(global-set-key (kbd "C-M-] C-M-e") 'exit-recursive-edit)
-(global-set-key (kbd "C-M-c")       'caps-mode)
+;;; With `buffer'
 
-(global-set-key (kbd "C-h")     'delete-backward-char)
-(global-set-key (kbd "M-h")     'backward-kill-word)
-(global-set-key (kbd "C-M-h")   'backward-kill-sexp)
-(global-set-key (kbd "C-x C-h") 'help-command)
-(global-set-key (kbd "M-M")     'mark-defun)
-(global-set-key (kbd "C-M-m")   'mark-paragraph)
-
-(global-set-key (kbd "C-M-l")  'forward-list)
-
-;;; For emacs 29:
-;;;; (global-set-key (kbd "M-+") 'minibuffer-next-completion)
-;;;; (global-set-key (kbd "M-_") 'minibuffer-previous-completion)
-
-;;; `C-x ESC' Commands
-
-(defun imenu-at-point ()
-  "Uses `imenu' to find symbol at point"
-  (interactive)
-  (let ((symbol (symbol-at-point)))
-    (when symbol
-      (imenu (symbol-name symbol)))))
-
-;; With `buffer'
 (global-unset-key (kbd "C-x C-b"))
 
 (global-set-key (kbd "C-x C-M-b")   'ibuffer)
@@ -85,16 +82,27 @@
 (global-set-key (kbd "C-x C-b C-k") 'kill-current-buffer)
 (global-set-key (kbd "C-x C-b C-w") 'kill-buffer-and-window)
 
-;; With `window'
-(global-set-key (kbd "C-x C-b C-M-f") 'window-swap-states)
-(global-set-key (kbd "C-x C-b C-M-b") (lambda () (interactive)
-                                          (call-prefix -1 'window-swap-states)))
-(global-set-key (kbd "C-x C-b C-M-k") 'delete-window)
-(global-set-key (kbd "C-x C-b C-M-o") 'delete-other-windows)
-(global-set-key (kbd "C-x C-b C-M-j") 'split-window-below)
-(global-set-key (kbd "C-x C-b C-M-l") 'split-window-right)
+;;; With `window' & `windmove'
 
-;; With `tab-bar'
+(global-unset-key (kbd "C-x C-w"))
+
+(global-set-key (kbd "C-x C-w C-f")   'windmove-right)
+(global-set-key (kbd "C-x C-w C-b")   'windmove-left)
+(global-set-key (kbd "C-x C-w C-p")   'windmove-up)
+(global-set-key (kbd "C-x C-w C-n")   'windmove-down)
+(global-set-key (kbd "C-x C-w C-M-f") 'windmove-swap-states-right)
+(global-set-key (kbd "C-x C-w C-M-b") 'windmove-swap-states-left)
+(global-set-key (kbd "C-x C-w C-M-p") 'windmove-swap-states-up)
+(global-set-key (kbd "C-x C-w C-M-n") 'windmove-swap-states-down)
+(global-set-key (kbd "C-x C-w f")     'windmove-delete-right)
+(global-set-key (kbd "C-x C-w b")     'windmove-delete-left)
+(global-set-key (kbd "C-x C-w p")     'windmove-delete-up)
+(global-set-key (kbd "C-x C-w n")     'windmove-delete-down)
+(global-set-key (kbd "C-x C-w -")     'minimize-window)
+(global-set-key (kbd "C-x C-w +")     'maximize-window)
+
+;;; With `tab-bar'
+
 (global-set-key (kbd "C-x C-a C-n")   'tab-bar-switch-to-next-tab)
 (global-set-key (kbd "C-x C-a C-p")   'tab-bar-switch-to-prev-tab)
 (global-set-key (kbd "C-x C-a C-i")   'tab-bar-switch-to-recent-tab)
@@ -110,10 +118,39 @@
 (global-set-key (kbd "C-x C-a C-M-a") 'tab-bar-duplicate-tab)
 (global-set-key (kbd "C-x C-a C-e")   'tab-bar-rename-tab)
 
+;;; With `abbrev'
+
+(global-unset-key (kbd "C-x '"))
+
+(global-set-key (kbd "M-'")          'expand-abbrev)
+(global-set-key (kbd "C-x ' '")      'add-mode-abbrev)
+(global-set-key (kbd "C-x ' C-\\")   'add-global-abbrev)
+(global-set-key (kbd "C-x ' M-'")    'inverse-add-mode-abbrev)
+(global-set-key (kbd "C-x ' C-M-\\") 'inverse-add-global-abbrev)
+(global-set-key (kbd "C-x ' C-f")    'read-abbrev-file)
+(global-set-key (kbd "C-x ' C-w")    'write-abbrev-file)
+(global-set-key (kbd "C-x ' C-l")    'list-abbrevs)
+
+;;; `M-S' commands
+
+(global-set-key (kbd "M-K") (lambda () (interactive)
+                              (call-prefix -1 'kill-line)))
+(global-set-key (kbd "M-A") 'align-regexp)
+(global-set-key (kbd "M-W") 'delete-trailing-whitespace)
+(global-set-key (kbd "M-C") 'compile)
+
+;;; `C-x ESC' Commands
+
+(defun mh/imenu-at-point ()
+  "Uses `imenu' to find symbol at point"
+  (interactive)
+  (let ((symbol (symbol-at-point)))
+    (when symbol
+      (imenu (symbol-name symbol)))))
+
 (global-set-key (kbd "C-x C-M-d")   'delete-region)
 (global-set-key (kbd "C-x C-M-k")   'kill-whole-line)
 (global-set-key (kbd "C-x C-M-i")   'imenu)
-(global-set-key (kbd "C-x C-M-j")   'imenu-at-point)
 (global-set-key (kbd "C-x C-M-s")   'ispell-complete-word)
 (global-set-key (kbd "C-x C-M-u")   'raise-sexp)
 (global-set-key (kbd "C-x C-M-l")   'desktop-read)
@@ -121,22 +158,12 @@
 (global-set-key (kbd "C-x C-M-f")   'find-file-at-point)
 (global-set-key (kbd "C-x C-M-v")   'view-file)
 (global-set-key (kbd "C-x C-M-c")   'server-edit)
-(global-set-key (kbd "C-x C-M-_")   'dabbrev-completion)
-(global-set-key (kbd "C-x C-M-w")   'mh/copy-thing-at-point)
+(global-set-key (kbd "C-x C-M-j")   'mh/imenu-at-point)
+;(global-set-key (kbd "C-x C-M-w")   'mh/copy-thing-at-point) ; C-x C-M-SPC M-w
+(global-set-key (kbd "C-x C-M-w")   'write-file)
 (global-set-key (kbd "C-x C-M-q")   'mh/isearch-region)
 (global-set-key (kbd "C-x C-M-SPC") 'mh/mark-thing-at-point)
 (global-set-key (kbd "C-x C-M-t")   'mh/commit)
-(global-set-key (kbd "C-M-j")    ;; 'duplicate-line (depracted on Emacs 29)
-                (lambda ()
-                  (interactive)
-                  (let ((column (- (point) (point-at-bol)))
-                        (line (let ((s (thing-at-point 'line t)))
-                                (if s (string-remove-suffix "\n" s) ""))))
-                    (move-end-of-line 1)
-                    (newline)
-                    (insert line)
-                    (move-beginning-of-line 1)
-                    (forward-char column))))
 
 ;;; Daemon
 
@@ -162,19 +189,6 @@
                     (if (y-or-n-p (format "Kill Emacs daemon? "))
                         (kill-emacs)
                       (message "Canceled daemon kill")))))
-;;; Abbrev
-
-(global-unset-key (kbd "C-x '"))
-
-(global-set-key (kbd "M-'")          'expand-abbrev)
-(global-set-key (kbd "C-x ' '")      'add-mode-abbrev)
-(global-set-key (kbd "C-x ' C-\\")   'add-global-abbrev)
-(global-set-key (kbd "C-x ' M-'")    'inverse-add-mode-abbrev)
-(global-set-key (kbd "C-x ' C-M-\\") 'inverse-add-global-abbrev)
-(global-set-key (kbd "C-x ' C-f")    'read-abbrev-file)
-(global-set-key (kbd "C-x ' C-w")    'write-abbrev-file)
-(global-set-key (kbd "C-x ' C-l")    'list-abbrevs)
-
 ;;;; Minor Modes Remaps
 
 (define-key minibuffer-local-map "\C-h" 'delete-backward-char)

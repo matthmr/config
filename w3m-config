@@ -80,10 +80,10 @@ tmp_dir /tmp
 mime_types ~/.mime.types, /usr/etc/mime.types
 mailcap ~/.w3m/mailcap, /usr/etc/w3m/mailcap
 urimethodmap ~/.w3m/urimethodmap, /usr/etc/w3m/urimethodmap
-editor /usr/bin/vi
+editor emacsc
 mailto_options 1
 mailer /usr/bin/mail
-extbrowser /usr/bin/firefox
+extbrowser handler.sh -u
 extbrowser2 
 extbrowser3 
 extbrowser4 
@@ -105,7 +105,7 @@ no_referer 0
 cross_origin_referer 1
 accept_language en;q=1.0
 accept_encoding gzip, compress, bzip, bzip2, deflate, br
-accept_media text/html, text/*;q=0.5, image/*
+accept_media text/html, text/*;q=0.5
 argv_is_url 1
 retry_http 1
 default_url 1

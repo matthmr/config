@@ -13,16 +13,20 @@
 (add-to-list 'load-path "/home/mh/Emacs/lisp")
 (add-to-list 'load-path "/home/mh/Git/EMACS/multiple-cursors.el")
 (add-to-list 'load-path "/home/mh/Git/EMACS/company-mode")
+(add-to-list 'load-path "/home/mh/Git/EMACS/doom-modeline")
+(add-to-list 'load-path "/home/mh/Git/EMACS/compat")
 
 ;;; Load Some Programs
-(require 'eglot)
+
+;; (require 'eglot) ; Built-in as of Emacs 29
+;; (require 'edwina) ; Emacs has `windmove.el' and `window.el'
 (require 'zen-mode)
 (require 'caps)
 (require 'rainbow-delimiters)
-(require 'edwina)
 (require 'multiple-cursors)
 (require 'company)
 (require 'move-text)
+(require 'doom-modeline)
 
 (load "/home/p/config/emacs-modes/mh-emacsos")
 (load "/home/p/config/emacs-modes/mh-basic")
@@ -40,6 +44,10 @@
 (global-set-key (kbd "C-x C-M-p") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-x M-n")   'mc/skip-to-next-like-this)
 (global-set-key (kbd "C-x M-p")   'mc/skip-to-previous-like-this)
+
+;;; Doom-Modeline
+
+(add-hook 'after-init-hook #'doom-modeline-mode)
 
 ;;; Move Text
 
@@ -78,6 +86,7 @@
       (set-display-table-slot standard-display-table 'wrap ?↩)
       (set-display-table-slot standard-display-table 'selective-display ?↷)
       (setq-default truncate-lines t)
+      (mouse-wheel-mode t)
       (xterm-mouse-mode t)
       ;; (global-hl-line-mode)
       (load-theme
@@ -100,6 +109,7 @@
  '(base16-theme-256-color-source 'colors)
  '(base16-theme-distinct-fringe-background nil)
  '(column-number-mode t)
+ '(comment-column 0)
  '(company-idle-delay 0.5)
  '(completion-styles '(basic partial-completion emacs22 substring))
  '(delete-auto-save-files nil)
@@ -112,6 +122,11 @@
  '(display-line-numbers-widen t)
  '(display-time-default-load-average nil)
  '(display-time-format "%Y%m%d%H%M")
+ '(doom-modeline-buffer-file-name-style 'truncate-with-project)
+ '(doom-modeline-icon nil)
+ '(doom-modeline-minor-modes t)
+ '(doom-modeline-mode t)
+ '(doom-modeline-workspace-name nil)
  '(eglot-autoshutdown t)
  '(eglot-events-buffer-size 100000)
  '(eglot-highlight-symbol-face ((t (:inherit underline))))
@@ -139,21 +154,22 @@
      (vc-mode vc-mode)
      "  " mode-line-modes))
  '(org-agenda-files nil)
- '(outline-minor-mode-prefix "")
- '(package-selected-packages '(with-editor compat))
+ '(outline-minor-mode-prefix "\3\23")
+ '(package-selected-packages '(dash with-editor))
  '(read-file-name-completion-ignore-case t)
  '(rmail-preserve-inbox t)
  '(save-abbrevs nil)
  '(scheme-program-name "guile")
  '(scroll-bar-mode nil)
  '(set-mark-command-repeat-pop t)
- '(size-indication-mode t)
- '(smerge-command-prefix "m")
+ '(size-indication-mode nil)
+ '(smerge-command-prefix "\3m")
  '(standard-indent 2)
  '(tool-bar-mode nil)
  '(tooltip-mode nil)
  '(truncate-partial-width-windows nil)
  '(tsc-dyn-get-from nil)
+ '(use-short-answers t)
  '(vc-follow-symlinks t)
  '(vc-make-backup-files t)
  '(version-control t))
@@ -162,7 +178,11 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Iosevka Comfy" :foundry "UKWN" :slant normal :weight normal :height 120 :width normal))))
+ '(default ((t (:family "Iosevka" :foundry "UKWN" :slant normal :weight normal :height 140 :width normal))))
+ '(doom-modeline-buffer-file ((t (:inherit (doom-modeline mode-line-buffer-id bold)))))
+ '(doom-modeline-buffer-major-mode ((t (:inherit (doom-modeline-emphasis bold) :background "#1a1a1a"))))
+ '(doom-modeline-buffer-minor-mode ((t (:inherit (doom-modeline font-lock-doc-face) :background "#1a1a1a" :slant italic :weight normal))))
+ '(doom-modeline-input-method ((t (:inherit doom-modeline-emphasis :background "#1a1a1a"))))
  '(eglot-highlight-symbol-face ((t (:inherit underline))))
  '(eglot-mode-line ((t nil)))
  '(icomplete-first-match ((t (:foreground "#dc9656"))))

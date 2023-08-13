@@ -54,16 +54,16 @@
                        (format-time-string "%m"))))
 
   ;; suspend (suspend memory)
-  (global-set-key (kbd "C-x M-x M-m") (acpi-for "suspend"))
+  (global-set-key (kbd "C-x C-M-x C-M-m") (acpi-for "suspend"))
 
   ;; hibernate (suspend disk)
-  (global-set-key (kbd "C-x M-x M-d") (acpi-for "hibernate"))
+  (global-set-key (kbd "C-x C-M-x C-M-d") (acpi-for "hibernate"))
 
-  ;; halt (shutdown)
-  (global-set-key (kbd "C-x M-x M-s") (acpi-for "shutdown"))
+  ;; halt (shutdown0)
+  (global-set-key (kbd "C-x C-M-x C-M-s") (acpi-for "shutdown"))
 
   ;; reboot
-  (global-set-key (kbd "C-x M-x M-r") (acpi-for "reboot"))
+  (global-set-key (kbd "C-x C-M-x C-M-r") (acpi-for "reboot"))
 
   ;; start xsession of XESSION is set to 1
   (when (and (string= env/xsession "1")
@@ -73,16 +73,16 @@
 
 (defun emacsos/init-tmux (x?)
   ;; suspend (suspend memory)
-  (global-set-key (kbd "C-x M-x M-m") (acpi-for-tmux "suspend" x?))
+  (global-set-key (kbd "C-x C-M-x C-M-m") (acpi-for-tmux "suspend" x?))
 
   ;; hibernate (suspend disk)
-  (global-set-key (kbd "C-x M-x M-d") (acpi-for-tmux "hibernate" x?))
+  (global-set-key (kbd "C-x C-M-x C-M-d") (acpi-for-tmux "hibernate" x?))
 
   ;; halt (shutdown)
-  (global-set-key (kbd "C-x M-x M-s") (acpi-for-tmux "shutdown" x?))
+  (global-set-key (kbd "C-x C-M-x C-M-s") (acpi-for-tmux "shutdown" x?))
 
   ;; reboot
-  (global-set-key (kbd "C-x M-x M-r") (acpi-for-tmux "reboot" x?)))
+  (global-set-key (kbd "C-x C-M-x C-M-r") (acpi-for-tmux "reboot" x?)))
 
 
 (let ((env/wm (getenv "WM"))

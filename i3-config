@@ -147,6 +147,6 @@ bar {
 
   font pango:JetBrains Mono 14
 
-  # position top
-  position bottom
+  position top
+  # position bottom
 }

@@ -3,8 +3,6 @@
 (load "/home/p/config/emacs-macros")
 (load "/home/p/config/emacs-keybindings")
 
-(shell-command "mkdir /tmp/emacs/ 1>/dev/null 2>/dev/null")
-
 (setq-default
   create-lockfiles nil ; these are *trully* useless
   inhibit-startup-message t
@@ -27,7 +25,7 @@
   inhibit-x-resources t ; as per [C-h v inhibit-x-resources]
   indent-tabs-mode nil
   sentence-end-double-space nil ; Why the fuck would I do that?
-  local-enable-local-variables nil ; Why the fuck would I do that?
+  ; local-enable-local-variables nil ; Why the fuck would I do that?
   ring-bell-function 'ignore ; SHUT THE FUCK UP
   tab-bar-show 1
   echo-keystrokes 0.1
@@ -307,7 +305,9 @@
   (lambda () (interactive) (mh/desktop-read
                              "/home/mh/Emacs/desktop")))
 
-(defalias 'wm-mode 'edwina-mode)
+(add-hook 'vc-dir-mode-hook
+  (lambda () (interactive)
+    (define-key vc-dir-mode-map "!" 'vc-edit-next-command)))
 
 ;;;; Auto-mode
 

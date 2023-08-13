@@ -1,8 +1,17 @@
-!!! Cursor !!!
+!!!! XFT
+
+Xft.antialias: true
+Xft.rgba: rgb
+! Xft.hinting: true
+! Xft.hintstyle: hintfull
+! Xft.dpi: 96
+! Xft.autohint: false
+
+!!!! Cursor
 Xcursor.size: 32
 Xcursor.theme: McMojave-cursors
 
-!!! Urxvt !!!
+!!!! Urxvt
 URxvt.keysym.C-J: eval:scroll_down(10)
 URxvt.keysym.C-K: eval:scroll_up(10)
 
@@ -38,16 +47,6 @@ URxvt*pointerBlankDelay: 10
 URxvt.perl-ext-common: default,resize-font,-confirm-paste
 URxvt.searchable-scrollback: Meta-Shift-S
 
-! URxvt.Xft
-Xft.antialias: true
-Xft.rgba: rgb
-! Xft.hinting: true
-! Xft.hintstyle: hintfull
-! Xft.dpi: 96
-! Xft.autohint: false
-
-! Transparency
-
 URxvt.geometry:                 400x400
 !URxvt*inheritPixmap:            true
 urxvt*background:               rgba:0026/0026/0026/7777
@@ -60,12 +59,12 @@ urxvt.depth: 24
 ! urxvt*internalBorder: 4
 ! urxvt.secondaryScroll: false
 
-!!! Xterm !!!
+!!!! Xterm
 xterm*faceName: Iosevka Term Medium
-xterm*faceSize: 16
+xterm*faceSize: 12
 xterm*letterSpacing: 0
 XTerm*cursorBlink: true
-XTerm.termName: xterm-256color
+XTerm.termName: xterm-direct
 XTerm.vt100.locale: true
 XTerm.vt100.utf8: true
 XTerm.vt100.metaSendsEscape: true
@@ -76,12 +75,14 @@ XTerm*vt100.translations: #override \
     Alt Ctrl <Key> C: copy-selection(CLIPBOARD) \n\
     Alt Ctrl <Key> V: insert-selection(CLIPBOARD)
 
-!!! nsxiv !!!
+!!!! NSXIV
 Nsxiv*bar.font: Iosevka
 Nsxiv*background: #303030
+
+!!!! FEH
 feh*background: #303030
 
-!!! GLOBAL !!!
+!!!! GLOBAL
 ! Themeing
 
 ! *fading: 35
