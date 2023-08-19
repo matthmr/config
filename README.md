@@ -1,6 +1,7 @@
 # Config files
 
-This is a non-comprehensive repository of my config files.
+This is a non-comprehensive repository of my config files. This repository is
+broken into sections
 
 # Incompatibility
 
