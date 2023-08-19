@@ -5,7 +5,7 @@
 
 (setq-default
   create-lockfiles nil ; these are *trully* useless
-  inhibit-startup-message t
+  inhibit-startup-screen t
   scroll-error-top-bottom t
   scroll-preserve-screen-position t
   scroll-margin 2

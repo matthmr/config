@@ -3,6 +3,7 @@
 (load "/home/p/config/emacs-basic")
 
 ;;; Color Themes
+
 (add-to-list 'custom-theme-load-path
              "/home/mh/Emacs/themes")
 (add-to-list 'custom-theme-load-path
@@ -95,7 +96,24 @@
             )
         t))))
 
-;;; Customize
+(defvar mh/initial-scratch-message "\
+;;                           ___
+;;                          (.. |
+;;                          (<> |          ,= ,-_-. =.
+;;                         / __  \\        ((_/)o o(\\_))
+;;                        ( /  \\ /|        `-!(. .)`-!
+;;                       _/\\ __)/_)            \\_/
+;;                       \\/-____\\/
+;;
+;;                       __             _
+;;                      /__ |\\ | | |   |_ ._ _   _.  _  _
+;;                      \\_| | \\| |_|   |_ | | | (_| (_ _>
+
+"
+  "Initial scratch message")
+
+;;;; Customize
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -140,8 +158,7 @@
  '(goal-column nil)
  '(icomplete-mode t)
  '(icomplete-show-matches-on-no-input t)
- '(inhibit-startup-screen t)
- '(initial-scratch-message nil)
+ '(initial-scratch-message mh/initial-scratch-message)
  '(isearch-lazy-count t)
  '(ispell-alternate-dictionary "/home/mh/Documents/Dict/english-words")
  '(kept-new-versions 1)
@@ -149,10 +166,6 @@
  '(mc/always-run-for-all t)
  '(menu-bar-mode nil)
  '(mode-line-compact nil)
- '(mode-line-format
-   '("%e" " " mode-line-misc-info mode-line-mule-info mode-line-client mode-line-modified mode-line-remote " " mode-line-buffer-identification "   " mode-line-position
-     (vc-mode vc-mode)
-     "  " mode-line-modes))
  '(org-agenda-files nil)
  '(outline-minor-mode-prefix "\3\23")
  '(package-selected-packages '(dash with-editor))

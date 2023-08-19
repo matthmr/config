@@ -86,18 +86,18 @@
 
 (global-unset-key (kbd "C-x C-w"))
 
-(global-set-key (kbd "C-x C-w C-f")   'windmove-right)
-(global-set-key (kbd "C-x C-w C-b")   'windmove-left)
-(global-set-key (kbd "C-x C-w C-p")   'windmove-up)
-(global-set-key (kbd "C-x C-w C-n")   'windmove-down)
-(global-set-key (kbd "C-x C-w C-M-f") 'windmove-swap-states-right)
-(global-set-key (kbd "C-x C-w C-M-b") 'windmove-swap-states-left)
-(global-set-key (kbd "C-x C-w C-M-p") 'windmove-swap-states-up)
-(global-set-key (kbd "C-x C-w C-M-n") 'windmove-swap-states-down)
-(global-set-key (kbd "C-x C-w f")     'windmove-delete-right)
-(global-set-key (kbd "C-x C-w b")     'windmove-delete-left)
-(global-set-key (kbd "C-x C-w p")     'windmove-delete-up)
-(global-set-key (kbd "C-x C-w n")     'windmove-delete-down)
+(global-set-key (kbd "C-x C-w C-l")   'windmove-right)
+(global-set-key (kbd "C-x C-w C-h")   'windmove-left)
+(global-set-key (kbd "C-x C-w C-k")   'windmove-up)
+(global-set-key (kbd "C-x C-w C-j")   'windmove-down)
+(global-set-key (kbd "C-x C-w C-M-l") 'windmove-swap-states-right)
+(global-set-key (kbd "C-x C-w C-M-h") 'windmove-swap-states-left)
+(global-set-key (kbd "C-x C-w C-M-k") 'windmove-swap-states-up)
+(global-set-key (kbd "C-x C-w C-M-j") 'windmove-swap-states-down)
+(global-set-key (kbd "C-x C-w M-l")   'windmove-delete-right)
+(global-set-key (kbd "C-x C-w M-h")   'windmove-delete-left)
+(global-set-key (kbd "C-x C-w M-k")   'windmove-delete-up)
+(global-set-key (kbd "C-x C-w M-j")   'windmove-delete-down)
 (global-set-key (kbd "C-x C-w -")     'minimize-window)
 (global-set-key (kbd "C-x C-w +")     'maximize-window)
 
@@ -122,14 +122,14 @@
 
 (global-unset-key (kbd "C-x '"))
 
-(global-set-key (kbd "M-'")          'expand-abbrev)
-(global-set-key (kbd "C-x ' '")      'add-mode-abbrev)
-(global-set-key (kbd "C-x ' C-\\")   'add-global-abbrev)
-(global-set-key (kbd "C-x ' M-'")    'inverse-add-mode-abbrev)
-(global-set-key (kbd "C-x ' C-M-\\") 'inverse-add-global-abbrev)
-(global-set-key (kbd "C-x ' C-f")    'read-abbrev-file)
-(global-set-key (kbd "C-x ' C-w")    'write-abbrev-file)
-(global-set-key (kbd "C-x ' C-l")    'list-abbrevs)
+(global-set-key (kbd "M-'")        'expand-abbrev)
+(global-set-key (kbd "C-x M-'")    'add-mode-abbrev)
+(global-set-key (kbd "M-\"")       'inverse-add-mode-abbrev)
+(global-set-key (kbd "C-x ' M-'")  'add-global-abbrev)
+(global-set-key (kbd "C-x ' M-\"") 'inverse-add-global-abbrev)
+(global-set-key (kbd "C-x ' C-f")  'read-abbrev-file)
+(global-set-key (kbd "C-x ' C-w")  'write-abbrev-file)
+(global-set-key (kbd "C-x ' C-l")  'list-abbrevs)
 
 ;;; `M-S' commands
 
