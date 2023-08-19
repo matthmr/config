@@ -144,18 +144,3 @@ map Rfr !feh -r --scale-down -B "#303030" $f
 map Rmr !mpv $f
 map Rfa !feh -r --scale-down -B "#303030" $fs
 map Rma !mpv $fs
-
-map gd :cd /home/mh/Documents/
-map gv :cd /home/mh/Videos/
-map gi :cd /home/mh/Images
-map gdw :cd /home/mh/Downloads
-map ga :cd /home/mh/Archive/
-map gb :cd /home/mh/Backup/
-map go :cd /home/mh/Documents/Org
-map gj :cd /home/mh/Documents/Org/Journal
-map gw :cd /home/mh/Documents/Org/Wiki
-map gp :cd /home/mh/Git/MH
-map grs :cd /mnt/ssd
-map grh :cd /mnt/hdd
-map grn :cd /
-map gt :cd /tmp

@@ -1,6 +1,6 @@
 #!/usr/bin/sh
 
 case $1 in
-  'w') read file && ~p/scripts/x/wpset $file ;;
-  't') read file && ~p/scripts/x/wpset -t $file ;;
+  'w') read file && @NSXIV_HANDLER_SET@ ;;
+  't') read file && @NSXIV_HANDLER_TEST@ ;;
 esac

@@ -1,11 +1,11 @@
 # NOTE: use a m4 macro to substitute variables in `@@'
 
-set folder = "@OFFLINE_INBOX@"
-set smtp_url = "@SMTP_INBOX@"
+set folder = @NEOMUTT_FOLDER@
+set smtp_url = @NEOMUTT_SMTP@
 
-set smtp_pass = "@PASSWORD@"
-set from = "@MAIL_ADDRESS@"
-set realname = "@NAME@"
+set smtp_pass = @NEOMUTT_PASSWORD@
+set from = @NEOMUTT_ADDRESS@
+set realname = @NEOMUTT_NAME@
 
 set spoolfile = "+INBOX"
 set record = "+Sent"

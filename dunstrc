@@ -161,8 +161,8 @@
     history_ignore = true
 
     history_length = 5
-    dmenu = /home/mh/Source/bin/dmenu -p 'dunst:'
-    browser = /mnt/ssd/source/bin/ungoogled-chromium
+    dmenu = @DUNST_DMENU@ -p 'dunst:'
+    browser = @DUNST_BROWSER@
     always_run_script = false
     title = Dunst
     class = Dunst

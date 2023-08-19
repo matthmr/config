@@ -33,21 +33,21 @@
 
 (global-set-key (kbd "C-x c w")
                 (lambda () (interactive)
-                  (write-file "/tmp/clipboard")
-                  (shell-command "/home/mh/Scripts/edit-copy.sh -i")))
+                  (write-file @EMACS_CLIPBOARD@)
+                  (shell-command @EMACS_EDIT_COPY_I@)))
 (global-set-key (kbd "C-x c e")
                 (lambda () (interactive)
-                  (find-file "/tmp/clipboard")
-                  (shell-command "/home/mh/Scripts/edit-copy.sh -d")
+                  (find-file @EMACS_CLIPBOARD@)
+                  (shell-command @EMACS_EDIT_COPY_D@)
                   (revert-buffer-quick)))
 (global-set-key (kbd "C-x c r")
                 (lambda () (interactive)
-                  (find-file "/tmp/clipboard")
+                  (find-file @EMACS_CLIPBOARD@)
                   (revert-buffer-quick)))
 (global-set-key (kbd "C-x c y")
                 (lambda () (interactive)
-                  (shell-command "/home/mh/Scripts/edit-copy.sh -d")
-                  (insert-file "/tmp/clipboard")))
+                  (shell-command @EMACS_EDIT_COPY_D@)
+                  (insert-file @EMACS_CLIPBOARD@)))
 
 ;;;; VC
 

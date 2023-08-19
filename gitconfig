@@ -1,11 +1,11 @@
 # Github CLI for pushing to github
 [credential "https://github.com"]
-  helper = !/mnt/ssd/root/usr/bin/gh auth git-credential
+  helper = @GIT_HELPER@
 
 # Global configs
 [user]
-  name  = mh
-  email = observermatth@gmail.com
+  name  = @GIT_NAME@
+  email = @GIT_EMAIL@
 [pull]
   rebase = false
 [init]

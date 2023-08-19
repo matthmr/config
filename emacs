@@ -1,21 +1,19 @@
 ;;;; Dot Emacs
 
-(load "/home/p/config/emacs-basic")
+(load @EMACS_BASIC@)
 
 ;;; Color Themes
 
-(add-to-list 'custom-theme-load-path
-             "/home/mh/Emacs/themes")
-(add-to-list 'custom-theme-load-path
-             "/home/mh/Emacs/themes/base16-themes")
+(add-to-list 'custom-theme-load-path @EMACS_THEMES@)
+(add-to-list 'custom-theme-load-path @EMACS_BASE16@)
 
 ;;; Load Paths
 
-(add-to-list 'load-path "/home/mh/Emacs/lisp")
-(add-to-list 'load-path "/home/mh/Git/EMACS/multiple-cursors.el")
-(add-to-list 'load-path "/home/mh/Git/EMACS/company-mode")
-(add-to-list 'load-path "/home/mh/Git/EMACS/doom-modeline")
-(add-to-list 'load-path "/home/mh/Git/EMACS/compat")
+(add-to-list 'load-path @EMACS_LISP@)
+(add-to-list 'load-path @EMACS_MULTIPLE_CURSORS@)
+(add-to-list 'load-path @EMACS_COMPANY_MODE@)
+(add-to-list 'load-path @EMACS_DOOM_MODELINE@)
+(add-to-list 'load-path @EMACS_COMPAT@)
 
 ;;; Load Some Programs
 
@@ -29,10 +27,10 @@
 (require 'move-text)
 (require 'doom-modeline)
 
-(load "/home/p/config/emacs-modes/mh-emacsos")
-(load "/home/p/config/emacs-modes/mh-basic")
-(load "/home/p/config/emacs-modes/mh-mpc")
-(load "/home/p/config/emacs-modes/mh-cxm")
+(load @EMACS_EMACSOS@)
+(load @EMACS_MH_BASIC@)
+(load @EMACS_MH_MPC@)
+(load @EMACS_MH_CXM@)
 
 ;; (setq max-mini-window-height 1)
 (setq eglot-stay-out-of '("flymake"))
@@ -68,7 +66,7 @@
 
 ;;; Abbrev
 
-(read-abbrev-file "/home/mh/Emacs/abbrevs")
+(read-abbrev-file @EMACS_ABBREVS@)
 
 ;;; TTY vs PTS
 
@@ -120,10 +118,10 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(Man-width-max nil)
- '(auto-save-file-name-transforms '((".*" "/tmp/emacs/" t)))
+ '(auto-save-file-name-transforms '((".*" @EMACS_TMP@ t)))
  '(auto-save-interval 300)
  '(backup-by-copying t)
- '(backup-directory-alist '((".*" . "/mnt/hdd/backup/EMACS/")))
+ '(backup-directory-alist '((".*" . @EMACS_BACKUP@)))
  '(base16-theme-256-color-source 'colors)
  '(base16-theme-distinct-fringe-background nil)
  '(column-number-mode t)
@@ -135,7 +133,7 @@
  '(desktop-base-file-name "desktop")
  '(desktop-base-lock-name "desktop-lock")
  '(desktop-load-locked-desktop t)
- '(desktop-path '("~/Emacs/desktop"))
+ '(desktop-path '(@EMACS_DESKTOP@))
  '(diff-refine nil)
  '(display-line-numbers-widen t)
  '(display-time-default-load-average nil)
@@ -160,7 +158,7 @@
  '(icomplete-show-matches-on-no-input t)
  '(initial-scratch-message mh/initial-scratch-message)
  '(isearch-lazy-count t)
- '(ispell-alternate-dictionary "/home/mh/Documents/Dict/english-words")
+ '(ispell-alternate-dictionary @EMACS_ENGLISH_DICT@)
  '(kept-new-versions 1)
  '(kept-old-versions 1)
  '(mc/always-run-for-all t)

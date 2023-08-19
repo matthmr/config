@@ -23,7 +23,7 @@ super + control + a; shift + m
 super + control + a; shift + d
   dohibernate -x
 super + control + a; l
-  i3lock -i '/home/mh/Images/Wallpapers/vapor/apollo.png' -e -f -b -n -t -p default
+  i3lock -i @SXHKDRC_IMAGE@ -e -f -b -n -t -p default
 
 # launch-mode
 super + control + l; a
@@ -58,6 +58,6 @@ super + c
 super + control + q
   xkill
 super + control + r
-  /home/mh/Scripts/x/resize
+  @SXHKDRC_RESIZE@
 super + control + d
-  /home/mh/Scripts/sxhkd-reload.sh
+  @SXHKDRC_RELOAD@

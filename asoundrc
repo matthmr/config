@@ -1,5 +1,5 @@
-defaults.pcm.card 2
-defaults.ctl.card 2
+defaults.pcm.card @ASOUND_DEFAULT_CARD_PCM@
+defaults.ctl.card @ASOUND_DEFAULT_CARD_CTL@
 
 pcm.!default{
    type plug

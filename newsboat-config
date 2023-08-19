@@ -21,8 +21,8 @@ bind-key p  prev-unread
 
 datetime-format "%Y%m%d%H%M"
 delete-read-articles-on-quit yes
-save-path "/home/mh/Documents/RSS/"
-browser "handler.sh -u"
+save-path @NEWSBOAT_SAVE@
+browser @NEWSBOAT_BROWSER@
 
 #     type              fg      bg      attr
 color info              white   black   bold

@@ -31,7 +31,7 @@ mpd_host = /tmp/mpd-socket
 #
 ## Needed for tag editor and file operations to work.
 ##
-mpd_music_dir = /home/mh/Music
+mpd_music_dir = @NCMPCPP_MUSIC@
 #
 #mpd_crossfade_time = 5
 #

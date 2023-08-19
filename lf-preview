@@ -15,6 +15,6 @@ case "$(file --dereference --brief --mime-type -- "$1")" in
 	image/*) mediainfo "$1";;
 	audio/*|video/*) mediainfo "$1";;
 	*/pdf) pdftotext "$1" - ;;
-	text/* | */xml | application/json) highlight -D /mnt/ssd/root/usr/share/highlight -O ansi "$1";;
-	*) highlight -D /mnt/ssd/root/usr/share/highlight -O ansi "$1";;
+	text/* | */xml | application/json) @LF_HIGHLIGHT@ "$1";;
+	*) @LF_HIGHLIGHT@ "$1";;
 esac

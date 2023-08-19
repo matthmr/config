@@ -8,10 +8,10 @@ Plug 'windwp/nvim-autopairs'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'morhetz/gruvbox'
-Plug 'vimwiki/vimwiki'
 Plug 'mbbill/undotree'
 Plug 'matze/vim-move'
 Plug 'axvr/org.vim'
+"Plug 'vimwiki/vimwiki'
 "Plug 'simrat39/symbols-outline.nvim'
 "Plug 'mfussenegger/nvim-dap'
 "Plug 'szw/vim-maximizer'
@@ -19,7 +19,3 @@ Plug 'axvr/org.vim'
 "Plug 'tpope/vim-commentary'
 "Plug 'vifm/vifm.vim'
 call plug#end()
-
-let g:vimwiki_list = [{'path':'/home/mh/Wiki/', 'syntax': 'markdown', 'ext': 'md'}]
-let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
-let g:vimwiki_markdown_link_ext = 1

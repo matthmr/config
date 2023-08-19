@@ -35,7 +35,7 @@
 (defmacro acpi-for (acpi)
   `(lambda ()
     (interactive)
-    (setenv "XINITSLEEP" (format "/home/mh/Scripts/bin/do%s" ,acpi))
+    (setenv "XINITSLEEP" (format @EMACS_ACPI_FMT@ ,acpi))
     (ansi-term "zsh" (format "%s-shell" ,acpi))
     (setenv "XINITSLEEP" nil)))
 
@@ -44,12 +44,12 @@
   `(lambda ()
     (interactive)
     (shell-command (format ,(if x?
-                                "/home/mh/Scripts/bin/do%s -x"
-                             "/home/mh/Scripts/bin/do%s") ,acpi))))
+                                @EMACS_ACPI_FMT_X@
+                             @EMACS_ACPI_FMT@) ,acpi))))
 
 (defun emacsos/init (env/xsession)
   (unless (string= env/wm "tty")
-    (find-file (format "%s/%s/%s.org" "/home/p/ORG/journal"
+    (find-file (format @EMACS_JOURNAL_FMT@ @EMACS_JOURNAL_PATH@
                        (format-time-string "%Y")
                        (format-time-string "%m"))))
 
@@ -92,8 +92,8 @@
    ;; emacs-xwm: exwm
    ((string= env/wm "emacs-xwm")
     ;; set and configure `exwm'
-    (add-to-list 'load-path "/home/mh/Git/EMACS/xelb")
-    (add-to-list 'load-path "/home/mh/Git/EMACS/exwm")
+    (add-to-list 'load-path @EMACS_EXWM_DEP1@)
+    (add-to-list 'load-path @EMACS_EXWM_DEP2@)
     (require 'exwm)
     (require 'exwm-config)
     (exwm-config-default)

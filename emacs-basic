@@ -1,7 +1,7 @@
 ;;;; Emacs Basic Config
 
-(load "/home/p/config/emacs-macros")
-(load "/home/p/config/emacs-keybindings")
+(load @EMACS_MACROS@)
+(load @EMACS_KEYBINDINGS@)
 
 (setq-default
   create-lockfiles nil ; these are *trully* useless
@@ -14,7 +14,7 @@
   column-number-indicator-zero-based nil
   split-height-threshold 30 ; prefer spliting horizontally ; 90
   vc-handled-backends '(Git)
-  temporary-file-directory "/tmp/emacs"
+  temporary-file-directory @EMACS_TMP@
   tab-width 2
   window-divider-default-places 'right-only
   kill-ring-max 100
@@ -45,12 +45,12 @@
 (setq search-whitespace-regexp ".*?"
       lazy-count-prefix-format "[%s/%s] ")
 
-(setq-local default-directory "/tmp/emacs/")
+(setq-local default-directory @EMACS_TMP@)
 
 ;; Gnus
 
-(setq-default gnus-article-save-directory "/home/mh/Documents/Gnus/"
-              gnus-startup-file "/home/mh/Documents/Gnus/newsrc")
+(setq-default gnus-article-save-directory @EMACS_GNUS@
+              gnus-startup-file @EMACS_NEWSRC@)
 
 ;;; Autosave
 
@@ -252,7 +252,7 @@
 ;;;; Hooks
 
 (defun mh/desktop-save (desktop-dirname)
-  (shell-command (format "mv -v %s/desktop %s/desktop-$(/home/mh/Scripts/date/short.sh)"
+  (shell-command (format @EMACS_DESKTOP_SAVE_FMT@
                    desktop-dirname desktop-dirname)))
 
 (defun mh/desktop-read (desktop-dirname)
@@ -293,17 +293,15 @@
                                         ; better
 
 (add-hook 'mail-mode-hook (lambda () (interactive)
-                            (cd "/tmp/emacs")))
+                            (cd @EMACS_TMP@)))
 
 (add-hook 'outline-mode-hook  'auto-fill-mode)
 (add-hook 'diff-mode-hook     'outline-minor-mode)
 
 (add-hook 'kill-emacs-hook
-  (lambda () (interactive) (mh/desktop-save
-                              "/home/mh/Emacs/desktop")))
+  (lambda () (interactive) (mh/desktop-save @EMACS_DESKTOP@)))
 (add-hook 'desktop-no-desktop-file-hook
-  (lambda () (interactive) (mh/desktop-read
-                             "/home/mh/Emacs/desktop")))
+  (lambda () (interactive) (mh/desktop-read @EMACS_DESKTOP@)))
 
 (add-hook 'vc-dir-mode-hook
   (lambda () (interactive)

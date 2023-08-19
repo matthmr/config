@@ -12,13 +12,13 @@ case $WM in
     if [[ $XSESSION == "1" && ! -f /tmp/xsession.lock ]]; then
       touch /tmp/xsession.lock
 
-      export XINITSLEEP=/home/mh/Scripts/system/linux.sh
+      export XINITSLEEP=@SX_LINUX_SH@
       # export XINITSLEEPARGS=-x
     fi;;
 esac
 
 ### WINDOW MANAGER ###
-/home/mh/.local/bin/xdaemon  "$1" "$2" &
-/home/mh/.local/bin/xsession "$1" "$2" &
+@SX_XDAEMON@ "$1" "$2" &
+@SX_XSESSION@ "$1" "$2" &
 
 exec "$1"
