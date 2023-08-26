@@ -1,12 +1,34 @@
-# start-up daemons
-#exec --no-startup-id dunst
-#exec --no-startup-id emacsserver xtoggle
+#### General
+
+# create the directory
+exec --no-startup-id mkdir -p /tmp/i3
+
+# set the socket path
+ipc-socket /tmp/i3/i3-socket
+
+# font
+font pango:JetBrains Mono 12
+
+# set workspace
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+
+title_align center
+#workspace_layout tabbed
+#for_window [all] title_window_icon on
+default_border normal 2
+
+#### Bindings
 
 # modifier key
 set $mod Mod4
 
-# font
-font pango:JetBrains Mono 12
+# toggle bar
+bindsym $mod+b bar mode invisible
+bindsym $mod+Control+b bar mode dock
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -25,16 +47,16 @@ bindsym $mod+Shift+k move up 15 px
 bindsym $mod+Shift+l move right 15 px
 
 # set split direction
-bindsym $mod+Control+f split h
-bindsym $mod+Control+b split v
+bindsym $mod+Control+l split h
+bindsym $mod+Control+j split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
+bindsym $mod+d layout stacking
 bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+bindsym $mod+s layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Control+space floating toggle
@@ -43,15 +65,8 @@ bindsym $mod+Control+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # focus the parent/child container
-bindsym $mod+Shift+p focus parent
-bindsym $mod+Shift+c focus child
-
-# set workspace
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
-set $ws4 "4"
-set $ws5 "5"
+bindsym $mod+Control+u focus parent
+bindsym $mod+Control+d focus child
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -73,8 +88,8 @@ bindsym $mod+Control+c move absolute position center
 focus_follows_mouse no
 
 # scratchpad
-bindsym $mod+Shift+s move scratchpad
-bindsym $mod+Shift+d scratchpad show
+bindsym $mod+Control+p move scratchpad
+bindsym $mod+Shift+p scratchpad show
 
 # workspace cycling
 bindsym $mod+Tab workspace next
@@ -85,7 +100,8 @@ bindsym $mod+m mark swapee
 bindsym $mod+Shift+m unmark swapee
 bindsym $mod+n swap container with mark swapee
 
-# style
+#### Style
+
 #                       border  bg      txt     indic     chbordr
 client.focused          #303030 #303030 #ffffff #aaaaaa   #303030
 client.focused_inactive #222222 #222222 #ffffff #484e50   #222222
@@ -96,42 +112,44 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 
 client.background       #ffffff
 
-# Modes
+#### Modes
+
 mode "action" {
   bindsym q exec i3-msg exit; mode "default"
-  bindsym c reload; mode "default"
+  bindsym l reload; mode "default"
   bindsym r restart; mode "default"
 
   bindsym Control+g mode "default"
-  bindsym Escape mode "default"
+  bindsym Control+bracketleft mode "default"
+  bindsym Escape mode    "default"
 }
 
 mode "resize" {
-        bindsym h resize shrink width 15 px
-        bindsym j resize grow height 15 px
-        bindsym k resize shrink height 15 px
-        bindsym l resize grow width 15 px
+  bindsym h resize shrink width 15 px
+  bindsym j resize grow height 15 px
+  bindsym k resize shrink height 15 px
+  bindsym l resize grow width 15 px
 
-        bindsym Shift+h resize grow left 15 px
-        bindsym Shift+j resize shrink up 15 px
-        bindsym Shift+k resize grow up 15 px
-        bindsym Shift+l resize shrink left 15 px
+  bindsym Control+h resize grow width 15 px
+  bindsym Control+j resize grow height 15 px
+  bindsym Control+k resize shrink height 15 px
+  bindsym Control+l resize shrink width 15 px
 
-        bindsym Control+g mode "default"
-        bindsym Escape mode "default"
+  bindsym Shift+h resize grow left 15 px
+  bindsym Shift+j resize shrink up 15 px
+  bindsym Shift+k resize grow up 15 px
+  bindsym Shift+l resize shrink left 15 px
+
+  bindsym Control+g mode "default"
+  bindsym Control+bracketleft mode "default"
+  bindsym Escape mode    "default"
 }
 
-bindsym $mod+Shift+r mode "resize"
-bindsym $mod+Shift+a mode "action"
+bindsym $mod+Control+s mode "resize"
+bindsym $mod+Control+a mode "action"
 
-# misc
-title_align center
-#workspace_layout tabbed
-for_window [all] title_window_icon on
-default_border normal 2
-bindsym $mod+p exec --no-startup-id dmenu_run
+#### Status Bar
 
-# status bar
 bar {
   # status_command i3status
   status_command i3blocks
@@ -145,7 +163,7 @@ bar {
     focused_workspace  #303030 #303030 #FFFFFF
   }
 
-  font pango:JetBrains Mono 14
+  font pango:JetBrains Mono 12
 
   position top
   # position bottom

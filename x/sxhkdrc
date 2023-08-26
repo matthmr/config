@@ -1,63 +1,63 @@
-# term-mode
-super + control + Return; shift + u
+#### term-mode
+
+super + control + x; Return; shift + u
   urxvt -e zsh
-super + control + Return; shift + s
+super + control + x; Return; shift + s
   st -e zsh
-super + control + Return; shift + x
+super + control + x; Return; shift + x
   xterm -e zsh
-super + control + Return; u
+super + control + x; Return; u
   urxvt -e tmux new-session -A
-super + control + Return; s
+super + control + x; Return; s
   st -e tmux new-session -A
-super + control + Return; x
+super + control + x; Return; x
   xterm -e tmux new-session -A
 
-# action-mode
-# TODO: add an interactive [Y/n] for the `rc-' ACPI family
-super + control + a; shift + s
+#### action-mode
+
+super + control + x; a; s
   doshutdown -x
-super + control + a; shift + r
+super + control + x; a; r
   doreboot -x
-super + control + a; shift + m
+super + control + x; a; m
   dosuspend -x
-super + control + a; shift + d
+super + control + x; a; d
   dohibernate -x
-super + control + a; l
+super + control + x; a; l
   i3lock -i @SXHKDRC_IMAGE@ -e -f -b -n -t -p default
 
-# launch-mode
-super + control + l; a
+#### launch-mode
+
+super + control + x; l; a
   alsa-dmenu
-super + control + l; b
+super + control + x; l; b
   ungoogled-chromium
-super + control + l; f
+super + control + x; l; f
   firefox
-super + control + l; m
+super + control + x; l; m
   mpc-dmenu
-super + control + l; s
+super + control + x; l; s
   screenshot-dir
-super + control + l; q
+super + control + x; l; q
   screenshot-quick
-super + control + l; j
+super + control + x; l; j
   japanese-dmenu
-super + control + l; l
+super + control + x; l; l
   urxvt -e lf -single
-super + control + l; e
+super + control + x; l; e
   emacstc
-super + control + l; shift + e
+super + control + x; l; x
   emacs-x
 
-# misc
-# we start `wm' in a dbus session, we need everything that is started
-# by dmenu to have the address set by the session. The same is not true
-# for terminal-started applications
-#super + p
-#	dmenu_run
+#### misc
+
+super + x
+	dmenu_run
 super + c
   clipmenu
-super + control + q
+super + control + x; x; k
   xkill
-super + control + r
+super + control + x; x; r
   @SXHKDRC_RESIZE@
-super + control + d
+super + control + x; x; l
   @SXHKDRC_RELOAD@

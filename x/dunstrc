@@ -151,7 +151,7 @@
     icon_position = left
     min_icon_size = 0
     max_icon_size = 32
-    icon_path = /home/mh/.icons/WhiteSur-dark/status/:/home/mh/.icons/WhiteSur-dark/devices/
+    icon_path = @DUNST_ICON_PATH@
 
     ### History ###
 
