@@ -1,4 +1,3 @@
-# Github CLI for pushing to github
 [credential "https://github.com"]
   helper = @GIT_HELPER@
 
@@ -40,15 +39,15 @@
   sl = log --oneline
   gl = log --oneline --abbrev-commit --graph
   df = diff --stat --patch --color=always
-  fe = fetch
-  cm = commit
-  ad = add
+  fe = fetch --verbose
+  cm = commit --verbose
+  ad = add --verbose
   br = branch
-  mg = merge
-  sm = merge --squash
+  pl = pull --verbose
+  mg = merge --verbose
+  sm = merge --squash --verbose
   sh = show --stat --patch
   st = status
-  ss = stash
   ch = checkout
   cp = cherry-pick -n
   rs = restore
@@ -59,7 +58,7 @@
   ap = add -p
   rp = restore -p
   ss = stash
-  mm = merge --no-ff --no-commit
-  mp = pull  --no-ff --no-commit
+  mm = merge --no-ff --no-commit --verbose
+  mp = pull  --no-ff --no-commit --verbose
   sr = show-ref
   sw = switch

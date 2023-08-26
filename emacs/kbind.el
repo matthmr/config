@@ -36,9 +36,11 @@
 (global-set-key (kbd "M-h")       'backward-kill-word)
 (global-set-key (kbd "C-M-h")     'backward-kill-sexp)
 (global-set-key (kbd "C-x C-h")   'help-command)
-(global-set-key (kbd "C-M-l")     'mark-defun)
-(global-set-key (kbd "C-M-m")     'mark-paragraph)
+(global-set-key (kbd "M-L")       'mark-defun)
+(global-set-key (kbd "C-M-l")     'mark-paragraph)
+(global-set-key (kbd "C-M-m")     'default-indent-new-line)
 (global-set-key (kbd "C-x M-.")   'xref-find-references)
+(global-set-key (kbd "C-x r C-l") 'list-registers)
 (global-set-key (kbd "C-M-j")     'duplicate-dwim)
 
 ;;; Overrides
@@ -75,7 +77,7 @@
 
 (global-unset-key (kbd "C-x C-b"))
 
-(global-set-key (kbd "C-x C-M-b")   'ibuffer)
+(global-set-key (kbd "C-x C-M-b")   'bs-show)
 (global-set-key (kbd "C-x C-b C-b") 'ibuffer)
 (global-set-key (kbd "C-x C-b C-n") 'switch-to-next-buffer)
 (global-set-key (kbd "C-x C-b C-p") 'switch-to-prev-buffer)
@@ -175,7 +177,6 @@
     (message "Canceled frame suspension")))
 
 (global-set-key (kbd "C-z")       'repeat)
-(global-set-key (kbd "C-x C-M-z") 'repeat-complex-command)
 (global-set-key (kbd "C-x C-z")   'mh/confirm-suspend)
 
 (when (daemonp)

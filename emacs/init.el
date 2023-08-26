@@ -27,7 +27,8 @@
 (require 'move-text)
 (require 'doom-modeline)
 
-(load @EMACS_EMACSOS@)
+(load @EMACS_MH_EMACSOS@)
+(load @EMACS_MH_USER@) ; confidential options for the user, not in this repository
 (load @EMACS_MH_BASIC@)
 (load @EMACS_MH_MPC@)
 (load @EMACS_MH_CXM@)
@@ -64,10 +65,6 @@
   "Major mode for editing GitHub Flavored Markdown files" t)
 (add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
 
-;;; Abbrev
-
-(read-abbrev-file @EMACS_ABBREVS@)
-
 ;;; TTY vs PTS
 
 (let ((env/wm (getenv "WM")))
@@ -83,7 +80,9 @@
     (progn
       (set-display-table-slot standard-display-table 'truncation ?…)
       (set-display-table-slot standard-display-table 'wrap ?↩)
-      (set-display-table-slot standard-display-table 'selective-display ?↷)
+      (set-display-table-slot standard-display-table 'selective-display
+                              (string-to-vector "↷"))
+      (set-display-table-slot standard-display-table 'vertical-border ?│)
       (setq-default truncate-lines t)
       (mouse-wheel-mode t)
       (xterm-mouse-mode t)
@@ -204,4 +203,5 @@
  '(smerge-refined-added ((t (:inherit smerge-refined-change :background "#aaffaa" :foreground "black"))))
  '(smerge-refined-removed ((t (:inherit smerge-refined-change :background "#ffbbbb" :foreground "black"))))
  '(smerge-upper ((t (:extend t :background "#ffdddd" :foreground "black"))))
- '(trailing-whitespace ((t (:background "#fb4934" :foreground "#fabd2f")))))
+ '(trailing-whitespace ((t (:background "#fb4934" :foreground "#fabd2f"))))
+ '(vertical-border ((t (:background "#202020" :foreground "#303030")))))

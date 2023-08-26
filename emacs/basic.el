@@ -2,6 +2,7 @@
 
 (load @EMACS_MACROS@)
 (load @EMACS_KEYBINDINGS@)
+(load @EMACS_ABBREVS@) ; the abbrevs file is not in this repository
 
 (setq-default
   create-lockfiles nil ; these are *trully* useless
@@ -268,6 +269,7 @@
                               (setq comment-start "//")
                               (setq comment-end "")
                               (setq-local page-delimiter "^/\\{4\\}")
+                              (setq-local indent-tabs-mode nil)
                               (hs-minor-mode t)
                               (abbrev-mode -1)))
 (add-hook 'python-mode-hook  (lambda () (interactive)

@@ -1,0 +1,12 @@
+application/*; handler.sh %s
+audio/*; handler.sh %s
+chemical/*; handler.sh %s
+font/*; handler.sh %s
+image/*; handler.sh %s
+message/*; handler.sh %s
+model/*; handler.sh %s
+multipart/*; handler.sh %s
+text/*; handler.sh %s
+video/*; handler.sh %s
+x-conference/*; handler.sh %s
+x-epoc/*; handler.sh %s

@@ -20,7 +20,7 @@ emacs/mh-mpc.elc: emacs/mh-mpc.el
 emacs/basic.elc: emacs/basic.el
 	@echo "[ .. ] Compiling $?"
 	$(EMACS) --batch --exec "(byte-compile-file \"$?\")"
-emacs/kbind.elc: emacs/kbind.ekl
+emacs/kbind.elc: emacs/kbind.el
 	@echo "[ .. ] Compiling $?"
 	$(EMACS) --batch --exec "(byte-compile-file \"$?\")"
 emacs/macros.elc: emacs/macros.el

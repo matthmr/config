@@ -177,8 +177,9 @@
     (forward-char)))
 
 (global-set-key (kbd "M-z")   'mh/to-char)
-(global-set-key (kbd "C-M-z") 'mh/up-to-char)
 (global-set-key (kbd "M-Z")   'zap-up-to-char)
+
+(global-set-key (kbd "C-M-z") 'repeat-complex-command)
 
 ;;;; Formating
 
