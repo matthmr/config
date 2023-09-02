@@ -25,10 +25,11 @@ default_border normal 2
 
 # modifier key
 set $mod Mod4
+set $alt Mod1
 
 # toggle bar
 bindsym $mod+b bar mode invisible
-bindsym $mod+Control+b bar mode dock
+bindsym $mod+Shift+b bar mode dock
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -124,28 +125,22 @@ mode "action" {
   bindsym Escape mode    "default"
 }
 
-mode "resize" {
-  bindsym h resize shrink width 15 px
-  bindsym j resize grow height 15 px
-  bindsym k resize shrink height 15 px
-  bindsym l resize grow width 15 px
+bindsym $mod+Control+e resize grow width 15px
+bindsym $mod+Shift+e resize shrink width 15px
 
-  bindsym Control+h resize grow width 15 px
-  bindsym Control+j resize grow height 15 px
-  bindsym Control+k resize shrink height 15 px
-  bindsym Control+l resize shrink width 15 px
+bindsym $mod+Control+v resize grow height 15px
+bindsym $mod+Shift+v resize shrink height 15px
 
-  bindsym Shift+h resize grow left 15 px
-  bindsym Shift+j resize shrink up 15 px
-  bindsym Shift+k resize grow up 15 px
-  bindsym Shift+l resize shrink left 15 px
+bindsym $mod+$alt+Control+h resize grow left 15px
+bindsym $mod+$alt+Control+j resize grow down 15px
+bindsym $mod+$alt+Control+k resize grow up 15px
+bindsym $mod+$alt+Control+l resize grow right 15px
 
-  bindsym Control+g mode "default"
-  bindsym Control+bracketleft mode "default"
-  bindsym Escape mode    "default"
-}
+bindsym $mod+$alt+Shift+h resize shrink right 15px
+bindsym $mod+$alt+Shift+j resize shrink up 15px
+bindsym $mod+$alt+Shift+k resize shrink down 15px
+bindsym $mod+$alt+Shift+l resize shrink left 15px
 
-bindsym $mod+Control+s mode "resize"
 bindsym $mod+Control+a mode "action"
 
 #### Status Bar

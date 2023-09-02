@@ -38,6 +38,8 @@ super + control + x; l; m
   mpc-dmenu
 super + control + x; l; s
   screenshot-dir
+super + control + x; l; Q
+  screenshot-quick-dir
 super + control + x; l; q
   screenshot-quick
 super + control + x; l; j
@@ -51,7 +53,7 @@ super + control + x; l; x
 
 #### misc
 
-super + x
+super + p
 	dmenu_run
 super + c
   clipmenu

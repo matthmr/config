@@ -45,7 +45,7 @@ URxvt*termName: xterm-256color
 URxvt*pointerBlank: true
 URxvt*pointerBlankDelay: 10
 URxvt.perl-ext-common: default,resize-font,-confirm-paste
-URxvt.searchable-scrollback: Meta-Shift-S
+URxvt.searchable-scrollback: Meta-Shift-G
 
 URxvt.geometry:                 400x400
 !URxvt*inheritPixmap:            true

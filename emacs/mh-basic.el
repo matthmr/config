@@ -205,3 +205,21 @@
 
 (global-set-key (kbd "C-y")   'mh/yank)
 (global-set-key (kbd "C-M-y") 'yank)
+
+;;;; Completion
+
+(defun mh/minibuffer-completion (start end collection &optional predicate)
+  (if (active-minibuffer-window)
+      (completion--in-region start end collection predicate)
+    (let* ((initial (buffer-substring-no-properties start end))
+           (all (completion-all-completions initial collection predicate
+                                            (length initial)))
+           (completion (cond
+                        ((atom all) nil)
+                        ((and (consp all) (atom (cdr all))) (car all))
+                        (t (completing-read
+                            "Completion: " collection predicate t initial)))))
+      (cond (completion (completion--replace start end completion) t)
+            (t (message "No completion") nil)))))
+
+(setq completion-in-region-function #'mh/minibuffer-completion)

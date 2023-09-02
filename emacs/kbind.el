@@ -19,7 +19,6 @@
 (global-set-key (kbd "M-+")     'next-error-select-buffer)
 (global-set-key (kbd "C-^")     'delete-indentation)
 (global-set-key (kbd "C-M-_")   'undo-redo)
-(global-set-key (kbd "C-x C-_") 'company-complete)
 
 ;(global-unset-key (kbd "C-x C-t"))
 (global-set-key (kbd "C-x C-t")    'transpose-regions)
@@ -102,6 +101,9 @@
 (global-set-key (kbd "C-x C-w M-j")   'windmove-delete-down)
 (global-set-key (kbd "C-x C-w -")     'minimize-window)
 (global-set-key (kbd "C-x C-w +")     'maximize-window)
+(global-set-key (kbd "C-x C-w 2")     'split-root-window-below)
+(global-set-key (kbd "C-x C-w 3")     'split-root-window-right)
+(global-set-key (kbd "C-x C-w C-b")   'fit-window-to-buffer)
 
 ;;; With `tab-bar'
 
@@ -190,6 +192,8 @@
                     (if (y-or-n-p (format "Kill Emacs daemon? "))
                         (kill-emacs)
                       (message "Canceled daemon kill")))))
+
 ;;;; Minor Modes Remaps
 
 (define-key minibuffer-local-map "\C-h" 'delete-backward-char)
+(define-key minibuffer-local-completion-map " " 'self-insert-command)

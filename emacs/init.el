@@ -17,8 +17,6 @@
 
 ;;; Load Some Programs
 
-;; (require 'eglot) ; Built-in as of Emacs 29
-;; (require 'edwina) ; Emacs has `windmove.el' and `window.el'
 (require 'zen-mode)
 (require 'caps)
 (require 'rainbow-delimiters)
@@ -26,12 +24,12 @@
 (require 'company)
 (require 'move-text)
 (require 'doom-modeline)
+(require 'god-mode)
 
 (load @EMACS_MH_EMACSOS@)
 (load @EMACS_MH_USER@) ; confidential options for the user, not in this repository
 (load @EMACS_MH_BASIC@)
 (load @EMACS_MH_MPC@)
-(load @EMACS_MH_CXM@)
 
 ;; (setq max-mini-window-height 1)
 (setq eglot-stay-out-of '("flymake"))
@@ -53,6 +51,14 @@
 
 (global-set-key (kbd "C-M-p")     'move-text-up)
 (global-set-key (kbd "C-M-n")     'move-text-down)
+
+;;; God
+
+(global-set-key (kbd "C-]")       'god-mode)
+
+;;; Company
+
+(global-set-key (kbd "C-x C-_") 'company-complete)
 
 ;;; Markdown
 
@@ -125,6 +131,10 @@
  '(base16-theme-distinct-fringe-background nil)
  '(column-number-mode t)
  '(comment-column 0)
+ '(company-backends
+   '(company-semantic company-capf company-clang company-files
+                      (company-dabbrev-code company-gtags company-etags company-keywords)
+                      company-oddmuse company-dabbrev))
  '(company-idle-delay 0.5)
  '(completion-styles '(basic partial-completion emacs22 substring))
  '(delete-auto-save-files nil)
@@ -146,6 +156,7 @@
  '(eglot-events-buffer-size 100000)
  '(eglot-highlight-symbol-face ((t (:inherit underline))))
  '(eglot-menu-string "")
+ '(eldoc-echo-area-use-multiline-p 1)
  '(eww-search-prefix "https://google.com/search?q=")
  '(file-name-shadow-tty-properties '(invisible t intangible t field shadow))
  '(fill-column 80)
@@ -153,6 +164,7 @@
  '(global-company-mode t)
  '(global-display-line-numbers-mode t)
  '(goal-column nil)
+ '(gud-key-prefix [3 1])
  '(icomplete-mode t)
  '(icomplete-show-matches-on-no-input t)
  '(initial-scratch-message mh/initial-scratch-message)

@@ -53,7 +53,6 @@
     (define-key map "<" 'beginning-of-buffer)
     (define-key map ">" 'end-of-buffer)
 
-
     (define-key map "p" 'yank)
     (define-key map "P" 'yank-pop)
     (define-key map "o" 'kill-region)
@@ -74,7 +73,6 @@
     (define-key map " " 'set-mark-command)
     (define-key map "i" 'cxm-mode)
     (define-key map "a" 'cxm-mode)
-    (define-key map "'" 'cxm-mode)
 
     (define-key map "m" 'recenter-top-bottom)
     (define-key map "u" 'undo)
@@ -99,4 +97,4 @@ scrolling"
     (delq 'cxm-mode-string global-mode-string)))
 
 
-(global-set-key (kbd "C-]") 'cxm-mode)
+(global-set-key (kbd "M-]") 'cxm-mode)

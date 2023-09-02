@@ -35,30 +35,31 @@
 
 # Git aliases
 [alias]
-  lg = log --stat --patch
-  sl = log --oneline
-  gl = log --oneline --abbrev-commit --graph
-  df = diff --stat --patch --color=always
-  fe = fetch --verbose
-  cm = commit --verbose
-  ad = add --verbose
-  br = branch
-  pl = pull --verbose
-  mg = merge --verbose
-  sm = merge --squash --verbose
-  sh = show --stat --patch
-  st = status
-  ch = checkout
-  cp = cherry-pick -n
-  rs = restore
-  rt = reset
-  rv = revert
-  tg = tag
-  bl = blame --color-lines
-  ap = add -p
-  rp = restore -p
-  ss = stash
-  mm = merge --no-ff --no-commit --verbose
-  mp = pull  --no-ff --no-commit --verbose
-  sr = show-ref
-  sw = switch
+  lg  = log --stat --patch
+  sl  = log --oneline
+  gl  = log --oneline --abbrev-commit --graph
+  df  = diff --stat --patch --color=always
+  fe  = fetch --verbose
+  cm  = commit --verbose
+  ad  = add --verbose
+  br  = branch
+  pl  = pull --verbose
+  mg  = merge
+  sm  = merge --squash
+  sh  = show --stat --patch
+  st  = status
+  ch  = checkout
+  chp = checkout -p
+  cp  = cherry-pick -n
+  rs  = restore
+  rt  = reset
+  rv  = revert
+  tg  = tag
+  bl  = blame --color-lines
+  adp = add -p
+  rsp = restore -p
+  ss  = stash
+  mm  = merge --no-ff --no-commit
+  mp  = pull  --no-ff --no-commit
+  sr  = show-ref
+  sw  = switch

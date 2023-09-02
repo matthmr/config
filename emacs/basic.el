@@ -41,7 +41,9 @@
   auto-save-default t
   hi-lock-face-defaults '("underline")
   disabled-command-function nil
-  comment-column 0)
+  comment-column 0
+  completions-format 'one-column
+  enable-recursive-minibuffers t)
 
 (setq search-whitespace-regexp ".*?"
       lazy-count-prefix-format "[%s/%s] ")
@@ -91,12 +93,14 @@
   (let ((map (make-sparse-keymap)))
     ;(define-key map [remap minibuffer-complete-and-exit] 'icomplete-ret)
     (define-key map (kbd "TAB")   'icomplete-force-complete)
-    (define-key map (kbd "C-j")   'icomplete-fido-exit)
-    (define-key map (kbd "C-M-j") 'exit-minibuffer) ;; select default
+    (define-key map (kbd "C-M-j") 'exit-minibuffer)
+    (define-key map (kbd "M-J")   'exit-minibuffer)
+    ;; (define-key map (kbd "M-RET") 'exit-minibuffer) ;; select default
     (define-key map (kbd "RET")   'icomplete-force-complete-and-exit)
-    (define-key map (kbd "C-s")   'icomplete-forward-completions)
-    (define-key map (kbd "C-r")   'icomplete-backward-completions)
-    (define-key map (kbd "C-DEL") 'icomplete-fido-backward-updir)
+    (define-key map (kbd "C-M-n") 'icomplete-forward-completions)
+    (define-key map (kbd "C-M-p") 'icomplete-backward-completions)
+    (define-key map (kbd "M-.")   'icomplete-forward-completions)
+    (define-key map (kbd "M-,")   'icomplete-backward-completions)
     map)
   "Keymap used by `icomplete-mode' in the minibuffer'.")
 
@@ -104,9 +108,9 @@
 
 (defvar hs-minor-mode-map
   (let ((map (make-sparse-keymap)))
-    (define-key map (kbd "C-c C-s C-h") 'hs-hide-block)
+    (define-key map (kbd "C-c C-s C-d") 'hs-hide-block)
     (define-key map (kbd "C-c C-s C-s") 'hs-show-block)
-    (define-key map (kbd "C-c C-s M-h") 'hs-hide-all)
+    (define-key map (kbd "C-c C-s M-d") 'hs-hide-all)
     (define-key map (kbd "C-c C-s M-s") 'hs-show-all)
     (define-key map (kbd "C-c C-s C-l") 'hs-hide-level)
     (define-key map (kbd "C-c C-s C-c") 'hs-toggle-hiding)
@@ -270,25 +274,25 @@
                               (setq comment-end "")
                               (setq-local page-delimiter "^/\\{4\\}")
                               (setq-local indent-tabs-mode nil)
-                              (hs-minor-mode t)
+                              (outline-minor-mode t)
                               (abbrev-mode -1)))
 (add-hook 'python-mode-hook  (lambda () (interactive)
                                (setq-local page-delimiter "^#\\{4\\}")
-                               (hs-minor-mode t)))
+                               (outline-minor-mode t)))
 (add-hook 'sh-mode-hook      (lambda () (interactive)
                                (setq-local page-delimiter "^#\\{4\\}")))
 
 (add-hook 'lisp-mode-hook    (lambda () (interactive)
                                (setq-local page-delimiter "^;\\{4\\}")
-                               (hs-minor-mode t)
+                               (outline-minor-mode t)
                                (rainbow-delimiters-mode t)))
 (add-hook 'scheme-mode-hook  (lambda () (interactive)
                                (setq-local page-delimiter "^;\\{4\\}")
-                               (hs-minor-mode t)
+                               (outline-minor-mode t)
                                (rainbow-delimiters-mode t)))
 (add-hook 'emacs-lisp-mode-hook  (lambda () (interactive)
                                    (setq-local page-delimiter "^;\\{4\\}")
-                                   (hs-minor-mode t)
+                                   (outline-minor-mode t)
                                    (rainbow-delimiters-mode t)))
 
 (add-hook 'html-mode-hook 'nxml-mode)   ; Emacs' default HTML is meh, nXML is
@@ -308,6 +312,62 @@
 (add-hook 'vc-dir-mode-hook
   (lambda () (interactive)
     (define-key vc-dir-mode-map "!" 'vc-edit-next-command)))
+
+;;;; Function overrides
+
+;; From `minibuffer.el'
+(defun completion-pcm--string->pattern (string &optional point)
+  "Split STRING into a pattern.
+A pattern is a list where each element is either a string
+or a symbol, see `completion-pcm--merge-completions'."
+  (if (and point (< point (length string)))
+      (let ((prefix (substring string 0 point))
+            (suffix (substring string point)))
+        (append (completion-pcm--string->pattern prefix)
+                '(point)
+                (completion-pcm--string->pattern suffix)))
+    (let* ((pattern nil)
+           (p 0)
+           (p0 p)
+           (pending nil))
+
+      (while (and (setq p (string-match completion-pcm--delim-wild-regex
+                                        string p))
+                  (or completion-pcm-complete-word-inserts-delimiters
+                      ;; If the char was added by minibuffer-complete-word,
+                      ;; then don't treat it as a delimiter, otherwise
+                      ;; "M-x SPC" ends up inserting a "-" rather than listing
+                      ;; all completions.
+                      (not (get-text-property p 'completion-try-word string))))
+        ;; Usually, completion-pcm--delim-wild-regex matches a delimiter,
+        ;; meaning that something can be added *before* it, but it can also
+        ;; match a prefix and postfix, in which case something can be added
+        ;; in-between (e.g. match [[:lower:]][[:upper:]]).
+        ;; This is determined by the presence of a submatch-1 which delimits
+        ;; the prefix.
+        (if (match-end 1) (setq p (match-end 1)))
+        (unless (= p0 p)
+          (if pending (push pending pattern))
+          (push (substring string p0 p) pattern))
+        (setq pending nil)
+        (if (or (eq (aref string p) ?*)
+                (eq (aref string p) ? ))
+            (progn
+              (push 'star pattern)
+              (setq p0 (1+ p)))
+          (push 'any pattern)
+          (if (match-end 1)
+              (setq p0 p)
+            (push (substring string p (match-end 0)) pattern)
+            ;; `any-delim' is used so that "a-b" also finds "array->beginning".
+            (setq pending 'any-delim)
+            (setq p0 (match-end 0))))
+        (setq p p0))
+
+      (when (> (length string) p0)
+        (if pending (push pending pattern))
+        (push (substring string p0) pattern))
+      (nreverse pattern))))
 
 ;;;; Auto-mode
 

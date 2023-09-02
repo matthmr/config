@@ -26,7 +26,17 @@ browser @NEWSBOAT_BROWSER@
 
 #     type              fg      bg      attr
 color info              white   black   bold
+#color article           white   default bold
 color listnormal        magenta default
 color listfocus         magenta black   bold
 color listfocus_unread  white   black   bold
 color listnormal_unread white   default
+
+highlight article "^(Feed|Title|Author|Link|Date):.*" cyan default bold
+highlight article "https?://[^ ]+" blue default bold
+highlight article "\\[[0-9][0-9]*\\]" magenta default bold
+highlight article "\\[image\\ [0-9]+\\]" blue default bold
+highlight article "\\[embedded flash: [0-9][0-9]*\\]" blue default bold
+highlight article ":.*\\(link\\)$" blue default
+highlight article ":.*\\(image\\)$" blue default
+highlight article ":.*\\(embedded flash\\)$" blue default
