@@ -187,6 +187,7 @@
  '(size-indication-mode nil)
  '(smerge-command-prefix "\3m")
  '(standard-indent 2)
+ '(todo-directory @EMACS_TODO_DIR@)
  '(tool-bar-mode nil)
  '(tooltip-mode nil)
  '(truncate-partial-width-windows nil)

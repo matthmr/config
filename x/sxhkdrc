@@ -28,28 +28,35 @@ super + control + x; a; l
 
 #### launch-mode
 
-super + control + x; l; a
-  alsa-dmenu
 super + control + x; l; b
   ungoogled-chromium
 super + control + x; l; f
   firefox
-super + control + x; l; m
-  mpc-dmenu
 super + control + x; l; s
   screenshot-dir
 super + control + x; l; Q
   screenshot-quick-dir
 super + control + x; l; q
   screenshot-quick
-super + control + x; l; j
-  japanese-dmenu
 super + control + x; l; l
   urxvt -e lf -single
 super + control + x; l; e
   emacstc
-super + control + x; l; x
-  emacs-x
+
+#### MPD
+
+super + control + x; m; space
+  mpc toggle > /dev/null 2>/dev/null
+super + control + x; m; n
+  mpc next > /dev/null 2>/dev/null
+super + control + x; m; p
+  mpc prev > /dev/null 2>/dev/null
+super + control + x; m; s
+  mpc stop > /dev/null 2>/dev/null
+super + control + x; m; equal
+  mpc volume +10 > /dev/null 2>/dev/null
+super + control + x; m; minus
+  mpc volume -10 > /dev/null 2>/dev/null
 
 #### misc
 

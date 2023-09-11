@@ -78,7 +78,7 @@ cgi_bin
 index_file 
 tmp_dir /tmp
 mime_types ~/.mime.types, /usr/etc/mime.types
-mailcap ~/.w3m/mailcap, /usr/etc/w3m/mailcap
+mailcap ~/.mailcap, ~/.w3m/mailcap, /usr/etc/w3m/mailcap
 urimethodmap ~/.w3m/urimethodmap, /usr/etc/w3m/urimethodmap
 editor emacsc
 mailto_options 1

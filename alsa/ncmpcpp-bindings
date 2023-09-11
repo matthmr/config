@@ -1,41 +1,127 @@
-def_key "ctrl-s"
-    find
+def_key "mouse"
+  mouse_event
+
+def_key "U"
+  update_database
+
+def_key "u"
+  page_up
+def_key "d"
+  page_down
+
+def_key "k"
+  scroll_up
+def_key "j"
+  scroll_down
+
+def_key "g"
+  move_home
+def_key "G"
+  move_end
+
+def_key "space"
+  pause
+
+def_key "D"
+  delete_playlist_items
+def_key "D"
+  delete_browser_items
+def_key "D"
+  delete_stored_playlist
+
+def_key "l"
+  master_screen
+def_key "h"
+  slave_screen
+def_key "l"
+  next_column
+def_key "h"
+  previous_column
+
+def_key "P"
+  show_playlist
+def_key "B"
+  show_browser
+def_key "B"
+  change_browse_mode
+def_key "S"
+  show_search_engine
+def_key "S"
+  reset_search_engine
+def_key "L"
+  show_media_library
+def_key "L"
+  toggle_media_library_columns_mode
+def_key "E"
+  show_playlist_editor
+def_key "T"
+  show_tag_editor
+def_key "O"
+  show_outputs
+def_key "V"
+  show_visualizer
+
+def_key "ctrl-n"
+  next
+def_key "ctrl-p"
+  previous
 
 def_key "/"
-    find_item_forward
+  find_item_forward
 def_key "?"
-    find_item_backward
-
-def_key "j"
-    scroll_down
-def_key "k"
-    scroll_up
-
-def_key "ctrl-u"
-    page_up
-def_key "ctrl-d"
-    page_down
-
-def_key "h"
-    previous_column
-def_key "l"
-    next_column
-
-def_key "."
-    show_lyrics
+  find_item_backward
 
 def_key "n"
-    next_found_item
+  next_found_item
 def_key "N"
-    previous_found_item
+  previous_found_item
 
-def_key "+"
-   volume_up
+def_key "A"
+  add_item_to_playlist
 
+def_key "="
+  volume_up
 def_key "-"
-   volume_down
+  volume_down
 
 def_key "J"
-    move_sort_order_down
+  select_item
+  scroll_down
 def_key "K"
-    move_sort_order_up
+  select_item
+  scroll_up
+
+def_key "@"
+  jump_to_position_in_song
+
+def_key "R"
+  remove_selection
+
+def_key "^"
+  move_selected_items_up
+def_key "v"
+  move_selected_items_down
+
+def_key "1"
+  toggle_repeat
+def_key "2"
+  toggle_random
+def_key "3"
+  toggle_single
+def_key "4"
+  toggle_consume
+def_key "5"
+  toggle_crossfade
+
+def_key "."
+  seek_forward
+def_key ","
+  seek_backward
+
+def_key "t"
+  toggle_visualization_type
+def_key "M"
+  toggle_display_mode
+
+def_key "alt-?"
+  show_help
