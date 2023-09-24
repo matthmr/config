@@ -1,7 +1,7 @@
 EMACS?=emacs
 
 EMACS_SOURCES_ELC=emacs/mh-emacsos.elc emacs/mh-basic.elc \
-                  emacs/mh-cxm.elc emacs/mh-mpc.elc \
+                  emacs/mh-cxm.elc emacs/mh-mpc.elc emacs/mh-viper.elc \
                   emacs/basic.elc emacs/kbind.elc emacs/macros.elc
 
 emacs/mh-emacsos.elc: emacs/mh-emacsos.el
@@ -11,6 +11,9 @@ emacs/mh-basic.elc: emacs/mh-basic.el
 	@echo "[ .. ] Compiling $?"
 	$(EMACS) --batch --exec "(byte-compile-file \"$?\")"
 emacs/mh-cxm.elc: emacs/mh-cxm.el
+	@echo "[ .. ] Compiling $?"
+	$(EMACS) --batch --exec "(byte-compile-file \"$?\")"
+emacs/mh-viper.elc: emacs/mh-viper.el
 	@echo "[ .. ] Compiling $?"
 	$(EMACS) --batch --exec "(byte-compile-file \"$?\")"
 emacs/mh-mpc.elc: emacs/mh-mpc.el
