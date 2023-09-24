@@ -15,3 +15,5 @@ scroll_left h
 scroll_right l
 next_img L
 prev_img H
+
+quit Return

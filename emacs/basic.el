@@ -94,7 +94,7 @@
     ;(define-key map [remap minibuffer-complete-and-exit] 'icomplete-ret)
     (define-key map (kbd "TAB")   'icomplete-force-complete)
     (define-key map (kbd "C-M-j") 'exit-minibuffer)
-    (define-key map (kbd "M-J")   'exit-minibuffer)
+    (define-key map (kbd "C-j")   'exit-minibuffer)
     ;; (define-key map (kbd "M-RET") 'exit-minibuffer) ;; select default
     (define-key map (kbd "RET")   'icomplete-force-complete-and-exit)
     (define-key map (kbd "C-M-n") 'icomplete-forward-completions)
@@ -303,6 +303,12 @@
 
 (add-hook 'outline-mode-hook  'auto-fill-mode)
 (add-hook 'diff-mode-hook     'outline-minor-mode)
+(add-hook 'latex-mode-hook    #'(lambda () (interactive)
+                                 (define-key latex-mode-map (kbd "M-TAB") 'completion-at-point)))
+(add-hook 'tex-mode-hook      #'(lambda () (interactive)
+                                 (define-key tex-mode-map (kbd "M-TAB") 'completion-at-point)))
+(add-hook 'diff-mode-hook     #'(lambda ()
+                                  (define-key diff-mode-map (kbd "C-c TAB") 'diff-split-hunk)))
 
 (add-hook 'kill-emacs-hook
   (lambda () (interactive) (mh/desktop-save @EMACS_DESKTOP@)))

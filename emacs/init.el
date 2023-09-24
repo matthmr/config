@@ -26,6 +26,10 @@
 (require 'doom-modeline)
 (require 'god-mode)
 
+;; Load built-ins
+(require 'scroll-lock)
+(require 'facemenu)
+
 (load @EMACS_MH_EMACSOS@)
 (load @EMACS_MH_USER@) ; confidential options for the user, not in this repository
 (load @EMACS_MH_BASIC@)
@@ -33,6 +37,11 @@
 
 ;; (setq max-mini-window-height 1)
 (setq eglot-stay-out-of '("flymake"))
+
+;;; Custom loaders
+
+(defun mh/load-cxm () (interactive) (load @EMACS_CXM@))
+(defun mh/load-viper () (interactive) (load @EMACS_VIPER@))
 
 ;;; Multiple Cursors
 
@@ -49,16 +58,19 @@
 
 ;;; Move Text
 
-(global-set-key (kbd "C-M-p")     'move-text-up)
-(global-set-key (kbd "C-M-n")     'move-text-down)
-
-;;; God
-
-(global-set-key (kbd "C-]")       'god-mode)
+(global-set-key (kbd "C-M-p") 'move-text-up)
+(global-set-key (kbd "C-M-n") 'move-text-down)
 
 ;;; Company
 
 (global-set-key (kbd "C-x C-_") 'company-complete)
+
+;;; Scroll-lock
+
+(define-key scroll-lock-mode-map "\C-n" 'scroll-lock-next-line)
+(define-key scroll-lock-mode-map "\C-p" 'scroll-lock-previous-line)
+(define-key scroll-lock-mode-map "\M-{" 'scroll-lock-backward-paragraph)
+(define-key scroll-lock-mode-map "\M-}" 'scroll-lock-forward-paragraph)
 
 ;;; Markdown
 
@@ -132,9 +144,9 @@
  '(column-number-mode t)
  '(comment-column 0)
  '(company-backends
-   '(company-semantic company-capf company-clang company-files
+   '(company-semantic company-capf company-files
                       (company-dabbrev-code company-gtags company-etags company-keywords)
-                      company-oddmuse company-dabbrev))
+                      company-dabbrev))
  '(company-idle-delay 0.5)
  '(completion-styles '(basic partial-completion emacs22 substring))
  '(delete-auto-save-files nil)

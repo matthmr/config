@@ -1,9 +1,9 @@
-;;;; mh-cmx.el --- Very small minor mode that makes `hjkl' work like VI keys
+;;;; mh-cxm.el --- Very small minor mode that makes `hjkl' work like VI keys
 
 ;; Copyright (C) 2023 mH
 
 ;; Author: mH <github.com/matthmr>
-;; Version: 1.0.0
+;; Version: 1.1.0
 
 ;; Permission is hereby granted, free of charge, to any person
 ;; obtaining a copy of this software and associated documentation
@@ -95,6 +95,3 @@ scrolling"
                               (cdr global-mode-string)
                             global-mode-string)))
     (delq 'cxm-mode-string global-mode-string)))
-
-
-(global-set-key (kbd "M-]") 'cxm-mode)

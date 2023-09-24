@@ -1,5 +1,17 @@
-set selection-clipboard clipboard
-set default-bg    "#303030"
-set statusbar-bg  "#1a1a1a"
-set font          "Iosevka Term 14"
-set pages-per-row  1
+set selection-clipboard "primary"
+set database "null"
+set adjust-open "best-fit"
+set default-bg "#303030"
+set statusbar-bg "#1a1a1a"
+set font "Iosevka Term 14"
+set pages-per-row 1
+set dbus-service false
+set dbus-raise-window false
+set filemonitor "noop"
+set continuous-hist-save false
+set page-padding 10
+set selection-notification false
+set show-recent 0
+set statusbar-page-percent true
+set recolor-darkcolor "#dddddd"
+set recolor-lightcolor "#222222"

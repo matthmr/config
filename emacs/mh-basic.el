@@ -31,23 +31,34 @@
 
 ;;;; Clipboard (aka `edit-copy')
 
-(global-set-key (kbd "C-x c w")
+(global-set-key (kbd "C-c C-x C-w")
                 (lambda () (interactive)
                   (write-file @EMACS_CLIPBOARD@)
                   (shell-command @EMACS_EDIT_COPY_I@)))
-(global-set-key (kbd "C-x c e")
-                (lambda () (interactive)
-                  (find-file @EMACS_CLIPBOARD@)
-                  (shell-command @EMACS_EDIT_COPY_D@)
-                  (revert-buffer-quick)))
-(global-set-key (kbd "C-x c r")
-                (lambda () (interactive)
-                  (find-file @EMACS_CLIPBOARD@)
-                  (revert-buffer-quick)))
-(global-set-key (kbd "C-x c y")
+(global-set-key (kbd "C-c C-x C-y")
                 (lambda () (interactive)
                   (shell-command @EMACS_EDIT_COPY_D@)
                   (insert-file @EMACS_CLIPBOARD@)))
+(global-set-key (kbd "C-c C-x e")
+                (lambda () (interactive)
+                  (find-file @EMACS_CLIPBOARD@)
+                  (shell-command @EMACS_EDIT_COPY_D@)
+                  (revert-buffer-quick)))
+
+(global-set-key (kbd "C-c C-t C-w")
+                (lambda () (interactive)
+                  (call-interactively 'kill-region)
+                  (when-let ((kill-top (car kill-ring)))
+                    (shell-command (format "tmux set-buffer \"$(echo \"%s\")\""
+                                           (substring-no-properties kill-top))
+                                   nil nil))))
+(global-set-key (kbd "C-c C-t M-w")
+                (lambda () (interactive)
+                  (call-interactively 'kill-ring-save)
+                  (when-let ((kill-top (car kill-ring)))
+                    (shell-command (format "tmux set-buffer \"$(echo \"%s\")\""
+                                           (substring-no-properties kill-top))
+                                   nil nil))))
 
 ;;;; VC
 
@@ -129,6 +140,24 @@
                                   (mh/undo-edit)
                                   (zen-mode 'toggle)))
 
+(defun mh/toggle-viper ()
+  (interactive)
+  (when (boundp 'viper-mode)
+    (if viper-mode
+        (progn
+          (viper-go-away))
+      (progn
+        (viper-mode)
+        (delq 'viper-mode-string global-mode-string)))))
+
+(defun mh/toggle-cxm ()
+  (interactive)
+  (when (boundp 'cxm-mode)
+    (cxm-mode)))
+
+(global-set-key (kbd "C-x C-M-m C-M-v") 'mh/toggle-viper)
+(global-set-key (kbd "C-x C-M-m C-M-m") 'mh/toggle-cxm)
+
 ;;;; Scrolling
 
 (defun mh/scroll-up (arg)
@@ -192,6 +221,13 @@
         (skip-chars-forward " \t")
 	      (constrain-to-field nil point t)))))
 
+(defun mh/kill-line-before-point ()
+  "Kills the line before the point"
+  (interactive)
+  (if (eq current-prefix-arg nil)
+      (setq current-prefix-arg 0))
+  (call-interactively 'kill-line))
+
 (global-set-key (kbd "C-x C-M-\\") 'mh/delete-space-after-point)
 
 ;;;; Yanking
@@ -223,3 +259,15 @@
             (t (message "No completion") nil)))))
 
 (setq completion-in-region-function #'mh/minibuffer-completion)
+
+;;;; Mark
+
+(defun mh/pop-to-mark-forward ()
+  "Go back to the last popped mark"
+  (interactive)
+  (when mark-ring
+    (setq mark-ring (cons (copy-marker (mark-marker)) mark-ring))
+    (set-marker (mark-marker) (car (last mark-ring)) (current-buffer))
+    (when (null (mark t)) (ding))
+    (setq mark-ring (nbutlast mark-ring))
+    (goto-char (marker-position (car (last mark-ring))))) )
