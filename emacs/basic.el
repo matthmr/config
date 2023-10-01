@@ -85,6 +85,38 @@
               (tab-mark ?\x09 [?¦ ?\ ])))
 (setq-default show-trailing-whitespace t)
 
+;;; Eshell
+
+(setq eshell-banner-message
+      "      ___
+     (.. |
+     (<> |
+    / __  \\
+   ( /  \\ /|
+  _/\\ __)/_)
+  \\/-____\\/\n\n")
+
+(setq eshell-prompt-regexp "^\\[.+\\]> ")
+
+(defun mh/eshell-block (str)
+  (concat
+   (propertize "[" 'face `(:foreground "red"))
+   (propertize str 'face `(:weight bold))
+   (propertize "]" 'face `(:foreground "red"))))
+
+(setq eshell-prompt-function
+  (lambda ()
+    (format "%s %s %s\n%s%s "
+            (concat (propertize "[" 'face `(:foreground "red"))
+                    (propertize (user-login-name) 'face `(:weight bold))
+                    (propertize "@" 'face `(:foreground "red"))
+                    (propertize (system-name) 'face `(:weight bold))
+                    (propertize "]" 'face `(:foreground "red")))
+            (mh/eshell-block "eshell")
+            (mh/eshell-block (format-time-string "%H%M" (current-time)))
+            (mh/eshell-block (eshell/pwd))
+            (propertize ">" 'face `(:foreground "red")))))
+
 ;;;; Minor Modes Remaps
 
 ;;; Icomplete
@@ -99,8 +131,6 @@
     (define-key map (kbd "RET")   'icomplete-force-complete-and-exit)
     (define-key map (kbd "C-M-n") 'icomplete-forward-completions)
     (define-key map (kbd "C-M-p") 'icomplete-backward-completions)
-    (define-key map (kbd "M-.")   'icomplete-forward-completions)
-    (define-key map (kbd "M-,")   'icomplete-backward-completions)
     map)
   "Keymap used by `icomplete-mode' in the minibuffer'.")
 
@@ -268,12 +298,31 @@
   ; next saves are done in `desktop'
   (setq desktop-base-file-name "desktop"))
 
-(add-hook 'text-mode-hook   'auto-fill-mode)
+;;; Text mode
+
+(add-hook 'text-mode-hook 'auto-fill-mode)
+(add-hook 'html-mode-hook 'nxml-mode)
+
+(add-hook 'mail-mode-hook (lambda () (interactive)
+                            (cd "/tmp/emacs")))
+
+(add-hook 'outline-mode-hook  'auto-fill-mode)
+(add-hook 'diff-mode-hook     'outline-minor-mode)
+(add-hook 'latex-mode-hook    #'(lambda () (interactive)
+                                 (define-key latex-mode-map (kbd "M-TAB") 'completion-at-point)))
+(add-hook 'tex-mode-hook      #'(lambda () (interactive)
+                                 (define-key tex-mode-map (kbd "M-TAB") 'completion-at-point)))
+(add-hook 'diff-mode-hook     #'(lambda ()
+                                  (define-key diff-mode-map (kbd "C-c TAB") 'diff-split-hunk)))
+
+;;; Prog mode
+
 (add-hook 'c-mode-hook      (lambda () (interactive)
-                              (setq comment-start "//")
-                              (setq comment-end "")
-                              (setq-local page-delimiter "^/\\{4\\}")
-                              (setq-local indent-tabs-mode nil)
+                              (setq-local
+                                comment-start "//"
+                                comment-end ""
+                                page-delimiter "^/\\{4\\}"
+                                indent-tabs-mode nil)
                               (outline-minor-mode t)
                               (abbrev-mode -1)))
 (add-hook 'python-mode-hook  (lambda () (interactive)
@@ -295,20 +344,7 @@
                                    (outline-minor-mode t)
                                    (rainbow-delimiters-mode t)))
 
-(add-hook 'html-mode-hook 'nxml-mode)   ; Emacs' default HTML is meh, nXML is
-                                        ; better
-
-(add-hook 'mail-mode-hook (lambda () (interactive)
-                            (cd @EMACS_TMP@)))
-
-(add-hook 'outline-mode-hook  'auto-fill-mode)
-(add-hook 'diff-mode-hook     'outline-minor-mode)
-(add-hook 'latex-mode-hook    #'(lambda () (interactive)
-                                 (define-key latex-mode-map (kbd "M-TAB") 'completion-at-point)))
-(add-hook 'tex-mode-hook      #'(lambda () (interactive)
-                                 (define-key tex-mode-map (kbd "M-TAB") 'completion-at-point)))
-(add-hook 'diff-mode-hook     #'(lambda ()
-                                  (define-key diff-mode-map (kbd "C-c TAB") 'diff-split-hunk)))
+;;;; Misc
 
 (add-hook 'kill-emacs-hook
   (lambda () (interactive) (mh/desktop-save @EMACS_DESKTOP@)))
@@ -318,6 +354,8 @@
 (add-hook 'vc-dir-mode-hook
   (lambda () (interactive)
     (define-key vc-dir-mode-map "!" 'vc-edit-next-command)))
+
+(add-hook 'eshell-preoutput-filter-functions 'ansi-color-apply)
 
 ;;;; Function overrides
 

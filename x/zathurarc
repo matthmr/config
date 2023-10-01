@@ -13,5 +13,14 @@ set page-padding 10
 set selection-notification false
 set show-recent 0
 set statusbar-page-percent true
-set recolor-darkcolor "#dddddd"
-set recolor-lightcolor "#222222"
+set recolor-darkcolor "#eeeeee"
+set recolor-lightcolor "#1a1a1a"
+
+map r reload
+map c recolor
+
+map = zoom in
+map 0 zoom default
+
+map d scroll half-down
+map u scroll half-up
