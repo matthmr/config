@@ -1,16 +1,11 @@
 ;;;; Emacs Keybindings
 
-;; Prefix function
-(defun call-prefix (prefix function)
-  (when (eq current-prefix-arg nil)
-    (setq current-prefix-arg prefix))
-  (call-interactively function))
-
 (global-unset-key (kbd "C-x m"))
 
 (global-set-key (kbd "M-]")     'exit-recursive-edit)
 (global-set-key (kbd "C-M-]")   'abort-recursive-edit)
 
+(global-set-key (kbd "M-'")     'expand-abbrev)
 (global-set-key (kbd "M-o")     'overwrite-mode)
 (global-set-key (kbd "M-#")     'query-replace)
 (global-set-key (kbd "M-*")     'query-replace-regexp)
@@ -22,9 +17,6 @@
 
 ;(global-unset-key (kbd "C-x C-t"))
 (global-set-key (kbd "C-x C-t")    'transpose-regions)
-
-(global-set-key (kbd "C-x C-M-o") (lambda () (interactive)
-                                    (call-prefix -1 'other-window)))
 
 (global-set-key (kbd "C-x M-;")   'comment-set-column)
 (global-set-key (kbd "C-x x C-n") 'clone-indirect-buffer)
@@ -40,6 +32,7 @@
 (global-set-key (kbd "C-M-m")     'default-indent-new-line)
 (global-set-key (kbd "C-x M-.")   'xref-find-references)
 (global-set-key (kbd "C-x r C-l") 'list-registers)
+(global-set-key (kbd "C-x a C-w") 'write-abbrev-file)
 (global-set-key (kbd "C-M-j")     'duplicate-dwim)
 
 ;;; Overrides
@@ -50,16 +43,6 @@
 (global-set-key (kbd "M-?")     'dabbrev-completion)
 (global-set-key (kbd "C-x o")   'delete-blank-lines)
 (global-set-key (kbd "C-x C-o") 'other-window)
-(global-set-key (kbd "C-x ^")   (lambda () (interactive)
-                                  (call-prefix 5 'enlarge-window)))
-(global-set-key (kbd "C-x {")   (lambda () (interactive)
-                                  (call-prefix 5 'shrink-window-horizontally)))
-(global-set-key (kbd "C-x }")   (lambda () (interactive)
-                                  (call-prefix 5 'enlarge-window-horizontally)))
-(global-set-key (kbd "C-x <")   (lambda () (interactive)
-                                  (call-prefix 15 'scroll-right)))
-(global-set-key (kbd "C-x >")   (lambda () (interactive)
-                                  (call-prefix 15 'scroll-left)))
 (global-set-key (kbd "M-p")     'previous-error)
 (global-set-key (kbd "M-n")     'next-error)
 
@@ -122,26 +105,12 @@
 (global-set-key (kbd "C-x C-a C-M-a") 'tab-bar-duplicate-tab)
 (global-set-key (kbd "C-x C-a C-e")   'tab-bar-rename-tab)
 
-;;; With `abbrev'
-
-(global-unset-key (kbd "C-x '"))
-
-(global-set-key (kbd "M-'")        'expand-abbrev)
-(global-set-key (kbd "C-x M-'")    'add-mode-abbrev)
-(global-set-key (kbd "M-\"")       'inverse-add-mode-abbrev)
-(global-set-key (kbd "C-x ' M-'")  'add-global-abbrev)
-(global-set-key (kbd "C-x ' M-\"") 'inverse-add-global-abbrev)
-(global-set-key (kbd "C-x ' C-f")  'read-abbrev-file)
-(global-set-key (kbd "C-x ' C-w")  'write-abbrev-file)
-(global-set-key (kbd "C-x ' C-l")  'list-abbrevs)
-
 ;;; `M-S' commands
 
-(global-set-key (kbd "M-K") (lambda () (interactive)
-                              (call-prefix -1 'kill-line)))
-(global-set-key (kbd "M-A") 'align-regexp)
-(global-set-key (kbd "M-W") 'delete-trailing-whitespace)
-(global-set-key (kbd "M-C") 'compile)
+(global-set-key (kbd "M-A")  'align-regexp)
+(global-set-key (kbd "M-W")  'delete-trailing-whitespace)
+(global-set-key (kbd "M-C")  'compile)
+(global-set-key (kbd "M-\"") 'center-region)
 
 ;;; `C-x ESC' Commands
 

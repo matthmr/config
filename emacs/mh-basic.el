@@ -29,6 +29,23 @@
 ;;
 ;;  Basic layer on top of .emacs.d configuration
 
+(defun mh/with-prefix (prefix function)
+  (when (eq current-prefix-arg nil)
+    (setq current-prefix-arg prefix))
+  (call-interactively function))
+
+;;;; Windowing
+
+(global-set-key (kbd "C-x C-M-o") (lambda () (interactive)
+                                    (mh/with-prefix -1 'other-window)))
+
+(global-set-key (kbd "C-x ^")   (lambda () (interactive)
+                                  (mh/with-prefix 5 'enlarge-window)))
+(global-set-key (kbd "C-x {")   (lambda () (interactive)
+                                  (mh/with-prefix 5 'shrink-window-horizontally)))
+(global-set-key (kbd "C-x }")   (lambda () (interactive)
+                                  (mh/with-prefix 5 'enlarge-window-horizontally)))
+
 ;;;; Clipboard (aka `edit-copy')
 
 (global-set-key (kbd "C-c C-x C-w")
@@ -186,6 +203,11 @@
 (global-set-key (kbd "M-v")   'mh/scroll-down)
 (global-set-key (kbd "C-M-v") 'scroll-lock-mode)
 
+(global-set-key (kbd "C-x <")   (lambda () (interactive)
+                                  (mh/with-prefix 15 'scroll-right)))
+(global-set-key (kbd "C-x >")   (lambda () (interactive)
+                                  (mh/with-prefix 15 'scroll-left)))
+
 ;;;; Up-to-Char
 
 (defun mh/up-to-char (arg char)
@@ -228,7 +250,15 @@
       (setq current-prefix-arg 0))
   (call-interactively 'kill-line))
 
+(defun mh/backward-kill-line ()
+  "Kills the line backward"
+  (interactive)
+  (set-mark (point))
+  (beginning-of-line)
+  (call-interactively 'kill-region))
+
 (global-set-key (kbd "C-x C-M-\\") 'mh/delete-space-after-point)
+(global-set-key (kbd "C-x C-M-h")  'mh/backward-kill-line)
 
 ;;;; Yanking
 

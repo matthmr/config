@@ -160,6 +160,5 @@ bar {
 
   font pango:JetBrains Mono 12
 
-  position top
-  # position bottom
+  position top # min
 }

@@ -416,3 +416,4 @@ or a symbol, see `completion-pcm--merge-completions'."
 ;;;; Auto-mode
 
 (add-to-list 'auto-mode-alist '("\\(neo\\)?mutt-.*" . message-mode))
+(add-to-list 'auto-mode-alist '("COMMIT_EDITMSG\\|MERGE_MSG" . diff-mode))
