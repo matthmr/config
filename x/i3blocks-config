@@ -7,12 +7,13 @@
 
 
 # Global properties
-separator=false
+#separator=false
 separator_block_width=15
 
 # Emergency on-screen keyboard
 [click]
-command=qvkbd
+full_text=VKBD
+command=(urxvt &) ; (qvkbd &)
 
 [clock]
 #command=i3-clock

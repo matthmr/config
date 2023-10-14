@@ -43,6 +43,8 @@
   disabled-command-function nil
   comment-column 0
   completions-format 'one-column
+  require-final-newline t
+  kill-whole-line t
   enable-recursive-minibuffers t)
 
 (setq search-whitespace-regexp ".*?"

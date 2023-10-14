@@ -4,7 +4,8 @@
 exec --no-startup-id mkdir -p /tmp/i3
 
 # set the socket path
-ipc-socket /tmp/i3/i3-socket
+set $sock /tmp/i3/i3-socket
+ipc-socket $sock
 
 # font
 font pango:JetBrains Mono 12
@@ -16,10 +17,22 @@ set $ws3 "3"
 set $ws4 "4"
 set $ws5 "5"
 
-title_align center
+set $border_px 2px # min
+
 #workspace_layout tabbed
 #for_window [all] title_window_icon on
-default_border normal 2
+title_align center # min
+default_border normal $border_px
+workspace_auto_back_and_forth yes
+
+for_window [class="mpv"] floating enable
+
+set $gaps_px 15px # min
+
+gaps inner $gaps_px # min
+
+set $resize_px 15px # min
+set $move_px 20px # min
 
 #### Bindings
 
@@ -42,14 +55,14 @@ bindsym $mod+k focus up
 bindsym $mod+l focus right
 
 # move focused window
-bindsym $mod+Shift+h move left 15 px
-bindsym $mod+Shift+j move down 15 px
-bindsym $mod+Shift+k move up 15 px
-bindsym $mod+Shift+l move right 15 px
+bindsym $mod+Shift+h move left $move_px
+bindsym $mod+Shift+j move down $move_px
+bindsym $mod+Shift+k move up $move_px
+bindsym $mod+Shift+l move right $move_px
 
 # set split direction
-bindsym $mod+Control+l split h
-bindsym $mod+Control+j split v
+bindsym $mod+Control+l split horizontal
+bindsym $mod+Control+j split vertical
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -75,6 +88,7 @@ bindsym $mod+2 workspace number $ws2
 bindsym $mod+3 workspace number $ws3
 bindsym $mod+4 workspace number $ws4
 bindsym $mod+5 workspace number $ws5
+bindsym $mod+Control+i workspace back_and_forth
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace number $ws1
@@ -96,17 +110,23 @@ bindsym $mod+Shift+p scratchpad show
 bindsym $mod+Tab workspace next
 bindsym $mod+Shift+Tab workspace prev
 
-# swaps
-bindsym $mod+m mark swapee
-bindsym $mod+Shift+m unmark swapee
-bindsym $mod+n swap container with mark swapee
+# marks
+bindsym $mod+m mark win
+bindsym $mod+Shift+m unmark win
+bindsym $mod+n swap container with mark win
+bindsym $mod+apostrophe [con_mark="^win$"] focus
+bindsym $mod+$alt+Control+m [con_mark="^win$"] move workspace current
+bindsym $mod+$alt+Control+n move container to workspace back_and_forth
+
+# sticky
+bindsym $mod+$alt+Control+s sticky toggle
 
 #### Style
 
 #                       border  bg      txt     indic     chbordr
 client.focused          #303030 #303030 #ffffff #aaaaaa   #303030
-client.focused_inactive #222222 #222222 #ffffff #484e50   #222222
-client.unfocused        #222222 #222222 #888888 #292d2e   #222222
+client.focused_inactive #303030 #202020 #ffffff #484e50   #202020
+client.unfocused        #303030 #202020 #808080 #292d2e   #202020
 
 client.urgent           #2f343a #900000 #ffffff #900000   #900000
 client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
@@ -122,26 +142,58 @@ mode "action" {
 
   bindsym Control+g mode "default"
   bindsym Control+bracketleft mode "default"
-  bindsym Escape mode    "default"
+  bindsym Escape mode "default"
 }
 
-bindsym $mod+Control+e resize grow width 15px
-bindsym $mod+Shift+e resize shrink width 15px
+bindsym $mod+Control+e resize grow width $resize_px
+bindsym $mod+Shift+e resize shrink width $resize_px
 
-bindsym $mod+Control+v resize grow height 15px
-bindsym $mod+Shift+v resize shrink height 15px
+bindsym $mod+Control+v resize grow height $resize_px
+bindsym $mod+Shift+v resize shrink height $resize_px
 
-bindsym $mod+$alt+Control+h resize grow left 15px
-bindsym $mod+$alt+Control+j resize grow down 15px
-bindsym $mod+$alt+Control+k resize grow up 15px
-bindsym $mod+$alt+Control+l resize grow right 15px
+bindsym $mod+$alt+Control+h resize grow left $resize_px
+bindsym $mod+$alt+Control+j resize grow down $resize_px
+bindsym $mod+$alt+Control+k resize grow up $resize_px
+bindsym $mod+$alt+Control+l resize grow right $resize_px
 
-bindsym $mod+$alt+Shift+h resize shrink right 15px
-bindsym $mod+$alt+Shift+j resize shrink up 15px
-bindsym $mod+$alt+Shift+k resize shrink down 15px
-bindsym $mod+$alt+Shift+l resize shrink left 15px
+bindsym $mod+$alt+Shift+h resize shrink right $resize_px
+bindsym $mod+$alt+Shift+j resize shrink up $resize_px
+bindsym $mod+$alt+Shift+k resize shrink down $resize_px
+bindsym $mod+$alt+Shift+l resize shrink left $resize_px
 
 bindsym $mod+Control+a mode "action"
+
+mode "spacing" {
+  bindsym h gaps inner current minus $gaps_px
+  bindsym j gaps outer current plus $gaps_px
+  bindsym k gaps outer current minus $gaps_px
+  bindsym l gaps inner current plus $gaps_px
+
+  bindsym r gaps inner all set $gaps_px
+  bindsym o gaps inner all set 0px; gaps outer all set 0px
+
+  bindsym Control+g mode "default"
+  bindsym Control+bracketleft mode "default"
+  bindsym Escape mode "default"
+}
+
+bindsym $mod+Control+s mode "spacing"
+
+mode "input" {
+  bindsym s exec i3-input -s $sock -F 'gaps inner all set %s' -P 'Spacing: ' ; mode "default"
+  bindsym r exec i3-input -s $sock -F 'resize set %s' -P 'Resize: ' ; mode "default"
+
+  bindsym m exec i3-input -s $sock -F 'mark %s' -P 'Mark: ' -l 1 ; mode "default"
+  bindsym u exec i3-input -s $sock -F 'unmark %s' -P 'Unmark: ' -l 1 ; mode "default"
+  bindsym g exec i3-input -s $sock -F '[con_mark="^%s$"] focus' -P 'Goto: ' -l 1 ; mode "default"
+  bindsym x exec i3-input -s $sock -F '%s' -P 'Command: ' ; mode "default"
+
+  bindsym Control+g mode "default"
+  bindsym Control+bracketleft mode "default"
+  bindsym Escape mode "default"
+}
+
+bindsym $mod+i mode "input"
 
 #### Status Bar
 
@@ -152,10 +204,10 @@ bar {
   # <class> <border> <bg> <txt>
   colors {
     background         #222222
-    statusline         #FFFFFF
-    active_workspace   #303030 #303030 #FFFFFF
+    statusline         #ffffff
+    active_workspace   #303030 #303030 #ffffff
     inactive_workspace #222222 #222222 #888888
-    focused_workspace  #303030 #303030 #FFFFFF
+    focused_workspace  #303030 #303030 #ffffff
   }
 
   font pango:JetBrains Mono 12
