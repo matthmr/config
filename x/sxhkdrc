@@ -60,9 +60,9 @@ super + control + x; m; minus
 
 #### misc
 
-super + p
+super + control + alt + x
 	dmenu_run
-super + c
+super + control + x; x; c
   clipmenu
 super + control + x; x; k
   xkill

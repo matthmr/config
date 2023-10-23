@@ -3,6 +3,12 @@
 # create the directory
 exec --no-startup-id mkdir -p /tmp/i3
 
+# pixel variables
+set $border_px 3px # min
+set $gaps_px 20px # min
+set $resize_px 20px # min
+set $move_px 20px # min
+
 # set the socket path
 set $sock /tmp/i3/i3-socket
 ipc-socket $sock
@@ -17,22 +23,16 @@ set $ws3 "3"
 set $ws4 "4"
 set $ws5 "5"
 
-set $border_px 2px # min
-
 #workspace_layout tabbed
-#for_window [all] title_window_icon on
-title_align center # min
+title_align center
 default_border normal $border_px
+default_floating_border normal $border_px
 workspace_auto_back_and_forth yes
+focus_wrapping force
 
 for_window [class="mpv"] floating enable
 
-set $gaps_px 15px # min
-
-gaps inner $gaps_px # min
-
-set $resize_px 15px # min
-set $move_px 20px # min
+gaps inner $gaps_px
 
 #### Bindings
 
@@ -53,6 +53,10 @@ bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
+bindsym $mod+bracketleft focus parent, focus left
+bindsym $mod+bracketright focus parent, focus right
+bindsym $mod+Shift+bracketleft focus prev sibling
+bindsym $mod+Shift+bracketright focus next sibling
 
 # move focused window
 bindsym $mod+Shift+h move left $move_px
@@ -68,9 +72,9 @@ bindsym $mod+Control+j split vertical
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+d layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+s layout toggle split
+bindsym $mod+x layout stacking
 
 # toggle tiling / floating
 bindsym $mod+Control+space floating toggle
@@ -79,8 +83,8 @@ bindsym $mod+Control+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # focus the parent/child container
-bindsym $mod+Control+u focus parent
-bindsym $mod+Control+d focus child
+bindsym $mod+u focus parent
+bindsym $mod+d focus child
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -88,7 +92,12 @@ bindsym $mod+2 workspace number $ws2
 bindsym $mod+3 workspace number $ws3
 bindsym $mod+4 workspace number $ws4
 bindsym $mod+5 workspace number $ws5
-bindsym $mod+Control+i workspace back_and_forth
+bindsym $mod+i workspace back_and_forth
+
+bindsym $mod+comma workspace prev
+bindsym $mod+period workspace next
+bindsym $mod+Shift+comma move container to workspace prev
+bindsym $mod+Shift+period move container to workspace next
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace number $ws1
@@ -96,15 +105,20 @@ bindsym $mod+Shift+2 move container to workspace number $ws2
 bindsym $mod+Shift+3 move container to workspace number $ws3
 bindsym $mod+Shift+4 move container to workspace number $ws4
 bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+$alt+Shift+1 move container to workspace number $ws1; workspace number $ws1
+bindsym $mod+$alt+Shift+2 move container to workspace number $ws2; workspace number $ws2
+bindsym $mod+$alt+Shift+3 move container to workspace number $ws3; workspace number $ws3
+bindsym $mod+$alt+Shift+4 move container to workspace number $ws4; workspace number $ws4
+bindsym $mod+$alt+Shift+5 move container to workspace number $ws5; workspace number $ws5
 
 # mouse position
 bindsym $mod+Control+m move position mouse
-bindsym $mod+Control+c move absolute position center
+bindsym $mod+c move absolute position center
 focus_follows_mouse no
 
 # scratchpad
-bindsym $mod+Control+p move scratchpad
-bindsym $mod+Shift+p scratchpad show
+bindsym $mod+Shift+p move scratchpad
+bindsym $mod+p scratchpad show
 
 # workspace cycling
 bindsym $mod+Tab workspace next
@@ -113,10 +127,11 @@ bindsym $mod+Shift+Tab workspace prev
 # marks
 bindsym $mod+m mark win
 bindsym $mod+Shift+m unmark win
-bindsym $mod+n swap container with mark win
+bindsym $mod+Shift+s swap container with mark win
 bindsym $mod+apostrophe [con_mark="^win$"] focus
-bindsym $mod+$alt+Control+m [con_mark="^win$"] move workspace current
-bindsym $mod+$alt+Control+n move container to workspace back_and_forth
+bindsym $mod+Shift+c [con_mark="^win$"] move workspace current
+bindsym $mod+Shift+i move container to workspace back_and_forth
+bindsym $mod+$alt+Shift+i move container to workspace back_and_forth; workspace back_and_forth
 
 # sticky
 bindsym $mod+$alt+Control+s sticky toggle
@@ -145,10 +160,10 @@ mode "action" {
   bindsym Escape mode "default"
 }
 
-bindsym $mod+Control+e resize grow width $resize_px
+bindsym $mod+e resize grow width $resize_px
 bindsym $mod+Shift+e resize shrink width $resize_px
 
-bindsym $mod+Control+v resize grow height $resize_px
+bindsym $mod+v resize grow height $resize_px
 bindsym $mod+Shift+v resize shrink height $resize_px
 
 bindsym $mod+$alt+Control+h resize grow left $resize_px
@@ -169,8 +184,8 @@ mode "spacing" {
   bindsym k gaps outer current minus $gaps_px
   bindsym l gaps inner current plus $gaps_px
 
-  bindsym r gaps inner all set $gaps_px
-  bindsym o gaps inner all set 0px; gaps outer all set 0px
+  bindsym r gaps inner all set $gaps_px; mode "default"
+  bindsym o gaps inner all set 0px; gaps outer all set 0px; mode "default"
 
   bindsym Control+g mode "default"
   bindsym Control+bracketleft mode "default"
@@ -193,7 +208,7 @@ mode "input" {
   bindsym Escape mode "default"
 }
 
-bindsym $mod+i mode "input"
+bindsym $mod+Control+i mode "input"
 
 #### Status Bar
 

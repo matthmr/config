@@ -415,6 +415,16 @@ or a symbol, see `completion-pcm--merge-completions'."
         (push (substring string p0) pattern))
       (nreverse pattern))))
 
+;; From `window.el'
+(defun mh/split-window (&optional _)
+  (let ((window (selected-window)))
+    (with-selected-window window
+      (if (< (window-total-width) 160) ;(> (window-total-width window) (* 3 (window-total-height window)))
+          (split-window-below)
+        (split-window-right)))))
+
+(setq-default split-window-preferred-function 'mh/split-window)
+
 ;;;; Auto-mode
 
 (add-to-list 'auto-mode-alist '("\\(neo\\)?mutt-.*" . message-mode))

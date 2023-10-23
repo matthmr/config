@@ -74,6 +74,13 @@
 (global-set-key (kbd "C-x C-w C-h")   'windmove-left)
 (global-set-key (kbd "C-x C-w C-k")   'windmove-up)
 (global-set-key (kbd "C-x C-w C-j")   'windmove-down)
+(global-set-key (kbd "C-x C-w l")     'windmove-display-right)
+(global-set-key (kbd "C-x C-w h")     'windmove-display-left)
+(global-set-key (kbd "C-x C-w k")     'windmove-display-up)
+(global-set-key (kbd "C-x C-w j")     'windmove-display-down)
+(global-set-key (kbd "C-x C-w s")     'windmove-display-same-window)
+(global-set-key (kbd "C-x C-w t")     'windmove-display-new-tab)
+(global-set-key (kbd "C-x C-w C-s")   'window-swap-states)
 (global-set-key (kbd "C-x C-w C-M-l") 'windmove-swap-states-right)
 (global-set-key (kbd "C-x C-w C-M-h") 'windmove-swap-states-left)
 (global-set-key (kbd "C-x C-w C-M-k") 'windmove-swap-states-up)
@@ -100,9 +107,9 @@
 (global-set-key (kbd "C-x C-a C-f")   'tab-bar-move-tab)
 (global-set-key (kbd "C-x C-a C-b")   'tab-bar-move-tab-backward)
 (global-set-key (kbd "C-x C-a C-a")   'tab-bar-new-tab)
-(global-set-key (kbd "C-x C-a C-s")   'tab-bar-new-tab-to)
-(global-set-key (kbd "C-x C-a C-M-s") 'tab-bar-move-window-to-tab)
-(global-set-key (kbd "C-x C-a C-M-a") 'tab-bar-duplicate-tab)
+(global-set-key (kbd "C-x C-a C-M-a") 'tab-bar-new-tab-to)
+(global-set-key (kbd "C-x C-a C-s")   'tab-bar-move-window-to-tab)
+(global-set-key (kbd "C-x C-a C-d")   'tab-bar-duplicate-tab)
 (global-set-key (kbd "C-x C-a C-e")   'tab-bar-rename-tab)
 
 ;;; `M-S' commands
@@ -111,6 +118,8 @@
 (global-set-key (kbd "M-W")  'delete-trailing-whitespace)
 (global-set-key (kbd "M-C")  'compile)
 (global-set-key (kbd "M-\"") 'center-region)
+(global-set-key (kbd "M-E")  'replace-string)
+(global-set-key (kbd "M-I")  'replace-regexp)
 
 ;;; `C-x ESC' Commands
 
