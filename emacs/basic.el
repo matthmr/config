@@ -293,7 +293,8 @@
                    desktop-dirname desktop-dirname)))
 
 (defun mh/desktop-read (desktop-dirname)
-  (shell-command (format "ls -l %s" desktop-dirname))
+  (shell-command (format "ls -l %s" desktop-dirname) "*desktop*")
+  (switch-to-buffer "*desktop*")
   (setq desktop-base-file-name (read-from-minibuffer "Desktop filename: "))
 
   (desktop-read desktop-dirname)
@@ -422,6 +423,11 @@ or a symbol, see `completion-pcm--merge-completions'."
       (if (< (window-total-width) 160) ;(> (window-total-width window) (* 3 (window-total-height window)))
           (split-window-below)
         (split-window-right)))))
+
+(defun mh/new-window ()
+  "Creates a new window given the split"
+  (interactive)
+  (select-window (mh/split-window)))
 
 (setq-default split-window-preferred-function 'mh/split-window)
 

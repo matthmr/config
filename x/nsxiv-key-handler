@@ -1,6 +1,6 @@
 #!/usr/bin/sh
 
 case $1 in
-  'w') read file && @NSXIV_HANDLER_SET@ ;;
+  'w') read file && @NSXIV_HANDLER_SET@ && ln -svf $file ~/.wp;;
   't') read file && @NSXIV_HANDLER_TEST@ ;;
 esac

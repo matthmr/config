@@ -30,21 +30,18 @@
 ;;  Basic layer on top of .emacs.d configuration
 
 (defun mh/with-prefix (prefix function)
-  (when (eq current-prefix-arg nil)
+  (cond
+   ((eq current-prefix-arg nil)
     (setq current-prefix-arg prefix))
+   ((eq current-prefix-arg '-)
+    (setq current-prefix-arg (* -1 prefix)))
+   (t t))
   (call-interactively function))
 
 ;;;; Windowing
 
 (global-set-key (kbd "C-x C-M-o") (lambda () (interactive)
                                     (mh/with-prefix -1 'other-window)))
-
-(global-set-key (kbd "C-x ^")   (lambda () (interactive)
-                                  (mh/with-prefix 5 'enlarge-window)))
-(global-set-key (kbd "C-x {")   (lambda () (interactive)
-                                  (mh/with-prefix 5 'shrink-window-horizontally)))
-(global-set-key (kbd "C-x }")   (lambda () (interactive)
-                                  (mh/with-prefix 5 'enlarge-window-horizontally)))
 
 ;;;; Clipboard (aka `edit-copy')
 

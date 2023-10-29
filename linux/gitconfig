@@ -15,8 +15,10 @@
   pager  = less -r
   editor = emacsc
 [merge]
+  tool = ediffclient
   conflictstyle = diff3
 [diff]
+  tool = ediffclient
   colorMoved = default
 [push]
   autoSetupRemote = true
@@ -32,6 +34,20 @@
   tag    = false
   stash  = false
   grep   = false
+[advice]
+  detachedHead = false
+
+# Tools
+
+[mergetool "ediffclient"]
+  cmd = emacsclient -e $(echo "\\(ediff-merge-files-with-ancestor \\\"$LOCAL\\\" \\\"$REMOTE\\\" \\\"$BASE\\\" nil \\\"$MERGED\\\"\\)")
+[difftool "ediffclient"]
+  cmd = emacsclient -e $(echo "\\(ediff-merge-files \\\"$LOCAL\\\" \\\"$REMOTE\\\" nil \\\"$MERGED\\\"\\)")
+
+[mergetool "emergeclient"]
+  cmd = emacsclient -e $(echo "\\(emerge-files-with-ancestor nil \\\"$LOCAL\\\" \\\"$REMOTE\\\" \\\"$BASE\\\" \\\"$MERGED\\\"\\)")
+[difftool "emergeclient"]
+  cmd = emacsclient -e $(echo "\\(emerge-files nil \\\"$LOCAL\\\" \\\"$REMOTE\\\" \\\"$MERGED\\\"\\)")
 
 # Git aliases
 [alias]
@@ -63,3 +79,5 @@
   mp  = pull  --no-ff --no-commit
   sr  = show-ref
   sw  = switch
+  dt  = difftool
+  mt  = mergetool

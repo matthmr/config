@@ -1,17 +1,9 @@
 #### term-mode
 
-super + control + x; Return; shift + u
-  urxvt -e zsh
-super + control + x; Return; shift + s
-  st -e zsh
-super + control + x; Return; shift + x
-  xterm -e zsh
-super + control + x; Return; u
+super + Return
   urxvt -e tmux new-session -A
-super + control + x; Return; s
-  st -e tmux new-session -A
-super + control + x; Return; x
-  xterm -e tmux new-session -A
+super + control + Return
+  urxvt -e zsh
 
 #### action-mode
 
@@ -32,16 +24,19 @@ super + control + x; l; b
   ungoogled-chromium
 super + control + x; l; f
   firefox
-super + control + x; l; s
-  screenshot-dir
-super + control + x; l; Q
-  screenshot-quick-dir
-super + control + x; l; q
-  screenshot-quick
 super + control + x; l; l
   urxvt -e lf -single
 super + control + x; l; e
   emacstc
+
+#### screenshot
+
+super + control + x; s; d
+  screenshot-dir
+super + control + x; s; Q
+  screenshot-quick-dir
+super + control + x; s; q
+  screenshot-quick
 
 #### MPD
 
@@ -58,10 +53,8 @@ super + control + x; m; equal
 super + control + x; m; minus
   mpc volume -10 > /dev/null 2>/dev/null
 
-#### misc
+##### X
 
-super + control + alt + x
-	dmenu_run
 super + control + x; x; c
   clipmenu
 super + control + x; x; k
@@ -70,3 +63,8 @@ super + control + x; x; r
   @SXHKDRC_RESIZE@
 super + control + x; x; l
   @SXHKDRC_RELOAD@
+
+#### misc
+
+super + control + alt + x
+	dmenu_run

@@ -70,6 +70,7 @@
 
 (global-unset-key (kbd "C-x C-w"))
 
+(global-set-key (kbd "C-x C-w C-w")   'mh/new-window)
 (global-set-key (kbd "C-x C-w C-l")   'windmove-right)
 (global-set-key (kbd "C-x C-w C-h")   'windmove-left)
 (global-set-key (kbd "C-x C-w C-k")   'windmove-up)
@@ -80,6 +81,7 @@
 (global-set-key (kbd "C-x C-w j")     'windmove-display-down)
 (global-set-key (kbd "C-x C-w s")     'windmove-display-same-window)
 (global-set-key (kbd "C-x C-w t")     'windmove-display-new-tab)
+(global-set-key (kbd "C-x C-w f")     'windmove-display-new-frame)
 (global-set-key (kbd "C-x C-w C-s")   'window-swap-states)
 (global-set-key (kbd "C-x C-w C-M-l") 'windmove-swap-states-right)
 (global-set-key (kbd "C-x C-w C-M-h") 'windmove-swap-states-left)
@@ -91,9 +93,19 @@
 (global-set-key (kbd "C-x C-w M-j")   'windmove-delete-down)
 (global-set-key (kbd "C-x C-w -")     'minimize-window)
 (global-set-key (kbd "C-x C-w +")     'maximize-window)
-(global-set-key (kbd "C-x C-w 2")     'split-root-window-below)
-(global-set-key (kbd "C-x C-w 3")     'split-root-window-right)
+(global-set-key (kbd "C-x C-w C-e")   (lambda () (interactive)
+                                        (mh/with-prefix 5 'enlarge-window-horizontally)))
+(global-set-key (kbd "C-x C-w C-M-e") (lambda () (interactive)
+                                        (mh/with-prefix 5 'shrink-window-horizontally)))
+(global-set-key (kbd "C-x C-w C-v")   (lambda () (interactive)
+                                        (mh/with-prefix 5 'enlarge-window)))
+(global-set-key (kbd "C-x C-w C-M-v") (lambda () (interactive)
+                                        (mh/with-prefix 5 'shrink-window)))
+(global-set-key (kbd "C-x C-w M-J")   'split-root-window-below)
+(global-set-key (kbd "C-x C-w M-L")   'split-root-window-right)
 (global-set-key (kbd "C-x C-w C-b")   'fit-window-to-buffer)
+(global-set-key (kbd "C-x C-w C-d")   'delete-window)
+(global-set-key (kbd "C-x C-w C-M-d") 'delete-other-windows)
 
 ;;; With `tab-bar'
 
@@ -101,16 +113,32 @@
 (global-set-key (kbd "C-x C-a C-p")   'tab-bar-switch-to-prev-tab)
 (global-set-key (kbd "C-x C-a C-i")   'tab-bar-switch-to-recent-tab)
 (global-set-key (kbd "C-x C-a C-t")   'tab-bar-switch-to-tab)
-(global-set-key (kbd "C-x C-a .")     'tab-bar-switch-to-last-tab)
+(global-set-key (kbd "C-x C-a i")     'tab-bar-switch-to-last-tab)
 (global-set-key (kbd "C-x C-a C-k")   'tab-bar-close-tab)
 (global-set-key (kbd "C-x C-a C-M-k") 'tab-bar-close-other-tabs)
 (global-set-key (kbd "C-x C-a C-f")   'tab-bar-move-tab)
 (global-set-key (kbd "C-x C-a C-b")   'tab-bar-move-tab-backward)
 (global-set-key (kbd "C-x C-a C-a")   'tab-bar-new-tab)
 (global-set-key (kbd "C-x C-a C-M-a") 'tab-bar-new-tab-to)
-(global-set-key (kbd "C-x C-a C-s")   'tab-bar-move-window-to-tab)
+(global-set-key (kbd "C-x C-a C-w")   'tab-bar-move-window-to-tab)
+(global-set-key (kbd "C-x C-a C-j")   'tab-bar-move-tab-to-frame)
 (global-set-key (kbd "C-x C-a C-d")   'tab-bar-duplicate-tab)
 (global-set-key (kbd "C-x C-a C-e")   'tab-bar-rename-tab)
+
+;;; With `frame'
+
+(global-unset-key (kbd "C-x C-j"))
+(global-set-key (kbd "C-x C-d") 'dired-jump)
+
+(global-set-key (kbd "C-x C-j C-k")   'delete-frame)
+(global-set-key (kbd "C-x C-j C-M-k") 'delete-other-frames)
+(global-set-key (kbd "C-x C-j C-j")   'make-frame-command)
+(global-set-key (kbd "C-x C-j j")     'other-frame-prefix)
+(global-set-key (kbd "C-x C-j C-n")   'other-frame)
+(global-set-key (kbd "C-x C-j C-p")   (lambda () (interactive)
+                                        (mh/with-prefix -1 'other-frame)))
+(global-set-key (kbd "C-x C-j C-d")   'clone-frame)
+(global-set-key (kbd "C-x C-j C-b")   'display-buffer-other-frame)
 
 ;;; `M-S' commands
 
