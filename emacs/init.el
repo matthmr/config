@@ -85,6 +85,13 @@
 
 ;;; TTY vs PTS
 
+(defvar mh/display
+  `((truncation . ?…)
+    (wrap . ?↩)
+    (selective-display . ,(string-to-vector "↷"))
+    (vertical-border . ?│))
+  "Display table")
+
 (let ((env/wm (getenv "WM")))
   (if (or (not env/wm) (string= env/wm "emacs-tty")
                        (string= env/wm "tmux-tty")
@@ -99,17 +106,16 @@
       (set-display-table-slot standard-display-table 'truncation ?…)
       (set-display-table-slot standard-display-table 'wrap ?↩)
       (set-display-table-slot standard-display-table 'selective-display
-                              (string-to-vector "↷"))
+                                                       (string-to-vector "↷"))
       (set-display-table-slot standard-display-table 'vertical-border ?│)
+
       (setq-default truncate-lines t)
       (mouse-wheel-mode t)
       (xterm-mouse-mode t)
-      ;; (global-hl-line-mode)
-      (load-theme
-        (if (eq (window-system) 'x)
-            'gruber-darker 'base16-classic-dark
-            )
-        t))))
+      (global-hl-line-mode) ; min
+      (global-whitespace-mode) ; min
+      (load-theme 'base16-classic-dark t) ; min
+      )))
 
 (defvar mh/initial-scratch-message "\
 ;;                           ___
@@ -167,6 +173,9 @@
  '(doom-modeline-minor-modes t)
  '(doom-modeline-mode t)
  '(doom-modeline-workspace-name nil)
+ '(ediff-combination-pattern
+   '("<<<<<<< ours" A "||||||| parent" Ancestor ">>>>>>> theirs" B "======= end"))
+ '(ediff-keep-variants nil)
  '(eglot-autoshutdown t)
  '(eglot-events-buffer-size 100000)
  '(eglot-highlight-symbol-face ((t (:inherit underline))))
@@ -234,5 +243,5 @@
  '(smerge-refined-added ((t (:inherit smerge-refined-change :background "#aaffaa" :foreground "black"))))
  '(smerge-refined-removed ((t (:inherit smerge-refined-change :background "#ffbbbb" :foreground "black"))))
  '(smerge-upper ((t (:extend t :background "#ffdddd" :foreground "black"))))
- '(trailing-whitespace ((t (:background "#fb4934" :foreground "#fabd2f"))))
+ '(trailing-whitespace ((t (:background "#ee0000"))))
  '(vertical-border ((t (:background "#202020" :foreground "#303030")))))

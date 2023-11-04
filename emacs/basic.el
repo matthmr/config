@@ -39,7 +39,7 @@
   confirm-kill-emacs 'y-or-n-p
   backup-inhibited nil
   auto-save-default t
-  hi-lock-face-defaults '("underline")
+  hi-lock-face-defaults '("inverse-video")
   disabled-command-function nil
   comment-column 0
   completions-format 'one-column
@@ -52,17 +52,17 @@
 
 (setq-local default-directory @EMACS_TMP@)
 
-;; Gnus
-
-(setq-default gnus-article-save-directory @EMACS_GNUS@
-              gnus-startup-file @EMACS_NEWSRC@)
-
 ;;; Autosave
 
 (auto-save-mode)
 (fset 'yes-or-no-p 'y-or-n-p)
 
 ;;;; Major Modes
+
+;;; Gnus
+
+(setq-default gnus-article-save-directory @EMACS_GNUS@
+              gnus-startup-file @EMACS_NEWSRC@)
 
 ;;; C
 
@@ -78,14 +78,64 @@
 
 (setq sh-basic-offset 2)
 
+;;; Hl-line
+
+(defface mh/hl-line
+  '((t :inherit nil :underline t))
+  "Default face for highlighting the current line in Hl-Line mode.")
+
+(setq hl-line-face 'mh/hl-line)
+
 ;;; WS
+
+(require 'whitespace)
 
 (setq-default whitespace-space-regexp "\\( +$\\)")
 (setq-default whitespace-style
-              '(face empty trailing spaces tab-mark))
-(setq-default whitespace-display-mappings '(
-              (tab-mark ?\x09 [?¦ ?\ ])))
+              '(face empty spaces tabs tab-mark)) ; trailing space-mark
+
+(defface mh/whitespace-tab
+  '((t :foreground "#303030"))
+  "Face used to visualize TAB.")
+(defface mh/whitespace-space
+  '((t :background "#202020"))
+  "Face used to visualize SPACE.")
+
+(setq-default whitespace-tab 'mh/whitespace-tab)
+(setq-default whitespace-space 'mh/whitespace-space)
+
+(setq-default whitespace-display-mappings
+  '((tab-mark ?\x09 [?¦ ?	] [?> ?	])
+    (space-mark ?\ [?·] [?.])
+    (space-mark ?\xA0 [?¤] [?_])
+    (newline-mark ?\n [?↵ ?\n] [?$ ?\n])
+    ))
 (setq-default show-trailing-whitespace t)
+
+(defun mh/whitespace-setup-display ()
+  "Sets up the display table `table' with the value of `mh/display'"
+  (when-let ((table (or whitespace-display-table buffer-display-table)))
+    (dolist (e mh/display)
+      (set-display-table-slot table (car e) (cdr e)))))
+
+;; From `whitespace.el'
+(defun whitespace-turn-on ()
+  "Turn on whitespace visualization."
+  ;; prepare local hooks
+  (add-hook 'write-file-functions 'whitespace-write-file-hook nil t)
+  ;; create whitespace local buffer environment
+  (setq-local whitespace-font-lock-keywords nil)
+  (setq-local whitespace-display-table nil)
+  (setq-local whitespace-display-table-was-local nil)
+  (setq-local whitespace-active-style
+              (if (listp whitespace-style)
+                  whitespace-style
+                  (list whitespace-style)))
+  ;; turn on whitespace
+  (when whitespace-active-style
+    (whitespace-color-on)
+    (whitespace-display-char-on))
+  (mh/whitespace-setup-display))
 
 ;;; Eshell
 
@@ -336,15 +386,15 @@
 
 (add-hook 'lisp-mode-hook    (lambda () (interactive)
                                (setq-local page-delimiter "^;\\{4\\}")
-                               (outline-minor-mode t)
+                               (hs-minor-mode t)
                                (rainbow-delimiters-mode t)))
 (add-hook 'scheme-mode-hook  (lambda () (interactive)
                                (setq-local page-delimiter "^;\\{4\\}")
-                               (outline-minor-mode t)
+                               (hs-minor-mode t)
                                (rainbow-delimiters-mode t)))
 (add-hook 'emacs-lisp-mode-hook  (lambda () (interactive)
                                    (setq-local page-delimiter "^;\\{4\\}")
-                                   (outline-minor-mode t)
+                                   (hs-minor-mode t)
                                    (rainbow-delimiters-mode t)))
 
 ;;;; Misc
