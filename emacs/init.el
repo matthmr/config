@@ -24,11 +24,7 @@
 (require 'company)
 (require 'move-text)
 (require 'doom-modeline)
-(require 'god-mode)
-
-;; Load built-ins
-(require 'scroll-lock)
-(require 'facemenu)
+;; (require 'god-mode) ; min
 
 (load @EMACS_MH_EMACSOS@)
 (load @EMACS_MH_USER@) ; confidential options for the user, not in this repository
@@ -67,10 +63,11 @@
 
 ;;; Scroll-lock
 
-(define-key scroll-lock-mode-map "\C-n" 'scroll-lock-next-line)
-(define-key scroll-lock-mode-map "\C-p" 'scroll-lock-previous-line)
-(define-key scroll-lock-mode-map "\M-{" 'scroll-lock-backward-paragraph)
-(define-key scroll-lock-mode-map "\M-}" 'scroll-lock-forward-paragraph)
+(with-eval-after-load "scroll-lock"
+  (define-key scroll-lock-mode-map "\C-n" 'scroll-lock-next-line)
+  (define-key scroll-lock-mode-map "\C-p" 'scroll-lock-previous-line)
+  (define-key scroll-lock-mode-map "\M-{" 'scroll-lock-backward-paragraph)
+  (define-key scroll-lock-mode-map "\M-}" 'scroll-lock-forward-paragraph))
 
 ;;; Markdown
 
@@ -233,7 +230,7 @@
  '(doom-modeline-buffer-major-mode ((t (:inherit (doom-modeline-emphasis bold) :background "#1a1a1a"))))
  '(doom-modeline-buffer-minor-mode ((t (:inherit (doom-modeline font-lock-doc-face) :background "#1a1a1a" :slant italic :weight normal))))
  '(doom-modeline-input-method ((t (:inherit doom-modeline-emphasis :background "#1a1a1a"))))
- '(eglot-highlight-symbol-face ((t (:inherit underline))))
+ '(eglot-highlight-symbol-face ((t (:inverse-video t))))
  '(eglot-mode-line ((t nil)))
  '(icomplete-first-match ((t (:foreground "#dc9656"))))
  '(log-view-message ((t (:extend t :background "grey85" :foreground "black"))))

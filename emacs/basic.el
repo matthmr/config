@@ -88,28 +88,6 @@
 
 ;;; WS
 
-(require 'whitespace)
-
-(setq-default whitespace-space-regexp "\\( +$\\)")
-(setq-default whitespace-style
-              '(face empty spaces tabs tab-mark)) ; trailing space-mark
-
-(defface mh/whitespace-tab
-  '((t :foreground "#303030"))
-  "Face used to visualize TAB.")
-(defface mh/whitespace-space
-  '((t :background "#202020"))
-  "Face used to visualize SPACE.")
-
-(setq-default whitespace-tab 'mh/whitespace-tab)
-(setq-default whitespace-space 'mh/whitespace-space)
-
-(setq-default whitespace-display-mappings
-  '((tab-mark ?\x09 [?¦ ?	] [?> ?	])
-    (space-mark ?\ [?·] [?.])
-    (space-mark ?\xA0 [?¤] [?_])
-    (newline-mark ?\n [?↵ ?\n] [?$ ?\n])
-    ))
 (setq-default show-trailing-whitespace t)
 
 (defun mh/whitespace-setup-display ()
@@ -118,24 +96,46 @@
     (dolist (e mh/display)
       (set-display-table-slot table (car e) (cdr e)))))
 
-;; From `whitespace.el'
-(defun whitespace-turn-on ()
-  "Turn on whitespace visualization."
-  ;; prepare local hooks
-  (add-hook 'write-file-functions 'whitespace-write-file-hook nil t)
-  ;; create whitespace local buffer environment
-  (setq-local whitespace-font-lock-keywords nil)
-  (setq-local whitespace-display-table nil)
-  (setq-local whitespace-display-table-was-local nil)
-  (setq-local whitespace-active-style
-              (if (listp whitespace-style)
-                  whitespace-style
-                  (list whitespace-style)))
-  ;; turn on whitespace
-  (when whitespace-active-style
-    (whitespace-color-on)
-    (whitespace-display-char-on))
-  (mh/whitespace-setup-display))
+(with-eval-after-load "whitespace"
+  (setq-default whitespace-space-regexp "\\( +$\\)")
+  (setq-default whitespace-style
+                '(face empty spaces tabs tab-mark))
+
+  (defface mh/whitespace-tab
+    '((t :foreground "#303030"))
+    "Face used to visualize TAB.")
+  (defface mh/whitespace-space
+    '((t :background "#202020"))
+    "Face used to visualize SPACE.")
+
+  (setq-default whitespace-tab 'mh/whitespace-tab)
+  (setq-default whitespace-space 'mh/whitespace-space)
+
+  (setq-default whitespace-display-mappings
+    '((tab-mark ?\x09 [?¦ ?	] [?> ?	])
+      (space-mark ?\ [?·] [?.])
+      (space-mark ?\xA0 [?¤] [?_])
+      (newline-mark ?\n [?↵ ?\n] [?$ ?\n])
+      ))
+
+  ;; From `whitespace.el'
+  (defun whitespace-turn-on ()
+    "Turn on whitespace visualization."
+    ;; prepare local hooks
+    (add-hook 'write-file-functions 'whitespace-write-file-hook nil t)
+    ;; create whitespace local buffer environment
+    (setq-local whitespace-font-lock-keywords nil)
+    (setq-local whitespace-display-table nil)
+    (setq-local whitespace-display-table-was-local nil)
+    (setq-local whitespace-active-style
+                (if (listp whitespace-style)
+                    whitespace-style
+                    (list whitespace-style)))
+    ;; turn on whitespace
+    (when whitespace-active-style
+      (whitespace-color-on)
+      (whitespace-display-char-on))
+    (mh/whitespace-setup-display)))
 
 ;;; Eshell
 
@@ -361,12 +361,15 @@
 
 (add-hook 'outline-mode-hook  'auto-fill-mode)
 (add-hook 'diff-mode-hook     'outline-minor-mode)
-(add-hook 'latex-mode-hook    #'(lambda () (interactive)
-                                 (define-key latex-mode-map (kbd "M-TAB") 'completion-at-point)))
-(add-hook 'tex-mode-hook      #'(lambda () (interactive)
-                                 (define-key tex-mode-map (kbd "M-TAB") 'completion-at-point)))
-(add-hook 'diff-mode-hook     #'(lambda ()
-                                  (define-key diff-mode-map (kbd "C-c TAB") 'diff-split-hunk)))
+(add-hook 'latex-mode-hook    (lambda () (interactive)
+                                (define-key latex-mode-map
+                                  (kbd "M-TAB") 'completion-at-point)))
+(add-hook 'tex-mode-hook      (lambda () (interactive)
+                                (define-key tex-mode-map
+                                  (kbd "M-TAB") 'completion-at-point)))
+(add-hook 'diff-mode-hook     (lambda () (interactive)
+                                (define-key diff-mode-map
+                                  (kbd "C-c TAB") 'diff-split-hunk)))
 
 ;;; Prog mode
 
@@ -411,6 +414,38 @@
 (add-hook 'eshell-preoutput-filter-functions 'ansi-color-apply)
 
 ;;;; Function overrides
+
+(with-eval-after-load "ediff"
+  (add-hook 'ediff-quit-merge-hook
+    ; For git
+    (lambda () (interactive)
+      (setq ediff-merge-store-file
+            (or ediff-merge-store-file (buffer-file-name ediff-buffer-A)))))
+
+  ;; From `vc/ediff-util.el'
+  (defun mh/ediff-write-merge-buffer-and-maybe-kill
+      (buf file &optional show-file save-and-continue)
+    (ediff-with-current-buffer buf
+      (if (or (not (file-exists-p file))
+        (y-or-n-p (format "File %s exists, overwrite? " file)))
+    (progn
+      ;;(write-region nil nil file)
+      (ediff-with-current-buffer buf
+        (set-visited-file-name file)
+        (save-buffer))
+      (if show-file
+          (progn
+      (message "Merge buffer saved in: %s" file)
+      (set-buffer-modified-p nil)
+      (sit-for 3)))
+      (if (and
+           (not save-and-continue)
+           (y-or-n-p "Merge buffer saved.  Now kill the buffer? "))
+          (ediff-kill-buffer-carefully buf))))))
+
+  ;; why the fuck do I have to do this?
+  (fset 'ediff-write-merge-buffer-and-maybe-kill
+        'mh/ediff-write-merge-buffer-and-maybe-kill))
 
 ;; From `minibuffer.el'
 (defun completion-pcm--string->pattern (string &optional point)
