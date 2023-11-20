@@ -332,6 +332,29 @@
     (define-key map "\C-x8\r" 'isearch-char-by-name)
     map))
 
+;;; Mpc
+
+(with-eval-after-load "mpc"
+  (define-key mpc-songs-mode-map "\C-\M-m"  #'mpc-select-toggle)
+  (define-key mpc-songs-mode-map "\M- "     #'mpc-select-extend)
+
+  (define-key mpc-tagbrowser-mode-map "\C-\M-m" #'mpc-select-toggle)
+  (define-key mpc-tagbrowser-mode-map "\M- "    #'mpc-select-extend)
+
+  (define-key mpc-status-mode-map " "  #'mpc-toggle-play)
+
+  (define-key mpc-mode-map "a" #'mpc-playlist-add)
+  (define-key mpc-mode-map "d" #'mpc-playlist-delete)
+  (define-key mpc-mode-map "D" #'mpc-playlist-destroy)
+  (define-key mpc-mode-map "c" #'mpc-playlist-create)
+  (define-key mpc-mode-map "r" #'mpc-playlist-rename)
+  (define-key mpc-mode-map " " #'mpc-toggle-play)
+  (define-key mpc-mode-map "s" #'mpc-stop)
+  (define-key mpc-mode-map "P" #'mpc-playlist)
+  (define-key mpc-mode-map "v" #'mh/mpc-vol))
+
+;;; Loadouts
+
 (icomplete-mode)
 (electric-pair-mode)
 (global-display-fill-column-indicator-mode)
@@ -417,11 +440,20 @@
 
 (with-eval-after-load "ediff"
   (add-hook 'ediff-quit-merge-hook
-    ; For git
+    ;; For git. The `glob' gets deleted as soon as Emacs launches Ediff. So we
+    ;; save in whichever file exists still
     (lambda () (interactive)
       (setq ediff-merge-store-file
-            (or ediff-merge-store-file (buffer-file-name ediff-buffer-A)))))
+            (or ediff-merge-store-file
+                (let ((file-A (buffer-file-name ediff-buffer-A))
+                      (file-B (buffer-file-name ediff-buffer-B)))
+                  (cond ((file-exists-p file-A) file-A)
+                        ((file-exists-p file-B) file-B)
+                        (t nil))
+                  )))
+      )))
 
+(with-eval-after-load "ediff-init"
   ;; From `vc/ediff-util.el'
   (defun mh/ediff-write-merge-buffer-and-maybe-kill
       (buf file &optional show-file save-and-continue)

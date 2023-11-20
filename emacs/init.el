@@ -144,7 +144,11 @@
  '(backup-directory-alist '((".*" . @EMACS_BACKUP@)))
  '(base16-theme-256-color-source 'colors)
  '(base16-theme-distinct-fringe-background nil)
- '(browse-url-browser-display "ungoogled-chromium")
+ '(browse-url-browser-display nil)
+ '(browse-url-browser-function
+   (lambda (url &optional args)
+      (async-shell-command
+       (format "handler.sh -d '%s'" url "*url*" "*url-error*"))))
  '(browse-url-text-browser "w3m")
  '(column-number-mode t)
  '(comment-column 0)
@@ -198,6 +202,8 @@
  '(mc/always-run-for-all t)
  '(menu-bar-mode nil)
  '(mode-line-compact nil)
+ '(mpc-browser-tags
+   '(Genre Artist|Composer|Performer Album|Playlist Title|Filename))
  '(org-agenda-files nil)
  '(outline-minor-mode-prefix "\3\23")
  '(package-selected-packages '(dash with-editor))

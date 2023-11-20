@@ -1,0 +1,14 @@
+## mpdscribble - an audioscrobbler for the Music Player Daemon.
+## https://www.musicpd.org/clients/mpdscribble/
+
+pidfile = /tmp/mpdscribble-pid
+log = /tmp/mpdscribble.log
+daemon_user = @MPDSCRIBBLE_USER@
+verbose = 1
+journal_interval = @MPDSCRIBBLE_INTERVAL@
+
+[last.fm]
+url = https://post.audioscrobbler.com/
+username = @MPDSCRIBBLE_LASTFM_USER@
+password = @MPDSCRIBBLE_LASTFM_USER_MD5PASS@
+journal = /tmp/mpdscribble-journal
