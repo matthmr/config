@@ -451,9 +451,22 @@
                         ((file-exists-p file-B) file-B)
                         (t nil))
                   )))
-      )))
+      ))
 
-(with-eval-after-load "ediff-init"
+  ;;; NOTE: I don't know for what fucking reason this function doesn't have this
+  ;;; defined when it loads, but it is what is
+  ;; From `vc/ediff-init.el'
+  (defmacro ediff-with-current-buffer (buffer &rest body)
+    "Evaluate BODY in BUFFER."
+    (declare (indent 1) (debug (form body)))
+    `(if (ediff-buffer-live-p ,buffer)
+         (save-current-buffer
+     (set-buffer ,buffer)
+     ,@body)
+       (or (eq this-command 'ediff-quit)
+     (error ediff-KILLED-VITAL-BUFFER))
+       ))
+
   ;; From `vc/ediff-util.el'
   (defun mh/ediff-write-merge-buffer-and-maybe-kill
       (buf file &optional show-file save-and-continue)

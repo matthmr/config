@@ -45,6 +45,9 @@
 (global-set-key (kbd "C-x C-o") 'other-window)
 (global-set-key (kbd "M-p")     'previous-error)
 (global-set-key (kbd "M-n")     'next-error)
+(global-set-key (kbd "M-(")     'kmacro-start-macro)
+(global-set-key (kbd "M-)")     'kmacro-end-macro)
+(global-set-key (kbd "M-@")     'kmacro-end-and-call-macro)
 
 ;;; Emacs 29
 

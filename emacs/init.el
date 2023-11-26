@@ -203,7 +203,7 @@
  '(menu-bar-mode nil)
  '(mode-line-compact nil)
  '(mpc-browser-tags
-   '(Genre Artist|Composer|Performer Album|Playlist Title|Filename))
+   '(Artist Album Title Filename))
  '(org-agenda-files nil)
  '(outline-minor-mode-prefix "\3\23")
  '(package-selected-packages '(dash with-editor))
