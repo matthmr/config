@@ -42,12 +42,12 @@
 [mergetool "ediffclient"]
   cmd = emacsclient -e $(echo "\\(ediff-merge-files-with-ancestor \\\"$LOCAL\\\" \\\"$REMOTE\\\" \\\"$BASE\\\" nil \\\"$MERGED\\\"\\)")
 [difftool "ediffclient"]
-  cmd = emacsclient -e $(echo "\\(ediff-merge-files \\\"$REMOTE\\\" \\\"$LOCAL\\\"\\)")
+  cmd = emacsclient -e $(echo "\\(ediff-merge-files \\\"$LOCAL\\\" \\\"$REMOTE\\\"\\)")
 
 [mergetool "ediffclientours"]
   cmd = emacsclient -e $(echo "\\(ediff-merge-files-with-ancestor \\\"$REMOTE\\\" \\\"$LOCAL\\\" \\\"$BASE\\\" nil \\\"$MERGED\\\"\\)")
 [difftool "ediffclientours"]
-  cmd = emacsclient -e $(echo "\\(ediff-merge-files \\\"$LOCAL\\\" \\\"$REMOTE\\\"\\)")
+  cmd = emacsclient -e $(echo "\\(ediff-merge-files \\\"$REMOTE\\\" \\\"$LOCAL\\\"\\)")
 
 [mergetool "emergeclient"]
   cmd = emacsclient -e $(echo "\\(emerge-files-with-ancestor nil \\\"$LOCAL\\\" \\\"$REMOTE\\\" \\\"$BASE\\\" \\\"$MERGED\\\"\\)")

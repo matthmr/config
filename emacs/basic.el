@@ -158,14 +158,13 @@
 
 (setq eshell-prompt-function
   (lambda ()
-    (format "%s %s %s\n%s%s "
+    (format "%s %s\n%s%s "
             (concat (propertize "[" 'face `(:foreground "red"))
                     (propertize (user-login-name) 'face `(:weight bold))
                     (propertize "@" 'face `(:foreground "red"))
                     (propertize (system-name) 'face `(:weight bold))
                     (propertize "]" 'face `(:foreground "red")))
             (mh/eshell-block "eshell")
-            (mh/eshell-block (format-time-string "%H%M" (current-time)))
             (mh/eshell-block (eshell/pwd))
             (propertize ">" 'face `(:foreground "red")))))
 
@@ -351,7 +350,11 @@
   (define-key mpc-mode-map " " #'mpc-toggle-play)
   (define-key mpc-mode-map "s" #'mpc-stop)
   (define-key mpc-mode-map "P" #'mpc-playlist)
-  (define-key mpc-mode-map "v" #'mh/mpc-vol))
+  (define-key mpc-mode-map "v" #'mh/mpc-vol)
+
+  (define-key mpc-mode-map "-" (lambda () (interactive) (mh/mpc-vol "-2")))
+  (define-key mpc-mode-map "=" (lambda () (interactive) (mh/mpc-vol "+2")))
+  (define-key mpc-mode-map "\C-\M-@" #'mpc-play-at-point))
 
 ;;; Loadouts
 
@@ -449,7 +452,12 @@
                       (file-B (buffer-file-name ediff-buffer-B)))
                   (cond ((file-exists-p file-A) file-A)
                         ((file-exists-p file-B) file-B)
-                        (t nil))
+                        (t (let ((file
+                                  (replace-regexp-in-string
+                                   "/tmp/git-blob-.\\{6\\}/" ""
+                                   (or file-A file-B)))
+                                 (dir (read-file-name "Git root: ")))
+                             (concat dir file))))
                   )))
       ))
 
@@ -489,8 +497,8 @@
           (ediff-kill-buffer-carefully buf))))))
 
   ;; why the fuck do I have to do this?
-  (fset 'ediff-write-merge-buffer-and-maybe-kill
-        'mh/ediff-write-merge-buffer-and-maybe-kill))
+  (fset #'ediff-write-merge-buffer-and-maybe-kill
+        #'mh/ediff-write-merge-buffer-and-maybe-kill))
 
 ;; From `minibuffer.el'
 (defun completion-pcm--string->pattern (string &optional point)
