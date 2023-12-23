@@ -71,6 +71,19 @@
 
 ;;; With `window' & `windmove'
 
+(global-set-key (kbd "C-x 2")
+                (lambda () (interactive)
+                  (select-window (split-window-below))))
+(global-set-key (kbd "C-x 3")
+                (lambda () (interactive)
+                  (select-window (split-window-right))))
+(global-set-key (kbd "C-x w 2")
+                (lambda () (interactive)
+                  (select-window (split-root-window-below))))
+(global-set-key (kbd "C-x w 3")
+                (lambda () (interactive)
+                  (select-window (split-root-window-right))))
+
 (global-unset-key (kbd "C-x C-w"))
 
 (global-set-key (kbd "C-x C-w C-w")   'mh/new-window)

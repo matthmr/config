@@ -442,6 +442,11 @@
 ;;;; Function overrides
 
 (with-eval-after-load "ediff"
+  (add-hook 'ediff-mode-hook
+    (lambda () (interactive)
+      (setq ediff-highlighting-style 'face
+            ediff-auto-refine 'on)))
+
   (add-hook 'ediff-quit-merge-hook
     ;; For git. The `glob' gets deleted as soon as Emacs launches Ediff. So we
     ;; save in whichever file exists still
@@ -464,16 +469,17 @@
   ;;; NOTE: I don't know for what fucking reason this function doesn't have this
   ;;; defined when it loads, but it is what is
   ;; From `vc/ediff-init.el'
-  (defmacro ediff-with-current-buffer (buffer &rest body)
-    "Evaluate BODY in BUFFER."
-    (declare (indent 1) (debug (form body)))
-    `(if (ediff-buffer-live-p ,buffer)
-         (save-current-buffer
-     (set-buffer ,buffer)
-     ,@body)
-       (or (eq this-command 'ediff-quit)
-     (error ediff-KILLED-VITAL-BUFFER))
-       ))
+  (eval-when-compile
+    (defmacro ediff-with-current-buffer (buffer &rest body)
+      "Evaluate BODY in BUFFER."
+      (declare (indent 1) (debug (form body)))
+      `(if (ediff-buffer-live-p ,buffer)
+           (save-current-buffer
+       (set-buffer ,buffer)
+       ,@body)
+         (or (eq this-command 'ediff-quit)
+       (error ediff-KILLED-VITAL-BUFFER))
+         )))
 
   ;; From `vc/ediff-util.el'
   (defun mh/ediff-write-merge-buffer-and-maybe-kill
@@ -558,9 +564,9 @@ or a symbol, see `completion-pcm--merge-completions'."
 (defun mh/split-window (&optional _)
   (let ((window (selected-window)))
     (with-selected-window window
-      (if (< (window-total-width) 160) ;(> (window-total-width window) (* 3 (window-total-height window)))
-          (split-window-below)
-        (split-window-right)))))
+      (if (> (window-total-width window) (* 2.5 (window-total-height window)))
+          (split-window-right)
+        (split-window-below)))))
 
 (defun mh/new-window ()
   "Creates a new window given the split"
