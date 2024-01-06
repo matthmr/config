@@ -18,4 +18,4 @@ command=(urxvt &) ; (qvkbd &)
 [clock]
 #command=i3-clock
 command=statusbar
-interval=90
+interval=60

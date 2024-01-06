@@ -9,12 +9,14 @@ set realname = @NEOMUTT_NAME@
 
 set spoolfile = "+INBOX"
 set record = "+Sent"
-set date_format = "%Y%m%d%H%M"
+#set date_format = "[%Y%m%d%H%M]"
+set index_format="%4C %Z %{%Y%m%d%H%M} %-15.15L (%<l?%4l&%4c>) %s"
 set sidebar_visible = yes
 set use_threads=threads sort=last-date sort_aux=date
 
 set include = yes
 set sort = 'reverse-date'
+set quit = 'ask-yes'
 
 bind index,pager i noop
 bind index,pager g noop
@@ -37,7 +39,7 @@ bind pager l view-attachments
 bind index D delete-message
 bind index U undelete-message
 bind index L limit
-bind index h noop
+bind index h exit
 bind index l display-message
 bind index,query <space> tag-entry
 #bind browser h goto-parent
@@ -58,23 +60,22 @@ bind pager \031 previous-line		# Mouse wheel
 bind pager \005 next-line		# Mouse wheel
 bind editor <Tab> complete-query
 
-
 macro index,pager gi "<change-folder>=INBOX<enter>" "Go to Inbox"
 macro index,pager gs "<change-folder>=Sent<enter>" "Go to Sent"
 
 mailboxes =INBOX =Sent
 
-
 # Default index colors:
-color index yellow default '.*'
-color index_author red default '.*'
-color index_number blue default
-color index_subject cyan default '.*'
+color index magenta default '.*'
+color index_author cyan default '.*'
+color index_number brightmagenta default
+color index_subject default default '.*'
 
 # New mail is boldened:
-color index brightyellow black "~N"
-color index_author brightred black "~N"
-color index_subject brightcyan black "~N"
+color index brightwhite black "~N"
+color index_number brightwhite default
+color index_author brightcyan black "~N"
+color index_subject brightwhite black "~N"
 
 # Tagged mail is highlighted:
 color index brightyellow blue "~T"
@@ -92,7 +93,7 @@ mono underline underline
 mono indicator reverse
 mono error bold
 color normal default default
-color indicator brightblack white
+#color indicator brightblack white
 color sidebar_highlight red default
 color sidebar_divider brightblack black
 color sidebar_flagged red black
@@ -103,7 +104,7 @@ color message cyan default
 color markers red white
 color attachment white default
 color search brightmagenta default
-color status brightyellow black
+color status brightwhite black
 color hdrdefault brightgreen default
 color quoted green default
 color quoted1 blue default
@@ -119,18 +120,14 @@ color underline black default
 color header brightmagenta default "^From"
 color header brightcyan default "^Subject"
 color header brightwhite default "^(CC|BCC)"
-color header blue default ".*"
-color body brightred default "[\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+" # Email addresses
+color header cyan default ".*"
+color body brightblue default "[\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+" # Email addresses
 color body brightblue default "(https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+" # URL
 color body green default "\`[^\`]*\`" # Green text between ` and `
 color body brightblue default "^# \.*" # Headings as bold blue
 color body brightcyan default "^## \.*" # Subheadings as bold cyan
 color body brightgreen default "^### \.*" # Subsubheadings as bold green
 color body yellow default "^(\t| )*(-|\\*) \.*" # List items as yellow
-color body brightcyan default "[;:][-o][)/(|]" # emoticons
-color body brightcyan default "[;:][)(|]" # emoticons
-color body brightcyan default "[ ][*][^*]*[*][ ]?" # more emoticon?
-color body brightcyan default "[ ]?[*][^*]*[*][ ]" # more emoticon?
 color body red default "(BAD signature)"
 color body cyan default "(Good signature)"
 color body brightblack default "^gpg: Good signature .*"

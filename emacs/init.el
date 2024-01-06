@@ -225,7 +225,8 @@
  '(use-short-answers t)
  '(vc-follow-symlinks t)
  '(vc-make-backup-files t)
- '(version-control t))
+ '(version-control t)
+ '(eglot-prefer-plaintext nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

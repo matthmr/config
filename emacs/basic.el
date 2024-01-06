@@ -439,6 +439,10 @@
 
 (add-hook 'eshell-preoutput-filter-functions 'ansi-color-apply)
 
+;; Propertize the `eldoc' buffer
+(with-eval-after-load "eglot"
+  (require 'markdown-mode))
+
 ;;;; Function overrides
 
 (with-eval-after-load "ediff"
@@ -564,7 +568,7 @@ or a symbol, see `completion-pcm--merge-completions'."
 (defun mh/split-window (&optional _)
   (let ((window (selected-window)))
     (with-selected-window window
-      (if (> (window-total-width window) (* 2.5 (window-total-height window)))
+      (if (> (window-total-width window) (* 2.7 (window-total-height window)))
           (split-window-right)
         (split-window-below)))))
 
