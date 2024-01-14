@@ -28,7 +28,7 @@
   sentence-end-double-space nil ; Why the fuck would I do that?
   ; local-enable-local-variables nil ; Why the fuck would I do that?
   ring-bell-function 'ignore ; SHUT THE FUCK UP
-  tab-bar-show 1
+  ; tab-bar-show 1 ; min
   echo-keystrokes 0.1
   vc-find-revision-no-save t
   auto-save-list-file-prefix nil ; STOP
@@ -361,6 +361,7 @@
 (icomplete-mode)
 (electric-pair-mode)
 (global-display-fill-column-indicator-mode)
+(tab-bar-mode) ; min
 
 ;;;; Hooks
 

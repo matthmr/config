@@ -23,7 +23,7 @@ bind-key p  prev-unread
 
 #### Options
 
-datetime-format "%Y%m%d%H%M"
+datetime-format "%Y%m%d %a %I%M%p"
 #delete-read-articles-on-quit yes
 save-path @NEWSBOAT_SAVE@
 browser @NEWSBOAT_BROWSER@

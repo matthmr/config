@@ -26,9 +26,9 @@
 [status]
   short = true
 [log]
-  date = format:%Y%m%d%H%M
+  date = format:%Y%m%d %a %I%M%p
 [blame]
-  date = format:%Y%m%d%H%M
+  date = format:%Y%m%d %a %I%M%p
 [pager]
   branch = false
   tag    = false

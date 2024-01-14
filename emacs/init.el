@@ -168,7 +168,7 @@
  '(diff-refine nil)
  '(display-line-numbers-widen t)
  '(display-time-default-load-average nil)
- '(display-time-format "%Y%m%d%H%M")
+ '(display-time-format "%Y%m%d %a %I%M%p")
  '(doom-modeline-buffer-file-name-style 'truncate-with-project)
  '(doom-modeline-icon nil)
  '(doom-modeline-minor-modes t)
