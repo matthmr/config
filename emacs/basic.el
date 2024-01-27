@@ -358,7 +358,7 @@
 
 ;;; Loadouts
 
-(icomplete-mode)
+(icomplete-mode) ; min
 (electric-pair-mode)
 (global-display-fill-column-indicator-mode)
 (tab-bar-mode) ; min
