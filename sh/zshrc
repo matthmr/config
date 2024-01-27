@@ -1,11 +1,12 @@
-# ZSH opts
+#### ZSH opts
+
 HISTFILE=@ZSH_HISTORY@
 HISTSIZE=500
 SAVEHIST=500
 ZSH_MODE='vi'
-setopt autocd autopushd
-setopt PROMPT_SUBST HIST_IGNORE_SPACE
-setopt nobeep
+
+setopt AUTOCD AUTOPUSHD NOBEEP PROMPT_SUBST HIST_IGNORE_SPACE # IGNORE_EOF
+
 set -k
 
 case $ZSH_MODE in
@@ -17,25 +18,36 @@ case $ZSH_MODE in
     source @ZSH_EMACS_MODE@;;
 esac
 
-# Git
+#### Git
+
 autoload -Uz vcs_info
-precmd() { vcs_info }
+precmd() { vcs_info; spwd=$(shortpwd %~) }
+chpwd () { SHORTPWD=$(shortpwd) }
 zstyle ':vcs_info:git:*' formats '%F{red}[%F{reset}%B%b[0m%F{red}]'
 
-# Prompt
-# ┌[USER@HOST] [zsh] [pts/0] [2236] [master]
+#### Prompt
+
+# ┌[USER@HOST] [zsh] [pts/0] [master]
 # └[~]>
 
-PROMPT="\
+function shortpwd {
+  # use this for abbreviating another user's path
+  # echo "${PWD/$HOME/~}" | sed -E 's!(^(~[^/]+?/?|/)[^/]{,1}?|[^/]{,1})[^/]*/!\1/!g'
+  echo "${PWD/$HOME/~}" | sed -E 's!(^~?/[^/]{,3}?|[^/]{,3})[^/]*/!\1/!g'
+}
+
+SHORTPWD=$(shortpwd)
+
+PROMPT='\
 %F{red}[%F{reset}%B%n%b%F{red}@%F{reset}%B%m%b%F{red}] \
 %F{red}[%F{reset}%Bzsh%b%F{red}] \
 %F{red}[%F{reset}%B%l%b%F{red}] \
-\$vcs_info_msg_0_ %b\
+$vcs_info_msg_0_ %b\
 %(?..[%F{reset}%B%?%b%F{red}])
-[%F{reset}%B%2~%b%F{red}]>%F{reset} "
-PS2="%F{red}>%F{reset} "
+[%F{reset}%B$SHORTPWD%b%F{red}]>%F{reset} '
+PS2='%F{red}>%F{reset} '
 
-# Completion
+#### Completion
 autoload -U compinit
 compinit
 _comp_options+=(globdots)
@@ -46,13 +58,13 @@ zstyle ':completion:*' menu select
 
 zmodload zsh/complist
 
-# Plugins
+#### Plugins
 source @ZSH_PLUGINS@
 
 ## `zsh-syntax-highlighting.plugin.zsh'
 ZSH_HIGHLIGHT_STYLES[arg0]=fg=blue
 
-# Common source
+#### Common source
 source @ZSH_ALIAS@
 source @ZSH_FUNCTIONS@
 
@@ -82,3 +94,20 @@ export SHELL=/bin/zsh
 }
 
 :
+
+#### Confirm exit
+
+function confirm_exit() {
+  local ans
+
+  printf 'Kill shell [Y/n] '
+
+  read -s -k1 ans
+
+  [[ "$ans" = $'\x0d' || "$ans" == 'y' ]] && exit || zle reset-prompt
+}
+
+zle -N confirm_exit
+setopt IGNORE_EOF
+bindkey '^D' confirm_exit
+bindkey '^[^I' list-choices

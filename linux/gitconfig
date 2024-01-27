@@ -1,6 +1,9 @@
 [credential "https://github.com"]
   helper = @GIT_HELPER@
 
+[credential "https://gitlab.com"]
+  helper = @GIT_HELPER@
+
 # Global configs
 [user]
   name  = @GIT_NAME@

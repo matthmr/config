@@ -29,7 +29,6 @@
 (load @EMACS_MH_EMACSOS@)
 (load @EMACS_MH_USER@) ; confidential options for the user, not in this repository
 (load @EMACS_MH_BASIC@)
-(load @EMACS_MH_MPC@)
 
 ;; (setq max-mini-window-height 1)
 (setq eglot-stay-out-of '("flymake"))
@@ -169,7 +168,7 @@
  '(display-line-numbers-widen t)
  '(display-time-default-load-average nil)
  '(display-time-format "%Y%m%d %a %I%M%p")
- '(doom-modeline-buffer-file-name-style 'truncate-with-project)
+ '(doom-modeline-buffer-file-name-style 'truncate-except-project)
  '(doom-modeline-icon nil)
  '(doom-modeline-minor-modes t)
  '(doom-modeline-mode t)
@@ -181,6 +180,7 @@
  '(eglot-events-buffer-size 100000)
  '(eglot-highlight-symbol-face ((t (:inherit underline))))
  '(eglot-menu-string "")
+ '(eglot-prefer-plaintext nil)
  '(eldoc-echo-area-use-multiline-p 1)
  '(eshell-buffer-maximum-lines 8000)
  '(eshell-directory-name @EMACS_ESHELL@)
@@ -225,8 +225,7 @@
  '(use-short-answers t)
  '(vc-follow-symlinks t)
  '(vc-make-backup-files t)
- '(version-control t)
- '(eglot-prefer-plaintext nil))
+ '(version-control t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

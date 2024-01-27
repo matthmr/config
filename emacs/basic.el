@@ -444,6 +444,10 @@
 (with-eval-after-load "eglot"
   (require 'markdown-mode))
 
+(with-eval-after-load "compilation"
+  (require 'ansi-color)
+  (add-hook 'compilation-filter-hook 'ansi-color-compilation-filter))
+
 ;;;; Function overrides
 
 (with-eval-after-load "ediff"
