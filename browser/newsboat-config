@@ -28,8 +28,10 @@ datetime-format "%Y%m%d %a %I%M%p"
 save-path @NEWSBOAT_SAVE@
 browser @NEWSBOAT_BROWSER@
 max-items 100
-history-limit 100
-keep-articles-days 30
+# min:
+history-limit 1000
+# min:
+keep-articles-days 60
 user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36"
 confirm-exit yes
 wrap-scroll yes

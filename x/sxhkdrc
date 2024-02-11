@@ -67,4 +67,4 @@ super + control + x; x; l
 #### misc
 
 super + control + alt + x
-	dmenu_run
+  dmenu_run

@@ -18,8 +18,8 @@
   temporary-file-directory @EMACS_TMP@
   tab-width 2
   window-divider-default-places 'right-only
-  kill-ring-max 100
-  message-log-max 100 ; as per `https://www.emacswiki.org/emacs/MessagesBuffers'
+  kill-ring-max 500
+  message-log-max 7000 ; as per `https://www.emacswiki.org/emacs/MessagesBuffers'
   select-enable-clipboard nil ; as per `edoc://Clipboard.html'
   select-active-regions nil ; as per `edoc://Primary-Selection.html'
   frame-title-format '("emacs@linux - %b") ; as per `https://emacs.stackexchange.com/questions/16834/how-to-change-the-frame-title-from-emacshost-to-visited-file-name'

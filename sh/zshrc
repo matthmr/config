@@ -21,7 +21,7 @@ esac
 #### Git
 
 autoload -Uz vcs_info
-precmd() { vcs_info; spwd=$(shortpwd %~) }
+precmd() { vcs_info }
 chpwd () { SHORTPWD=$(shortpwd) }
 zstyle ':vcs_info:git:*' formats '%F{red}[%F{reset}%B%b[0m%F{red}]'
 
