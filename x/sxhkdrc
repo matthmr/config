@@ -15,8 +15,13 @@ super + control + x; a; m
   dosuspend -x
 super + control + x; a; d
   dohibernate -x
-super + control + x; a; l
-  i3lock -i @SXHKDRC_IMAGE@ -e -f -b -n -t -p default
+super + control + x; a; S
+  doshutdown -x -f
+super + control + x; a; R
+  doreboot -x -f
+
+# super + control + x; a; l
+#   i3lock -i @SXHKDRC_IMAGE@ -e -f -b -n -t -p default
 
 #### launch-mode
 
@@ -41,17 +46,17 @@ super + control + x; s; q
 #### MPD
 
 super + control + x; m; space
-  mpc toggle > /dev/null 2>/dev/null
+  mpc toggle >/dev/null 2>/dev/null
 super + control + x; m; n
-  mpc next > /dev/null 2>/dev/null
+  mpc next >/dev/null 2>/dev/null
 super + control + x; m; p
-  mpc prev > /dev/null 2>/dev/null
+  mpc prev >/dev/null 2>/dev/null
 super + control + x; m; s
-  mpc stop > /dev/null 2>/dev/null
+  mpc stop >/dev/null 2>/dev/null
 super + control + x; m; equal
-  mpc volume +10 > /dev/null 2>/dev/null
+  mpc volume +10 >/dev/null 2>/dev/null
 super + control + x; m; minus
-  mpc volume -10 > /dev/null 2>/dev/null
+  mpc volume -10 >/dev/null 2>/dev/null
 
 ##### X
 
@@ -63,6 +68,10 @@ super + control + x; x; r
   @SXHKDRC_RESIZE@
 super + control + x; x; l
   @SXHKDRC_RELOAD@
+super + control + x; x; x
+  xterm -e tmux new-session -A
+super + control + x; x; X
+  xterm -e zsh
 
 #### misc
 

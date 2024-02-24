@@ -27,9 +27,9 @@ datetime-format "%Y%m%d %a %I%M%p"
 #delete-read-articles-on-quit yes
 save-path @NEWSBOAT_SAVE@
 browser @NEWSBOAT_BROWSER@
-max-items 100
+max-items 1000
 # min:
-history-limit 1000
+history-limit 100
 # min:
 keep-articles-days 60
 user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36"

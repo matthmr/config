@@ -1,8 +1,8 @@
 #### ZSH opts
 
 HISTFILE=@ZSH_HISTORY@
-HISTSIZE=500
-SAVEHIST=500
+HISTSIZE=500 # min
+SAVEHIST=500 # min
 ZSH_MODE='vi'
 
 setopt AUTOCD AUTOPUSHD NOBEEP PROMPT_SUBST HIST_IGNORE_SPACE # IGNORE_EOF
@@ -60,6 +60,8 @@ zmodload zsh/complist
 
 #### Plugins
 source @ZSH_PLUGINS@
+source /usr/share/fzf/completion.zsh
+source /usr/share/fzf/key-bindings.zsh
 
 ## `zsh-syntax-highlighting.plugin.zsh'
 ZSH_HIGHLIGHT_STYLES[arg0]=fg=blue

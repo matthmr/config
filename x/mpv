@@ -34,3 +34,6 @@ ytdl-format=140
 video=no
 profile-desc=ytld
 profile=protocol.http
+
+[extension.gif]
+loop=inf

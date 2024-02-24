@@ -68,6 +68,7 @@
   ad  = add --verbose
   br  = branch
   pl  = pull --verbose
+  ps  = push --verbose
   mg  = merge
   sm  = merge --squash
   sh  = show --stat --patch
@@ -81,6 +82,7 @@
   tg  = tag
   bl  = blame --color-lines
   adp = add -p
+  cmp = commit --interactiv --verbose
   rsp = restore -p
   ss  = stash
   mm  = merge --no-ff --no-commit

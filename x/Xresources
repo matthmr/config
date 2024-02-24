@@ -34,28 +34,28 @@ URxvt.keysym.Shift-Control-C: eval:selection_to_clipboard
 URxvt.keysym.Control-Meta-c: builtin-string:
 URxvt.keysym.Control-Meta-v: builtin-string:
 
-!URxvt*depth: 32
 URxvt*borderless: 1
 URxvt*scrollBar: false
 URxvt*loginShell: false
 Urxvt*secondaryScroll:  true
 URxvt*saveLines: 4000
-!URxvt*termName: rxvt-unicode
-URxvt*termName: xterm-256color
+URxvt*termName: rxvt-unicode-256color
+!URxvt*termName: xterm-256color
 URxvt*pointerBlank: true
 URxvt*pointerBlankDelay: 10
 URxvt.perl-ext-common: default,resize-font,-confirm-paste
 URxvt.searchable-scrollback: Meta-Shift-G
 
-URxvt.geometry:                 400x400
-!URxvt*inheritPixmap:            true
-urxvt*background:               rgba:0026/0026/0026/7777
-URxvt*reverseVideo:             false
-URxvt*tintColor:                #dfdfdf
-URxvt*fading:                   30              !term unfocus
-URxvt*transparent: true
-URxvt*shading: 40
-urxvt.depth: 24
+URxvt.geometry:     400x400
+URxvt*reverseVideo: false
+URxvt*transparent:  true
+URxvt*shading:      40
+URxvt*depth:        32
+! urxvt*background:   rgba:0026/0026/0026/7777
+! URxvt*tintColor:    #dfdfdf
+! URxvt*fading:                   30              !term unfocus
+! urxvt.depth: 24
+! URxvt*inheritPixmap:            true
 ! urxvt*internalBorder: 4
 ! urxvt.secondaryScroll: false
 
@@ -70,6 +70,9 @@ XTerm.vt100.utf8: true
 XTerm.vt100.metaSendsEscape: true
 XTerm*VT100.backarrowKey: false
 XTerm*ttyModes: erase ^?
+
+XTerm*decTerminalID: vt340
+XTerm*numColorRegisters: 256
 
 XTerm*vt100.translations: #override \
     Alt Ctrl <Key> C: copy-selection(CLIPBOARD) \n\
@@ -90,22 +93,24 @@ feh*background: #303030
 
 !!!!!!!!!!!!!!!!!!!!!!!!
 
-#define base00 #1d2021
-#define base01 #3c3836
-#define base02 #504945
-#define base03 #665c54
-#define base04 #bdae93
-#define base05 #d5c4a1
-#define base06 #ebdbb2
-#define base07 #fbf1c7
-#define base08 #fb4934
-#define base09 #fe8019
-#define base0A #fabd2f
-#define base0B #b8bb26
-#define base0C #8ec07c
-#define base0D #83a598
-#define base0E #d3869b
-#define base0F #d65d0e
+! min
+
+#define base00 #151515
+#define base01 #202020
+#define base02 #303030
+#define base03 #505050
+#define base04 #b0b0b0
+#define base05 #d0d0d0
+#define base06 #e0e0e0
+#define base07 #f5f5f5
+#define base08 #ac4142
+#define base09 #d28445
+#define base0A #f4bf75
+#define base0B #90a959
+#define base0C #75b5aa
+#define base0D #6a9fb5
+#define base0E #aa759f
+#define base0F #8f5536
 
 !!!!!!!!!!!!!!!!!!!!!!!!
 
