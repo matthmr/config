@@ -47,10 +47,6 @@
 (global-set-key (kbd "C-x M-n")   'mc/skip-to-next-like-this)
 (global-set-key (kbd "C-x M-p")   'mc/skip-to-previous-like-this)
 
-;;; Doom-Modeline
-
-(add-hook 'after-init-hook #'doom-modeline-mode)
-
 ;;; Move Text
 
 (global-set-key (kbd "C-M-p") 'move-text-up)
@@ -111,7 +107,7 @@
       (global-hl-line-mode) ; min
       (global-whitespace-mode) ; min
       (load-theme 'base16-classic-dark t) ; min
-      )))
+      (doom-modeline t))))
 
 (defvar mh/initial-scratch-message "\
 ;;                           ___
@@ -145,9 +141,10 @@
  '(base16-theme-distinct-fringe-background nil)
  '(browse-url-browser-display nil)
  '(browse-url-browser-function
-   (lambda (url &optional args)
-      (async-shell-command
-       (format "handler.sh -d '%s'" url "*url*" "*url-error*"))))
+   (lambda
+     (url &optional args)
+     (async-shell-command
+      (format "handler.sh -d '%s'" url "*url*" "*url-error*"))))
  '(browse-url-text-browser "w3m")
  '(column-number-mode t)
  '(comment-column 0)
@@ -192,18 +189,18 @@
  '(global-display-line-numbers-mode t)
  '(goal-column nil)
  '(gud-key-prefix [3 1])
+ '(icomplete-matches-format "[%s/%s] ")
  '(icomplete-mode t)
  '(icomplete-show-matches-on-no-input t)
  '(initial-scratch-message mh/initial-scratch-message)
  '(isearch-lazy-count t)
  '(ispell-alternate-dictionary @EMACS_ENGLISH_DICT@)
- '(kept-new-versions 1)
- '(kept-old-versions 1)
+ '(kept-new-versions 50) ; min
+ '(kept-old-versions 50) ; min
  '(mc/always-run-for-all t)
  '(menu-bar-mode nil)
  '(mode-line-compact nil)
- '(mpc-browser-tags
-   '(Artist Album Title Filename))
+ '(mpc-browser-tags '(Artist Album Title Filename))
  '(org-agenda-files nil)
  '(outline-minor-mode-prefix "\3\23")
  '(package-selected-packages '(dash with-editor))
@@ -212,6 +209,7 @@
  '(save-abbrevs nil)
  '(scheme-program-name "guile")
  '(scroll-bar-mode nil)
+ '(server-kill-new-buffers nil)
  '(set-mark-command-repeat-pop t)
  '(shift-select-mode nil)
  '(size-indication-mode nil)
@@ -225,7 +223,8 @@
  '(use-short-answers t)
  '(vc-follow-symlinks t)
  '(vc-make-backup-files t)
- '(version-control t))
+ '(version-control t)
+ '(windmove-wrap-around t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

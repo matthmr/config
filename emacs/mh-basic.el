@@ -298,3 +298,8 @@
     (when (null (mark t)) (ding))
     (setq mark-ring (nbutlast mark-ring))
     (goto-char (marker-position (car (last mark-ring))))) )
+
+;;;; Theme
+
+(defvar base16-mh-colors)
+(deftheme base16-mh)

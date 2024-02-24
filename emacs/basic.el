@@ -185,6 +185,8 @@
     map)
   "Keymap used by `icomplete-mode' in the minibuffer'.")
 
+(setq icomplete-scroll t)
+
 ;;; Hideshow
 
 (defvar hs-minor-mode-map
@@ -583,6 +585,12 @@ or a symbol, see `completion-pcm--merge-completions'."
   (select-window (mh/split-window)))
 
 (setq-default split-window-preferred-function 'mh/split-window)
+
+(defun mh/erase-buffer ()
+  "Erase buffer regardless"
+  (interactive)
+  (let ((inhibit-read-only t))
+    (erase-buffer)))
 
 ;;;; Auto-mode
 
