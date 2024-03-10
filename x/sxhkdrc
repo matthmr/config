@@ -68,6 +68,8 @@ super + control + x; x; r
   @SXHKDRC_RESIZE@
 super + control + x; x; l
   @SXHKDRC_RELOAD@
+super + control + x; x; n
+  wpnew
 super + control + x; x; x
   xterm -e tmux new-session -A
 super + control + x; x; X

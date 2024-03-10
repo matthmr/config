@@ -4,6 +4,7 @@
 exec --no-startup-id mkdir -p /tmp/i3
 
 # pixel variables
+set $border_lit_px 3px # min
 set $border_px 3px # min
 set $gaps_px 20px # min
 set $resize_px 20px # min
@@ -139,6 +140,13 @@ bindsym $mod+$alt+Shift+i move container to workspace back_and_forth; workspace 
 # sticky
 bindsym $mod+$alt+Control+s sticky toggle
 
+# border
+bindsym $mod+o border pixel $border_lit_px
+bindsym $mod+Shift+o border normal $border_lit_px
+
+bindsym $mod+$alt+o [all] border pixel $border_lit_px
+bindsym $mod+$alt+Shift+o [all] border normal $border_lit_px
+
 #### Style
 
 #                       border  bg      txt     indic     chbordr
@@ -200,6 +208,9 @@ bindsym $mod+Control+s mode "spacing"
 mode "input" {
   bindsym s exec i3-input -s $sock -F 'gaps inner all set %s' -P 'Spacing: ' ; mode "default"
   bindsym r exec i3-input -s $sock -F 'resize set %s' -P 'Resize: ' ; mode "default"
+
+  bindsym p exec i3-input -s $sock -F '[all] border pixel %spx' -P 'Border pixel: ' ; mode "default"
+  bindsym n exec i3-input -s $sock -F '[all] border normal %s' -P 'Border normal: ' ; mode "default"
 
   bindsym m exec i3-input -s $sock -F 'mark %s' -P 'Mark: ' -l 1 ; mode "default"
   bindsym u exec i3-input -s $sock -F 'unmark %s' -P 'Unmark: ' -l 1 ; mode "default"

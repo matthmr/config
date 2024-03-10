@@ -82,7 +82,7 @@
   tg  = tag
   bl  = blame --color-lines
   adp = add -p
-  cmp = commit --interactiv --verbose
+  cmp = commit --interactive --verbose
   rsp = restore -p
   ss  = stash
   mm  = merge --no-ff --no-commit

@@ -67,20 +67,27 @@
 
     ;; apply repetition
     (dolist (rep ',reps)
-       (let* ((bind (car rep))
-              (cmd  (cadr rep))
-              (cmd* `(lambda () (interactive)
-                       (,(eval cmd))
-                       (set-transient-map ,',map t nil ,',msg))))
-          (global-set-key (kbd (concat ,prefix-str " " bind)) (eval cmd*))
-          (define-key ,map (kbd bind) (eval cmd))
+      (let* ((bind (car rep))
+             (cmd  (cadr rep))
+             (cmd* `(lambda () (interactive)
+                      (,(eval cmd))
+                      (set-transient-map ,',map t nil ,',msg))))
+         (global-set-key (kbd (concat ,prefix-str " " bind)) (eval cmd*))
+         (define-key ,map (kbd bind) (eval cmd))
          ))
 
     ;; apply uniques
     (dolist (unq ',unqs)
        (let ((bind (car unq))
              (cmd (cadr unq)))
-         (global-set-key (kbd (concat ,prefix-str " " bind)) (eval cmd))))))
+         (global-set-key (kbd (concat ,prefix-str " " bind)) (eval cmd))))
+
+    (when ',reps
+      (define-key,map (kbd "<escape>")
+                  (lambda () (interactive)
+                    (internal-pop-keymap ,map
+                      'overriding-terminal-local-map)
+                    (message nil))))))
 
 
 ;;; With `buffer'
@@ -151,7 +158,7 @@
    ("+" 'maximize-window)
    ("M-J" 'split-root-window-below)
    ("M-L" 'split-root-window-right)
-   ("s" 'window-toggle-side-windows)
+   ("M-s" 'window-toggle-side-windows)
    ("b" 'fit-window-to-buffer)
    ("C-M-d" 'delete-other-windows)
    ("2" (lambda () (interactive) (select-window (split-root-window-below))))

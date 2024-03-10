@@ -15,7 +15,10 @@ slang=en,eng
 alang=ja,jp,jpn,en,eng
 
 term-osd-bar=yes
+# min
 osd-font="Iosevka Term"
+# min
+osd-font-size=16
 cursor-autohide=3000
 
 [protocol.http]
