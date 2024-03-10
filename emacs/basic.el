@@ -102,10 +102,10 @@
                 '(face empty spaces tabs tab-mark))
 
   (defface mh/whitespace-tab
-    '((t :foreground "#303030"))
+    '((t :foreground "brightblack"))
     "Face used to visualize TAB.")
   (defface mh/whitespace-space
-    '((t :background "#202020"))
+    '((t :background "brightblack"))
     "Face used to visualize SPACE.")
 
   (setq-default whitespace-tab 'mh/whitespace-tab)

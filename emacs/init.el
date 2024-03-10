@@ -106,7 +106,8 @@
       (xterm-mouse-mode t)
       (global-hl-line-mode) ; min
       (global-whitespace-mode) ; min
-      (load-theme 'base16-classic-dark t) ; min
+      (let ((base16-theme-256-color-source 'base16-shell))
+        (load-theme 'base16-shell t))
       (doom-modeline t))))
 
 (defvar mh/initial-scratch-message "\
@@ -232,9 +233,9 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Iosevka" :foundry "UKWN" :slant normal :weight normal :height 140 :width normal))))
  '(doom-modeline-buffer-file ((t (:inherit (doom-modeline mode-line-buffer-id bold)))))
- '(doom-modeline-buffer-major-mode ((t (:inherit (doom-modeline-emphasis bold) :background "#1a1a1a"))))
- '(doom-modeline-buffer-minor-mode ((t (:inherit (doom-modeline font-lock-doc-face) :background "#1a1a1a" :slant italic :weight normal))))
- '(doom-modeline-input-method ((t (:inherit doom-modeline-emphasis :background "#1a1a1a"))))
+ '(doom-modeline-buffer-major-mode ((t (:inherit (doom-modeline-emphasis bold) :background "black"))))
+ '(doom-modeline-buffer-minor-mode ((t (:inherit (doom-modeline font-lock-doc-face) :background "black" :slant italic :weight normal))))
+ '(doom-modeline-input-method ((t (:inherit doom-modeline-emphasis :background "black"))))
  '(eglot-highlight-symbol-face ((t (:inverse-video t))))
  '(eglot-mode-line ((t nil)))
  '(icomplete-first-match ((t (:foreground "#dc9656"))))
@@ -245,5 +246,5 @@
  '(smerge-refined-added ((t (:inherit smerge-refined-change :background "#aaffaa" :foreground "black"))))
  '(smerge-refined-removed ((t (:inherit smerge-refined-change :background "#ffbbbb" :foreground "black"))))
  '(smerge-upper ((t (:extend t :background "#ffdddd" :foreground "black"))))
- '(trailing-whitespace ((t (:background "#ee0000"))))
- '(vertical-border ((t (:background "#202020" :foreground "#303030")))))
+ '(trailing-whitespace ((t (:background "color-124"))))
+ '(vertical-border ((t (:background "color-18" :foreground "color-19")))))
