@@ -79,3 +79,9 @@ super + control + x; x; X
 
 super + control + alt + x
   dmenu_run
+super + b
+  polybar-sendmsg cmd toggle
+super + control + p
+  polybar-sendmsg cmd quit ; polybar-start mh-$WM
+super + control + alt + p
+  polybar-sendmsg cmd quit ; polybar-start mh-$WM-alt

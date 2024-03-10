@@ -26,8 +26,10 @@ set $ws5 "5"
 
 #workspace_layout tabbed
 title_align center
-default_border normal $border_px
-default_floating_border normal $border_px
+# default_border normal $border_px
+# default_floating_border normal $border_px
+default_border pixel $border_lit_px
+default_floating_border pixel $border_lit_px
 workspace_auto_back_and_forth yes
 focus_wrapping force
 
@@ -42,8 +44,8 @@ set $mod Mod4
 set $alt Mod1
 
 # toggle bar
-bindsym $mod+b bar mode invisible
-bindsym $mod+Shift+b bar mode dock
+# bindsym $mod+b bar mode invisible
+# bindsym $mod+Shift+b bar mode dock
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -150,9 +152,9 @@ bindsym $mod+$alt+Shift+o [all] border normal $border_lit_px
 #### Style
 
 #                       border  bg      txt     indic     chbordr
-client.focused          #303030 #303030 #ffffff #aaaaaa   #303030
-client.focused_inactive #303030 #202020 #ffffff #484e50   #202020
-client.unfocused        #303030 #202020 #808080 #292d2e   #202020
+client.focused          #303030 #303030 #ffffff #505050   #a0a0a0
+client.focused_inactive #303030 #202020 #ffffff #505050   #151515
+client.unfocused        #303030 #202020 #808080 #303030   #151515
 
 client.urgent           #2f343a #900000 #ffffff #900000   #900000
 client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
@@ -226,20 +228,21 @@ bindsym $mod+Control+i mode "input"
 
 #### Status Bar
 
-bar {
-  # status_command i3status
-  status_command i3blocks
+exec --no-startup-id polybar-start mh-i3
 
-  # <class> <border> <bg> <txt>
-  colors {
-    background         #222222
-    statusline         #ffffff
-    active_workspace   #303030 #303030 #ffffff
-    inactive_workspace #222222 #222222 #888888
-    focused_workspace  #303030 #303030 #ffffff
-  }
+# bar {
+#   # status_command i3status
+#   status_command i3blocks
 
-  font pango:JetBrains Mono 12
+#   # <class> <border> <bg> <txt>
+#   colors {
+#     background         #222222
+#     statusline         #ffffff
+#     active_workspace   #303030 #303030 #ffffff
+#     inactive_workspace #222222 #222222 #888888
+#     focused_workspace  #303030 #303030 #ffffff
+#   }
 
-  position top # min
-}
+#   font pango:JetBrains Mono 12 # min
+#   position top # min
+# }

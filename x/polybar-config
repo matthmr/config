@@ -1,0 +1,72 @@
+;;;; Style
+
+; base16-classic-dark
+[colors/base16]
+base00 = #151515
+base01 = #202020
+base02 = #303030
+base03 = #505050
+base04 = #b0b0b0
+base05 = #d0d0d0
+base06 = #e0e0e0
+base07 = #f5f5f5
+base08 = #ac4142
+base09 = #d28445
+base0A = #f4bf75
+base0B = #90a959
+base0C = #75b5aa
+base0D = #6a9fb5
+base0E = #aa759f
+base0F = #8f5536
+
+;;;; Modules
+
+[module/title]
+type = internal/xwindow
+label = " %title% "
+label-maxlen = 80
+format-background= ${colors/base16.base00}
+format-foreground= ${colors/base16.base07}
+
+[module/mh-status]
+type = custom/script
+exec = "/home/mh/Source/MH/scripts/misc/statusbar st_mem st_net st_disk st_uptime st_date"
+interval = 60
+format-background = ${colors/base16.base00}
+format-foreground = ${colors/base16.base07}
+
+[module/i3]
+type = internal/i3
+show-urgent = true
+label-mode = " %mode% "
+label-focused = " %index% "
+label-unfocused = " %index% "
+label-visible = " %index% "
+label-urgent = " %index% "
+label-mode-background = ${colors/base16.base00}
+label-focused-foreground = ${colors/base16.base07}
+label-focused-background = ${colors/base16.base02}
+label-unfocused-foreground = ${colors/base16.base03}
+label-urgent-foreground = ${colors/base16.base07}
+label-urgent-background = ${colors/base16.base08}
+
+;;;; Bar
+
+[bar/generic]
+background = ${colors/base16.base01}
+foreground = ${colors/base16.base07}
+font-0 = Terminus:size=13;2
+
+[bar/mh-i3]
+inherit = bar/generic
+margin-bottom = 0
+margin-top = 0
+modules-left = i3 title
+; modules-center = title
+modules-right = mh-status
+bottom = true
+enable-ipc = true
+
+[bar/mh-i3-alt]
+inherit = bar/mh-i3
+bottom = false
