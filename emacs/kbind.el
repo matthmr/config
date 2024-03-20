@@ -50,6 +50,10 @@
 (global-set-key (kbd "M-)")     'kmacro-end-macro)
 (global-set-key (kbd "M-@")     'kmacro-end-and-call-macro)
 
+(global-set-key (kbd "C-x C-M-o")
+                (lambda () (interactive)
+                  (mh/with-prefix -1 'other-window)))
+
 ;;; Emacs 29
 
 (global-set-key (kbd "M-N") 'minibuffer-next-completion)
@@ -235,30 +239,6 @@
 (global-set-key (kbd "C-x C-M-q")   'mh/isearch-region)
 (global-set-key (kbd "C-x C-M-SPC") 'mh/mark-thing-at-point)
 (global-set-key (kbd "C-x C-M-t")   'mh/commit)
-
-;;; Daemon
-
-(defun mh/confirm-suspend ()
-  "Prompt for confirming suspension"
-  (interactive)
-  (if (y-or-n-p (format "Really suspend frame? "))
-    (suspend-frame)
-    (message "Canceled frame suspension")))
-
-(global-set-key (kbd "C-z")       'repeat)
-(global-set-key (kbd "C-x C-z")   'mh/confirm-suspend)
-
-(when (daemonp)
-  (global-set-key (kbd "C-x C-c")
-                  (lambda () (interactive)
-                    (if (y-or-n-p (format "Kill Emacs frame? "))
-                        (save-buffers-kill-terminal)
-                      (message "Canceled frame kill"))))
-  (global-set-key (kbd "C-x x C-c")
-                  (lambda () (interactive)
-                    (if (y-or-n-p (format "Kill Emacs daemon? "))
-                        (kill-emacs)
-                      (message "Canceled daemon kill")))))
 
 ;;;; Minor Modes Remaps
 

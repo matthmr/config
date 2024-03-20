@@ -29,245 +29,7 @@
 ;;
 ;;  Basic layer on top of .emacs.d configuration
 
-(defun mh/with-prefix (prefix function)
-  (cond
-   ((eq current-prefix-arg nil)
-    (setq current-prefix-arg prefix))
-   ((eq current-prefix-arg '-)
-    (setq current-prefix-arg (* -1 prefix)))
-   (t t))
-  (call-interactively function))
-
-;;;; Windowing
-
-(global-set-key (kbd "C-x C-M-o") (lambda () (interactive)
-                                    (mh/with-prefix -1 'other-window)))
-
-;;;; Clipboard (aka `edit-copy')
-
-(global-set-key (kbd "C-c C-x C-w")
-                (lambda () (interactive)
-                  (write-file @EMACS_CLIPBOARD@)
-                  (shell-command @EMACS_EDIT_COPY_I@)))
-(global-set-key (kbd "C-c C-x C-y")
-                (lambda () (interactive)
-                  (shell-command @EMACS_EDIT_COPY_D@)
-                  (insert-file @EMACS_CLIPBOARD@)))
-(global-set-key (kbd "C-c C-x e")
-                (lambda () (interactive)
-                  (find-file @EMACS_CLIPBOARD@)
-                  (shell-command @EMACS_EDIT_COPY_D@)
-                  (revert-buffer-quick)))
-
-(global-set-key (kbd "C-c C-t C-w")
-                (lambda () (interactive)
-                  (call-interactively 'kill-region)
-                  (when-let ((kill-top (car kill-ring)))
-                    (shell-command (format "tmux set-buffer \"$(echo \"%s\")\""
-                                           (substring-no-properties kill-top))
-                                   nil nil))))
-(global-set-key (kbd "C-c C-t M-w")
-                (lambda () (interactive)
-                  (call-interactively 'kill-ring-save)
-                  (when-let ((kill-top (car kill-ring)))
-                    (shell-command (format "tmux set-buffer \"$(echo \"%s\")\""
-                                           (substring-no-properties kill-top))
-                                   nil nil))))
-
-;;;; VC
-
-(global-set-key (kbd "C-x v C-i")
-                (lambda () (interactive)
-                  (setq vc-buffer-file-name (buffer-file-name))
-                  (async-shell-command
-                   (format "git add --patch %s"
-                           (if vc-buffer-file-name
-                               vc-buffer-file-name
-                             ".")))
-                  (switch-to-buffer-other-window "*Async Shell Command*")
-                  (highlight-regexp "^+.*"  'diff-added)
-                  (highlight-regexp "^-.*+" 'diff-removed)
-                  (highlight-regexp "^@@.*" 'diff-hunk-header)))
-
-(global-set-key (kbd "C-x v C-d")
-                (lambda () (interactive)
-                  (setq vc-buffer-file-name (buffer-file-name))
-                  (shell-command
-                   (format "git diff %s"
-                           (if vc-buffer-file-name
-                               vc-buffer-file-name
-                             ".")))
-                  (switch-to-buffer-other-window "*Shell Command Output*")
-                  (read-only-mode)
-                  (diff-mode)))
-
-;;;; Toggle *
-
-(defun mh/undo-edit ()
-  "'Undoes' editing configurations. Useful hook for non-editing buffer"
-  (interactive)
-
-  (if show-trailing-whitespace
-      (setq-local show-trailing-whitespace nil))
-  (if truncate-lines
-      (setq-local truncate-lines nil))
-
-  (display-fill-column-indicator-mode -1)
-  (display-line-numbers-mode -1))
-
-(defun mh/reset-edit ()
-    "'Resets' editing configurations. Useful hook for editing buffer"
-  (interactive)
-
-  (unless show-trailing-whitespace
-    (setq-local show-trailing-whitespace t))
-  (unless truncate-lines
-      (setq-local truncate-lines t))
-
-  (display-fill-column-indicator-mode 1)
-  (display-line-numbers-mode 1))
-
-;;; Toggle Input Method
-(global-set-key (kbd "C-x C-M-m C-M-i") 'toggle-input-method)
-
-;;; Toggle Whitespace
-(global-set-key (kbd "C-x C-M-m C-M-w")
-                (lambda () (interactive)
-                  (setq-local show-trailing-whitespace
-                              (not show-trailing-whitespace))))
-
-;;; Toggle Truncation
-(global-set-key (kbd "C-x C-M-m C-M-s")
-                (lambda () (interactive)
-                  (setq-local truncate-lines (not truncate-lines))))
-
-;;; Toggle Line Numbers
-(global-set-key (kbd "C-x C-M-m C-M-l") 'display-line-numbers-mode)
-
-;;; Toggle Fill Column
-(global-set-key (kbd "C-x C-M-m C-M-c") 'display-fill-column-indicator-mode)
-
-;;; Toggle All
-(global-set-key (kbd "C-x C-M-m C-M-e") 'mh/undo-edit)
-(global-set-key (kbd "C-x C-M-m C-M-r") 'mh/reset-edit)
-(global-set-key (kbd "C-x C-M-m C-M-z") (lambda () (interactive)
-                                  (mh/undo-edit)
-                                  (zen-mode 'toggle)))
-
-(defun mh/toggle-viper ()
-  (interactive)
-  (when (boundp 'viper-mode)
-    (if viper-mode
-        (progn
-          (viper-go-away))
-      (progn
-        (viper-mode)
-        (delq 'viper-mode-string global-mode-string)))))
-
-(defun mh/toggle-cxm ()
-  (interactive)
-  (when (boundp 'cxm-mode)
-    (cxm-mode)))
-
-(global-set-key (kbd "C-x C-M-m C-M-v") 'mh/toggle-viper)
-(global-set-key (kbd "C-x C-M-m C-M-m") 'mh/toggle-cxm)
-
-;;;; Scrolling
-
-(defun mh/scroll-up (arg)
-  "Pull up half screen."
-  (interactive "P")
-  (condition-case nil
-      (if (null arg)
-	  (scroll-up (/ (window-height) 2))
-	(scroll-up arg))
-    (error (beep 1)
-	   (message "End of buffer")
-	   (goto-char (point-max)))))
-
-(defun mh/scroll-down (arg)
-  "Pull down half screen."
-  (interactive "P")
-  (condition-case nil
-      (if (null arg)
-	  (scroll-down (/ (window-height) 2))
-	(scroll-down arg))
-    (error (beep 1)
-	   (message "Beginning of buffer")
-	   (goto-char (point-min)))))
-
-(global-set-key (kbd "C-v")   'mh/scroll-up)
-(global-set-key (kbd "M-v")   'mh/scroll-down)
-(global-set-key (kbd "C-M-v") 'scroll-lock-mode)
-
-(global-set-key (kbd "C-x <")   (lambda () (interactive)
-                                  (mh/with-prefix 15 'scroll-right)))
-(global-set-key (kbd "C-x >")   (lambda () (interactive)
-                                  (mh/with-prefix 15 'scroll-left)))
-
-;;;; Up-to-Char
-
-(defun mh/up-to-char (arg char)
-  "Points to char given by interactive `char'"
-  (interactive "P\ncUp to char: ")
-  (if (eq arg '-)
-      (search-backward (char-to-string char) nil nil 1)
-    (progn
-      (search-forward (char-to-string char) nil nil 1)
-      (backward-char))))
-
-(defun mh/to-char (arg char)
-  "Points over char given by interactive `char'"
-  (interactive "P\ncTo char: ")
-  (mh/up-to-char arg char)
-  (if (eq arg '-)
-      (backward-char)
-    (forward-char)))
-
-(global-set-key (kbd "M-z")   'mh/to-char)
-(global-set-key (kbd "M-Z")   'zap-up-to-char)
-
-(global-set-key (kbd "C-M-z") 'repeat-complex-command)
-
-;;;; Formating
-
-(defun mh/delete-space-after-point ()
-  (interactive)
-  (let ((point (point)))
-    (delete-region
-      point
-      (progn
-        (skip-chars-forward " \t")
-	      (constrain-to-field nil point t)))))
-
-(defun mh/kill-line-before-point ()
-  "Kills the line before the point"
-  (interactive)
-  (if (eq current-prefix-arg nil)
-      (setq current-prefix-arg 0))
-  (call-interactively 'kill-line))
-
-(defun mh/backward-kill-line ()
-  "Kills the line backward"
-  (interactive)
-  (set-mark (point))
-  (beginning-of-line)
-  (call-interactively 'kill-region))
-
-(global-set-key (kbd "C-x C-M-\\") 'mh/delete-space-after-point)
-(global-set-key (kbd "C-x C-M-h")  'mh/backward-kill-line)
-
-;;;; Yanking
-
-(defun mh/yank (times)
-  (interactive "P")
-  (if (numberp times)
-      (progn
-        (dotimes (i (abs times)) (yank)))
-      (yank times)))
-
-(global-set-key (kbd "C-y")   'mh/yank)
-(global-set-key (kbd "C-M-y") 'yank)
+(mh/load "kbind")
 
 ;;;; Completion
 
@@ -298,6 +60,197 @@
     (when (null (mark t)) (ding))
     (setq mark-ring (nbutlast mark-ring))
     (goto-char (marker-position (car (last mark-ring))))) )
+
+;;;; Whitespace
+
+(defun mh/whitespace-setup-display ()
+  "Sets up the display table `table' with the value of `mh/display'"
+  (when-let ((table (or whitespace-display-table buffer-display-table)))
+    (dolist (e mh/display)
+      (set-display-table-slot table (car e) (cdr e)))))
+
+(with-eval-after-load "whitespace"
+  (setq-default whitespace-space-regexp "\\( +$\\)")
+  (setq-default whitespace-style
+                '(face empty spaces tabs tab-mark))
+
+  (defface mh/whitespace-tab
+    '((t :foreground "brightblack"))
+    "Face used to visualize TAB.")
+  (defface mh/whitespace-space
+    '((t :background "brightblack"))
+    "Face used to visualize SPACE.")
+
+  (setq-default whitespace-tab 'mh/whitespace-tab)
+  (setq-default whitespace-space 'mh/whitespace-space)
+
+  (setq-default whitespace-display-mappings
+    '((tab-mark ?\x09 [?¦ ?	] [?> ?	])
+      (space-mark ?\ [?·] [?.])
+      (space-mark ?\xA0 [?¤] [?_])
+      (newline-mark ?\n [?↵ ?\n] [?$ ?\n])
+      ))
+
+  ;; From `whitespace.el'
+  (defun whitespace-turn-on ()
+    "Turn on whitespace visualization."
+    ;; prepare local hooks
+    (add-hook 'write-file-functions 'whitespace-write-file-hook nil t)
+    ;; create whitespace local buffer environment
+    (setq-local whitespace-font-lock-keywords nil)
+    (setq-local whitespace-display-table nil)
+    (setq-local whitespace-display-table-was-local nil)
+    (setq-local whitespace-active-style
+                (if (listp whitespace-style)
+                    whitespace-style
+                    (list whitespace-style)))
+    ;; turn on whitespace
+    (when whitespace-active-style
+      (whitespace-color-on)
+      (whitespace-display-char-on))
+    (mh/whitespace-setup-display)))
+
+;;;; Function overrides
+
+(with-eval-after-load "ediff"
+  (add-hook 'ediff-mode-hook
+    (lambda () (interactive)
+      (setq ediff-highlighting-style 'face
+            ediff-auto-refine 'on)))
+
+  (add-hook 'ediff-quit-merge-hook
+    ;; For git. The `glob' gets deleted as soon as Emacs launches Ediff. So we
+    ;; save in whichever file exists still
+    (lambda () (interactive)
+      (setq ediff-merge-store-file
+            (or ediff-merge-store-file
+                (let ((file-A (buffer-file-name ediff-buffer-A))
+                      (file-B (buffer-file-name ediff-buffer-B)))
+                  (cond ((file-exists-p file-A) file-A)
+                        ((file-exists-p file-B) file-B)
+                        (t (let ((file
+                                  (replace-regexp-in-string
+                                   "/tmp/git-blob-.\\{6\\}/" ""
+                                   (or file-A file-B)))
+                                 (dir (read-file-name "Git root: ")))
+                             (concat dir file))))
+                  )))
+      ))
+
+  ;;; NOTE: I don't know for what fucking reason this function doesn't have this
+  ;;; defined when it loads, but it is what is
+  ;; From `vc/ediff-init.el'
+  (eval-when-compile
+    (defmacro ediff-with-current-buffer (buffer &rest body)
+      "Evaluate BODY in BUFFER."
+      (declare (indent 1) (debug (form body)))
+      `(if (ediff-buffer-live-p ,buffer)
+           (save-current-buffer
+       (set-buffer ,buffer)
+       ,@body)
+         (or (eq this-command 'ediff-quit)
+       (error ediff-KILLED-VITAL-BUFFER))
+         )))
+
+  ;; From `vc/ediff-util.el'
+  (defun mh/ediff-write-merge-buffer-and-maybe-kill
+      (buf file &optional show-file save-and-continue)
+    (ediff-with-current-buffer buf
+      (if (or (not (file-exists-p file))
+        (y-or-n-p (format "File %s exists, overwrite? " file)))
+    (progn
+      ;;(write-region nil nil file)
+      (ediff-with-current-buffer buf
+        (set-visited-file-name file)
+        (save-buffer))
+      (if show-file
+          (progn
+      (message "Merge buffer saved in: %s" file)
+      (set-buffer-modified-p nil)
+      (sit-for 3)))
+      (if (and
+           (not save-and-continue)
+           (y-or-n-p "Merge buffer saved.  Now kill the buffer? "))
+          (ediff-kill-buffer-carefully buf))))))
+
+  ;; why the fuck do I have to do this?
+  (fset #'ediff-write-merge-buffer-and-maybe-kill
+        #'mh/ediff-write-merge-buffer-and-maybe-kill))
+
+;; From `minibuffer.el'
+(defun completion-pcm--string->pattern (string &optional point)
+  "Split STRING into a pattern.
+A pattern is a list where each element is either a string
+or a symbol, see `completion-pcm--merge-completions'."
+  (if (and point (< point (length string)))
+      (let ((prefix (substring string 0 point))
+            (suffix (substring string point)))
+        (append (completion-pcm--string->pattern prefix)
+                '(point)
+                (completion-pcm--string->pattern suffix)))
+    (let* ((pattern nil)
+           (p 0)
+           (p0 p)
+           (pending nil))
+
+      (while (and (setq p (string-match completion-pcm--delim-wild-regex
+                                        string p))
+                  (or completion-pcm-complete-word-inserts-delimiters
+                      ;; If the char was added by minibuffer-complete-word,
+                      ;; then don't treat it as a delimiter, otherwise
+                      ;; "M-x SPC" ends up inserting a "-" rather than listing
+                      ;; all completions.
+                      (not (get-text-property p 'completion-try-word string))))
+        ;; Usually, completion-pcm--delim-wild-regex matches a delimiter,
+        ;; meaning that something can be added *before* it, but it can also
+        ;; match a prefix and postfix, in which case something can be added
+        ;; in-between (e.g. match [[:lower:]][[:upper:]]).
+        ;; This is determined by the presence of a submatch-1 which delimits
+        ;; the prefix.
+        (if (match-end 1) (setq p (match-end 1)))
+        (unless (= p0 p)
+          (if pending (push pending pattern))
+          (push (substring string p0 p) pattern))
+        (setq pending nil)
+        (if (or (eq (aref string p) ?*)
+                (eq (aref string p) ? ))
+            (progn
+              (push 'star pattern)
+              (setq p0 (1+ p)))
+          (push 'any pattern)
+          (if (match-end 1)
+              (setq p0 p)
+            (push (substring string p (match-end 0)) pattern)
+            ;; `any-delim' is used so that "a-b" also finds "array->beginning".
+            (setq pending 'any-delim)
+            (setq p0 (match-end 0))))
+        (setq p p0))
+
+      (when (> (length string) p0)
+        (if pending (push pending pattern))
+        (push (substring string p0) pattern))
+      (nreverse pattern))))
+
+;; From `window.el'
+(defun mh/split-window (&optional _)
+  (let ((window (selected-window)))
+    (with-selected-window window
+      (if (> (window-total-width window) (* 2.7 (window-total-height window)))
+          (split-window-right)
+        (split-window-below)))))
+
+(defun mh/new-window ()
+  "Creates a new window given the split"
+  (interactive)
+  (select-window (mh/split-window)))
+
+(setq-default split-window-preferred-function 'mh/split-window)
+
+(defun mh/erase-buffer ()
+  "Erase buffer regardless"
+  (interactive)
+  (let ((inhibit-read-only t))
+    (erase-buffer)))
 
 ;;;; Theme
 

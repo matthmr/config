@@ -10,8 +10,6 @@
 ;;; Load Paths
 
 (add-to-list 'load-path @EMACS_LISP@)
-(add-to-list 'load-path @EMACS_MULTIPLE_CURSORS@)
-(add-to-list 'load-path @EMACS_COMPANY_MODE@)
 (add-to-list 'load-path @EMACS_DOOM_MODELINE@)
 (add-to-list 'load-path @EMACS_COMPAT@)
 
@@ -20,41 +18,36 @@
 (require 'zen-mode)
 (require 'caps)
 (require 'rainbow-delimiters)
-(require 'multiple-cursors)
-(require 'company)
 (require 'move-text)
 (require 'doom-modeline)
-;; (require 'god-mode) ; min
-
-(load @EMACS_MH_EMACSOS@)
-(load @EMACS_MH_USER@) ; confidential options for the user, not in this repository
-(load @EMACS_MH_BASIC@)
-
-;; (setq max-mini-window-height 1)
-(setq eglot-stay-out-of '("flymake"))
 
 ;;; Custom loaders
 
-(defun mh/load-cxm () (interactive) (load @EMACS_CXM@))
-(defun mh/load-viper () (interactive) (load @EMACS_VIPER@))
+(defun mh/load (sufname)
+  "Loads `mh' file"
+  (interactive "MLoad: ")
+  (load (format @EMACS_LOAD_PREFIX@ sufname)))
 
-;;; Multiple Cursors
+(defun mh/with-prefix (prefix function)
+  (cond
+   ((eq current-prefix-arg nil)
+    (setq current-prefix-arg prefix))
+   ((eq current-prefix-arg '-)
+    (setq current-prefix-arg (* -1 prefix)))
+   (t t))
+  (call-interactively function))
 
-(global-set-key (kbd "C-x C-M-a") 'mc/mark-all-like-this)
-(global-set-key (kbd "C-x C-M-e") 'mc/edit-lines)
-(global-set-key (kbd "C-x C-M-n") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-x C-M-p") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-x M-n")   'mc/skip-to-next-like-this)
-(global-set-key (kbd "C-x M-p")   'mc/skip-to-previous-like-this)
+(mh/load "basic") ; generic configs that use my functions
+(mh/load "linux") ; system info
+(mh/load "viper")
+(mh/load "treesit")
+(mh/load "multiple-cursors")
+(mh/load "ace-jump-mode")
 
 ;;; Move Text
 
 (global-set-key (kbd "C-M-p") 'move-text-up)
 (global-set-key (kbd "C-M-n") 'move-text-down)
-
-;;; Company
-
-(global-set-key (kbd "C-x C-_") 'company-complete)
 
 ;;; Scroll-lock
 
@@ -90,6 +83,14 @@
                        (string= env/wm "tty"))
       ;; display time, and use visual line
       (progn
+        (setq
+          viper-emacs-state-id " E> "
+          viper-replace-state-id " R> "
+          viper-insert-state-id " I> "
+          viper-vi-state-id " V> ")
+        (setq-default mode-line-format
+	            (cons '("%e" mode-line-front-space viper-mode-string)
+                    (cddr mode-line-format)))
         (setq-default Man-switches "-Tascii") ;; cannot render UTF-8
         (setq-default truncate-lines nil))
     ;; some character which TTYs can't display properly, xterm-mouse-mode,
@@ -102,13 +103,14 @@
       (set-display-table-slot standard-display-table 'vertical-border ?│)
 
       (setq-default truncate-lines t)
+      ;; (global-hl-line-mode)
       (mouse-wheel-mode t)
       (xterm-mouse-mode t)
+      (doom-modeline-mode t)
       (global-hl-line-mode) ; min
       (global-whitespace-mode) ; min
       (let ((base16-theme-256-color-source 'base16-shell))
-        (load-theme 'base16-shell t))
-      (doom-modeline t))))
+        (load-theme 'base16-shell t)))))
 
 (defvar mh/initial-scratch-message "\
 ;;                           ___
@@ -149,11 +151,6 @@
  '(browse-url-text-browser "w3m")
  '(column-number-mode t)
  '(comment-column 0)
- '(company-backends
-   '(company-semantic company-capf company-files
-                      (company-dabbrev-code company-gtags company-etags company-keywords)
-                      company-dabbrev))
- '(company-idle-delay 0.5)
  '(completion-styles '(basic partial-completion emacs22 substring))
  '(delete-active-region nil)
  '(delete-auto-save-files nil)
@@ -169,7 +166,6 @@
  '(doom-modeline-buffer-file-name-style 'truncate-except-project)
  '(doom-modeline-icon nil)
  '(doom-modeline-minor-modes t)
- '(doom-modeline-mode t)
  '(doom-modeline-workspace-name nil)
  '(ediff-combination-pattern
    '("<<<<<<< ours" A "||||||| parent" Ancestor ">>>>>>> theirs" B "======= end"))
@@ -179,6 +175,7 @@
  '(eglot-highlight-symbol-face ((t (:inherit underline))))
  '(eglot-menu-string "")
  '(eglot-prefer-plaintext nil)
+ '(eglot-stay-out-of '("flymake"))
  '(eldoc-echo-area-use-multiline-p 1)
  '(eshell-buffer-maximum-lines 8000)
  '(eshell-directory-name @EMACS_ESHELL@)
@@ -186,7 +183,6 @@
  '(file-name-shadow-tty-properties '(invisible t intangible t field shadow))
  '(fill-column 80)
  '(fringe-mode 0 nil (fringe))
- '(global-company-mode t)
  '(global-display-line-numbers-mode t)
  '(goal-column nil)
  '(gud-key-prefix [3 1])
@@ -198,7 +194,6 @@
  '(ispell-alternate-dictionary @EMACS_ENGLISH_DICT@)
  '(kept-new-versions 50) ; min
  '(kept-old-versions 50) ; min
- '(mc/always-run-for-all t)
  '(menu-bar-mode nil)
  '(mode-line-compact nil)
  '(mpc-browser-tags '(Artist Album Title Filename))
@@ -220,7 +215,6 @@
  '(tool-bar-mode nil)
  '(tooltip-mode nil)
  '(truncate-partial-width-windows nil)
- '(tsc-dyn-get-from nil)
  '(use-short-answers t)
  '(vc-follow-symlinks t)
  '(vc-make-backup-files t)
