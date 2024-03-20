@@ -29,9 +29,9 @@
 [status]
   short = true
 [log]
-  date = format:%Y%m%d %a %I%M%p
+  date = format:%Y%m%d %a %I%M%p %z
 [blame]
-  date = format:%Y%m%d %a %I%M%p
+  date = format:%Y%m%d %a %I%M%p %z
 [pager]
   branch = false
   tag    = false
@@ -71,7 +71,7 @@
   ps  = push --verbose
   mg  = merge
   sm  = merge --squash
-  sh  = show --stat --patch
+  sh  = show --stat --patch -m
   st  = status
   ch  = checkout
   chp = checkout -p
