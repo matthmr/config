@@ -16,7 +16,7 @@ pcm.desktop{
 
 pcm.binder{
    type multi
-   slaves.a.pcm "generic"
+   slaves.a.pcm "genericboost"
    slaves.a.channels 2
    slaves.b.pcm "looper"
    slaves.b.channels 2
@@ -67,4 +67,20 @@ pcm.generic{
       # buffer_time 0
       # format s16_le
    }
+}
+
+pcm.genericboost{
+   type softvol
+
+   slave {
+     pcm "generic"
+   }
+   control {
+     name "Boost"
+     card 2
+   }
+
+   min_dB -5.0
+   max_dB 20.0
+   resolution 6
 }
