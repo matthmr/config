@@ -31,6 +31,8 @@ super + control + x; l; f
   firefox
 super + control + x; l; l
   urxvt -e lf -single
+
+# TODO: this should be called `tmuxxs'
 super + control + x; l; e
   emacstc
 

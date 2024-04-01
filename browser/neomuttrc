@@ -9,7 +9,7 @@ set realname = @NEOMUTT_NAME@
 
 set spoolfile = "+INBOX"
 set record = "+Sent"
-set index_format="%4C %Z %{%Y%m%d %a %I%M%p} %-15.15L (%<l?%4l&%4c>) %s"
+set index_format="%4C %Z %{%Y%m%d-%w %I%M%p} %-15.15L (%<l?%4l&%4c>) %s"
 set sidebar_visible = yes
 set use_threads=threads sort=last-date sort_aux=date
 

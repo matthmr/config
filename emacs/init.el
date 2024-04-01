@@ -1,4 +1,4 @@
-;;;; Dot Emacs
+;;; Dot Emacs
 
 (load @EMACS_BASIC@)
 
@@ -10,7 +10,6 @@
 ;;; Load Paths
 
 (add-to-list 'load-path @EMACS_LISP@)
-(add-to-list 'load-path @EMACS_DOOM_MODELINE@)
 (add-to-list 'load-path @EMACS_COMPAT@)
 
 ;;; Load Some Programs
@@ -19,7 +18,6 @@
 (require 'caps)
 (require 'rainbow-delimiters)
 (require 'move-text)
-(require 'doom-modeline)
 
 ;;; Custom loaders
 
@@ -39,6 +37,8 @@
 
 (mh/load "basic") ; generic configs that use my functions
 (mh/load "linux") ; system info
+
+;; load some programs
 (mh/load "viper")
 (mh/load "treesit")
 (mh/load "multiple-cursors")
@@ -103,12 +103,12 @@
       (set-display-table-slot standard-display-table 'vertical-border ?│)
 
       (setq-default truncate-lines t)
-      ;; (global-hl-line-mode)
+      ;; (global-hl-line-mode) ; min
+
+      (mh/load "doom-modeline")
       (mouse-wheel-mode t)
       (xterm-mouse-mode t)
-      (doom-modeline-mode t)
-      (global-hl-line-mode) ; min
-      (global-whitespace-mode) ; min
+      (global-whitespace-mode)
       (let ((base16-theme-256-color-source 'base16-shell))
         (load-theme 'base16-shell t)))))
 
@@ -140,7 +140,6 @@
  '(auto-save-interval 300)
  '(backup-by-copying t)
  '(backup-directory-alist '((".*" . @EMACS_BACKUP@)))
- '(base16-theme-256-color-source 'colors)
  '(base16-theme-distinct-fringe-background nil)
  '(browse-url-browser-display nil)
  '(browse-url-browser-function
@@ -162,7 +161,7 @@
  '(diff-refine nil)
  '(display-line-numbers-widen t)
  '(display-time-default-load-average nil)
- '(display-time-format "%Y%m%d %a %I%M%p")
+ '(display-time-format "%Y%m%d-%w %I%M%p")
  '(doom-modeline-buffer-file-name-style 'truncate-except-project)
  '(doom-modeline-icon nil)
  '(doom-modeline-minor-modes t)
@@ -225,11 +224,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Iosevka" :foundry "UKWN" :slant normal :weight normal :height 140 :width normal))))
- '(doom-modeline-buffer-file ((t (:inherit (doom-modeline mode-line-buffer-id bold)))))
- '(doom-modeline-buffer-major-mode ((t (:inherit (doom-modeline-emphasis bold) :background "black"))))
- '(doom-modeline-buffer-minor-mode ((t (:inherit (doom-modeline font-lock-doc-face) :background "black" :slant italic :weight normal))))
- '(doom-modeline-input-method ((t (:inherit doom-modeline-emphasis :background "black"))))
  '(eglot-highlight-symbol-face ((t (:inverse-video t))))
  '(eglot-mode-line ((t nil)))
  '(icomplete-first-match ((t (:foreground "#dc9656"))))

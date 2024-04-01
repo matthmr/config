@@ -177,6 +177,26 @@
   (fset #'ediff-write-merge-buffer-and-maybe-kill
         #'mh/ediff-write-merge-buffer-and-maybe-kill))
 
+;; From `dabbrev.el'
+(defun dabbrev-completion (&optional arg)
+  "Completion on current word.
+Like \\[dabbrev-expand] but finds all expansions in the current buffer
+and presents suggestions for completion.
+
+With a prefix argument ARG, it searches all buffers accepted by the
+function pointed out by `dabbrev-friend-buffer-function' to find the
+completions.
+
+If the prefix argument is 16 (which comes from \\[universal-argument] \\[universal-argument]),
+then it searches *all* buffers."
+  (interactive "*P")
+  (dabbrev--reset-global-variables)
+  ;; (setq dabbrev--check-other-buffers (and arg t))
+  (setq dabbrev--check-all-buffers t)
+        ;; (and arg (= (prefix-numeric-value arg) 16)))
+  (let ((completion-at-point-functions '(dabbrev-capf)))
+    (completion-at-point)))
+
 ;; From `minibuffer.el'
 (defun completion-pcm--string->pattern (string &optional point)
   "Split STRING into a pattern.

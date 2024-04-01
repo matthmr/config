@@ -23,7 +23,7 @@ bind-key p  prev-unread
 
 #### Options
 
-datetime-format "%Y%m%d %a %I%M%p"
+datetime-format "%Y%m%d-%w %I%M%p"
 feedlist-format "%4i %n %11u %t (%T) - %l"
 #delete-read-articles-on-quit yes
 save-path @NEWSBOAT_SAVE@

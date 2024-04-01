@@ -397,30 +397,42 @@
 
 ;;;; Kill ring external program interop
 
-(global-set-key (kbd "C-c C-x M-w")
-                (lambda () (interactive)
-                  (shell-command-on-region
-                    (region-beginning) (region-end)
-                    "xclip -selection clipboard -i" nil nil)))
+(defun mh/xclip-copy ()
+  "Copy to XCLIP"
+  (interactive)
+  (shell-command-on-region
+   (region-beginning) (region-end)
+   "xclip -selection clipboard -i" nil nil))
 
-(global-set-key (kbd "C-c C-x C-y")
-                (lambda () (interactive)
-                  (shell-command "xclip -selection clipboard -o")
-                  (insert-buffer "*Shell Command Output*")))
+(global-set-key (kbd "C-c C-x M-w") 'mh/xclip-copy)
 
-(global-set-key (kbd "C-c C-x e")
-                (lambda () (interactive)
-                  (shell-command
-                    "xclip -selection clipboard -o > /tmp/clipboard" nil nil)
-                  (find-file "/tmp/clipboard")
-                  (revert-buffer-quick)))
+(defun mh/xclip-paste ()
+  "Paste XCLIP's clipboard"
+  (interactive)
+  (shell-command "xclip -selection clipboard -o")
+  (insert-buffer "*Shell Command Output*"))
 
-(global-set-key (kbd "C-c C-t M-w")
-                (lambda () (interactive)
-                  (call-interactively 'kill-ring-save)
-                  (shell-command-on-region
-                    (region-beginning) (region-end)
-                    "tmux load-buffer -" nil nil)))
+(global-set-key (kbd "C-c C-x C-y") 'mh/xclip-paste)
+
+(defun mh/xclip-edit ()
+  "Edit XCLIP's clipboard"
+  (interactive)
+  (shell-command
+   "xclip -selection clipboard -o > /tmp/clipboard" nil nil)
+  (find-file "/tmp/clipboard")
+  (revert-buffer-quick))
+
+(global-set-key (kbd "C-c C-x e") 'mh/xclip-edit)
+
+(defun mh/tmux-copy ()
+  "Copy region to TMUX"
+  (interactive)
+  (call-interactively 'kill-ring-save)
+  (shell-command-on-region
+   (region-beginning) (region-end)
+   "tmux load-buffer -" nil nil))
+
+(global-set-key (kbd "C-c C-t M-w") 'mh/tmux-copy)
 
 ;;;; VC
 
