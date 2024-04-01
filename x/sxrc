@@ -1,24 +1,6 @@
-# By wmpick:
+# By session:
 #   $1: wm
-#   $2: session type
 
-export WM="$1"
-
-case $WM in
-  'emacs-xwm'|'emacs-xsession')
-    # we don't want it set for everything because `xsession' is supposed to
-    # take care of that for 'proper' window managers
-    export XSESSION="$2"
-    if [[ $XSESSION == "1" && ! -f /tmp/xsession.lock ]]; then
-      touch /tmp/xsession.lock
-
-      export XINITSLEEP=@SX_LINUX_SH@
-      # export XINITSLEEPARGS=-x
-    fi;;
-esac
-
-### WINDOW MANAGER ###
-@SX_XDAEMON@ "$1" "$2" &
-@SX_XSESSION@ "$1" "$2" &
+@SX_XDAEMON@ "$1" &
 
 exec "$1"

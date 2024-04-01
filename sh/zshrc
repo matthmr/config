@@ -1,9 +1,16 @@
+export SHELL=/bin/zsh
+
 #### ZSH opts
 
 HISTFILE=@ZSH_HISTORY@
 HISTSIZE=500 # min
 SAVEHIST=500 # min
 ZSH_MODE='vi'
+
+case $TERM in
+  'dumb'|'') ;;
+  *) tabs 2 2>/dev/null ;;
+esac
 
 setopt AUTOCD AUTOPUSHD NOBEEP PROMPT_SUBST HIST_IGNORE_SPACE # IGNORE_EOF
 
@@ -70,32 +77,8 @@ ZSH_HIGHLIGHT_STYLES[arg0]=fg=blue
 source @ZSH_ALIAS@
 source @ZSH_FUNCTIONS@
 
-function tux {
-  echo "\
-      ___
-     (.. |
-     (<> |
-    / __  \\
-   ( /  \\ /|
-  _/\\ __)/_)
-  \\/-____\\/
-  "
-}
-
 tux
 unset ZSH_MODE
-
-export SHELL=/bin/zsh
-
-# Run extra commands if starting in a xinit sleep-process
-{
-	[[ ! -z "$XINITSLEEP" ]]
-} && {
-	"$XINITSLEEP" $XINITSLEEPARGS
-  unset XINITSLEEP XINITSLEEPARGS
-}
-
-:
 
 #### Confirm exit
 
@@ -113,3 +96,9 @@ zle -N confirm_exit
 setopt IGNORE_EOF
 bindkey '^D' confirm_exit
 bindkey '^[^I' list-choices
+bindkey '^[s' autosuggest-toggle
+
+if [[ ! -z "$LOGINCMD" ]]; then
+  eval $LOGINCMD
+  unset LOGINCMD
+fi

@@ -77,10 +77,10 @@
     (vertical-border . ?│))
   "Display table")
 
-(let ((env/wm (getenv "WM")))
-  (if (or (not env/wm) (string= env/wm "emacs-tty")
-                       (string= env/wm "tmux-tty")
-                       (string= env/wm "tty"))
+(let ((env/session (getenv "SESSION")))
+  (if (or (not env/session)
+          (string= env/session "tmux")
+          (string= env/session "shell"))
       ;; display time, and use visual line
       (progn
         (setq

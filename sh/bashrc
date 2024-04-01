@@ -1,4 +1,7 @@
-# Prompt
+export SHELL=/bin/bash
+
+#### Prompt
+
 TTY=$(tty)
 
 red="\033[0;31m"
@@ -16,30 +19,19 @@ PS1="\
 \[$red\][\[$bold\]\w\[$red\]]>\[$reset\] "
 PS2=" \[$red\]>\[$reset\] "
 
-# Common source
-source @BASHRC_ALIAS@
-source @BASHRC_BASH_ENVIRONMENT@
-source @BASHRC_FUNCTIONS@
+case $TERM in
+  'dumb'|'') ;;
+  *) tabs 2 2>/dev/null ;;
+esac
 
-function tux {
-  echo "\
-      ___
-     (.. |
-     (<> |
-    / __  \\
-   ( /  \\ /|
-  _/\\ __)/_)
-  \\/-____\\/
-"
-}
+#### Common source
+
+source @BASHRC_ALIAS@
+source @BASHRC_FUNCTIONS@
 
 tux
 
-export SHELL=/bin/bash
-
-if [[ ! -z "$XINITSLEEP" ]]; then
-	"$XINITSLEEP" $XINITSLEEPARGS
-  unset XINITSLEEP XINITSLEEPARGS
+if [[ ! -z "$LOGINCMD" ]]; then
+  eval $LOGINCMD
+  unset LOGINCMD
 fi
-
-:

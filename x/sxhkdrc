@@ -82,6 +82,6 @@ super + control + alt + x
 super + b
   polybar-sendmsg cmd toggle
 super + control + p
-  polybar-sendmsg cmd quit ; polybar-start mh-$WM
+  polybar-sendmsg cmd quit ; polybar-start mh-$SESSION
 super + control + alt + p
-  polybar-sendmsg cmd quit ; polybar-start mh-$WM-alt
+  polybar-sendmsg cmd quit ; polybar-start mh-$SESSION-alt
