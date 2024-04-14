@@ -30,7 +30,7 @@ format-foreground= ${colors/base16.base07}
 
 [module/mh-status]
 type = custom/script
-exec = "@POLYBAR_STATUSBAR@ st_mem st_net st_disk st_uptime st_date"
+exec = "@POLYBAR_STATUSBAR@ _mem _net _disk _uptime _date"
 interval = 60
 format-background = ${colors/base16.base00}
 format-foreground = ${colors/base16.base07}
@@ -64,9 +64,9 @@ margin-top = 0
 modules-left = i3 title
 ; modules-center = title
 modules-right = mh-status
-bottom = true
+bottom = true # min
 enable-ipc = true
 
 [bar/mh-i3-alt]
 inherit = bar/mh-i3
-bottom = false
+bottom = false # min

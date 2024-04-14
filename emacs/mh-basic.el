@@ -114,7 +114,7 @@
 
 (with-eval-after-load "ediff"
   (add-hook 'ediff-mode-hook
-    (lambda () (interactive)
+    (lambda ()
       (setq ediff-highlighting-style 'face
             ediff-auto-refine 'on)))
 
@@ -173,29 +173,151 @@
            (y-or-n-p "Merge buffer saved.  Now kill the buffer? "))
           (ediff-kill-buffer-carefully buf))))))
 
-  ;; why the fuck do I have to do this?
+  ;; From `vc/ediff-util.el'
+  (defun mh/ediff-swap-buffers ()
+  "Rotate the display of buffers A, B, and C."
+  (interactive)
+  (ediff-barf-if-not-control-buffer)
+  (if (and (window-live-p ediff-window-A) (window-live-p ediff-window-B))
+      (let ((buf ediff-buffer-A)
+	    (values ediff-buffer-values-orig-A)
+	    (diff-vec ediff-difference-vector-A)
+	    (hide-regexp ediff-regexp-hide-A)
+	    (focus-regexp ediff-regexp-focus-A)
+	    (wide-visibility-p (eq ediff-visible-bounds ediff-wide-bounds))
+	    (overlay (if (ediff-has-face-support-p)
+			 ediff-current-diff-overlay-A))
+	    (face (if (ediff-has-face-support-p)
+			 ediff-current-diff-face-A))
+	    (fine (if (ediff-has-face-support-p)
+			 ediff-fine-diff-face-A)))
+	(if ediff-3way-comparison-job
+	    (progn
+	      (set-window-buffer ediff-window-A ediff-buffer-C)
+	      (set-window-buffer ediff-window-B ediff-buffer-A)
+	      (set-window-buffer ediff-window-C ediff-buffer-B)
+	      )
+	  (set-window-buffer ediff-window-A ediff-buffer-B)
+	  (set-window-buffer ediff-window-B ediff-buffer-A))
+	;; swap diff buffers
+	(if ediff-3way-comparison-job
+	    (setq ediff-buffer-A ediff-buffer-C
+		  ediff-buffer-C ediff-buffer-B
+		  ediff-buffer-B buf)
+	  (setq ediff-buffer-A ediff-buffer-B
+		ediff-buffer-B buf))
+
+	;; swap saved buffer characteristics
+	(if ediff-3way-comparison-job
+	    (setq ediff-buffer-values-orig-A ediff-buffer-values-orig-C
+		  ediff-buffer-values-orig-C ediff-buffer-values-orig-B
+		  ediff-buffer-values-orig-B values)
+	  (setq ediff-buffer-values-orig-A ediff-buffer-values-orig-B
+		ediff-buffer-values-orig-B values))
+
+	;; swap diff vectors
+	(if ediff-3way-comparison-job
+	    (setq ediff-difference-vector-A ediff-difference-vector-C
+		  ediff-difference-vector-C ediff-difference-vector-B
+		  ediff-difference-vector-B diff-vec)
+	  (setq ediff-difference-vector-A ediff-difference-vector-B
+		ediff-difference-vector-B diff-vec))
+
+	;; swap hide/focus regexp
+	(if ediff-3way-comparison-job
+	    (setq ediff-regexp-hide-A ediff-regexp-hide-C
+		  ediff-regexp-hide-C ediff-regexp-hide-B
+		  ediff-regexp-hide-B hide-regexp
+		  ediff-regexp-focus-A ediff-regexp-focus-C
+		  ediff-regexp-focus-C ediff-regexp-focus-B
+		  ediff-regexp-focus-B focus-regexp)
+	  (setq ediff-regexp-hide-A ediff-regexp-hide-B
+		ediff-regexp-hide-B hide-regexp
+		ediff-regexp-focus-A ediff-regexp-focus-B
+		ediff-regexp-focus-B focus-regexp))
+
+	;; The following is needed for XEmacs, since there one can't move
+	;; overlay to another buffer.  In Emacs, this swap is redundant.
+	(when ediff-3way-comparison-job
+	  (setq ediff-current-diff-overlay-A ediff-current-diff-overlay-B
+		ediff-current-diff-overlay-B overlay)
+	  (setq ediff-current-diff-face-A ediff-current-diff-face-B
+		ediff-current-diff-face-B face)
+	  (setq ediff-fine-diff-face-A ediff-fine-diff-face-B
+		ediff-fine-diff-face-B fine)
+	  )
+
+	;; swap wide bounds
+	(setq ediff-wide-bounds
+	      (cond (ediff-3way-comparison-job
+		     (list (nth 2 ediff-wide-bounds)
+			   (nth 0 ediff-wide-bounds)
+			   (nth 1 ediff-wide-bounds)))
+		    (ediff-3way-job
+		     (list (nth 1 ediff-wide-bounds)
+			   (nth 0 ediff-wide-bounds)
+			   (nth 2 ediff-wide-bounds)))
+		    (t
+		     (list (nth 1 ediff-wide-bounds)
+			   (nth 0 ediff-wide-bounds)))))
+	;; swap narrow bounds
+	(setq ediff-narrow-bounds
+	      (cond (ediff-3way-comparison-job
+		     (list (nth 2 ediff-narrow-bounds)
+			   (nth 0 ediff-narrow-bounds)
+			   (nth 1 ediff-narrow-bounds)))
+		    (ediff-3way-job
+		     (list (nth 1 ediff-narrow-bounds)
+			   (nth 0 ediff-narrow-bounds)
+			   (nth 2 ediff-narrow-bounds)))
+		    (t
+		     (list (nth 1 ediff-narrow-bounds)
+			   (nth 0 ediff-narrow-bounds)))))
+	(if wide-visibility-p
+	    (setq ediff-visible-bounds ediff-wide-bounds)
+	  (setq ediff-visible-bounds ediff-narrow-bounds))
+	))
+  (if ediff-3way-job
+      (ediff-set-state-of-all-diffs-in-all-buffers ediff-control-buffer))
+  (ediff-recenter)
+  )
+
+  (defun mh/ediff-copy-ancestor-to-C (arg)
+    "Choose ancestor buffer"
+    (interactive "P")
+    (ediff-copy-diff ediff-current-difference nil 'C nil
+      (ediff-get-region-contents ediff-current-difference
+        'Ancestor ediff-control-buffer)))
+
+  (add-hook 'ediff-keymap-setup-hook
+    (lambda ()
+      (define-key ediff-mode-map "c" #'mh/ediff-copy-ancestor-to-C)))
+
+  (fset #'ediff-swap-buffers
+        #'mh/ediff-swap-buffers)
   (fset #'ediff-write-merge-buffer-and-maybe-kill
         #'mh/ediff-write-merge-buffer-and-maybe-kill))
 
-;; From `dabbrev.el'
-(defun dabbrev-completion (&optional arg)
-  "Completion on current word.
-Like \\[dabbrev-expand] but finds all expansions in the current buffer
-and presents suggestions for completion.
+(with-eval-after-load "dabbrev"
+  ;; From `dabbrev.el'
+  (defun dabbrev-completion (&optional arg)
+    "Completion on current word.
+  Like \\[dabbrev-expand] but finds all expansions in the current buffer
+  and presents suggestions for completion.
 
-With a prefix argument ARG, it searches all buffers accepted by the
-function pointed out by `dabbrev-friend-buffer-function' to find the
-completions.
+  With a prefix argument ARG, it searches all buffers accepted by the
+  function pointed out by `dabbrev-friend-buffer-function' to find the
+  completions.
 
-If the prefix argument is 16 (which comes from \\[universal-argument] \\[universal-argument]),
-then it searches *all* buffers."
-  (interactive "*P")
-  (dabbrev--reset-global-variables)
-  ;; (setq dabbrev--check-other-buffers (and arg t))
-  (setq dabbrev--check-all-buffers t)
-        ;; (and arg (= (prefix-numeric-value arg) 16)))
-  (let ((completion-at-point-functions '(dabbrev-capf)))
-    (completion-at-point)))
+  If the prefix argument is 16 (which comes from \\[universal-argument] \\[universal-argument]),
+  then it searches *all* buffers."
+    (interactive "*P")
+    (dabbrev--reset-global-variables)
+    ;; (setq dabbrev--check-other-buffers (and arg t))
+    (setq dabbrev--check-all-buffers t)
+          ;; (and arg (= (prefix-numeric-value arg) 16)))
+    (let ((completion-at-point-functions '(dabbrev-capf)))
+      (completion-at-point))))
 
 ;; From `minibuffer.el'
 (defun completion-pcm--string->pattern (string &optional point)

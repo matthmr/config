@@ -29,6 +29,7 @@ esac
 source @BASHRC_ALIAS@
 source @BASHRC_FUNCTIONS@
 
+clear
 tux
 
 if [[ ! -z "$LOGINCMD" ]]; then

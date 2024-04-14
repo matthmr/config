@@ -1,5 +1,6 @@
 ;;;; Emacs Keybindings
 
+(global-unset-key (kbd "ESC ESC ESC"))
 (global-unset-key (kbd "C-x m"))
 
 (global-set-key (kbd "M-]")     'exit-recursive-edit)

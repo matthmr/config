@@ -46,7 +46,7 @@ URxvt*pointerBlankDelay: 10
 URxvt.perl-ext-common: default,resize-font,-confirm-paste
 URxvt.searchable-scrollback: Meta-Shift-G
 
-URxvt.geometry:     400x400
+URxvt.geometry:     80x24
 URxvt*reverseVideo: false
 URxvt*transparent:  true
 URxvt*shading:      40
