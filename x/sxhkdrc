@@ -19,9 +19,8 @@ super + control + x; a; S
   doshutdown -x -f
 super + control + x; a; R
   doreboot -x -f
-
-# super + control + x; a; l
-#   i3lock -i @SXHKDRC_IMAGE@ -e -f -b -n -t -p default
+super + control + x; a; l
+  i3lock-wp
 
 #### launch-mode
 
@@ -31,8 +30,6 @@ super + control + x; l; f
   firefox
 super + control + x; l; l
   urxvt -e lf -single
-
-# TODO: this should be called `tmuxxs'
 super + control + x; l; e
   emacstc
 
@@ -62,28 +59,42 @@ super + control + x; m; minus
 
 ##### X
 
-super + control + x; x; c
-  clipmenu
 super + control + x; x; k
   xkill
 super + control + x; x; r
   @SXHKDRC_RESIZE@
-super + control + x; x; l
+super + control + x; x; s
   @SXHKDRC_RELOAD@
-super + control + x; x; n
-  wpnew
 super + control + x; x; x
   xterm -e tmux new-session -A
 super + control + x; x; X
   xterm -e zsh
 
+#### Wallpaper
+
+super + control + x; w; n
+  wpset -d @SXHKDRC_WPDIR@
+super + control + x; w; r
+  wpset -t -r
+super + control + x; w; l
+  nsxiv -r @SXHKDRC_WPDIR@
+
+#### Statusbar
+
+super + control + x; b; q
+  polybar-sendmsg cmd quit
+super + control + x; b; r
+  polybar-sendmsg cmd quit ; sleep 3 && polybar-start mh-$SESSION
+super + control + x; b; a
+  polybar-sendmsg cmd quit ; sleep 3 && polybar-start mh-$SESSION-alt
+
 #### misc
 
-super + control + alt + x
+super + alt + x
   dmenu_run
+super + alt + y
+  clipmenu
+super + g
+  killpid /tmp/statusbar-pid -USR1 2>/dev/null
 super + b
   polybar-sendmsg cmd toggle
-super + control + p
-  polybar-sendmsg cmd quit ; polybar-start mh-$SESSION
-super + control + alt + p
-  polybar-sendmsg cmd quit ; polybar-start mh-$SESSION-alt

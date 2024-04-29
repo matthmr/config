@@ -51,8 +51,8 @@ URxvt*reverseVideo: false
 URxvt*transparent:  true
 URxvt*shading:      40
 URxvt*depth:        32
+URxvt*tintColor:    #404040
 ! urxvt*background:   rgba:0026/0026/0026/7777
-! URxvt*tintColor:    #dfdfdf
 ! URxvt*fading:                   30              !term unfocus
 ! urxvt.depth: 24
 ! URxvt*inheritPixmap:            true

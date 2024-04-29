@@ -35,6 +35,7 @@
 (global-set-key (kbd "C-x r C-l") 'list-registers)
 (global-set-key (kbd "C-x a C-w") 'write-abbrev-file)
 (global-set-key (kbd "C-M-j")     'duplicate-dwim)
+(global-set-key (kbd "C-x g")     'recompile)
 
 ;;; Overrides
 

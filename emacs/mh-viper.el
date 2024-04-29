@@ -59,11 +59,14 @@
 
 ;;;; Themes
 
-(custom-set-faces
-  '(viper-minibuffer-emacs ((t nil)))
-  '(viper-minibuffer-insert ((t nil)))
-  '(viper-minibuffer-vi ((t nil)))
-  '(viper-replace-overlay ((t nil))))
+(set-face-attribute 'viper-minibuffer-emacs nil
+  :foreground "white" :background "unspecified")
+(set-face-attribute 'viper-minibuffer-insert nil
+  :foreground "white" :background "unspecified")
+(set-face-attribute 'viper-minibuffer-vi nil
+  :foreground "white" :background "unspecified")
+;; (set-face-attribute 'viper-replace-overlay nil
+;;   :foreground "white" :background "unspecified")
 
 ;;;; Keybindings
 
@@ -111,8 +114,13 @@
 
 ;;;; Function overrides
 
+;; force no face support
+;; From: `lisp/emulation/viper-init.el'
+(defun viper-has-face-support-p ()
+  nil)
+
 ;; allow SPC to operate on region
-;; from: /usr/share/emacs/(emacs-version)/lisp/emulation/viper-cmd.el.gz
+;; From: `lisp/emulation/viper-cmd.el'
 (defun viper-prefix-arg-com (char value com)
   (let ((cont t)
 	cmd-info
@@ -214,7 +222,7 @@
     ))
 
 ;; allow C-h to be DEL, unless on normal mode
-;; from: /usr/share/emacs/(emacs-version)/lisp/emulation/viper-cmd.el.gz
+;; From: `lisp/emulation/viper-cmd.el'
 (defun viper-adjust-keys-for (state)
   "Make necessary adjustments to keymaps before entering STATE."
   (cond ((memq state '(insert-state replace-state))
@@ -251,15 +259,9 @@
 	 (define-key viper-vi-basic-map [backspace] #'viper-backward-char))
 	))
 
-;; stupid fucking thing
-;; from: /usr/share/emacs/(emacs-version)/lisp/emulation/viper.el.gz
-(defun viper-set-replace-overlay-glyphs (_ after-glyph)
-  (or (overlayp viper-replace-overlay)
-      (viper-set-replace-overlay (point-min) (point-min)))
-  (overlay-put viper-replace-overlay 'after-string after-glyph))
 
 ;; replace-mode has emacs-mode bindings
-;; from: /usr/share/emacs/(emacs-version)/lisp/emulation/viper-cmd.el
+;; From: 'lisp/emulation/viper-cmd.el'
 (defun viper-change-state-to-replace (&optional non-R-cmd)
   (viper-change-state 'emacs-state)
   ;; Run insert-state-hook

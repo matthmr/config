@@ -237,4 +237,5 @@
  '(smerge-refined-removed ((t (:inherit smerge-refined-change :background "#ffbbbb" :foreground "black"))))
  '(smerge-upper ((t (:extend t :background "#ffdddd" :foreground "black"))))
  '(trailing-whitespace ((t (:background "color-124"))))
+ '(fill-column-indicator ((t (:background "color-18" :foreground "color-19"))))
  '(vertical-border ((t (:background "color-18" :foreground "color-19")))))

@@ -17,7 +17,7 @@ cmd open ${{
         *.org) emacsc $f &;;
     esac
 
-    setsid handler.sh -i $f
+    handler.sh -f -i $f
 }}
 
 # define a custom 'delete' command
@@ -109,6 +109,8 @@ cmd rename-file ${{
 	[[ -z $attr || $attr = '\n' ]] && exit 40
 	mv -v $f $attr
 }}
+
+map <enter> open
 
 map Sdu disk-usage
 map Sfu file-usage

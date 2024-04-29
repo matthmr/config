@@ -30,10 +30,21 @@ format-foreground= ${colors/base16.base07}
 
 [module/mh-status]
 type = custom/script
-exec = "@POLYBAR_STATUSBAR@ _mem _net _disk _uptime _date"
-interval = 60
+click-middle = "urxvt -e tmux new -A"
+click-right = "urxvt -e tmux-nokbd"
 format-background = ${colors/base16.base00}
 format-foreground = ${colors/base16.base07}
+
+[module/mh-statusbar]
+inherit = module/mh-status
+exec = "statusbar _mem _vol _net _disk _uptime _date"
+interval = 60
+
+[module/mh-statusbar-refreshable]
+inherit = module/mh-status
+exec = "statusbar _mem _vol _net _disk _uptime _date"
+click-left = "kill -USR1 %pid%"
+tail = true
 
 [module/i3]
 type = internal/i3
@@ -62,8 +73,7 @@ inherit = bar/generic
 margin-bottom = 0
 margin-top = 0
 modules-left = i3 title
-; modules-center = title
-modules-right = mh-status
+modules-right = mh-statusbar-refreshable
 bottom = true # min
 enable-ipc = true
 

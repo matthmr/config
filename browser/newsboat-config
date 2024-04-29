@@ -26,13 +26,14 @@ bind-key p  prev-unread
 datetime-format "%Y%m%d-%w %I%M%p"
 feedlist-format "%4i %n %11u %t (%T) - %l"
 #delete-read-articles-on-quit yes
-save-path @NEWSBOAT_SAVE@
-browser @NEWSBOAT_BROWSER@
+# min:
 max-items 1000
 # min:
 history-limit 100
 # min:
 keep-articles-days 60
+save-path @NEWSBOAT_SAVE@
+browser "handler.sh -f -i"
 user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36"
 confirm-exit yes
 wrap-scroll yes

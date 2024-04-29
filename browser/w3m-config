@@ -83,7 +83,7 @@ urimethodmap ~/.w3m/urimethodmap, /usr/etc/w3m/urimethodmap
 editor emacsc
 mailto_options 1
 mailer /usr/bin/mail
-extbrowser @W3M_HANDLER@
+extbrowser handler.sh -f -i
 extbrowser2 
 extbrowser3 
 extbrowser4 

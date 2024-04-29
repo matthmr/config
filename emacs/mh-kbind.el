@@ -139,7 +139,7 @@
     (define-key map "\C-k" 'isearch-toggle-symbol)
     (define-key map "\C-\ "'isearch-toggle-lax-whitespace)
     (define-key map (kbd "C-M-TAB") 'isearch-complete)
-    (define-key map "\C-h" 'isearch-toggle-word)
+    (define-key map "\C-p" 'isearch-toggle-word)
 
     (put 'isearch-toggle-case-fold :advertised-binding "\M-sc")
     (put 'isearch-toggle-regexp    :advertised-binding "\M-sr")

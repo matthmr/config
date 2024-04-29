@@ -61,6 +61,7 @@ bind editor <Tab> complete-query
 
 macro index,pager gi "<change-folder>=INBOX<enter>" "Go to Inbox"
 macro index,pager gs "<change-folder>=Sent<enter>" "Go to Sent"
+macro index $ "<shell-escape>mbsync -V @NEOMUTT_USER@<enter>" "Sync with remote"
 
 mailboxes =INBOX =Sent
 
