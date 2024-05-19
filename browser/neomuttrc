@@ -38,7 +38,9 @@ bind pager l view-attachments
 bind index D delete-message
 bind index U undelete-message
 bind index L limit
-bind index h exit
+bind index h quit # exit
+bind index <esc>h exit
+bind index <esc>q exit
 bind index l display-message
 bind index,query <space> tag-entry
 #bind browser h goto-parent

@@ -65,6 +65,7 @@
   df  = diff --stat --patch --color=always
   fe  = fetch --verbose
   cm  = commit --verbose
+  wt  = worktree
   ad  = add --verbose
   br  = branch
   pl  = pull --verbose

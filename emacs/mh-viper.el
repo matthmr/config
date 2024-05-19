@@ -85,9 +85,9 @@
 (define-key viper-vi-basic-map "\C-v"   'mh/scroll-up)
 (define-key viper-vi-basic-map "\M-v"   'mh/scroll-down)
 (define-key viper-vi-basic-map "="      'universal-argument)
-(define-key viper-vi-basic-map "\C-]"   'viper-change-state-to-emacs)
+(define-key viper-vi-basic-map "["      'keyboard-quit)
 
-(setq viper-vi-intercept-map '(keymap (escape . keyboard-quit) (26 . repeat)))
+(setq viper-vi-intercept-map '(keymap (escape . viper-change-state-to-emacs) (26 . repeat)))
 
 ;;; Insert (unset as of 20230924)
 
@@ -104,7 +104,6 @@
 
 (define-key viper-emacs-kbd-map "/"    'self-insert-command)
 (define-key viper-emacs-kbd-map "\C-z" 'repeat)
-(define-key viper-emacs-kbd-map "\C-]" 'viper-change-state-to-vi)
 
 (setq viper-emacs-intercept-map '(keymap (escape . viper-change-state-to-vi)))
 

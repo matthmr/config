@@ -93,7 +93,13 @@
                   (lambda () (interactive)
                     (internal-pop-keymap ,map
                       'overriding-terminal-local-map)
-                    (message nil))))))
+                    (message nil)))
+      (define-key,map (kbd "[")
+                  (lambda () (interactive)
+                    (internal-pop-keymap ,map
+                      'overriding-terminal-local-map)
+                    (message nil)))
+      )))
 
 
 ;;; With `buffer'

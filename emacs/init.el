@@ -110,7 +110,8 @@
       (xterm-mouse-mode t)
       (global-whitespace-mode)
       (let ((base16-theme-256-color-source 'base16-shell))
-        (load-theme 'base16-shell t)))))
+        (load-theme 'base16-shell t))
+      )))
 
 (defvar mh/initial-scratch-message "\
 ;;                           ___
@@ -136,6 +137,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(Man-width-max nil)
+ '(auth-source-save-behavior nil)
  '(auto-save-file-name-transforms '((".*" @EMACS_TMP@ t)))
  '(auto-save-interval 300)
  '(backup-by-copying t)
@@ -228,6 +230,7 @@
  ;; If there is more than one, they won't work right.
  '(eglot-highlight-symbol-face ((t (:inverse-video t))))
  '(eglot-mode-line ((t nil)))
+ '(fill-column-indicator ((t (:background "color-18" :foreground "color-19"))))
  '(icomplete-first-match ((t (:foreground "#dc9656"))))
  '(log-view-message ((t (:extend t :background "grey85" :foreground "black"))))
  '(smerge-base ((t (:extend t :background "#ffffaa" :foreground "black"))))
@@ -237,5 +240,4 @@
  '(smerge-refined-removed ((t (:inherit smerge-refined-change :background "#ffbbbb" :foreground "black"))))
  '(smerge-upper ((t (:extend t :background "#ffdddd" :foreground "black"))))
  '(trailing-whitespace ((t (:background "color-124"))))
- '(fill-column-indicator ((t (:background "color-18" :foreground "color-19"))))
  '(vertical-border ((t (:background "color-18" :foreground "color-19")))))
