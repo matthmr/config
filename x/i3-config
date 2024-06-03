@@ -170,7 +170,7 @@ mode "action" {
 
   bindsym Control+g mode "default"
   bindsym Control+bracketleft mode "default"
-  bindsym Escape mode "default"
+  bindsym bracketleft mode "default"
 }
 
 bindsym $mod+e resize grow width $resize_px
@@ -202,7 +202,7 @@ mode "spacing" {
 
   bindsym Control+g mode "default"
   bindsym Control+bracketleft mode "default"
-  bindsym Escape mode "default"
+  bindsym bracketleft mode "default"
 }
 
 bindsym $mod+Control+s mode "spacing"
@@ -221,7 +221,7 @@ mode "input" {
 
   bindsym Control+g mode "default"
   bindsym Control+bracketleft mode "default"
-  bindsym Escape mode "default"
+  bindsym bracketleft mode "default"
 }
 
 bindsym $mod+Control+i mode "input"

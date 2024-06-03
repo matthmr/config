@@ -137,6 +137,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(Man-width-max nil)
+ '(abbrev-file-name @EMACS_ABBREV@)
  '(auth-source-save-behavior nil)
  '(auto-save-file-name-transforms '((".*" @EMACS_TMP@ t)))
  '(auto-save-interval 300)

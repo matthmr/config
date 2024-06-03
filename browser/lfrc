@@ -17,7 +17,7 @@ set tabstop 2
 set history false
 set smartcase true
 set info size:time
-# set number true
+#set number true
 #set icons true
 #set hidden true
 
