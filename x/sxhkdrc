@@ -56,6 +56,10 @@ super + control + x; m; equal
   mpc volume +10 >/dev/null 2>/dev/null
 super + control + x; m; minus
   mpc volume -10 >/dev/null 2>/dev/null
+super + control + x; m; comma
+  mpc seek +5% >/dev/null 2>/dev/null
+super + control + x; m; period
+  mpc seek -5% >/dev/null 2>/dev/null
 
 ##### X
 

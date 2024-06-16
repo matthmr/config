@@ -50,7 +50,7 @@
 (global-set-key (kbd "M-n")     'next-error)
 (global-set-key (kbd "M-(")     'kmacro-start-macro)
 (global-set-key (kbd "M-)")     'kmacro-end-macro)
-(global-set-key (kbd "M-@")     'kmacro-end-and-call-macro)
+(global-set-key (kbd "M-K")     'kmacro-end-and-call-macro) ; or `M-M'
 
 (global-set-key (kbd "C-x C-M-o")
                 (lambda () (interactive)

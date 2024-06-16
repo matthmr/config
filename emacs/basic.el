@@ -132,69 +132,75 @@
 ; (add-hook 'html-mode-hook 'nxml-mode)
 
 (add-hook 'mail-mode-hook
-          (lambda () (interactive)
+          (lambda ()
             (cd "/tmp/emacs")))
 
 (add-hook 'outline-mode-hook 'auto-fill-mode)
 (add-hook 'diff-mode-hook 'outline-minor-mode)
 
 (add-hook 'latex-mode-hook
-          (lambda () (interactive)
+          (lambda ()
             (define-key latex-mode-map
                         (kbd "M-TAB") 'completion-at-point)))
 (add-hook 'tex-mode-hook
-          (lambda () (interactive)
+          (lambda ()
             (define-key tex-mode-map
                         (kbd "M-TAB") 'completion-at-point)))
 
 (add-hook 'diff-mode-hook
-          (lambda () (interactive)
+          (lambda ()
             (define-key diff-mode-map
                         (kbd "C-c TAB") 'diff-split-hunk)))
 
 ;;; Prog mode
 
+(add-hook 'prog-mode-hook
+          (lambda ()
+            (setq-local
+              tab-width 2
+              indent-tabs-mode nil)
+              comment-column 0))
+
 (add-hook 'c-mode-hook
-          (lambda () (interactive)
+          (lambda ()
             (setq-local
               comment-start "//"
               comment-end ""
-              page-delimiter "^/\\{4\\}"
-              indent-tabs-mode nil)
-            (outline-minor-mode t)
+              page-delimiter "^/\\{4\\}")
+            (outline-minor-mode 1)
             (abbrev-mode -1)))
 
 (add-hook 'python-mode-hook
-          (lambda () (interactive)
+          (lambda ()
             (setq-local page-delimiter "^#\\{4\\}")
-            (outline-minor-mode t)))
+            (outline-minor-mode 1)))
 
 (add-hook 'sh-mode-hook
-          (lambda () (interactive)
+          (lambda ()
             (setq-local page-delimiter "^#\\{4\\}")))
 
 (add-hook 'lisp-mode-hook
-          (lambda () (interactive)
+          (lambda ()
             (setq-local page-delimiter "^;\\{4\\}")
-            (hs-minor-mode t)
-            (rainbow-delimiters-mode t)))
+            (hs-minor-mode 1)
+            (rainbow-delimiters-mode 1)))
 
 (add-hook 'scheme-mode-hook
-          (lambda () (interactive)
+          (lambda ()
             (setq-local page-delimiter "^;\\{4\\}")
-            (hs-minor-mode t)
-            (rainbow-delimiters-mode t)))
+            (hs-minor-mode 1)
+            (rainbow-delimiters-mode 1)))
 
 (add-hook 'emacs-lisp-mode-hook
-          (lambda () (interactive)
+          (lambda ()
             (setq-local page-delimiter "^;\\{4\\}")
-            (hs-minor-mode t)
-            (rainbow-delimiters-mode t)))
+            (hs-minor-mode 1)
+            (rainbow-delimiters-mode 1)))
 
 ;;;; Misc
 
 (add-hook 'vc-dir-mode-hook
-  (lambda () (interactive)
+  (lambda ()
     (define-key vc-dir-mode-map "!" 'vc-edit-next-command)))
 
 (add-hook 'eshell-preoutput-filter-functions 'ansi-color-apply)
