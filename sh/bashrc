@@ -14,8 +14,7 @@ reset="\033[0m"
 
 PS1="\
 \[$red\][\[$bold\]\u\[$red\]@\[$bold\]\H\[$red\]] \
-[\[$bold\]bash\[$red\]] \
-[\[$bold\]${TTY}\[$red\]]
+[\[$bold\]bash\[$red\]@\[$bold\]${TTY}\[$red\]]
 \[$red\][\[$bold\]\w\[$red\]]>\[$reset\] "
 PS2=" \[$red\]>\[$reset\] "
 
