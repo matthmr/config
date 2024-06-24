@@ -121,19 +121,14 @@
   (add-hook 'ediff-quit-merge-hook
     ;; For git. The `glob' gets deleted as soon as Emacs launches Ediff. So we
     ;; save in whichever file exists still
-    (lambda () (interactive)
+    (lambda ()
       (setq ediff-merge-store-file
             (or ediff-merge-store-file
                 (let ((file-A (buffer-file-name ediff-buffer-A))
                       (file-B (buffer-file-name ediff-buffer-B)))
                   (cond ((file-exists-p file-A) file-A)
                         ((file-exists-p file-B) file-B)
-                        (t (let ((file
-                                  (replace-regexp-in-string
-                                   "/tmp/git-blob-.\\{6\\}/" ""
-                                   (or file-A file-B)))
-                                 (dir (read-file-name "Git root: ")))
-                             (concat dir file))))
+                        (t (read-file-name "Write file: ")))
                   )))
       ))
 
@@ -282,6 +277,26 @@
   (ediff-recenter)
   )
 
+  ;; From `vc/ediff-util.el'
+  (defun mh/ediff-verify-file-merge-buffer (file)
+    (let ((buff (if (stringp file) (find-buffer-visiting file)))
+          warn-message)
+      (or (null buff)
+          (progn
+            (setq warn-message
+                  (format "Buffer %s is visiting %s. Revert the buffer? "
+                          (buffer-name buff) file))
+            (with-output-to-temp-buffer ediff-msg-buffer
+              (princ "\n\n")
+              (princ warn-message)
+              (princ "\n\n"))
+            (if (y-or-n-p
+                 (message "%s" warn-message))
+                (with-current-buffer buff
+                  (revert-buffer))
+              (warn "Changes will be overwritten"))))
+      ))
+
   (defun mh/ediff-copy-ancestor-to-C (arg)
     "Choose ancestor buffer"
     (interactive "P")
@@ -295,6 +310,8 @@
 
   (fset #'ediff-swap-buffers
         #'mh/ediff-swap-buffers)
+  (fset #'ediff-verify-file-merge-buffer
+        #'mh/ediff-verify-file-merge-buffer)
   (fset #'ediff-write-merge-buffer-and-maybe-kill
         #'mh/ediff-write-merge-buffer-and-maybe-kill))
 
