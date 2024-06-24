@@ -15,9 +15,9 @@ super + control + x; a; m
   dosuspend -x
 super + control + x; a; d
   dohibernate -x
-super + control + x; a; S
+super + control + x; a; control + s
   doshutdown -x -f
-super + control + x; a; R
+super + control + x; a; control + r
   doreboot -x -f
 super + control + x; a; l
   i3lock-wp
@@ -52,14 +52,18 @@ super + control + x; m; p
   mpc prev >/dev/null 2>/dev/null
 super + control + x; m; s
   mpc stop >/dev/null 2>/dev/null
+# min
 super + control + x; m; equal
   mpc volume +10 >/dev/null 2>/dev/null
+# min
 super + control + x; m; minus
   mpc volume -10 >/dev/null 2>/dev/null
+# min
 super + control + x; m; comma
-  mpc seek +5% >/dev/null 2>/dev/null
-super + control + x; m; period
   mpc seek -5% >/dev/null 2>/dev/null
+# min
+super + control + x; m; period
+  mpc seek +5% >/dev/null 2>/dev/null
 
 ##### X
 
@@ -74,7 +78,7 @@ super + control + x; x; x
 super + control + x; x; X
   xterm -e zsh
 
-#### Wallpaper
+#### wallpaper
 
 super + control + x; w; n
   wpset -d @SXHKDRC_WPDIR@
@@ -83,7 +87,7 @@ super + control + x; w; r
 super + control + x; w; l
   nsxiv -r @SXHKDRC_WPDIR@
 
-#### Statusbar
+#### statusbar
 
 super + control + x; b; q
   polybar-sendmsg cmd quit

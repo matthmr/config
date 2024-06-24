@@ -33,6 +33,9 @@
 [blame]
   date = format:%Y%m%d-%w %I%M%p %z
 [pager]
+  diff   = "diff-highlight | less"
+  show   = "diff-highlight | less"
+  log    = "diff-highlight | less"
   branch = false
   tag    = false
   stash  = false

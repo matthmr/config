@@ -31,7 +31,7 @@ autoload -Uz vcs_info
 preexec() { ZSHTIME=$(zshtime) }
 precmd() { vcs_info; local _zshtime=$ZSHTIME; ZSHTIME=$(zshtime); ELLAPSED=$(($ZSHTIME - $_zshtime)) }
 chpwd () { SHORTPWD=$(shortpwd) }
-zstyle ':vcs_info:git:*' formats '%F{reset}%F{red}@%F{reset}%B%b'
+zstyle ':vcs_info:git:*' formats '@%F{reset}%B%b%F{red}'
 
 #### Prompt
 
@@ -57,7 +57,7 @@ PROMPT='\
 %F{red}[%F{reset}%Bzsh%b%F{red}@%F{reset}%B%l%b%F{red}] \
 %F{red}[%F{reset}%B%D{%I%M%p}%b%F{red}@%F{reset}%B%D{%S}%b%F{red}] \
 %F{red}[%F{reset}%B${ELLAPSED}ms%b%F{red}@%F{reset}%B%?%b%F{red}]
-[%F{reset}%B${SHORTPWD}%b${vcs_info_msg_0_}%b%F{red}]>%F{reset} '
+[%F{reset}%B${SHORTPWD}%b%F{red}${vcs_info_msg_0_}%b]>%F{reset} '
 PS2='%F{red}>%F{reset} '
 
 #### Completion
@@ -104,11 +104,6 @@ bindkey '^D' confirm_exit
 bindkey '^[^I' list-choices
 bindkey '^[s' autosuggest-toggle
 
-if [[ ! -z "$LOGINCMD" ]]; then
-  eval $LOGINCMD
-  unset LOGINCMD
-fi
-
 #### Common source
 source @ZSH_ALIAS@
 source @ZSH_FUNCTIONS@
@@ -117,3 +112,8 @@ clear
 tux
 
 unset ZSH_MODE
+
+if [[ ! -z "$LOGINCMD" ]]; then
+  eval $LOGINCMD
+  unset LOGINCMD
+fi

@@ -36,6 +36,9 @@
 (global-set-key (kbd "C-x a C-w") 'write-abbrev-file)
 (global-set-key (kbd "C-M-j")     'duplicate-dwim)
 (global-set-key (kbd "C-x g")     'recompile)
+;; min
+(global-set-key (kbd "M-J")       'scroll-up)
+(global-set-key (kbd "M-K")       'scroll-down)
 
 ;;; Overrides
 
@@ -50,7 +53,7 @@
 (global-set-key (kbd "M-n")     'next-error)
 (global-set-key (kbd "M-(")     'kmacro-start-macro)
 (global-set-key (kbd "M-)")     'kmacro-end-macro)
-(global-set-key (kbd "M-K")     'kmacro-end-and-call-macro) ; or `M-M'
+(global-set-key (kbd "M-M")     'kmacro-end-and-call-macro) ; min
 
 (global-set-key (kbd "C-x C-M-o")
                 (lambda () (interactive)

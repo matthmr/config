@@ -45,7 +45,9 @@ scrolloff 2
 color info              white   black   bold
 #color article           white   default bold
 color listnormal        magenta default
+# min
 color listfocus         magenta black   bold
+# min
 color listfocus_unread  white   black   bold
 color listnormal_unread white   default
 
