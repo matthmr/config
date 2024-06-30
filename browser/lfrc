@@ -25,7 +25,7 @@ map i $LESSOPEN='| ~/.config/lf/preview %s' less -R $f
 
 cmd open ${{
   test -L $f && f=$(readlink -f $f)
-  handler.sh -f -i $f
+  uhandle -f -i $f
 }}
 
 # define a custom 'delete' command

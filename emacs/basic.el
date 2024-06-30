@@ -167,7 +167,7 @@
               comment-start "//"
               comment-end ""
               page-delimiter "^/\\{4\\}")
-            (outline-minor-mode 1)
+            (outline-minor-mode 1) ; min
             (abbrev-mode -1)))
 
 (add-hook 'python-mode-hook

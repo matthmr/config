@@ -83,7 +83,7 @@ super + control + x; x; X
 super + control + x; w; n
   wpset -d @SXHKDRC_WPDIR@
 super + control + x; w; r
-  wpset -t -r
+  wpset -r
 super + control + x; w; l
   nsxiv -r @SXHKDRC_WPDIR@
 
@@ -103,6 +103,6 @@ super + alt + x
 super + alt + y
   clipmenu
 super + g
-  killpid /tmp/statusbar-pid -USR1 2>/dev/null
+  pkill -USR1 -F /tmp/statusbar-pid >/dev/null 2>/dev/null
 super + b
   polybar-sendmsg cmd toggle

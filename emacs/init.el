@@ -149,7 +149,7 @@
    (lambda
      (url &optional args)
      (async-shell-command
-      (format "handler.sh -d '%s'" url "*url*" "*url-error*"))))
+      (format "uhandle -d '%s'" url "*url*" "*url-error*"))))
  '(browse-url-text-browser "w3m")
  '(column-number-mode t)
  '(comment-column 0)

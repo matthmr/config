@@ -39,6 +39,7 @@
 ;; min
 (global-set-key (kbd "M-J")       'scroll-up)
 (global-set-key (kbd "M-K")       'scroll-down)
+(global-set-key (kbd "C-x x x")   'revert-buffer-with-fine-grain)
 
 ;;; Overrides
 
