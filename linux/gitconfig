@@ -42,6 +42,8 @@
   grep   = false
 [advice]
   detachedHead = false
+[interactive]
+  difffilter = "diff-highlight"
 
 # Tools
 
