@@ -92,8 +92,8 @@
   rsp = restore -p
   ss  = stash
   mm  = merge --no-ff --no-commit
-  mp  = pull  --no-ff --no-commit
-  sr  = show-ref
   sw  = switch
   dt  = difftool
   mt  = mergetool
+  dfs = diff --stat --patch --color=always --cached
+  dfh = diff --stat --patch --color=always @
