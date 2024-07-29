@@ -85,6 +85,7 @@
   rs  = restore
   rt  = reset
   rv  = revert
+  rn  = revert -n
   tg  = tag
   bl  = blame --color-lines
   adp = add -p

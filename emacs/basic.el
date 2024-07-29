@@ -217,3 +217,4 @@
 
 (add-to-list 'auto-mode-alist '("\\(neo\\)?mutt-.*" . message-mode))
 (add-to-list 'auto-mode-alist '("COMMIT_EDITMSG\\|MERGE_MSG" . diff-mode))
+(add-to-list 'auto-mode-alist '("TAG_EDITMSG" . text-mode))
