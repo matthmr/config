@@ -336,6 +336,49 @@
     (let ((completion-at-point-functions '(dabbrev-capf)))
       (completion-at-point))))
 
+(with-eval-after-load "eldoc"
+  ;; From `emacs-lisp/eldoc.el'
+  (defun eldoc--format-doc-buffer (docs)
+    "Ensure DOCS are displayed in an *eldoc* buffer."
+    (with-current-buffer (if (buffer-live-p eldoc--doc-buffer)
+                             eldoc--doc-buffer
+                           (setq eldoc--doc-buffer
+                                 (get-buffer-create " *eldoc*")))
+      (unless (eq docs eldoc--doc-buffer-docs)
+        (setq-local eldoc--doc-buffer-docs docs)
+        (let ((inhibit-read-only t)
+              (things-reported-on))
+          (special-mode)
+          (mh/undo-edit)
+          (erase-buffer)
+          (setq-local nobreak-char-display nil)
+          (cl-loop for (docs . rest) on docs
+                   for (this-doc . plist) = docs
+                   for thing = (plist-get plist :thing)
+                   when thing do
+                   (cl-pushnew thing things-reported-on)
+                   (setq this-doc
+                         (concat
+                          (propertize (format "%s" thing)
+                                      'face (plist-get plist :face))
+                          ": "
+                          this-doc))
+                   do (insert this-doc)
+                   when rest do (insert "\n")
+                   finally (goto-char (point-min)))
+          ;; Rename the buffer, taking into account whether it was
+          ;; hidden or not
+          (rename-buffer (format "%s*eldoc%s*"
+                                 (if (string-match "^ " (buffer-name)) " " "")
+                                 (if things-reported-on
+                                     (format " for %s"
+                                             (mapconcat
+                                              (lambda (s) (format "%s" s))
+                                              things-reported-on
+                                              ", "))
+                                   ""))))))
+    eldoc--doc-buffer))
+
 ;; From `minibuffer.el'
 (defun completion-pcm--string->pattern (string &optional point)
   "Split STRING into a pattern.

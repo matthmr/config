@@ -114,12 +114,12 @@
 ;;;; Function overrides
 
 ;; force no face support
-;; From: `lisp/emulation/viper-init.el'
+;; From: `emulation/viper-init.el'
 (defun viper-has-face-support-p ()
   nil)
 
 ;; allow SPC to operate on region
-;; From: `lisp/emulation/viper-cmd.el'
+;; From: `emulation/viper-cmd.el'
 (defun viper-prefix-arg-com (char value com)
   (let ((cont t)
 	cmd-info
@@ -221,7 +221,7 @@
     ))
 
 ;; allow C-h to be DEL, unless on normal mode
-;; From: `lisp/emulation/viper-cmd.el'
+;; From: `emulation/viper-cmd.el'
 (defun viper-adjust-keys-for (state)
   "Make necessary adjustments to keymaps before entering STATE."
   (cond ((memq state '(insert-state replace-state))

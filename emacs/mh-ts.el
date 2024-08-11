@@ -10,5 +10,5 @@
 (require 'tree-sitter-hl)
 (require 'tree-sitter-langs)
 
-(global-tree-sitter-mode t)
 (add-hook 'tree-sitter-mode-hook #'tree-sitter-hl-mode)
+(global-tree-sitter-mode t)

@@ -15,6 +15,7 @@
 ;;; Load Some Programs
 
 (require 'zen-mode)
+(require 'fold-this)
 (require 'caps)
 (require 'rainbow-delimiters)
 (require 'move-text)
@@ -38,16 +39,27 @@
 (mh/load "basic") ; generic configs that use my functions
 (mh/load "linux") ; system info
 
-;; load some programs
+;; load some programs with configs
 (mh/load "viper")
-(mh/load "treesit")
-(mh/load "multiple-cursors")
-(mh/load "ace-jump-mode")
+(mh/load "ts")
+(mh/load "mc")
+(mh/load "company")
+;; (mh/load "ace-jump-mode")
+
+;;; Highlight indentation (indent guide)
+
+;; (add-to-list 'prog-mode-hook #'indent-guide-mode)
 
 ;;; Move Text
 
 (global-set-key (kbd "C-M-p") 'move-text-up)
 (global-set-key (kbd "C-M-n") 'move-text-down)
+
+;;; Fold-this
+
+(global-set-key (kbd "M-H") 'fold-this)
+(global-set-key (kbd "M-U") 'fold-this-unfold-at-point)
+(global-set-key (kbd "C-x M-U") 'fold-this-unfold-all)
 
 ;;; Scroll-lock
 
@@ -165,19 +177,9 @@
  '(display-line-numbers-widen t)
  '(display-time-default-load-average nil)
  '(display-time-format "%Y%m%d-%w %I%M%p")
- '(doom-modeline-buffer-file-name-style 'truncate-except-project)
- '(doom-modeline-icon nil)
- '(doom-modeline-minor-modes t)
- '(doom-modeline-workspace-name nil)
  '(ediff-combination-pattern
    '("<<<<<<< ours" A "||||||| parent" Ancestor ">>>>>>> theirs" B "======= end"))
  '(ediff-keep-variants nil)
- '(eglot-autoshutdown t)
- '(eglot-events-buffer-size 100000)
- '(eglot-highlight-symbol-face ((t (:inherit underline))))
- '(eglot-menu-string "")
- '(eglot-prefer-plaintext nil)
- '(eglot-stay-out-of '("flymake") t)
  '(eldoc-echo-area-use-multiline-p 1)
  '(epg-pinentry-mode 'loopback)
  '(eshell-buffer-maximum-lines 8000)

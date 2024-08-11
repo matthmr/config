@@ -26,9 +26,12 @@
   inhibit-x-resources t
   indent-tabs-mode nil
   sentence-end-double-space nil
-  local-enable-local-variables nil ; min
-  enable-local-variables nil ; min
-  enable-dir-local-variables nil ; min
+  ; min
+  local-enable-local-variables nil
+  ; min
+  enable-local-variables nil
+  ; min
+  enable-dir-local-variables nil
   ring-bell-function 'ignore
   echo-keystrokes 0.1
   vc-find-revision-no-save t
@@ -118,10 +121,12 @@
 
 ;;; Global minor modes
 
-(icomplete-mode) ; min
+; min
+(icomplete-mode)
 (electric-pair-mode)
 (global-display-fill-column-indicator-mode)
-(tab-bar-mode) ; min
+; min
+(tab-bar-mode)
 (auto-save-mode)
 
 ;;;; Hooks
@@ -167,7 +172,8 @@
               comment-start "//"
               comment-end ""
               page-delimiter "^/\\{4\\}")
-            (outline-minor-mode 1) ; min
+            ; min
+            (outline-minor-mode 1)
             (abbrev-mode -1)))
 
 (add-hook 'python-mode-hook
@@ -204,10 +210,6 @@
     (define-key vc-dir-mode-map "!" 'vc-edit-next-command)))
 
 (add-hook 'eshell-preoutput-filter-functions 'ansi-color-apply)
-
-;; Propertize the `eldoc' buffer
-(with-eval-after-load "eglot"
-  (require 'markdown-mode))
 
 (with-eval-after-load "compilation"
   (require 'ansi-color)
