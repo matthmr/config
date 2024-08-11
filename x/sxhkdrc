@@ -26,21 +26,31 @@ super + control + x; a; l
 
 super + control + x; l; b
   ungoogled-chromium
-super + control + x; l; f
-  firefox
 super + control + x; l; l
   urxvt -e lf -single
 super + control + x; l; e
   emacstc
 
+#### volume-mode
+# min
+super + control + x; v; minus
+  volume -5
+# min
+super + control + x; v; equal
+  volume +5
+super + control + x; v; v
+  herbe "$(volume)"
+super + control + x; v; m
+  volume m
+
 #### screenshot
 
 super + control + x; s; d
   screenshot-dir
-super + control + x; s; Q
-  screenshot-quick-dir
 super + control + x; s; q
   screenshot-quick
+super + control + x; s; Q
+  screenshot-quick-dir
 
 #### MPD
 
@@ -64,6 +74,9 @@ super + control + x; m; comma
 # min
 super + control + x; m; period
   mpc seek +5% >/dev/null 2>/dev/null
+# min
+super + control + x; m; m
+  herbe "$(MPC_FORMAT='[%title%|%file%][ - %artist%[ "%album%"][ (%date%)]]' mpc)"
 
 ##### X
 
@@ -72,11 +85,7 @@ super + control + x; x; k
 super + control + x; x; r
   @SXHKDRC_RESIZE@
 super + control + x; x; s
-  @SXHKDRC_RELOAD@
-super + control + x; x; x
-  xterm -e tmux new-session -A
-super + control + x; x; X
-  xterm -e zsh
+  pkill -USR1 sxhkd
 
 #### wallpaper
 
@@ -91,7 +100,7 @@ super + control + x; w; l
 
 super + control + x; b; q
   polybar-sendmsg cmd quit
-super + control + x; b; r
+super + control + x; b; b
   polybar-sendmsg cmd quit ; sleep 3 && polybar-start mh-$SESSION
 super + control + x; b; a
   polybar-sendmsg cmd quit ; sleep 3 && polybar-start mh-$SESSION-alt
