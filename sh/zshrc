@@ -48,7 +48,7 @@ ZSHTIME=$(zshtime)
 function shortpwd {
   # use this for abbreviating another user's path
   # echo "${PWD/$HOME/~}" | sed -E 's!(^(~[^/]+?/?|/)[^/]{,1}?|[^/]{,1})[^/]*/!\1/!g'
-  echo "${PWD/$HOME/~}" | sed -E 's!(^~?/[^/]{,3}?|[^/]{,3})[^/]*/!\1/!g'
+  echo "${PWD/#$HOME/~}" | sed -E 's!(^~?/[^/]{,3}?|[^/]{,3})[^/]*/!\1/!g'
 }
 
 SHORTPWD=$(shortpwd)

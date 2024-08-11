@@ -4,11 +4,16 @@
 exec --no-startup-id mkdir -p /tmp/i3
 
 # pixel variables
-set $border_lit_px 3px # min
-set $border_px 3px # min
-set $gaps_px 20px # min
-set $resize_px 20px # min
-set $move_px 20px # min
+# min
+set $border_lit_px 3px
+# min
+set $border_px 3px
+# min
+set $gaps_px 20px
+# min
+set $resize_px 20px
+# min
+set $move_px 20px
 
 # set the socket path
 set $sock /tmp/i3/i3-socket
@@ -33,7 +38,8 @@ default_floating_border pixel $border_lit_px
 workspace_auto_back_and_forth yes
 focus_wrapping force
 
-for_window [class="mpv"] floating enable
+# min
+# for_window [class="mpv"] floating enable
 
 gaps inner $gaps_px
 

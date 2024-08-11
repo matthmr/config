@@ -37,12 +37,14 @@ format-foreground = ${colors/base16.base07}
 
 [module/mh-statusbar]
 inherit = module/mh-status
-exec = "statusbar _mem _vol _net _disk _uptime _date"
+# min
+exec = "statusbar mem net disk uptime date"
 interval = 60
 
 [module/mh-statusbar-refreshable]
 inherit = module/mh-status
-exec = "statusbar -i 60 _mem _vol _net _disk _uptime _date"
+# min
+exec = "statusbar -i 60 -n mem net disk uptime date"
 click-left = "kill -USR1 %pid%"
 tail = true
 
@@ -63,20 +65,27 @@ label-urgent-background = ${colors/base16.base08}
 
 ;;;; Bar
 
-[bar/generic]
+[settings]
+pseudo-transparency = true
+
+[bar/mh]
 background = ${colors/base16.base01}
 foreground = ${colors/base16.base07}
 font-0 = Terminus:size=13;2
+width = 100%
+bottom = false
 
 [bar/mh-i3]
-inherit = bar/generic
-margin-bottom = 0
-margin-top = 0
+inherit = bar/mh
 modules-left = i3 title
 modules-right = mh-statusbar-refreshable
-bottom = true # min
+# min
+border-size = 4
+# min
+border-color = #a0a0a0
 enable-ipc = true
 
 [bar/mh-i3-alt]
 inherit = bar/mh-i3
-bottom = false # min
+# min
+bottom = false
