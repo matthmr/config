@@ -90,8 +90,12 @@ super + control + x; x; s
 #### wallpaper
 
 super + control + x; w; n
+  wpset -d @SXHKDRC_WPDIR@ -b
+super + control + x; w; control + n
   wpset -d @SXHKDRC_WPDIR@
 super + control + x; w; r
+  wpset -r -b
+super + control + x; w; control + r
   wpset -r
 super + control + x; w; l
   nsxiv -r @SXHKDRC_WPDIR@

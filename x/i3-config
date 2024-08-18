@@ -110,6 +110,8 @@ bindsym $mod+comma workspace prev
 bindsym $mod+period workspace next
 bindsym $mod+Shift+comma move container to workspace prev
 bindsym $mod+Shift+period move container to workspace next
+bindsym $mod+$alt+Shift+comma move container to workspace prev; workspace prev
+bindsym $mod+$alt+Shift+period move container to workspace next; workspace next
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace number $ws1
@@ -155,6 +157,23 @@ bindsym $mod+Shift+o border normal $border_lit_px
 bindsym $mod+$alt+o [all] border pixel $border_lit_px
 bindsym $mod+$alt+Shift+o [all] border normal $border_lit_px
 
+# resizing
+bindsym $mod+e resize grow width $resize_px
+bindsym $mod+Shift+e resize shrink width $resize_px
+
+bindsym $mod+v resize grow height $resize_px
+bindsym $mod+Shift+v resize shrink height $resize_px
+
+bindsym $mod+$alt+Control+h resize grow left $resize_px
+bindsym $mod+$alt+Control+j resize grow down $resize_px
+bindsym $mod+$alt+Control+k resize grow up $resize_px
+bindsym $mod+$alt+Control+l resize grow right $resize_px
+
+bindsym $mod+$alt+Shift+h resize shrink right $resize_px
+bindsym $mod+$alt+Shift+j resize shrink up $resize_px
+bindsym $mod+$alt+Shift+k resize shrink down $resize_px
+bindsym $mod+$alt+Shift+l resize shrink left $resize_px
+
 #### Style
 
 #                       border  bg      txt     indic     chbordr
@@ -179,22 +198,6 @@ mode "action" {
   bindsym bracketleft mode "default"
 }
 
-bindsym $mod+e resize grow width $resize_px
-bindsym $mod+Shift+e resize shrink width $resize_px
-
-bindsym $mod+v resize grow height $resize_px
-bindsym $mod+Shift+v resize shrink height $resize_px
-
-bindsym $mod+$alt+Control+h resize grow left $resize_px
-bindsym $mod+$alt+Control+j resize grow down $resize_px
-bindsym $mod+$alt+Control+k resize grow up $resize_px
-bindsym $mod+$alt+Control+l resize grow right $resize_px
-
-bindsym $mod+$alt+Shift+h resize shrink right $resize_px
-bindsym $mod+$alt+Shift+j resize shrink up $resize_px
-bindsym $mod+$alt+Shift+k resize shrink down $resize_px
-bindsym $mod+$alt+Shift+l resize shrink left $resize_px
-
 bindsym $mod+Control+a mode "action"
 
 mode "spacing" {
@@ -215,6 +218,7 @@ bindsym $mod+Control+s mode "spacing"
 
 mode "input" {
   bindsym s exec i3-input -s $sock -F 'gaps inner all set %s' -P 'Spacing: ' ; mode "default"
+  bindsym $alt+s exec i3-input -s $sock -F 'gaps outer all set %s' -P 'Spacing: ' ; mode "default"
   bindsym r exec i3-input -s $sock -F 'resize set %s' -P 'Resize: ' ; mode "default"
 
   bindsym p exec i3-input -s $sock -F '[all] border pixel %spx' -P 'Border pixel: ' ; mode "default"

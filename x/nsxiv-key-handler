@@ -1,6 +1,6 @@
 #!/usr/bin/sh
 
 case $1 in
-  'w') read file && @NSXIV_HANDLER_SET@ ;;
-  't') read file && @NSXIV_HANDLER_TEST@ ;;
+  'w') read file && wpset -b $file ;;
+  't') read file && wpset -b -t $file ;;
 esac
