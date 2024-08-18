@@ -349,7 +349,7 @@
         (let ((inhibit-read-only t)
               (things-reported-on))
           (special-mode)
-          (mh/undo-edit)
+          (mh/edit-buffer-n)
           (erase-buffer)
           (setq-local nobreak-char-display nil)
           (cl-loop for (docs . rest) on docs

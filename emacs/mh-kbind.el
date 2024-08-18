@@ -231,54 +231,36 @@
 
 ;;;; Toggle *
 
-(defun mh/undo-edit ()
-  "'Undoes' editing configurations. Useful hook for non-editing buffer"
-  (interactive)
-
-  (if show-trailing-whitespace
-      (setq-local show-trailing-whitespace nil))
-  (if truncate-lines
-      (setq-local truncate-lines nil))
-
-  (display-fill-column-indicator-mode -1)
-  (display-line-numbers-mode -1))
-
-(defun mh/reset-edit ()
-    "'Resets' editing configurations. Useful hook for editing buffer"
-  (interactive)
-
-  (unless show-trailing-whitespace
-    (setq-local show-trailing-whitespace t))
-  (unless truncate-lines
-      (setq-local truncate-lines t))
-
-  (display-fill-column-indicator-mode 1)
-  (display-line-numbers-mode 1))
-
 ;;; Toggle Input Method
 (global-set-key (kbd "C-x C-M-m C-M-i") 'toggle-input-method)
 
 ;;; Toggle Whitespace
-(global-set-key (kbd "C-x C-M-m C-M-w")
-                (lambda () (interactive)
-                  (setq-local show-trailing-whitespace
-                              (not show-trailing-whitespace))))
-;;; Toggle 'local-variable'
-(global-set-key (kbd "C-x C-M-m C-M-d")
-                (lambda () (interactive)
-                  (if enable-local-variables
-                      (setq enable-local-variables nil
-                          enable-dir-local-variables nil
-                          local-enable-local-variables nil)
-                    (setq enable-local-variables :all
-                            enable-dir-local-variables t
-                            local-enable-local-variables t))
-                  ))
+(defun mh/toggle-ws ()
+  (interactive)
+  (setq-local show-trailing-whitespace (not show-trailing-whitespace)))
 
-;;; toggle Truncation
-(global-set-key (kbd "C-x C-M-m C-M-s")
-                (lambda () (interactive)
-                  (setq-local truncate-lines (not truncate-lines))))
+(global-set-key (kbd "C-x C-M-m C-M-w") 'mh/toggle-ws)
+
+;;; Toggle 'local-variable'
+(defun mh/toggle-locvar ()
+  (interactive)
+  (if enable-local-variables
+    (setq enable-local-variables nil
+        enable-dir-local-variables nil
+        local-enable-local-variables nil)
+    (setq enable-local-variables :all
+          enable-dir-local-variables t
+          local-enable-local-variables t))
+  )
+
+(global-set-key (kbd "C-x C-M-m C-M-v") 'mh/toggle-locvar)
+
+;;; Toggle Truncation
+(defun mh/toggle-trunc ()
+  (interactive)
+  (setq-local truncate-lines (not truncate-lines)))
+
+(global-set-key (kbd "C-x C-M-m C-M-s") 'mh/toggle-trunc)
 
 ;;; Toggle Line Numbers
 (global-set-key (kbd "C-x C-M-m C-M-l") 'display-line-numbers-mode)
@@ -286,13 +268,31 @@
 ;;; Toggle Fill Column
 (global-set-key (kbd "C-x C-M-m C-M-c") 'display-fill-column-indicator-mode)
 
+;;; Toggle Misc
+
+(global-set-key (kbd "C-x C-M-m C-M-z") 'mh/toggle-zen)
+
+(defun mh/toggle-zen ()
+  (interactive)
+  (zen-mode 'toggle))
+
 ;;; Toggle All
-(global-set-key (kbd "C-x C-M-m C-M-e") 'mh/undo-edit)
-(global-set-key (kbd "C-x C-M-m C-M-r") 'mh/reset-edit)
-(global-set-key (kbd "C-x C-M-m C-M-z")
-  (lambda () (interactive)
-    (mh/undo-edit)
-    (zen-mode 'toggle)))
+(defun mh/edit-buffer-y ()
+  (interactive)
+  (setq-local show-trailing-whitespace t)
+  (setq-local truncate-lines t)
+  (display-fill-column-indicator-mode 1)
+  (display-line-numbers-mode 1))
+
+(defun mh/edit-buffer-n ()
+  (interactive)
+  (setq-local show-trailing-whitespace nil)
+  (setq-local truncate-lines nil)
+  (display-fill-column-indicator-mode -1)
+  (display-line-numbers-mode -1))
+
+(global-set-key (kbd "C-x C-M-m C-M-m") 'mh/edit-buffer-y)
+(global-set-key (kbd "C-x C-M-m C-M-n") 'mh/edit-buffer-n)
 
 ;; (defun mh/toggle-viper ()
 ;;   (interactive)
@@ -406,6 +406,15 @@
 
 (global-set-key (kbd "C-c C-x M-w") 'mh/xclip-copy)
 
+(defun mh/xclip-read ()
+  "Read to clipboard"
+  (interactive)
+  (let ((buffer-file-name "/tmp/clipboard"))
+    (save-buffer))
+  (shell-command "xclip -selection clipboard -i < /tmp/clipboard") nil nil)
+
+(global-set-key (kbd "C-c C-x C-s") 'mh/xclip-read)
+
 (defun mh/xclip-paste ()
   "Paste XCLIP's clipboard"
   (interactive)
@@ -422,7 +431,38 @@
   (find-file "/tmp/clipboard")
   (revert-buffer-quick))
 
-(global-set-key (kbd "C-c C-x e") 'mh/xclip-edit)
+(global-set-key (kbd "C-c C-x C-e") 'mh/xclip-edit)
+
+;;;
+
+(defun mh/tmux-edit ()
+  "Edit TMUX buffer"
+  (interactive)
+  (let ((buf (get-buffer "*tmux*")))
+    (if buf
+        ;; clear it
+     (with-current-buffer buf (erase-buffer))
+     (setq buf (create-file-buffer "*tmux*")))
+    (shell-command "tmux save-buffer -" buf nil)
+    (switch-to-buffer buf)))
+
+(global-set-key (kbd "C-c C-t C-e") 'mh/tmux-edit)
+
+(defun mh/tmux-read ()
+  "Read into TMUX buffer"
+  (interactive)
+  (shell-command-on-region (point-min) (point-max)
+    "tmux load-buffer -"))
+
+(global-set-key (kbd "C-c C-t C-s") 'mh/tmux-read)
+
+(defun mh/tmux-paste ()
+  "Paste from TMUX buffer"
+  (interactive)
+  (shell-command "tmux save-buffer -")
+  (insert-buffer "*Shell Command Output*"))
+
+(global-set-key (kbd "C-c C-t C-y") 'mh/tmux-paste)
 
 (defun mh/tmux-copy ()
   "Copy region to TMUX"
@@ -436,31 +476,32 @@
 
 ;;;; VC
 
-(global-set-key (kbd "C-x v C-i")
-                (lambda () (interactive)
-                  (setq vc-buffer-file-name (buffer-file-name))
-                  (async-shell-command
-                   (format "git add --patch %s"
-                           (if vc-buffer-file-name
-                               vc-buffer-file-name
-                             ".")))
-                  (switch-to-buffer-other-window "*Async Shell Command*")
-                  (highlight-regexp "^+.*"  'diff-added)
-                  (highlight-regexp "^-.*+" 'diff-removed)
-                  (highlight-regexp "^@@.*" 'diff-hunk-header)))
+(defun mh/vc-register-int ()
+  (interactive)
+  (let ((bufname (buffer-file-name)))
+    (async-shell-command
+     (format "git add --patch %s"
+             (if bufname bufname "."))))
+  (switch-to-buffer-other-window "*Async Shell Command*")
+  (mh/edit-buffer-n)
+  (highlight-regexp "^+.*"  'diff-added)
+  (highlight-regexp "^-.*+" 'diff-removed)
+  (highlight-regexp "^@@.*" 'diff-hunk-header))
 
-(global-set-key (kbd "C-x v C-d")
-                (lambda () (interactive)
-                  (setq vc-buffer-file-name (buffer-file-name))
-                  (shell-command
-                   (format "git diff %s"
-                           (if vc-buffer-file-name
-                               vc-buffer-file-name
-                             ".")))
-                  (switch-to-buffer-other-window "*Shell Command Output*")
-                  (read-only-mode)
-                  (diff-mode)))
+;; (defun mh/vc-diff-work-against-staging ()
+;;   (interactive)
+;;   (let ((bufname (buffer-file-name)))
+;;     (shell-command
+;;      (format "git diff %s"
+;;              (if vc-buffer-file-name
+;;                  vc-buffer-file-name
+;;                "."))))
+;;   (switch-to-buffer-other-window "*Shell Command Output*")
+;;   (read-only-mode)
+;;   (diff-mode))
 
+(global-set-key (kbd "C-x v C-i") 'mh/vc-register-int)
+;; (global-set-key (kbd "C-x v C-d") 'mh/vc-diff-work-against-staging)
 
 ;;;; Yanking
 

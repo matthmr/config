@@ -69,138 +69,119 @@
 
 (global-set-key (kbd "C-x C-k C-w") 'insert-kbd-macro)
 
-;;; With `repeat'
-
-(defmacro mh/global-set-key--repeatable-prefix (prefix-str map msg reps unqs)
- `(progn
-    (defvar ,map (make-sparse-keymap))
-
-    ;; apply repetition
-    (dolist (rep ',reps)
-      (let* ((bind (car rep))
-             (cmd  (cadr rep))
-             (cmd* `(lambda () (interactive)
-                      (,(eval cmd))
-                      (set-transient-map ,',map t nil ,',msg))))
-         (global-set-key (kbd (concat ,prefix-str " " bind)) (eval cmd*))
-         (define-key ,map (kbd bind) (eval cmd))
-         ))
-
-    ;; apply uniques
-    (dolist (unq ',unqs)
-       (let ((bind (car unq))
-             (cmd (cadr unq)))
-         (global-set-key (kbd (concat ,prefix-str " " bind)) (eval cmd))))
-
-    (when ',reps
-      (define-key,map (kbd "<escape>")
-                  (lambda () (interactive)
-                    (internal-pop-keymap ,map
-                      'overriding-terminal-local-map)
-                    (message nil)))
-      (define-key,map (kbd "[")
-                  (lambda () (interactive)
-                    (internal-pop-keymap ,map
-                      'overriding-terminal-local-map)
-                    (message nil)))
-      )))
-
-
 ;;; With `buffer'
 
-(global-unset-key (kbd "C-x C-b"))
-
-(mh/global-set-key--repeatable-prefix "C-x C-b" mh/buffer-map "Buffer: %k"
-  (("C-n" 'switch-to-next-buffer)
-   ("C-p" 'switch-to-prev-buffer)
-   ("C-k" 'kill-current-buffer)
-   ("C-w" 'kill-buffer-and-window))
-
-  (("C-b" 'ibuffer)))
+(mh/set-mode-map-rep "mh/buffer" "C-x C-b" "Buffer: %k"
+  '(("C-n" . 'switch-to-next-buffer)
+    ("C-p" . 'switch-to-prev-buffer)
+    ("C-k" . 'kill-current-buffer)
+    ("C-w" . 'kill-buffer-and-window))
+  '(("C-b" . 'ibuffer)))
 
 (global-set-key (kbd "C-x C-M-b") 'bs-show)
 
 ;;; With `window' & `windmove'
 
-(global-set-key (kbd "C-x 2")
-                (lambda () (interactive)
-                  (select-window (split-window-below))))
-(global-set-key (kbd "C-x 3")
-                (lambda () (interactive)
-                  (select-window (split-window-right))))
+(defun mh/split-window-below () (interactive)
+  (select-window (split-window-below)))
 
-(global-unset-key (kbd "C-x C-w"))
+(defun mh/split-window-right () (interactive)
+  (select-window (split-window-right)))
 
-(mh/global-set-key--repeatable-prefix "C-x C-w" mh/window-map "Window: %k"
-  (("C-l" 'windmove-right)
-   ("C-h" 'windmove-left)
-   ("C-k" 'windmove-up)
-   ("C-j" 'windmove-down)
+(defun mh/split-root-window-below () (interactive)
+  (select-window (split-root-window-below)))
 
-   ("C-M-l" 'windmove-swap-states-right)
-   ("C-M-h" 'windmove-swap-states-left)
-   ("C-M-k" 'windmove-swap-states-up)
-   ("C-M-j" 'windmove-swap-states-down)
+(defun mh/split-root-window-right () (interactive)
+  (select-window (split-root-window-right)))
 
-   ("M-l" 'windmove-delete-right)
-   ("M-h" 'windmove-delete-left)
-   ("M-k" 'windmove-delete-up)
-   ("M-j" 'windmove-delete-down)
+;;;
 
-   ("C-s" 'window-swap-states)
-   ("C-M-s" (lambda () (interactive)
-              (mh/with-prefix -1 'window-swap-states)))
+(defun mh/enlarge-window-horizontally ()
+  (interactive)
+  (mh/with-prefix 5 'enlarge-window-horizontally))
 
-   ("C-e" (lambda () (interactive)
-           (mh/with-prefix 5 'enlarge-window-horizontally)))
-   ("C-M-e" (lambda () (interactive)
-             (mh/with-prefix 5 'shrink-window-horizontally)))
-   ("C-v" (lambda () (interactive)
-           (mh/with-prefix 3 'enlarge-window)))
-   ("C-M-v" (lambda () (interactive)
-              (mh/with-prefix 3 'shrink-window)))
-   ("C-d"   'delete-window)
-   ("C-b"   'kill-buffer-and-window))
+(defun mh/shrink-window-horizontally ()
+  (interactive)
+  (mh/with-prefix 5 'shrink-window-horizontally))
 
-  (("C-w" 'mh/new-window)
-   ("l" 'windmove-display-right)
-   ("h" 'windmove-display-left)
-   ("k" 'windmove-display-up)
-   ("j" 'windmove-display-down)
-   ("s" 'windmove-display-same-window)
-   ("t" 'windmove-display-new-tab)
-   ("f" 'windmove-display-new-frame)
-   ("-" 'minimize-window)
-   ("+" 'maximize-window)
-   ("M-J" 'split-root-window-below)
-   ("M-L" 'split-root-window-right)
-   ("M-s" 'window-toggle-side-windows)
-   ("b" 'fit-window-to-buffer)
-   ("C-M-d" 'delete-other-windows)
-   ("2" (lambda () (interactive) (select-window (split-root-window-below))))
-   ("3" (lambda () (interactive) (select-window (split-root-window-right))))))
+(defun mh/enlarge-window ()
+  (interactive)
+  (mh/with-prefix 3 'enlarge-window))
+
+(defun mh/shrink-window ()
+  (interactive)
+  (mh/with-prefix 3 'shrink-window))
+
+(global-set-key (kbd "C-x 2") 'mh/split-window-below)
+(global-set-key (kbd "C-x 3") 'mh/split-window-right)
+
+(mh/set-mode-map-rep "mh/window" "C-x C-w" "Window: %k"
+  '(("C-l" . 'windmove-right)
+    ("C-h" . 'windmove-left)
+    ("C-k" . 'windmove-up)
+    ("C-j" . 'windmove-down)
+
+    ("C-M-l" . 'windmove-swap-states-right)
+    ("C-M-h" . 'windmove-swap-states-left)
+    ("C-M-k" . 'windmove-swap-states-up)
+    ("C-M-j" . 'windmove-swap-states-down)
+
+    ("M-l" . 'windmove-delete-right)
+    ("M-h" . 'windmove-delete-left)
+    ("M-k" . 'windmove-delete-up)
+    ("M-j" . 'windmove-delete-down)
+
+    ("C-s" . 'window-swap-states)
+
+    ;; doesn't really have a 'reverse' version
+    ;; ("C-M-s" . (lambda () (interactive)
+    ;;            (mh/with-prefix -1 'window-swap-states)))
+
+    ("C-e" . 'mh/enlarge-window-horizontally)
+    ("C-M-e" . 'mh/shrink-window-horizontally)
+    ("C-v" . 'mh/enlarge-window)
+    ("C-M-v" . 'mh/shrink-window)
+
+    ("C-d" .   'delete-window)
+    ("C-b" .   'kill-buffer-and-window))
+
+  '(("C-w" . 'mh/new-window)
+    ("l" . 'windmove-display-right)
+    ("h" . 'windmove-display-left)
+    ("k" . 'windmove-display-up)
+    ("j" . 'windmove-display-down)
+    ("s" . 'windmove-display-same-window)
+    ("t" . 'windmove-display-new-tab)
+    ("f" . 'windmove-display-new-frame)
+    ("-" . 'minimize-window)
+    ("+" . 'maximize-window)
+    ("M-J" . 'split-root-window-below)
+    ("M-L" . 'split-root-window-right)
+    ("M-s" . 'window-toggle-side-windows)
+    ("b" . 'fit-window-to-buffer)
+    ("C-M-d" . 'delete-other-windows)
+    ("2" . 'mh/split-root-window-below)
+    ("3" . 'mh/split-root-window-right)))
 
 ;;; With `tab-bar'
 
-(global-unset-key (kbd "C-x C-a"))
+(mh/set-mode-map-rep "mh/tab" "C-x C-a" "Tab: %k"
+  '(("C-f" . 'tab-bar-switch-to-next-tab)
+    ("C-b" . 'tab-bar-switch-to-prev-tab)
+    ("C-k" . 'tab-bar-close-tab)
+    ("C-e" . 'tab-bar-rename-tab)
+    ("C-M-f" . 'tab-bar-move-tab)
+    ("C-d" . 'tab-bar-duplicate-tab)
+    ("C-M-b" . 'tab-bar-move-tab-backward))
 
-(mh/global-set-key--repeatable-prefix "C-x C-a" mh/tab-map "Tab: %k"
-  (("C-f" 'tab-bar-switch-to-next-tab)
-   ("C-b" 'tab-bar-switch-to-prev-tab)
-   ("C-k"   'tab-bar-close-tab)
-   ("C-M-f" 'tab-bar-move-tab)
-   ("C-M-b" 'tab-bar-move-tab-backward))
-
-  (("C-i"   'tab-bar-switch-to-recent-tab)
-   ("C-t"   'tab-bar-switch-to-tab)
-   ("i"     'tab-bar-switch-to-last-tab)
-   ("C-M-k" 'tab-bar-close-other-tabs)
-   ("C-a"   'tab-bar-new-tab)
-   ("C-M-a" 'tab-bar-new-tab-to)
-   ("C-w"   'tab-bar-move-window-to-tab)
-   ("C-j"   'tab-bar-move-tab-to-frame)
-   ("C-d"   'tab-bar-duplicate-tab)
-   ("C-e"   'tab-bar-rename-tab)))
+  '(("C-i" . 'tab-bar-switch-to-recent-tab)
+    ("C-t" . 'tab-bar-switch-to-tab)
+    ("i" . 'tab-bar-switch-to-last-tab)
+    ("C-M-k" . 'tab-bar-close-other-tabs)
+    ("C-a" . 'tab-bar-new-tab)
+    ("C-M-a" . 'tab-bar-new-tab-to)
+    ("C-w" . 'tab-bar-move-window-to-tab)
+    ("C-j" . 'tab-bar-move-tab-to-frame)))
 
 ;;; With `frame'
 
@@ -238,7 +219,7 @@
 (global-set-key (kbd "C-x C-M-d")   'delete-region)
 (global-set-key (kbd "C-x C-M-k")   'kill-whole-line)
 (global-set-key (kbd "C-x C-M-i")   'imenu)
-(global-set-key (kbd "C-x C-M-s")   'ispell-complete-word)
+(global-set-key (kbd "C-x C-M-t")   'ispell-complete-word)
 (global-set-key (kbd "C-x C-M-u")   'raise-sexp)
 (global-set-key (kbd "C-x C-M-l")   'desktop-read)
 (global-set-key (kbd "C-x C-M-r")   'desktop-save-in-desktop-dir)
@@ -246,11 +227,9 @@
 (global-set-key (kbd "C-x C-M-v")   'view-file)
 (global-set-key (kbd "C-x C-M-c")   'server-edit)
 (global-set-key (kbd "C-x C-M-j")   'mh/imenu-at-point)
-;(global-set-key (kbd "C-x C-M-w")   'mh/copy-thing-at-point) ; C-x C-M-SPC M-w
 (global-set-key (kbd "C-x C-M-w")   'write-file)
-(global-set-key (kbd "C-x C-M-q")   'mh/isearch-region)
 (global-set-key (kbd "C-x C-M-SPC") 'mh/mark-thing-at-point)
-(global-set-key (kbd "C-x C-M-t")   'mh/commit)
+(global-set-key (kbd "C-x C-M-s")   'mh/isearch-region)
 
 ;;;; Minor Modes Remaps
 

@@ -1,65 +1,22 @@
-;;; Dot Emacs
-
-(load @EMACS_BASIC@)
-
-;;; Color Themes
-
-(add-to-list 'custom-theme-load-path @EMACS_THEMES@)
-(add-to-list 'custom-theme-load-path @EMACS_BASE16@)
-
-;;; Load Paths
-
-(add-to-list 'load-path @EMACS_LISP@)
-(add-to-list 'load-path @EMACS_COMPAT@)
-
-;;; Load Some Programs
-
-(require 'zen-mode)
-(require 'fold-this)
-(require 'caps)
-(require 'rainbow-delimiters)
-(require 'move-text)
-
-;;; Custom loaders
+;;; Dot emacs
 
 (defun mh/load (sufname)
   "Loads `mh' file"
   (interactive "MLoad: ")
-  (load (format @EMACS_LOAD_PREFIX@ sufname)))
+  (load (format @EMACS_MH_LOAD@ sufname)))
 
-(defun mh/with-prefix (prefix function)
-  (cond
-   ((eq current-prefix-arg nil)
-    (setq current-prefix-arg prefix))
-   ((eq current-prefix-arg '-)
-    (setq current-prefix-arg (* -1 prefix)))
-   (t t))
-  (call-interactively function))
+;;; Load paths
 
-(mh/load "basic") ; generic configs that use my functions
-(mh/load "linux") ; system info
+(add-to-list 'load-path @EMACS_LISP@)
+@EMACS_LOAD_EXTRAS@
 
-;; load some programs with configs
-(mh/load "viper")
-(mh/load "ts")
-(mh/load "mc")
-(mh/load "company")
-;; (mh/load "ace-jump-mode")
+;;; Load some programs (with no extra configs)
 
-;;; Highlight indentation (indent guide)
+@EMACS_REQUIRE@
 
-;; (add-to-list 'prog-mode-hook #'indent-guide-mode)
+;;; Custom loaders
 
-;;; Move Text
-
-(global-set-key (kbd "C-M-p") 'move-text-up)
-(global-set-key (kbd "C-M-n") 'move-text-down)
-
-;;; Fold-this
-
-(global-set-key (kbd "M-H") 'fold-this)
-(global-set-key (kbd "M-U") 'fold-this-unfold-at-point)
-(global-set-key (kbd "C-x M-U") 'fold-this-unfold-all)
+@EMACS_LOAD@
 
 ;;; Scroll-lock
 
@@ -115,9 +72,9 @@
       (set-display-table-slot standard-display-table 'vertical-border ?│)
 
       (setq-default truncate-lines t)
-      ;; (global-hl-line-mode) ; min
+      ;; min
+      ;; (global-hl-line-mode)
 
-      (mh/load "doom-modeline")
       (mouse-wheel-mode t)
       (xterm-mouse-mode t)
       (global-whitespace-mode)

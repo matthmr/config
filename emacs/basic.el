@@ -161,6 +161,7 @@
 
 (add-hook 'prog-mode-hook
           (lambda ()
+            (git-gutter-mode)
             (setq-local
               tab-width 2
               indent-tabs-mode nil)
