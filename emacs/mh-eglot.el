@@ -32,6 +32,7 @@
 (define-key eglot-mode-map "\C-c\C-l\C-k" #'eglot-shutdown)
 (define-key eglot-mode-map "\C-c\C-l\C-\M-k" #'eglot-shutdown-all)
 (define-key eglot-mode-map "\C-c\C-l\C-l" #'eglot-reconnect)
+(define-key eglot-mode-map "\C-c\C-l\C-m" #'flymake-mode)
 
 ;;;; Flymake
 

@@ -44,7 +44,7 @@
 ;;   (interactive)
 ;;   (message nil))
 
-(defun mh/set-mode-map-rep (prefix-mode prefix-str msg reps unqs
+(defun mh/set-mode-map-rep (prefix-mode prefix-str reps unqs
                             &optional init dele)
   ;; just in case
   (global-unset-key (kbd prefix-str))
@@ -71,7 +71,8 @@
        ))
 
     ;; define the mode
-    (let ((init (if init (list init) t)))
+    (let ((init (if init (list init) t))
+          (msg (format "%s>" prefix-mode)))
       (eval
        `(defun ,mode ()
          (interactive)

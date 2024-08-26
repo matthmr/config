@@ -1,14 +1,14 @@
 (require 'indent-bars)
 
-(setq-default
-  indent-bars-color '(highlight :face-bg "brightblack")
-  indent-bars-pattern "."
-  indent-bars-starting-column 0
-  indent-bars-zigzag nil
-  indent-bars-color-by-depth nil
-  indent-bars-highlight-current-depth nil)
+(defface mh/indent-bars-face '((t :foreground "color-19"))
+  "Face for `indent-bars's bars")
 
-(add-hook (if (fboundp 'tree-sitter-hl-mode)
-              'tree-sitter-hl-mode-hook
-            'prog-mode-hook)
+;;;;
+
+(indent-bars-set-face mh/indent-bars-face)
+
+(add-hook
+  (if (fboundp 'tree-sitter-hl-mode)
+     'tree-sitter-hl-mode-hook
+     'prog-mode-hook)
   'indent-bars-mode)

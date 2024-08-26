@@ -148,7 +148,7 @@ Run the `mh/tm-up-funcs' after changing this variable during run-time")
 
 ;;;
 
-(mh/set-mode-map-rep "mh/tm" "C-x ," "Move: %k"
+(mh/set-mode-map-rep "mh/tm" "C-x ,"
   '(("SPC" . #'mh/tm-set-mark-cmd)
 
     ("," . #'mh/tm-select-this-cmd)

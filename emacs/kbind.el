@@ -71,7 +71,7 @@
 
 ;;; With `buffer'
 
-(mh/set-mode-map-rep "mh/buffer" "C-x C-b" "Buffer: %k"
+(mh/set-mode-map-rep "mh/buffer" "C-x C-b"
   '(("C-n" . 'switch-to-next-buffer)
     ("C-p" . 'switch-to-prev-buffer)
     ("C-k" . 'kill-current-buffer)
@@ -115,7 +115,7 @@
 (global-set-key (kbd "C-x 2") 'mh/split-window-below)
 (global-set-key (kbd "C-x 3") 'mh/split-window-right)
 
-(mh/set-mode-map-rep "mh/window" "C-x C-w" "Window: %k"
+(mh/set-mode-map-rep "mh/window" "C-x C-w"
   '(("C-l" . 'windmove-right)
     ("C-h" . 'windmove-left)
     ("C-k" . 'windmove-up)
@@ -165,7 +165,7 @@
 
 ;;; With `tab-bar'
 
-(mh/set-mode-map-rep "mh/tab" "C-x C-a" "Tab: %k"
+(mh/set-mode-map-rep "mh/tab" "C-x C-a"
   '(("C-f" . 'tab-bar-switch-to-next-tab)
     ("C-b" . 'tab-bar-switch-to-prev-tab)
     ("C-k" . 'tab-bar-close-tab)
