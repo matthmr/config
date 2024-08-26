@@ -84,6 +84,7 @@
   cp  = cherry-pick -n
   rs  = restore
   rt  = reset
+  rtp = reset -p
   rv  = revert
   rn  = revert -n
   tg  = tag

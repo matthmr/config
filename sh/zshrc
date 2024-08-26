@@ -26,12 +26,27 @@ case $ZSH_MODE in
     source @ZSH_EMACS_MODE@;;
 esac
 
+#### Function override
+
+preexec() {
+  ZSHTIME=$(zshtime)
+}
+
+precmd() {
+  vcs_info;
+  local _zshtime=$ZSHTIME;
+  ZSHTIME=$(zshtime);
+  ELLAPSED=$(($ZSHTIME - $_zshtime))
+}
+
+chpwd () {
+  SHORTPWD=$(shortpwd)
+}
+
 #### Git
 
 autoload -Uz vcs_info
-preexec() { ZSHTIME=$(zshtime) }
-precmd() { vcs_info; local _zshtime=$ZSHTIME; ZSHTIME=$(zshtime); ELLAPSED=$(($ZSHTIME - $_zshtime)) }
-chpwd () { SHORTPWD=$(shortpwd) }
+
 zstyle ':vcs_info:git:*' formats '@%F{reset}%B%b%F{red}'
 
 #### Prompt
