@@ -1,9 +1,11 @@
 #### term-mode
 
+# min
 super + Return
-  urxvt -e tmux new-session -A
+  urxvt new-session -A
+# min
 super + control + Return
-  urxvt -e zsh
+  urxvt
 
 #### action-mode
 

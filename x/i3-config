@@ -73,6 +73,9 @@ bindsym $mod+Shift+j move down $move_px
 bindsym $mod+Shift+k move up $move_px
 bindsym $mod+Shift+l move right $move_px
 
+bindsym $mod+Shift+u move up
+bindsym $mod+Shift+d move down
+
 # set split direction
 bindsym $mod+Control+l split horizontal
 bindsym $mod+Control+j split vertical
