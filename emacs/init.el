@@ -75,6 +75,7 @@
       ;; min
       ;; (global-hl-line-mode)
 
+      (mh/load "line")
       (mouse-wheel-mode t)
       (xterm-mouse-mode t)
       (global-whitespace-mode)
@@ -158,6 +159,7 @@
  '(kept-new-versions 50) ; min
  '(kept-old-versions 50) ; min
  '(menu-bar-mode nil)
+ '(mh/tm-use-region-as-mark 'always)
  '(mode-line-compact nil)
  '(mpc-browser-tags '(Artist Album Title Filename))
  '(org-agenda-files nil)

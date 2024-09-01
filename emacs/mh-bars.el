@@ -7,8 +7,4 @@
 
 (indent-bars-set-face mh/indent-bars-face)
 
-(add-hook
-  (if (fboundp 'tree-sitter-hl-mode)
-     'tree-sitter-hl-mode-hook
-     'prog-mode-hook)
-  'indent-bars-mode)
+(add-hook 'tree-sitter-hl-mode-hook 'indent-bars-mode)

@@ -334,14 +334,35 @@
            (message "Beginning of buffer")
            (goto-char (point-min)))))
 
+(defun mh/next-line-keep ()
+  "Go to the next line, and keep the cursor position"
+  (interactive)
+  (next-line 1)
+  (scroll-up 1))
+
+(defun mh/previous-line-keep ()
+  "Go to the previous line, and keep the cursor position"
+  (interactive)
+  (previous-line 1)
+  (scroll-down 1))
+
+(defun mh/scroll-right ()
+  (interactive)
+  (mh/with-prefix 15 'scroll-right))
+
+(defun mh/scroll-left ()
+  (interactive)
+  (mh/with-prefix 15 'scroll-left))
+
+(global-set-key (kbd "C-x <") #'mh/scroll-right)
+(global-set-key (kbd "C-x >") #'mh/scroll-left)
+
+(global-set-key (kbd "M-K") 'mh/previous-line-keep)
+(global-set-key (kbd "M-J") 'mh/next-line-keep)
+
 (global-set-key (kbd "C-v")   'mh/scroll-up)
 (global-set-key (kbd "M-v")   'mh/scroll-down)
 (global-set-key (kbd "C-M-v") 'scroll-lock-mode)
-
-(global-set-key (kbd "C-x <")   (lambda () (interactive)
-                                  (mh/with-prefix 15 'scroll-right)))
-(global-set-key (kbd "C-x >")   (lambda () (interactive)
-                                  (mh/with-prefix 15 'scroll-left)))
 
 ;;;; Up-to-Char
 

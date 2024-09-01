@@ -12,9 +12,10 @@
       eglot-events-buffer-size 100000
       eglot-highlight-symbol-face '((t (:inherit underline)))
       eglot-menu-string ""
-      eglot-prefer-plaintext t)
-      ;; eglot-stay-out-of '("flymake")
-      ;; eglot-ignored-server-capabilities '(:inlayHintProvider)
+      eglot-prefer-plaintext t
+      eglot-stay-out-of '("flymake")
+      eglot-ignored-server-capabilities '(:inlayHintProvider)
+)
 
 (when mh/eglot-markdown-doc
   (require 'markdown-mode)
@@ -42,6 +43,6 @@
 
 ;;;; Call
 
-(add-hook 'eglot-managed-mode-hook #'eglot-inlay-hints-mode)
+;; (add-hook 'eglot-managed-mode-hook #'eglot-inlay-hints-mode)
 
 (call-interactively #'eglot)

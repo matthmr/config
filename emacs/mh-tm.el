@@ -31,12 +31,12 @@
 
 (require 'tree-sitter)
 
-(defvar mh/tm-use-region-as-mark nil
+(defcustom mh/tm-use-region-as-mark nil
   "Descriminant for whether `tm' should interpret the region being active as
 acting like a mark (t or nil), or whether calling the mode should start with the
 mark ('always)")
 
-(defvar mh/tm-use-named? t
+(defcustom mh/tm-use-named? t
   "Flag for whether `tm' should call the `named' variant of tree-sitters
 functions. This variant makes movement more akin to an AST, instead of a CST.
 Run the `mh/tm-up-funcs' after changing this variable during run-time")
