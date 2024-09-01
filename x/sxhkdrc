@@ -2,10 +2,10 @@
 
 # min
 super + Return
-  urxvt new-session -A
+  urxvt -e tmux new-session -A
 # min
 super + control + Return
-  urxvt
+  urxvt -e zsh
 
 #### action-mode
 

@@ -30,7 +30,9 @@ format-foreground= ${colors/base16.base07}
 
 [module/mh-status]
 type = custom/script
+# min
 click-middle = "urxvt -e tmux new -A"
+# min
 click-right = "urxvt -e tmux-nokbd"
 format-background = ${colors/base16.base00}
 format-foreground = ${colors/base16.base07}
