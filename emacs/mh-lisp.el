@@ -52,9 +52,9 @@
   (interactive)
 
   (if thing
-    (setq thing (format "/home/p/config/emacs/mh-%s" thing))
+    (setq thing (format @MH_LISP_FROM_LISP@ thing))
     (setq thing
-      (read-file-name "Load: " "/home/p/config/emacs/" nil nil nil
+      (read-file-name "Load: " @MH_LIST_FROM_INTERACTIVE@ nil nil nil
         (lambda (e) (string-match "mh.*\.el$" e)))
       ))
 
