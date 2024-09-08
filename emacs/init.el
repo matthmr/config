@@ -72,13 +72,14 @@
       (set-display-table-slot standard-display-table 'vertical-border ?│)
 
       (setq-default truncate-lines t)
+      (mh/load "line")
+      (global-whitespace-mode)
+
       ;; min
       ;; (global-hl-line-mode)
+      ;; (mouse-wheel-mode t)
+      ;; (xterm-mouse-mode t)
 
-      (mh/load "line")
-      (mouse-wheel-mode t)
-      (xterm-mouse-mode t)
-      (global-whitespace-mode)
       (let ((base16-theme-256-color-source 'base16-shell))
         (load-theme 'base16-shell t))
       )))
