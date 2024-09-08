@@ -3,7 +3,7 @@
 ;; Copyright (C) 2024 mH
 
 ;; Author: mH <github.com/matthmr>
-;; Version: 1.0.0
+;; Version: 1.1.0
 
 ;; Permission is hereby granted, free of charge, to any person
 ;; obtaining a copy of this software and associated documentation
@@ -38,6 +38,59 @@
    (t t))
   (call-interactively function))
 
+;;;; Loading
+
+(defun mh/feat-state (feat)
+  "Return the state symbol for `feat'"
+  (intern (format "%s--state" feat)))
+
+(defvar mh/feats nil
+  "List of `mh' features")
+
+(defun mh/load (&optional thing)
+  "Loads `mh' file"
+  (interactive)
+
+  (if thing
+    (setq thing (format "/home/p/config/emacs/mh-%s" thing))
+    (setq thing
+      (read-file-name "Load: " "/home/p/config/emacs/" nil nil nil
+        (lambda (e) (string-match "mh.*\.el$" e)))
+      ))
+
+  (load thing))
+
+(defun mh/toggle (&optional thing)
+  "Toggles `mh' feature"
+  (interactive)
+
+  (unless thing
+    (setq thing (completing-read "Toggle: " mh/feats)))
+
+  (let ((feat (assoc (intern-soft thing) mh/feats)))
+    (if feat
+        (let* ((feat-fun (cdr feat))
+               (feat-state (mh/feat-state feat-fun)))
+          ;; my eyes!
+          (funcall feat-fun
+                   (eval `(setq ,feat-state (not ,feat-state)))))
+      (message "mh/feature `%s' does not exist, or is not set" thing))
+    ))
+
+(defun mh/provide (mode feat &optional inert)
+  "Provide `feat' as an `mh' feature for `mode'. `feat' should be a function
+   that takes one argument that when set to `t' should run initialization code,
+   and to `nil' unloading code"
+  (push (cons mode feat) mh/feats)
+
+  ;; create a variable with the same name as `mode' suffixed by `--state'
+  (let ((feat-state (mh/feat-state feat))
+        (default (not inert)))
+    (eval `(setq ,feat-state ,default))
+    (funcall feat default)
+    ))
+
+;;;; Keymap
 
 ;; TODO: we could use this instead of `keyboard-quit'
 ;; (defun mh/rep-clean-up ()
@@ -107,3 +160,20 @@
          (define-key ,map (kbd bind-key) (eval bind-cmd))
          )))
   ))
+
+;;;; Cursor
+
+(defun mh/cursor-box ()
+  (interactive)
+  (send-string-to-terminal "\e[1 q"))
+(global-set-key (kbd "C-x C-M-m 1") #'mh/cursor-box)
+
+(defun mh/cursor-bar ()
+  (interactive)
+  (send-string-to-terminal "\e[5 q"))
+(global-set-key (kbd "C-x C-M-m 2") #'mh/cursor-bar)
+
+(defun mh/cursor-under ()
+  (interactive)
+  (send-string-to-terminal "\e[3 q"))
+(global-set-key (kbd "C-x C-M-m 3") #'mh/cursor-under)

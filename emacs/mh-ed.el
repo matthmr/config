@@ -3,7 +3,7 @@
 ;; Copyright (C) 2023-2024 mH
 
 ;; Author: mH <github.com/matthmr>
-;; Version: 2.0.0
+;; Version: 2.1.0
 
 ;; Permission is hereby granted, free of charge, to any person
 ;; obtaining a copy of this software and associated documentation
@@ -31,52 +31,50 @@
 ;;  VI bindings, but something close. The main layout of these is that most of
 ;;  `self-insert-command' keys get some other function
 
-(defvar-local ed-current-mode 'emacs)
-
 (defun mh/ed-kill-region-then-exit ()
   "Call `kill-region' interactively, then exit `ed-mode'"
   (interactive)
   (call-interactively #'kill-region)
-  (ed-mode -1))
+  (mh/ed-toggle))
 
 (defun mh/ed-delete-char-then-exit ()
   "Call `delete-char' interactively, then exit `ed-mode'"
   (interactive)
   (call-interactively #'delete-char)
-  (ed-mode -1))
+  (mh/ed-toggle))
 
 (defun mh/ed-delete-up-to-char-then-exit ()
   "Kill `zap-up-to-char' interactively, then exit `ed-mode'"
   (interactive)
   (call-interactively #'zap-up-to-char)
-  (ed-mode -1))
+  (mh/ed-toggle))
 
 (defun mh/ed-overwrite-mode-then-exit ()
   "Kill `overwrite-mode' interactively, then exit `ed-mode'"
   (interactive)
   (call-interactively #'overwrite-mode)
-  (ed-mode -1))
+  (mh/ed-toggle))
 
 (defun mh/ed-open-below-then-exit ()
   "Open a line above, then exit `ed-mode'"
   (interactive)
   (call-interactively #'move-end-of-line)
   (insert "\n")
-  (ed-mode -1))
+  (mh/ed-toggle))
 
 (defun mh/ed-open-above-then-exit ()
   "Open a line below, then exit `ed-mode'"
   (interactive)
   (call-interactively #'move-beginning-of-line)
   (call-interactively #'split-line)
-  (ed-mode -1))
+  (mh/ed-toggle))
 
 (defun mh/ed-replace-char ()
   "Replace character, and keep the mode"
   (interactive)
   (call-interactively #'delete-char)
 
-  (ed-mode -1)
+  (mh/ed-toggle)
 
   ;; assert this is not
   (let ((key (read-key-sequence "r> ")))
@@ -85,10 +83,26 @@
         (insert char))
     )
 
-  (ed-mode 1))
+  (mh/ed-toggle))
+
+(defcustom mh/ed-on nil
+  "Call this function when `ed-mode' is turned on")
+
+(defcustom mh/ed-off nil
+  "Call this function when `ed-mode' is turned off")
+
+(defun mh/ed-cur (load)
+  (if load
+    (setq mh/ed-on #'mh/cursor-box
+          mh/ed-off #'mh/cursor-bar)
+    (progn
+      (setq mh/ed-on nil mh/ed-off nil)
+      (mh/cursor-box))))
+
+(mh/provide 'ed-cur #'mh/ed-cur)
 
 ;; Ignore any self-inserting keybindings that are not bound to cursor movements
-(defvar ed-mode-map
+(defvar mh/ed-map
   (let ((map (make-sparse-keymap)))
     (suppress-keymap map)
 
@@ -163,7 +177,7 @@
 
     ;; the only map that breaks the rules is the `describe-keymap' one
     (define-key map "\C-xm" (lambda () (interactive)
-                              (describe-keymap 'ed-mode-map)))
+                              (describe-keymap 'mh/ed-mode-map)))
     map))
 
 (global-set-key (kbd "M-]") #'mh/ed-toggle)
@@ -171,11 +185,14 @@
 
 (defun mh/ed-toggle ()
   (interactive)
-  (ed-mode 'toggle))
+  (let ((call (if mh/ed mh/ed-off mh/ed-on)))
+    (when call
+      (funcall call)))
+  (mh/ed 'toggle))
 
 ;;;; Minor Mode
 
-(define-minor-mode ed-mode
+(define-minor-mode mh/ed
   "This mode will add some VI-like bindings"
   :interactive nil
-  (setq-local ed-current-mode (if ed-mode 'ed 'emacs)))
+  :keymap mh/ed-map)
