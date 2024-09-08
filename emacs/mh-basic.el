@@ -49,18 +49,6 @@
 
 (setq completion-in-region-function #'mh/minibuffer-completion)
 
-;;;; Mark
-
-(defun mh/pop-to-mark-forward ()
-  "Go back to the last popped mark"
-  (interactive)
-  (when mark-ring
-    (setq mark-ring (cons (copy-marker (mark-marker)) mark-ring))
-    (set-marker (mark-marker) (car (last mark-ring)) (current-buffer))
-    (when (null (mark t)) (ding))
-    (setq mark-ring (nbutlast mark-ring))
-    (goto-char (marker-position (car (last mark-ring))))) )
-
 ;;;; Whitespace
 
 (defun mh/whitespace-setup-display ()

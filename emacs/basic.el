@@ -157,9 +157,7 @@
             (display-line-numbers-mode -1)
             (display-fill-column-indicator-mode 1)
             (auto-fill-mode 1)
-            (setq-local show-trailing-whitespace t)
-            (define-key diff-mode-map
-                        (kbd "C-c TAB") 'diff-split-hunk)))
+            (setq-local show-trailing-whitespace t)))
 
 ;;; Prog mode
 

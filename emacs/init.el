@@ -1,9 +1,6 @@
 ;;; Dot emacs
 
-(defun mh/load (sufname)
-  "Loads `mh' file"
-  (interactive "MLoad: ")
-  (load (format @EMACS_MH_LOAD@ sufname)))
+(load @EMACS_MH_LISP@)
 
 ;;; Load paths
 
@@ -33,9 +30,9 @@
 (add-to-list 'auto-mode-alist
              '("\\.md\\'" . markdown-mode))
 
-(autoload 'gfm-mode "markdown-mode"
-  "Major mode for editing GitHub Flavored Markdown files" t)
-(add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
+;; (autoload 'gfm-mode "markdown-mode"
+;;   "Major mode for editing GitHub Flavored Markdown files" t)
+;; (add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
 
 ;;; TTY vs PTS
 
@@ -157,9 +154,12 @@
  '(initial-scratch-message mh/initial-scratch-message)
  '(isearch-lazy-count t)
  '(ispell-alternate-dictionary @EMACS_ENGLISH_DICT@)
- '(kept-new-versions 50) ; min
- '(kept-old-versions 50) ; min
+  ; min
+ '(kept-new-versions 50)
+  ; min
+ '(kept-old-versions 50)
  '(menu-bar-mode nil)
+ '(mh/eglot-markdown-doc nil)
  '(mh/tm-use-region-as-mark 'always)
  '(mode-line-compact nil)
  '(mpc-browser-tags '(Artist Album Title Filename))

@@ -1,5 +1,10 @@
 ;;;; Minor Modes Remaps
 
+;;; Diff
+
+(with-eval-after-load "diff"
+  (define-key diff-mode-map (kbd "C-c TAB") 'diff-split-hunk))
+
 ;;; Icomplete
 
 (setq icomplete-minibuffer-map
@@ -232,7 +237,7 @@
 ;;;; Toggle *
 
 ;;; Toggle Input Method
-(global-set-key (kbd "C-x C-M-m C-M-i") 'toggle-input-method)
+;; (global-set-key (kbd "C-x C-M-m C-M-i") 'toggle-input-method)
 
 ;;; Toggle Whitespace
 (defun mh/toggle-ws ()
@@ -262,19 +267,15 @@
 
 (global-set-key (kbd "C-x C-M-m C-M-s") 'mh/toggle-trunc)
 
+;;; Toggle Xterm*
+(global-set-key (kbd "C-x C-M-m C-M-p") #'xterm-mouse-mode)
+(global-set-key (kbd "C-x C-M-m C-M-o") #'mouse-wheel-mode)
+
 ;;; Toggle Line Numbers
 (global-set-key (kbd "C-x C-M-m C-M-l") 'display-line-numbers-mode)
 
 ;;; Toggle Fill Column
 (global-set-key (kbd "C-x C-M-m C-M-c") 'display-fill-column-indicator-mode)
-
-;;; Toggle Misc
-
-(global-set-key (kbd "C-x C-M-m C-M-z") 'mh/toggle-zen)
-
-(defun mh/toggle-zen ()
-  (interactive)
-  (zen-mode 'toggle))
 
 ;;; Toggle All
 (defun mh/edit-buffer-y ()
@@ -293,22 +294,6 @@
 
 (global-set-key (kbd "C-x C-M-m C-M-m") 'mh/edit-buffer-y)
 (global-set-key (kbd "C-x C-M-m C-M-n") 'mh/edit-buffer-n)
-
-;; (defun mh/toggle-viper ()
-;;   (interactive)
-;;   (when (boundp 'viper-mode)
-;;     (if viper-mode
-;;         (progn
-;;           (viper-go-away))
-;;       (progn
-;;         (viper-mode)
-;;         (delq 'viper-mode-string global-mode-string)))))
-;; (defun mh/toggle-cxm ()
-;;   (interactive)
-;;   (when (boundp 'cxm-mode)
-;;     (cxm-mode)))
-;; (global-set-key (kbd "C-x C-M-m C-M-v") 'mh/toggle-viper)
-;; (global-set-key (kbd "C-x C-M-m C-M-m") 'mh/toggle-cxm)
 
 ;;;; Scrolling
 
@@ -425,7 +410,7 @@
    (region-beginning) (region-end)
    "xclip -selection clipboard -i" nil nil))
 
-(global-set-key (kbd "C-c C-x M-w") 'mh/xclip-copy)
+(global-set-key (kbd "C-c SPC x M-w") 'mh/xclip-copy)
 
 (defun mh/xclip-read ()
   "Read to clipboard"
@@ -434,7 +419,7 @@
     (save-buffer))
   (shell-command "xclip -selection clipboard -i < /tmp/clipboard") nil nil)
 
-(global-set-key (kbd "C-c C-x C-s") 'mh/xclip-read)
+(global-set-key (kbd "C-c SPC x C-s") 'mh/xclip-read)
 
 (defun mh/xclip-paste ()
   "Paste XCLIP's clipboard"
@@ -442,7 +427,7 @@
   (shell-command "xclip -selection clipboard -o")
   (insert-buffer "*Shell Command Output*"))
 
-(global-set-key (kbd "C-c C-x C-y") 'mh/xclip-paste)
+(global-set-key (kbd "C-c SPC x C-y") 'mh/xclip-paste)
 
 (defun mh/xclip-edit ()
   "Edit XCLIP's clipboard"
@@ -452,7 +437,7 @@
   (find-file "/tmp/clipboard")
   (revert-buffer-quick))
 
-(global-set-key (kbd "C-c C-x C-e") 'mh/xclip-edit)
+(global-set-key (kbd "C-c SPC x C-e") 'mh/xclip-edit)
 
 ;;;
 
@@ -467,7 +452,7 @@
     (shell-command "tmux save-buffer -" buf nil)
     (switch-to-buffer buf)))
 
-(global-set-key (kbd "C-c C-t C-e") 'mh/tmux-edit)
+(global-set-key (kbd "C-c SPC t C-e") 'mh/tmux-edit)
 
 (defun mh/tmux-read ()
   "Read into TMUX buffer"
@@ -475,7 +460,7 @@
   (shell-command-on-region (point-min) (point-max)
     "tmux load-buffer -"))
 
-(global-set-key (kbd "C-c C-t C-s") 'mh/tmux-read)
+(global-set-key (kbd "C-c SPC t C-s") 'mh/tmux-read)
 
 (defun mh/tmux-paste ()
   "Paste from TMUX buffer"
@@ -483,7 +468,7 @@
   (shell-command "tmux save-buffer -")
   (insert-buffer "*Shell Command Output*"))
 
-(global-set-key (kbd "C-c C-t C-y") 'mh/tmux-paste)
+(global-set-key (kbd "C-c SPC t C-y") 'mh/tmux-paste)
 
 (defun mh/tmux-copy ()
   "Copy region to TMUX"
@@ -493,7 +478,7 @@
    (region-beginning) (region-end)
    "tmux load-buffer -" nil nil))
 
-(global-set-key (kbd "C-c C-t M-w") 'mh/tmux-copy)
+(global-set-key (kbd "C-c SPC t M-w") 'mh/tmux-copy)
 
 ;;;; VC
 
@@ -535,3 +520,17 @@
 
 (global-set-key (kbd "C-y")   'mh/yank)
 (global-set-key (kbd "C-M-y") 'yank)
+
+;;;; Movement
+
+(defun mh/pop-to-mark-forward ()
+  "Go back to the last popped mark"
+  (interactive)
+  (when mark-ring
+    (setq mark-ring (cons (copy-marker (mark-marker)) mark-ring))
+    (set-marker (mark-marker) (car (last mark-ring)) (current-buffer))
+    (when (null (mark t)) (ding))
+    (setq mark-ring (nbutlast mark-ring))
+    (goto-char (marker-position (car (last mark-ring))))))
+
+(global-set-key (kbd "C-c C-SPC") #'mh/pop-to-mark-forward)
