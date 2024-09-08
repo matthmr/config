@@ -22,8 +22,6 @@
 (global-set-key (kbd "C-x M-;")   'comment-set-column)
 (global-set-key (kbd "C-x x C-n") 'clone-indirect-buffer)
 
-(global-set-key (kbd "C-M-c")     'caps-mode)
-
 (global-set-key (kbd "C-h")       'delete-backward-char)
 (global-set-key (kbd "M-h")       'backward-kill-word)
 (global-set-key (kbd "C-M-h")     'backward-kill-sexp)
@@ -115,6 +113,7 @@
 (global-set-key (kbd "C-x 2") 'mh/split-window-below)
 (global-set-key (kbd "C-x 3") 'mh/split-window-right)
 
+;; TODO: add a swap that keeps the cursor in the initial 'swappee' window
 (mh/set-mode-map-rep "mh/window" "C-x C-w"
   '(("C-l" . 'windmove-right)
     ("C-h" . 'windmove-left)
