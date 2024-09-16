@@ -91,6 +91,7 @@
   (mh/ep-with-buffer (eldoc--format-doc-buffer docs))
   (add-hook 'post-command-hook #'mh/ep-kill))
 
+;; TODO: not needed?
 ;; From `emacs-lisp/eldoc.el' (`turn-on-eldoc-mode')
 (defun mh/ep-turn-on-eldoc-mode ()
   "Turn on `eldoc-mode' if the buffer has ElDoc support enabled.
@@ -101,7 +102,8 @@ See `eldoc-documentation-strategy' for more detail."
 (defun mh/ep-setup (display)
   "Setup a popon frontend to work directly with `eldoc'"
   (push display eldoc-display-functions)
-  (defalias 'turn-on-eldoc-mode #'mh/turn-on-eldoc-mode))
+  ;; (defalias 'turn-on-eldoc-mode #'mh/turn-on-eldoc-mode)
+  )
 
 ;;;; Main
 

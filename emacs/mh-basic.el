@@ -52,9 +52,9 @@
 ;;;; Whitespace
 
 (defun mh/whitespace-setup-display ()
-  "Sets up the display table `table' with the value of `mh/display'"
+  "Sets up the display table `table' with the value of `mh/display-table'"
   (when-let ((table (or whitespace-display-table buffer-display-table)))
-    (dolist (e mh/display)
+    (dolist (e mh/display-table)
       (set-display-table-slot table (car e) (cdr e)))))
 
 (with-eval-after-load "whitespace"
@@ -441,6 +441,26 @@ or a symbol, see `completion-pcm--merge-completions'."
   (interactive)
   (let ((inhibit-read-only t))
     (erase-buffer)))
+
+;;;; Hooks
+
+(defun mh/desktop-save (desktop-dirname)
+  (shell-command (format @EMACS_DESKTOP_SAVE_FMT@
+                   desktop-dirname desktop-dirname)))
+
+(defun mh/desktop-read (desktop-dirname)
+  (shell-command (format "ls -l %s" desktop-dirname) "*desktop*")
+  (switch-to-buffer "*desktop*")
+  (setq desktop-base-file-name (read-from-minibuffer "Desktop filename: "))
+
+  (desktop-read desktop-dirname)
+  ; next saves are done in `desktop'
+  (setq desktop-base-file-name "desktop"))
+
+;; (add-hook 'kill-emacs-hook
+;;   (lambda () (interactive) (mh/desktop-save @EMACS_DESKTOP@)))
+;; (add-hook 'desktop-no-desktop-file-hook
+;;   (lambda () (interactive) (mh/desktop-read @EMACS_DESKTOP@)))
 
 ;;;; Theme
 

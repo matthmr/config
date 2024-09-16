@@ -27,21 +27,20 @@
 
 (autoload 'markdown-mode "markdown-mode"
   "Major mode for editing Markdown files" t)
-(add-to-list 'auto-mode-alist
-             '("\\.md\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
-;; (autoload 'gfm-mode "markdown-mode"
-;;   "Major mode for editing GitHub Flavored Markdown files" t)
-;; (add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
+(autoload 'gfm-mode "markdown-mode"
+  "Major mode for editing GitHub Flavored Markdown files" t)
+(add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
 
 ;;; TTY vs PTS
 
-(defvar mh/display
+(defvar mh/display-table
   `((truncation . ?…)
-    (wrap . ?↩)
-    (selective-display . ,(string-to-vector "↷"))
+    (wrap . ?↲)
+    (selective-display . ,(string-to-vector "↓"))
     (vertical-border . ?│))
-  "Display table")
+   "Display table alist")
 
 (let ((env/session (getenv "SESSION")))
   (if (or (not env/session)
@@ -49,26 +48,20 @@
           (string= env/session "shell"))
       ;; display time, and use visual line
       (progn
-        (setq
-          viper-emacs-state-id " E> "
-          viper-replace-state-id " R> "
-          viper-insert-state-id " I> "
-          viper-vi-state-id " V> ")
-        (setq-default mode-line-format
-	            (cons '("%e" mode-line-front-space viper-mode-string)
-                    (cddr mode-line-format)))
+        (setf (cdar mode-line-format)
+              (cons '(:eval (mh/ed-string)) (cdar mode-line-format)))
         (setq-default Man-switches "-Tascii") ;; cannot render UTF-8
         (setq-default truncate-lines nil))
     ;; some character which TTYs can't display properly, xterm-mouse-mode,
     ;; themes
     (progn
-      (set-display-table-slot standard-display-table 'truncation ?…)
-      (set-display-table-slot standard-display-table 'wrap ?↩)
-      (set-display-table-slot standard-display-table 'selective-display
-                                                       (string-to-vector "↷"))
-      (set-display-table-slot standard-display-table 'vertical-border ?│)
-
       (setq-default truncate-lines t)
+
+      (dolist (pair mh/display-table)
+        (let ((attr (car pair))
+              (val (cdr pair)))
+          (set-display-table-slot standard-display-table attr val)))
+
       (mh/load "line")
       (global-whitespace-mode)
 

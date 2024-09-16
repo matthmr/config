@@ -85,9 +85,10 @@
 
   ;; create a variable with the same name as `mode' suffixed by `--state'
   (let ((feat-state (mh/feat-state feat))
-        (default (not inert)))
-    (eval `(setq ,feat-state ,default))
-    (funcall feat default)
+        (active (not inert)))
+    (eval `(setq ,feat-state ,active))
+    (when active
+      (funcall feat active))
     ))
 
 ;;;; Keymap

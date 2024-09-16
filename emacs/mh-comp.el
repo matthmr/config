@@ -2,9 +2,8 @@
 
 (require 'company)
 
-;; swap them
-(global-set-key (kbd "C-x C-_") 'completion-at-point)
-(global-set-key (kbd "C-M-i")   'company-complete)
+(global-set-key (kbd "C-M-q") 'completion-at-point)
+(global-set-key (kbd "C-M-i") 'company-complete)
 
 (setq-default
   company-backends

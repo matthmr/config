@@ -3,12 +3,15 @@ EMACS?=emacs
 EMACS_SOURCES_ELC=emacs/basic.elc emacs/kbind.elc emacs/macros.elc \
                   emacs/mh-basic.elc emacs/mh-kbind.elc emacs/mh-viper.elc \
                   emacs/mh-ediff-merge.elc emacs/mh-tm.elc emacs/mh-lisp.elc \
-                  emacs/mh-ed.elc
+                  emacs/mh-ed.elc emacs/mh-ep.elc
 
 emacs/mh-ediff-merge.elc: emacs/mh-ediff-merge.el
 	@echo "[ .. ] Compiling $?"
 	$(EMACS) --batch --exec "(byte-compile-file \"$?\")"
 emacs/mh-tm.elc: emacs/mh-tm.el
+	@echo "[ .. ] Compiling $?"
+	$(EMACS) --batch --exec "(byte-compile-file \"$?\")"
+emacs/mh-ep.elc: emacs/mh-ep.el
 	@echo "[ .. ] Compiling $?"
 	$(EMACS) --batch --exec "(byte-compile-file \"$?\")"
 emacs/mh-ed.elc: emacs/mh-ed.el

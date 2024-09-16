@@ -3,7 +3,7 @@
 ;; Copyright (C) 2023-2024 mH
 
 ;; Author: mH <github.com/matthmr>
-;; Version: 2.1.0
+;; Version: 2.1.1
 
 ;; Permission is hereby granted, free of charge, to any person
 ;; obtaining a copy of this software and associated documentation
@@ -86,20 +86,22 @@
   (mh/ed-toggle))
 
 (defcustom mh/ed-on nil
-  "Call this function when `ed-mode' is turned on")
+  "List of functions to call when `ed-mode' is turned on")
 
 (defcustom mh/ed-off nil
-  "Call this function when `ed-mode' is turned off")
+  "List of functions call when `ed-mode' is turned off")
 
 (defun mh/ed-cur (load)
   (if load
-    (setq mh/ed-on #'mh/cursor-box
-          mh/ed-off #'mh/cursor-bar)
+    (push mh/ed-on #'mh/cursor-box)
+    (push mh/ed-off #'mh/cursor-bar)
     (progn
-      (setq mh/ed-on nil mh/ed-off nil)
+      (pop mh/ed-on)
+      (pop mh/ed-off)
       (mh/cursor-box))))
 
-(mh/provide 'ed-cur #'mh/ed-cur)
+; min
+(mh/provide 'ed-cur #'mh/ed-cur t)
 
 ;; Ignore any self-inserting keybindings that are not bound to cursor movements
 (defvar mh/ed-map
@@ -177,7 +179,7 @@
 
     ;; the only map that breaks the rules is the `describe-keymap' one
     (define-key map "\C-xm" (lambda () (interactive)
-                              (describe-keymap 'mh/ed-mode-map)))
+                              (describe-keymap 'mh/ed-map)))
     map))
 
 (global-set-key (kbd "M-]") #'mh/ed-toggle)
@@ -185,10 +187,14 @@
 
 (defun mh/ed-toggle ()
   (interactive)
-  (let ((call (if mh/ed mh/ed-off mh/ed-on)))
-    (when call
-      (funcall call)))
-  (mh/ed 'toggle))
+  (let ((funs (if mh/ed mh/ed-off mh/ed-on)))
+    (dolist (fun funs)
+      (funcall fun))
+  (mh/ed 'toggle)))
+
+(defun mh/ed-string ()
+  "Displays the string state of `mh/ed'. `=' for ed on, `*' for ed off"
+  (if mh/ed " = " " * "))
 
 ;;;; Minor Mode
 

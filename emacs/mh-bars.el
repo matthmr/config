@@ -20,4 +20,5 @@
           (not-modified)))
       ))
 
-(mh/provide 'bars #'mh/bars)
+; min
+(mh/provide 'bars #'mh/bars t)

@@ -190,26 +190,6 @@
   (define-key mpc-mode-map "=" (lambda () (interactive) (mh/mpc-vol "+2")))
   (define-key mpc-mode-map "\C-\M-@" #'mpc-play-at-point))
 
-;;;; Hooks
-
-(defun mh/desktop-save (desktop-dirname)
-  (shell-command (format @EMACS_DESKTOP_SAVE_FMT@
-                   desktop-dirname desktop-dirname)))
-
-(defun mh/desktop-read (desktop-dirname)
-  (shell-command (format "ls -l %s" desktop-dirname) "*desktop*")
-  (switch-to-buffer "*desktop*")
-  (setq desktop-base-file-name (read-from-minibuffer "Desktop filename: "))
-
-  (desktop-read desktop-dirname)
-  ; next saves are done in `desktop'
-  (setq desktop-base-file-name "desktop"))
-
-(add-hook 'kill-emacs-hook
-  (lambda () (interactive) (mh/desktop-save @EMACS_DESKTOP@)))
-(add-hook 'desktop-no-desktop-file-hook
-  (lambda () (interactive) (mh/desktop-read @EMACS_DESKTOP@)))
-
 ;;;; Daemon
 
 (defun mh/confirm-suspend ()
