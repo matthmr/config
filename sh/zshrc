@@ -9,7 +9,8 @@ ZSH_MODE='vi'
 
 case $TERM in
   'dumb'|'') ;;
-  *) tabs 2 2>/dev/null ;;
+  # min
+  # *) tabs 2 2>/dev/null ;;
 esac
 
 setopt AUTOCD AUTOPUSHD NOBEEP PROMPT_SUBST HIST_IGNORE_SPACE
