@@ -1,47 +1,32 @@
+emacs/basic.elc: emacs/basic.el
+emacs/kbind.elc: emacs/kbind.el
+emacs/macros.elc: emacs/macros.el
+emacs/mh-basic.elc: emacs/mh-basic.el
+emacs/mh-kbind.elc: emacs/mh-kbind.el
+emacs/mh-viper.elc: emacs/mh-viper.el
+emacs/mh-ediff-merge.elc: emacs/mh-ediff-merge.el
+emacs/mh-tm.elc: emacs/mh-tm.el
+emacs/mh-lisp.elc: emacs/mh-lisp.el
+emacs/mh-ed.elc: emacs/mh-ed.el
+emacs/mh-ep.elc: emacs/mh-ep.el
+
 EMACS?=emacs
 
-EMACS_SOURCES_ELC=emacs/basic.elc emacs/kbind.elc emacs/macros.elc \
-                  emacs/mh-basic.elc emacs/mh-kbind.elc emacs/mh-viper.elc \
-                  emacs/mh-ediff-merge.elc emacs/mh-tm.elc emacs/mh-lisp.elc \
-                  emacs/mh-ed.elc emacs/mh-ep.elc
+EMACS_COMP:=emacs/basic.elc emacs/kbind.elc emacs/macros.elc \
+            emacs/mh-basic.elc emacs/mh-kbind.elc emacs/mh-viper.elc \
+            emacs/mh-ediff-merge.elc emacs/mh-tm.elc emacs/mh-lisp.elc \
+            emacs/mh-ed.elc emacs/mh-ep.elc
 
-emacs/mh-ediff-merge.elc: emacs/mh-ediff-merge.el
-	@echo "[ .. ] Compiling $?"
-	$(EMACS) --batch --exec "(byte-compile-file \"$?\")"
-emacs/mh-tm.elc: emacs/mh-tm.el
-	@echo "[ .. ] Compiling $?"
-	$(EMACS) --batch --exec "(byte-compile-file \"$?\")"
-emacs/mh-ep.elc: emacs/mh-ep.el
-	@echo "[ .. ] Compiling $?"
-	$(EMACS) --batch --exec "(byte-compile-file \"$?\")"
-emacs/mh-ed.elc: emacs/mh-ed.el
-	@echo "[ .. ] Compiling $?"
-	$(EMACS) --batch --exec "(byte-compile-file \"$?\")"
-emacs/mh-lisp.elc: emacs/mh-lisp.el
-	@echo "[ .. ] Compiling $?"
-	$(EMACS) --batch --exec "(byte-compile-file \"$?\")"
-emacs/basic.elc: emacs/basic.el
-	@echo "[ .. ] Compiling $?"
-	$(EMACS) --batch --exec "(byte-compile-file \"$?\")"
-emacs/kbind.elc: emacs/kbind.el
-	@echo "[ .. ] Compiling $?"
-	$(EMACS) --batch --exec "(byte-compile-file \"$?\")"
-emacs/macros.elc: emacs/macros.el
-	@echo "[ .. ] Compiling $?"
-	$(EMACS) --batch --exec "(byte-compile-file \"$?\")"
-emacs/mh-basic.elc: emacs/mh-basic.el
-	@echo "[ .. ] Compiling $?"
-	$(EMACS) --batch --exec "(byte-compile-file \"$?\")"
-emacs/mh-kbind.elc: emacs/mh-kbind.el
-	@echo "[ .. ] Compiling $?"
-	$(EMACS) --batch --exec "(byte-compile-file \"$?\")"
-emacs/mh-viper.elc: emacs/mh-viper.el
+####
+
+$(EMACS_COMP):
 	@echo "[ .. ] Compiling $?"
 	$(EMACS) --batch --exec "(byte-compile-file \"$?\")"
 
 clean:
-	rm -rfv $(EMACS_SOURCES_ELC)
+	rm -rfv $(EMACS_COMP)
 
-emacs: $(EMACS_SOURCES_ELC)
+emacs: $(EMACS_COMP)
+default: emacs
 
 .PHONY: emacs clean

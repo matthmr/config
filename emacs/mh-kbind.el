@@ -302,13 +302,13 @@
 (defun mh/next-line-keep ()
   "Go to the next line, and keep the cursor position"
   (interactive)
-  (next-line 1)
+  (forward-line 1)
   (scroll-up 1))
 
 (defun mh/previous-line-keep ()
   "Go to the previous line, and keep the cursor position"
   (interactive)
-  (previous-line 1)
+  (forward-line -1)
   (scroll-down 1))
 
 (defun mh/scroll-right ()

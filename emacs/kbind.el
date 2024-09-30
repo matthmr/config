@@ -205,6 +205,8 @@
 (global-set-key (kbd "M-\"") 'center-region)
 (global-set-key (kbd "M-E")  'replace-string)
 (global-set-key (kbd "M-I")  'replace-regexp)
+(global-set-key (kbd "M-F")  'indent-rigidly-right-to-tab-stop)
+(global-set-key (kbd "M-B")  'indent-rigidly-left-to-tab-stop)
 
 ;;; `C-x ESC' Commands
 
