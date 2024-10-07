@@ -87,9 +87,9 @@ bindsym $mod+f fullscreen toggle
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+w layout tabbed
 bindsym $mod+s layout toggle split
+bindsym $mod+x layout stacking
 bindsym $mod+$alt+l layout splith
 bindsym $mod+$alt+j layout splitv
-bindsym $mod+x layout stacking
 
 # toggle tiling / floating
 bindsym $mod+Control+space floating toggle
@@ -108,9 +108,13 @@ bindsym $mod+3 workspace number $ws3
 bindsym $mod+4 workspace number $ws4
 bindsym $mod+5 workspace number $ws5
 bindsym $mod+i workspace back_and_forth
-
+bindsym $mod+Tab workspace back_and_forth
 bindsym $mod+comma workspace prev
 bindsym $mod+period workspace next
+
+bindsym $mod+Shift+i move container to workspace back_and_forth
+bindsym $mod+Shift+Tab move container to workspace back_and_forth
+bindsym $mod+$alt+Shift+i move container to workspace back_and_forth; workspace back_and_forth
 bindsym $mod+Shift+comma move container to workspace prev
 bindsym $mod+Shift+period move container to workspace next
 bindsym $mod+$alt+Shift+comma move container to workspace prev; workspace prev
@@ -122,6 +126,7 @@ bindsym $mod+Shift+2 move container to workspace number $ws2
 bindsym $mod+Shift+3 move container to workspace number $ws3
 bindsym $mod+Shift+4 move container to workspace number $ws4
 bindsym $mod+Shift+5 move container to workspace number $ws5
+
 bindsym $mod+$alt+Shift+1 move container to workspace number $ws1; workspace number $ws1
 bindsym $mod+$alt+Shift+2 move container to workspace number $ws2; workspace number $ws2
 bindsym $mod+$alt+Shift+3 move container to workspace number $ws3; workspace number $ws3
@@ -137,18 +142,12 @@ focus_follows_mouse no
 bindsym $mod+Shift+p move scratchpad
 bindsym $mod+p scratchpad show
 
-# workspace cycling
-bindsym $mod+Tab workspace next
-bindsym $mod+Shift+Tab workspace prev
-
 # marks
 bindsym $mod+m mark win
 bindsym $mod+Shift+m unmark win
 bindsym $mod+Shift+s swap container with mark win
 bindsym $mod+apostrophe [con_mark="^win$"] focus
 bindsym $mod+Shift+c [con_mark="^win$"] move workspace current
-bindsym $mod+Shift+i move container to workspace back_and_forth
-bindsym $mod+$alt+Shift+i move container to workspace back_and_forth; workspace back_and_forth
 
 # sticky
 bindsym $mod+$alt+Control+s sticky toggle
@@ -193,7 +192,7 @@ client.background       #ffffff
 
 mode "action" {
   bindsym q exec i3-msg exit; mode "default"
-  bindsym l reload; mode "default"
+  bindsym c reload; mode "default"
   bindsym r restart; mode "default"
 
   bindsym Control+g mode "default"
@@ -242,20 +241,3 @@ bindsym $mod+Control+i mode "input"
 #### Status Bar
 
 exec --no-startup-id polybar-start mh-i3
-
-# bar {
-#   # status_command i3status
-#   status_command i3blocks
-
-#   # <class> <border> <bg> <txt>
-#   colors {
-#     background         #222222
-#     statusline         #ffffff
-#     active_workspace   #303030 #303030 #ffffff
-#     inactive_workspace #222222 #222222 #888888
-#     focused_workspace  #303030 #303030 #ffffff
-#   }
-
-#   font pango:JetBrains Mono 12 # min
-#   position top # min
-# }
