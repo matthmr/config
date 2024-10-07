@@ -5,6 +5,9 @@
 (defcustom mh/eglot-bc t
   "Flag for whether Eglot should use `breadcrumb'")
 
+(defcustom mh/eglot-hi t
+  "Flag for whether Eglot should use `eglot-hierarchy'")
+
 (defcustom mh/eglot-ep t
   "Flag for whether Eglot should use `mh/eldoc-popon'")
 
@@ -32,6 +35,12 @@
 (when mh/eglot-bc
   (mh/load "bc")
   (define-key eglot-mode-map (kbd "C-x C-M-i") #'breadcrumb-jump))
+
+(when mh/eglot-hi
+  (require 'eglot-hierarchy)
+  (define-key eglot-mode-map (kbd "C-c l u") #'eglot-hierarchy-call-hierarchy)
+  (define-key eglot-mode-map (kbd "C-c l M-u")
+              #'eglot-hierarchy-type-hierarchy))
 
 (when mh/eglot-ep
   (mh/load "ep")

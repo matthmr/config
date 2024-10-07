@@ -128,6 +128,7 @@
 ; min
 (tab-bar-mode)
 (auto-save-mode)
+(recentf-mode)
 
 ;;;; Hooks
 

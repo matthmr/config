@@ -247,6 +247,9 @@
 
 (global-set-key (kbd "C-x C-M-m C-M-s") 'mh/toggle-trunc)
 
+;;; Toggle `recentf'
+(global-set-key (kbd "C-x C-M-m C-M-r") #'recentf-mode)
+
 ;;; Toggle Xterm*
 (global-set-key (kbd "C-x C-M-m C-M-p") #'xterm-mouse-mode)
 (global-set-key (kbd "C-x C-M-m C-M-o") #'mouse-wheel-mode)

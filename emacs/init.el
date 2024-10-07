@@ -48,8 +48,9 @@
           (string= env/session "shell"))
       ;; display time, and use visual line
       (progn
-        (setf (cdar mode-line-format)
-              (cons '(:eval (mh/ed-string)) (cdar mode-line-format)))
+        (menu-bar-mode -1) ; why?
+        (setf (cadr mode-line-format)
+              (cons '(:eval (mh/ed-string)) (cadr mode-line-format)))
         (setq-default Man-switches "-Tascii") ;; cannot render UTF-8
         (setq-default truncate-lines nil))
     ;; some character which TTYs can't display properly, xterm-mouse-mode,
@@ -160,6 +161,8 @@
  '(outline-minor-mode-prefix "\3\23")
  '(package-selected-packages '(dash with-editor))
  '(read-file-name-completion-ignore-case t)
+ '(recentf-max-saved-items 200)
+ '(recentf-save-file "~/em/recent")
  '(rmail-preserve-inbox t)
  '(save-abbrevs nil)
  '(scheme-program-name "guile")

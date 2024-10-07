@@ -3,8 +3,8 @@
 (global-unset-key (kbd "ESC ESC ESC"))
 (global-unset-key (kbd "C-x m"))
 
-(global-set-key (kbd "M-]")     'exit-recursive-edit)
-(global-set-key (kbd "C-M-]")   'abort-recursive-edit)
+(global-set-key (kbd "M-]") 'exit-recursive-edit)
+(global-set-key (kbd "C-]") 'abort-recursive-edit)
 
 (global-set-key (kbd "M-'")     'expand-abbrev)
 (global-set-key (kbd "M-o")     'overwrite-mode)
@@ -14,6 +14,8 @@
 (global-set-key (kbd "M-_")     'first-error)
 (global-set-key (kbd "M-+")     'next-error-select-buffer)
 (global-set-key (kbd "C-^")     'delete-indentation)
+
+(global-set-key (kbd "C-x C-_")  'undo-only)
 (global-set-key (kbd "C-M-_")   'undo-redo)
 
 ;(global-unset-key (kbd "C-x C-t"))
@@ -34,7 +36,6 @@
 (global-set-key (kbd "C-x a C-w") 'write-abbrev-file)
 (global-set-key (kbd "C-M-j")     'duplicate-dwim)
 (global-set-key (kbd "C-x g")     'recompile)
-;; min
 (global-set-key (kbd "M-J")       'scroll-up)
 (global-set-key (kbd "M-K")       'scroll-down)
 (global-set-key (kbd "C-x x x")   'revert-buffer-with-fine-grain)
@@ -229,6 +230,7 @@
 (global-set-key (kbd "C-x C-M-w")   'write-file)
 (global-set-key (kbd "C-x C-M-SPC") 'mh/mark-thing-at-point)
 (global-set-key (kbd "C-x C-M-s")   'mh/isearch-region)
+(global-set-key (kbd "C-x C-M-r")   'recentf-open)
 
 ;; (global-set-key (kbd "C-x C-M-l")   'desktop-read)
 ;; (global-set-key (kbd "C-x C-M-r")   'desktop-save-in-desktop-dir)

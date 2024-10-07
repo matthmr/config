@@ -93,8 +93,8 @@
 
 (defun mh/ed-cur (load)
   (if load
-    (push mh/ed-on #'mh/cursor-box)
-    (push mh/ed-off #'mh/cursor-bar)
+    (push mh/ed-on 'mh/cursor-box)
+    (push mh/ed-off 'mh/cursor-bar)
     (progn
       (pop mh/ed-on)
       (pop mh/ed-off)
@@ -129,8 +129,8 @@
     (define-key map "b" 'backward-word)
     (define-key map "W" 'forward-sexp)
     (define-key map "B" 'backward-sexp)
-    (define-key map "<" 'beginning-of-buffer)
-    (define-key map ">" 'end-of-buffer)
+    (define-key map "<" 'indent-rigidly-left-to-tab-stop)
+    (define-key map ">" 'indent-rigidly-right-to-tab-stop)
     (define-key map "f"  'mh/to-char)
     (define-key map "0" 'beginning-of-line)
     (define-key map "-" 'end-of-line)
@@ -138,6 +138,7 @@
     (define-key map "'" 'jump-to-register)
     (define-key map "m" 'recenter-top-bottom)
     (define-key map "M" 'move-to-window-line-top-bottom)
+    (define-key map "#" 'comment-dwim)
 
     ;; toggle/quit
 
@@ -162,8 +163,8 @@
     (define-key map "y" 'kill-ring-save)
     (define-key map "q" 'quoted-insert)
     (define-key map " " 'set-mark-command)
-    (define-key map "/" 'isearch-forward)
-    (define-key map "?" 'isearch-backward)
+    (define-key map "/" 'isearch-forward-regexp)
+    (define-key map "?" 'isearch-backward-regexp)
     (define-key map "u" 'undo)
     (define-key map "i" 'undo-only)
     (define-key map "U" 'undo-redo)
@@ -182,7 +183,7 @@
                               (describe-keymap 'mh/ed-map)))
     map))
 
-(global-set-key (kbd "M-]") #'mh/ed-toggle)
+(global-set-key (kbd "C-M-]") #'mh/ed-toggle)
 (global-set-key (kbd "C-M-[") #'mh/ed-toggle)
 
 (defun mh/ed-toggle ()
