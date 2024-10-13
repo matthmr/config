@@ -131,6 +131,7 @@
    '("<<<<<<< ours" A "||||||| parent" Ancestor ">>>>>>> theirs" B "======= end"))
  '(ediff-keep-variants nil)
  '(eldoc-echo-area-use-multiline-p 1)
+ '(epa-file-cache-passphrase-for-symmetric-encryption t)
  '(epg-pinentry-mode 'loopback)
  '(eshell-buffer-maximum-lines 8000)
  '(eshell-directory-name @EMACS_ESHELL@)

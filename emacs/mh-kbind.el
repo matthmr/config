@@ -477,6 +477,18 @@
   (highlight-regexp "^-.*+" 'diff-removed)
   (highlight-regexp "^@@.*" 'diff-hunk-header))
 
+(defun mh/vc-revert-int ()
+  (interactive)
+  (let ((bufname (buffer-file-name)))
+    (async-shell-command
+     (format "git restore --patch %s"
+             (if bufname bufname "."))))
+  (switch-to-buffer-other-window "*Async Shell Command*")
+  (mh/edit-buffer-n)
+  (highlight-regexp "^+.*"  'diff-added)
+  (highlight-regexp "^-.*+" 'diff-removed)
+  (highlight-regexp "^@@.*" 'diff-hunk-header))
+
 ;; (defun mh/vc-diff-work-against-staging ()
 ;;   (interactive)
 ;;   (let ((bufname (buffer-file-name)))
@@ -488,9 +500,10 @@
 ;;   (switch-to-buffer-other-window "*Shell Command Output*")
 ;;   (read-only-mode)
 ;;   (diff-mode))
+;; (global-set-key (kbd "C-x v C-d") 'mh/vc-diff-work-against-staging)
 
 (global-set-key (kbd "C-x v C-i") 'mh/vc-register-int)
-;; (global-set-key (kbd "C-x v C-d") 'mh/vc-diff-work-against-staging)
+(global-set-key (kbd "C-x v C-u") 'mh/vc-revert-int)
 
 ;;;; Yanking
 

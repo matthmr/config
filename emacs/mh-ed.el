@@ -119,7 +119,6 @@
     (define-key map "H" 'mh/scroll-right)
     (define-key map "L" 'mh/scroll-left)
     (define-key map "0" 'move-beginning-of-line)
-    (define-key map "-" 'move-end-of-line)
     (define-key map "." 'mh/scroll-up)
     (define-key map "," 'mh/scroll-down)
     (define-key map "{" 'backward-paragraph)
@@ -131,14 +130,19 @@
     (define-key map "B" 'backward-sexp)
     (define-key map "<" 'indent-rigidly-left-to-tab-stop)
     (define-key map ">" 'indent-rigidly-right-to-tab-stop)
-    (define-key map "f"  'mh/to-char)
+    (define-key map "f" 'mh/to-char)
     (define-key map "0" 'beginning-of-line)
-    (define-key map "-" 'end-of-line)
+    (define-key map "\\" 'end-of-line)
+    (define-key map "$" 'end-of-line)
     (define-key map ";" 'point-to-register)
     (define-key map "'" 'jump-to-register)
     (define-key map "m" 'recenter-top-bottom)
     (define-key map "M" 'move-to-window-line-top-bottom)
     (define-key map "#" 'comment-dwim)
+    (define-key map "n" 'isearch-repeat-forward)
+    (define-key map "N" 'isearch-repeat-backward)
+    (define-key map "v" 'end-of-buffer)
+    (define-key map "V" 'beginning-of-buffer)
 
     ;; toggle/quit
 
@@ -176,7 +180,7 @@
 
     (define-key map "x" 'execute-extended-command)
     (define-key map "a" 'universal-argument)
-    (define-key map "n" 'repeat)
+    (define-key map "z" 'repeat)
 
     ;; the only map that breaks the rules is the `describe-keymap' one
     (define-key map "\C-xm" (lambda () (interactive)
