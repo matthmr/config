@@ -3,8 +3,10 @@ export SHELL=/bin/zsh
 #### ZSH opts
 
 HISTFILE=@ZSH_HISTORY@
-HISTSIZE=500 # min
-SAVEHIST=500 # min
+# min
+HISTSIZE=500
+# min
+SAVEHIST=500
 ZSH_MODE='vi'
 
 case $TERM in
@@ -49,6 +51,13 @@ chpwd () {
 autoload -Uz vcs_info
 
 zstyle ':vcs_info:git:*' formats '@%F{reset}%B%b%F{red}'
+
+#### FZF
+
+__fzfcmd() {
+  [ -n "${TMUX_PANE-}" ] && { [ "${FZF_TMUX:-0}" != 0 ] || [ -n "${FZF_TMUX_OPTS-}" ]; } &&
+    echo "fzf-tmux ${FZF_TMUX_OPTS:--d${FZF_TMUX_HEIGHT:-40%}} -- " || echo "fzfc"
+}
 
 #### Prompt
 
