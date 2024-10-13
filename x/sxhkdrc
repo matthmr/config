@@ -27,9 +27,15 @@ super + control + x; a; l
 #### launch-mode
 
 super + control + x; l; b
+  brow
+super + control + x; l; c
   ungoogled-chromium
+super + control + x; l; f
+  firefox
 super + control + x; l; l
   urxvt -e lf -single
+super + control + x; l; p
+  pcmanfm
 super + control + x; l; e
   emacstc
 

@@ -8,8 +8,8 @@ Xft.rgba: rgb
 ! Xft.autohint: false
 
 !!!! Cursor
-Xcursor.size: 32
-Xcursor.theme: McMojave-cursors
+Xcursor.theme: Bibata-Modern-Classic
+Xcursor.size: 24
 
 !!!! Urxvt
 URxvt.keysym.C-J: eval:scroll_down(10)
