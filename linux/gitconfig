@@ -99,3 +99,8 @@
   mt  = mergetool
   dfs = diff --stat --patch --color=always --cached
   dfh = diff --stat --patch --color=always @
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f

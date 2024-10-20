@@ -52,13 +52,6 @@ autoload -Uz vcs_info
 
 zstyle ':vcs_info:git:*' formats '@%F{reset}%B%b%F{red}'
 
-#### FZF
-
-__fzfcmd() {
-  [ -n "${TMUX_PANE-}" ] && { [ "${FZF_TMUX:-0}" != 0 ] || [ -n "${FZF_TMUX_OPTS-}" ]; } &&
-    echo "fzf-tmux ${FZF_TMUX_OPTS:--d${FZF_TMUX_HEIGHT:-40%}} -- " || echo "fzfc"
-}
-
 #### Prompt
 
 # [USER@HOST] [SHELL@TTY] [ELLAPSED EXIT]
@@ -112,6 +105,13 @@ source /usr/share/fzf/key-bindings.zsh
 
 ## `zsh-syntax-highlighting.plugin.zsh'
 ZSH_HIGHLIGHT_STYLES[arg0]=fg=blue
+
+#### FZF
+
+__fzfcmd() {
+  [ -n "${TMUX_PANE-}" ] && { [ "${FZF_TMUX:-0}" != 0 ] || [ -n "${FZF_TMUX_OPTS-}" ]; } &&
+    echo "fzf-tmux ${FZF_TMUX_OPTS:--d${FZF_TMUX_HEIGHT:-40%}} -- " || echo "fzfc"
+}
 
 #### Confirm exit
 
