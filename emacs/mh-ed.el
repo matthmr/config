@@ -3,7 +3,7 @@
 ;; Copyright (C) 2023-2024 mH
 
 ;; Author: mH <github.com/matthmr>
-;; Version: 2.1.1
+;; Version: 2.2.0
 
 ;; Permission is hereby granted, free of charge, to any person
 ;; obtaining a copy of this software and associated documentation
@@ -53,7 +53,7 @@
   "Kill `overwrite-mode' interactively, then exit `ed-mode'"
   (interactive)
   (call-interactively #'overwrite-mode)
-  (mh/ed-toggle))
+  (mh/ed-toggle t))
 
 (defun mh/ed-open-below-then-exit ()
   "Open a line above, then exit `ed-mode'"
@@ -143,6 +143,7 @@
     (define-key map "N" 'isearch-repeat-backward)
     (define-key map "v" 'end-of-buffer)
     (define-key map "V" 'beginning-of-buffer)
+    (define-key map "x" 'exchange-point-and-mark)
 
     ;; toggle/quit
 
@@ -156,7 +157,7 @@
     (define-key map "c" 'mh/ed-kill-region-then-exit)
     (define-key map "e" 'mh/ed-open-below-then-exit)
     (define-key map "E" 'mh/ed-open-above-then-exit)
-    (define-key map "O" 'mh/ed-overwrite-mode-then-exit)
+    (define-key map "R" 'mh/ed-overwrite-mode-then-exit)
     (define-key map "F" 'mh/ed-delete-up-to-char-then-exit)
 
     ;; editing
@@ -174,11 +175,12 @@
     (define-key map "U" 'undo-redo)
     (define-key map "\"" 'copy-to-register)
     (define-key map "r" 'mh/ed-replace-char)
+    (define-key map "D" 'kill-whole-line)
     ;; (define-key map "\"" 'insert-register)
 
     ;; misc
 
-    (define-key map "x" 'execute-extended-command)
+    (define-key map ":" 'execute-extended-command)
     (define-key map "a" 'universal-argument)
     (define-key map "z" 'repeat)
 
@@ -190,12 +192,14 @@
 (global-set-key (kbd "C-M-]") #'mh/ed-toggle)
 (global-set-key (kbd "C-M-[") #'mh/ed-toggle)
 
-(defun mh/ed-toggle ()
+(defun mh/ed-toggle (&optional skip-undo-overwrite)
   (interactive)
   (let ((funs (if mh/ed mh/ed-off mh/ed-on)))
     (dolist (fun funs)
-      (funcall fun))
-  (mh/ed 'toggle)))
+      (funcall fun)))
+  (when (and (not skip-undo-overwrite) overwrite-mode)
+    (overwrite-mode -1))
+  (mh/ed 'toggle))
 
 (defun mh/ed-string ()
   "Displays the string state of `mh/ed'. `=' for ed on, `*' for ed off"

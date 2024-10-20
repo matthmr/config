@@ -60,7 +60,7 @@
       (let ((output (string-join (reverse output*) "\n")))
         ;; set background to `brightblack'
         (add-face-text-property 0 (length output)
-          '(:background "brightblack") t output)
+          '(:background "color-19") t output)
         output)
       )))
 

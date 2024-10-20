@@ -20,7 +20,10 @@
       eglot-menu-string ""
       eglot-prefer-plaintext t
       eglot-stay-out-of '("flymake")
-      ;; eglot-ignored-server-capabilities '(:inlayHintProvider)
+      eglot-ignored-server-capabilities '(:documentOnTypeFormattingProvider
+                                          :documentRangeFormattingProvider
+                                          :documentFormattingProvider
+                                          :codeActionProvider)
 )
 
 (add-hook 'eglot-managed-mode-hook (lambda () (eglot-inlay-hints-mode -1)))

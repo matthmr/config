@@ -164,6 +164,7 @@
  '(read-file-name-completion-ignore-case t)
  '(recentf-max-saved-items 200)
  '(recentf-save-file "~/em/recent")
+ '(register-preview-delay 0.1)
  '(rmail-preserve-inbox t)
  '(save-abbrevs nil)
  '(scheme-program-name "guile")
