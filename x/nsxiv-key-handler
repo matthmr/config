@@ -1,6 +1,6 @@
 #!/usr/bin/sh
 
 case $1 in
-  'w') read file && wpset -b $file ;;
-  't') read file && wpset -b -t $file ;;
+  'w') read file && wpset $file ;;
+  't') read file && wpset -t $file ;;
 esac

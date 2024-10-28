@@ -40,7 +40,6 @@ URxvt*loginShell: false
 Urxvt*secondaryScroll:  true
 URxvt*saveLines: 4000
 URxvt*termName: rxvt-unicode-256color
-!URxvt*termName: xterm-256color
 URxvt*pointerBlank: true
 URxvt*pointerBlankDelay: 10
 URxvt.perl-ext-common: default,resize-font,-confirm-paste
@@ -54,9 +53,7 @@ URxvt*depth:        32
 URxvt*tintColor:    #404040
 ! urxvt*background:   rgba:0026/0026/0026/7777
 ! URxvt*fading:                   30              !term unfocus
-! urxvt.depth: 24
 ! URxvt*inheritPixmap:            true
-! urxvt*internalBorder: 4
 ! urxvt.secondaryScroll: false
 
 !!!! Xterm

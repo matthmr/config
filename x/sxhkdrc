@@ -26,8 +26,6 @@ super + control + x; a; l
 
 #### launch-mode
 
-super + control + x; l; b
-  brow
 super + control + x; l; c
   ungoogled-chromium
 super + control + x; l; f
@@ -47,7 +45,7 @@ super + control + x; v; minus
 super + control + x; v; equal
   volume +5
 super + control + x; v; v
-  herbe "$(volume)"
+  herbec "$(volume)"
 super + control + x; v; m
   volume m
 
@@ -84,7 +82,7 @@ super + control + x; m; period
   mpc seek +5% >/dev/null 2>/dev/null
 # min
 super + control + x; m; m
-  herbe "$(MPC_FORMAT='[%title%|%file%][ - %artist%[ "%album%"][ (%date%)]]' mpc)"
+  herbec "$(MPC_FORMAT='[%title%|%file%][ - %artist%[ "%album%"][ (%date%)]]' mpc)"
 
 ##### X
 
@@ -98,11 +96,11 @@ super + control + x; x; s
 #### wallpaper
 
 super + control + x; w; n
-  wpset -d @SXHKDRC_WPDIR@ -b
+  wpset -d @SXHKDRC_WPDIR@
 super + control + x; w; control + n
   wpset -d @SXHKDRC_WPDIR@
 super + control + x; w; r
-  wpset -r -b
+  wpset -r
 super + control + x; w; control + r
   wpset -r
 super + control + x; w; l
