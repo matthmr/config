@@ -21,6 +21,10 @@ super + control + x; a; control + s
   doshutdown -x -f
 super + control + x; a; control + r
   doreboot -x -f
+super + control + x; a; control + m
+  dosuspend -x -f
+super + control + x; a; control + d
+  dohibernate -x -f
 super + control + x; a; l
   i3lock-wp
 
@@ -51,12 +55,16 @@ super + control + x; v; m
 
 #### screenshot
 
-super + control + x; s; d
-  screenshot-dir
+super + control + x; s; l
+  pcmanfm @SXHKDRC_SHOT_DIR@
+super + control + x; s; s
+  screenshot -d @SXHKDRC_SHOT_DIR@
+super + control + x; s; control + s
+  screenshot -d -f @SXHKDRC_SHOT_DIR@
 super + control + x; s; q
-  screenshot-quick
-super + control + x; s; Q
-  screenshot-quick-dir
+  screenshot -q /tmp
+super + control + x; s; control + q
+  screenshot -q -f /tmp
 
 #### MPD
 
@@ -96,13 +104,11 @@ super + control + x; x; s
 #### wallpaper
 
 super + control + x; w; n
-  wpset -d @SXHKDRC_WPDIR@
-super + control + x; w; control + n
-  wpset -d @SXHKDRC_WPDIR@
+  wpset -d @SXHKDRC_WPDIR@ -w
 super + control + x; w; r
   wpset -r
 super + control + x; w; control + r
-  wpset -r
+  wpset -R -t
 super + control + x; w; l
   nsxiv -r @SXHKDRC_WPDIR@
 
