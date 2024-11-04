@@ -71,8 +71,8 @@
       (setq buffer (create-file-buffer id)))
 
     (set-buffer buffer)
-    (let ((buffer-file-name file))
-      (vc-ensure-vc-buffer))
+    ;; (let ((buffer-file-name file))
+    ;;   (vc-ensure-vc-buffer))
     (switch-to-buffer-other-window (mh/git-show id buffer))))
 
 ;; From `vc/ediff-vers.el' (ediff-vc-merge-internal)

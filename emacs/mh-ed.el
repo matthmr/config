@@ -3,7 +3,7 @@
 ;; Copyright (C) 2023-2024 mH
 
 ;; Author: mH <github.com/matthmr>
-;; Version: 2.2.0
+;; Version: 2.2.1
 
 ;; Permission is hereby granted, free of charge, to any person
 ;; obtaining a copy of this software and associated documentation
@@ -35,6 +35,12 @@
   "Call `kill-region' interactively, then exit `ed-mode'"
   (interactive)
   (call-interactively #'kill-region)
+  (mh/ed-toggle))
+
+(defun mh/ed-delete-region-then-exit ()
+  "Call `delete-region' interactively, then exit `ed-mode'"
+  (interactive)
+  (call-interactively #'delete-region)
   (mh/ed-toggle))
 
 (defun mh/ed-delete-char-then-exit ()
@@ -132,7 +138,7 @@
     (define-key map ">" 'indent-rigidly-right-to-tab-stop)
     (define-key map "f" 'mh/to-char)
     (define-key map "0" 'beginning-of-line)
-    (define-key map "\\" 'end-of-line)
+    (define-key map "-" 'end-of-line)
     (define-key map "$" 'end-of-line)
     (define-key map ";" 'point-to-register)
     (define-key map "'" 'jump-to-register)
@@ -144,6 +150,7 @@
     (define-key map "v" 'end-of-buffer)
     (define-key map "V" 'beginning-of-buffer)
     (define-key map "x" 'exchange-point-and-mark)
+    (define-key map "|" 'back-to-indentation)
 
     ;; toggle/quit
 
@@ -155,6 +162,7 @@
 
     (define-key map "d" 'mh/ed-delete-char-then-exit)
     (define-key map "c" 'mh/ed-kill-region-then-exit)
+    (define-key map "C" 'mh/ed-delete-region-then-exit)
     (define-key map "e" 'mh/ed-open-below-then-exit)
     (define-key map "E" 'mh/ed-open-above-then-exit)
     (define-key map "R" 'mh/ed-overwrite-mode-then-exit)
@@ -176,13 +184,16 @@
     (define-key map "\"" 'copy-to-register)
     (define-key map "r" 'mh/ed-replace-char)
     (define-key map "D" 'kill-whole-line)
+    (define-key map "O" 'delete-region)
     ;; (define-key map "\"" 'insert-register)
 
     ;; misc
 
     (define-key map ":" 'execute-extended-command)
     (define-key map "a" 'universal-argument)
+    (define-key map "`" 'negative-argument)
     (define-key map "z" 'repeat)
+    (define-key map "\\" 'repeat-complex-command)
 
     ;; the only map that breaks the rules is the `describe-keymap' one
     (define-key map "\C-xm" (lambda () (interactive)
