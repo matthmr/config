@@ -93,12 +93,14 @@
   cmp = commit --interactive --verbose
   rsp = restore -p
   ss  = stash
+  rb  = rebase
   mm  = merge --no-ff --no-commit
   sw  = switch
   dt  = difftool
   mt  = mergetool
   dfs = diff --stat --patch --color=always --cached
   dfh = diff --stat --patch --color=always @
+
 [filter "lfs"]
 	process = git-lfs filter-process
 	required = true
