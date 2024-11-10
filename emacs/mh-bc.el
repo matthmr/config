@@ -16,6 +16,15 @@
 
 (setq breadcrumb-imenu-max-length 0.6)
 
+(defun mh/bc-tab (load)
+  (setq mh/bc-in-modeline (not load))
+  (if load
+      (setq global-mode-string '("")))
+  (breadcrumb-local-mode -1)
+  (mh/bc-mode t))
+
+(mh/provide 'bc-tab #'mh/bc-tab t)
+
 ;; Little hack to reset bc's cache after starting something that meddles with
 ;; imenu's cache (like eglot)
 (defun mh/bc-reset ()
