@@ -1,8 +1,8 @@
 [credential "https://github.com"]
-  helper = @GIT_HELPER@
+  helper = "!pass-git-helper $@"
 
 [credential "https://gitlab.com"]
-  helper = @GIT_HELPER@
+  helper = "!pass-git-helper $@"
 
 # Global configs
 [user]

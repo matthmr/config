@@ -136,6 +136,9 @@ bindkey '^[s' autosuggest-toggle
 source @ZSH_ALIAS@
 source @ZSH_FUNCTIONS@
 
+#### GPG
+export GPG_TTY=$(tty)
+
 clear
 tux
 
