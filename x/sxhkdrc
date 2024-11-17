@@ -105,6 +105,10 @@ super + control + x; x; s
 
 super + control + x; w; n
   wpset -d @SXHKDRC_WPDIR@ -w
+super + control + x; w; control + n
+  wpsetdc next
+super + control + x; w; control + k
+  wpsetdc kill
 super + control + x; w; r
   wpset -r
 super + control + x; w; control + r
