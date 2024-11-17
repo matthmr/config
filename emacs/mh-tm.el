@@ -3,7 +3,7 @@
 ;; Copyright (C) 2024 mH
 
 ;; Author: mH <github.com/matthmr>
-;; Version: 1.0.0
+;; Version: 1.1.0
 
 ;; Permission is hereby granted, free of charge, to any person
 ;; obtaining a copy of this software and associated documentation
@@ -135,6 +135,77 @@ Run the `mh/tm-up-funcs' after changing this variable during run-time")
 
 ;;;
 
+(defun mh/tm-raise-cmd () (interactive)
+  (let* ((this-bounds (cons (region-beginning) (region-end)))
+         (this-text
+           (buffer-substring-no-properties
+             (car this-bounds) (cdr this-bounds)))
+         (this-length (length this-text)))
+    (call-interactively #'mh/tm-select-parent-cmd)
+    (insert this-text)
+
+    (save-excursion
+      (setf (car this-bounds) (+ (car this-bounds) this-length)
+            (cdr this-bounds) (+ (cdr this-bounds) this-length))
+      (goto-char (car this-bounds))
+      (delete-region (car this-bounds) (cdr this-bounds)))
+    ))
+
+(defun mh/tm-raise-and-kill-cmd () (interactive)
+  (let ((this-text
+          (buffer-substring-no-properties
+            (region-beginning) (region-end))))
+    (call-interactively #'mh/tm-select-parent-cmd)
+    (insert this-text)
+    (exchange-point-and-mark)
+    (kill-region (region-beginning) (region-end))))
+
+(defun mh/tm-swap-with-next-sib-cmd () (interactive)
+  (let* ((prev-bounds (cons (region-beginning) (region-end)))
+         (prev-text (buffer-substring-no-properties
+                      (car prev-bounds) (cdr prev-bounds)))
+         next-bounds)
+    (call-interactively #'mh/tm-select-next-sib-cmd)
+    (insert prev-text)
+
+    (save-excursion
+      (exchange-point-and-mark)
+
+      (setq next-bounds (cons (region-beginning) (region-end)))
+
+      (kill-region (car next-bounds) (cdr next-bounds))
+      (goto-char (car prev-bounds))
+      (delete-region (car prev-bounds) (cdr prev-bounds))
+      (yank))
+    ))
+
+(defun mh/tm-swap-with-prev-sib-cmd () (interactive)
+  (let* ((prev-bounds (cons (region-beginning) (region-end)))
+         (prev-text (buffer-substring-no-properties
+                      (car prev-bounds) (cdr prev-bounds)))
+         (prev-length (length prev-text))
+         next-bounds next-length)
+    (call-interactively #'mh/tm-select-prev-sib-cmd)
+    (insert prev-text)
+    (exchange-point-and-mark)
+
+    (save-excursion
+      (setq next-bounds (cons (region-beginning) (region-end)))
+      (setq next-length (length (buffer-substring-no-properties
+                                  (car next-bounds) (cdr next-bounds))))
+
+      (setf (car prev-bounds) (+ (car prev-bounds) (- prev-length next-length))
+            (cdr prev-bounds) (+ (cdr prev-bounds) (- prev-length next-length)))
+
+      (kill-region (car next-bounds) (cdr next-bounds))
+
+      (goto-char (car prev-bounds))
+      (delete-region (car prev-bounds) (cdr prev-bounds))
+      (yank))
+    ))
+
+;;;
+
 (defun mh/tm-clean-up (&optional map)
   (setq mh/tm-cache-node nil mh/tm-mark? nil))
 
@@ -157,6 +228,14 @@ Run the `mh/tm-up-funcs' after changing this variable during run-time")
     ("f" . #'mh/tm-select-next-sib-cmd)
     ("n" . #'mh/tm-select-next-sib-cmd)
     ("b" . #'mh/tm-select-prev-sib-cmd)
-    ("p" . #'mh/tm-select-prev-sib-cmd))
+    ("p" . #'mh/tm-select-prev-sib-cmd)
+
+    ("U" . #'mh/tm-raise-cmd)
+    ("M-U" . #'mh/tm-raise-and-kill-cmd)
+
+    ("N" . #'mh/tm-swap-with-next-sib-cmd)
+    ("F" . #'mh/tm-swap-with-next-sib-cmd)
+    ("P" . #'mh/tm-swap-with-prev-sib-cmd)
+    ("B" . #'mh/tm-swap-with-prev-sib-cmd))
 
   nil #'mh/tm-set-node #'mh/tm-clean-up)

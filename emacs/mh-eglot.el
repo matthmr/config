@@ -26,6 +26,12 @@
                                           :codeActionProvider)
 )
 
+;; STOP IT!!!
+(dolist (mode-form eglot-server-programs)
+  (when (and (listp (car mode-form))
+             (memq 'c-mode (car mode-form)))
+    (setf (cdr mode-form) '("clangd" "--header-insertion=never"))))
+
 (add-hook 'eglot-managed-mode-hook (lambda () (eglot-inlay-hints-mode -1)))
 
 (if mh/eglot-markdown-doc
