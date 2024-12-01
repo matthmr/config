@@ -20,6 +20,7 @@ URxvt*cursorBlink: true
 URxvt*underlineColor: #eff0eb
 
 URxvt*iso14755: false
+URxvt*title: urxvt
 URxvt*font: xft:Iosevka Term Medium:size=14
 URxvt*boldFont: xft:Iosevka Term Heavy:size=14
 URxvt*italicFont: xft:Iosevka Term Medium:size=14:style=italic

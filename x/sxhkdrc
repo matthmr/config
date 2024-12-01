@@ -2,10 +2,10 @@
 
 # min
 super + Return
-  urxvt -e tmux new-session -A
+  urxvt -T urxvt -e tmux new-session -A # -b 10
 # min
 super + control + Return
-  urxvt -e zsh
+  urxvt -T urxvt -e zsh # -b 10
 
 #### action-mode
 
@@ -91,6 +91,8 @@ super + control + x; m; period
 # min
 super + control + x; m; m
   herbec "$(MPC_FORMAT='[%title%|%file%][ - %artist%[ "%album%"][ (%date%)]]' mpc)"
+super + control + x; m; q
+  herbec "$(MPC_FORMAT='[%title%|%file%][ - %artist%[ "%album%"][ (%date%)]]' mpc queue)"
 
 ##### X
 
@@ -127,6 +129,8 @@ super + control + x; b; a
 
 #### misc
 
+super + alt + p
+  pass-dmenu
 super + alt + x
   dmenu_run
 super + alt + y
