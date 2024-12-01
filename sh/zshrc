@@ -33,13 +33,33 @@ esac
 
 preexec() {
   ZSHTIME=$(zshtime)
+  ZSHCMD="$1"
 }
 
 precmd() {
+  local exit=$?
+
   vcs_info;
   local _zshtime=$ZSHTIME;
   ZSHTIME=$(zshtime);
   ELLAPSED=$(($ZSHTIME - $_zshtime))
+
+  if (( $exit == 130 )); then
+    return $exit
+  fi
+
+  if [[ ! -z "$ZSHCMD" ]]; then
+    _ZSHCMD="$ZSHCMD"
+    ZSHCMD=""
+  elif [[ ! -z "$_ZSHCMD" ]]; then
+    # echo "$_ZSHCMD"
+    echo -n "Run: $_ZSHCMD [Y/n] "
+
+    local ans=''
+    read -s -k1 ans
+    [[ "$ans" = $'\x0d' || "$ans" == $'\x0a' || "$ans" == 'y' ]] && \
+      echo && eval $_ZSHCMD
+  fi
 }
 
 chpwd () {
