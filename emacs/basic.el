@@ -122,13 +122,14 @@
 ;;; Global minor modes
 
 ; min
-(icomplete-mode)
-(electric-pair-mode)
-(global-display-fill-column-indicator-mode)
+(icomplete-mode 1)
+(electric-pair-mode 1)
+(global-display-fill-column-indicator-mode 1)
 ; min
-(tab-bar-mode)
-(auto-save-mode)
-(recentf-mode)
+(tab-bar-mode 1)
+(auto-save-mode 1)
+(recentf-mode 1)
+(savehist-mode 1)
 
 ;;;; Hooks
 
@@ -167,7 +168,9 @@
             (setq-local
               tab-width 2
               indent-tabs-mode nil)
-              comment-column 0))
+              comment-column 0)
+            (add-hook
+             'completion-at-point-functions #'comint-filename-completion))
 
 (add-hook 'c-mode-hook
           (lambda ()

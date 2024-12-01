@@ -354,7 +354,7 @@
 (global-set-key (kbd "M-z")   'mh/to-char)
 (global-set-key (kbd "M-Z")   'zap-up-to-char)
 
-(global-set-key (kbd "C-M-z") 'repeat-complex-command)
+(global-set-key (kbd "C-x C-M-x") 'repeat-complex-command)
 
 ;;;; Formating
 
@@ -530,3 +530,21 @@
     (goto-char (marker-position (car (last mark-ring))))))
 
 (global-set-key (kbd "C-c C-SPC") #'mh/pop-to-mark-forward)
+
+;;;; Emacs Overrides
+
+(defun mh/keyboard-quit ()
+  "From `https://protesilaos.com/codelog/2024-11-28-basic-emacs-configuration':
+   make `keyboard-quit' (`C-g') dwim-like"
+  (interactive)
+  (cond
+   ;; (region-active-p
+   ;;  (keyboard-quit))
+   ((derived-mode-p 'completion-list-mode)
+    (delete-completion-window))
+   ((> (minibuffer-depth) 0)
+    (abort-recursive-edit))
+   (t
+    (keyboard-quit))))
+
+(global-set-key (kbd "C-g") #'mh/keyboard-quit)

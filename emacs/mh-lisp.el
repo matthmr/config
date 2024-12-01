@@ -139,8 +139,8 @@
      `(global-set-key (kbd prefix-str) ',mode))
 
     ;; populate built-ins
-    (let ((built-in '(("<escape>" . 'keyboard-quit)
-                       ("[" . 'keyboard-quit)
+    (let ((built-in '(("<escape>" . 'mh/keyboard-quit)
+                       ("[" . 'mh/keyboard-quit)
                        ("?" .
                         (eval `(lambda () (interactive)
                                  (describe-keymap ',map))))

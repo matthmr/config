@@ -3,7 +3,7 @@
 ;; Copyright (C) 2023-2024 mH
 
 ;; Author: mH <github.com/matthmr>
-;; Version: 2.2.1
+;; Version: 2.2.2
 
 ;; Permission is hereby granted, free of charge, to any person
 ;; obtaining a copy of this software and associated documentation
@@ -154,7 +154,7 @@
 
     ;; toggle/quit
 
-    (define-key map "[" 'keyboard-quit)
+    (define-key map "[" 'mh/keyboard-quit)
     (define-key map "]" 'mh/ed-toggle)
     (define-key map "s" 'mh/ed-toggle)
 

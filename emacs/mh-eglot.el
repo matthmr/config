@@ -43,6 +43,10 @@
 
 (when mh/eglot-bc
   (mh/load "bc")
+
+  ;; min
+  (mh/bc-tab t)
+
   (define-key eglot-mode-map (kbd "C-x C-M-i") #'breadcrumb-jump))
 
 (when mh/eglot-hi
