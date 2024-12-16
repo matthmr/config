@@ -53,12 +53,16 @@ precmd() {
     ZSHCMD=""
   elif [[ ! -z "$_ZSHCMD" ]]; then
     # echo "$_ZSHCMD"
-    echo -n "Run: $_ZSHCMD [Y/n] "
+    echo -n "Run: \`$_ZSHCMD' [Y/n] "
 
     local ans=''
     read -s -k1 ans
-    [[ "$ans" = $'\x0d' || "$ans" == $'\x0a' || "$ans" == 'y' ]] && \
-      echo && eval $_ZSHCMD
+    if [[ "$ans" = $'\x0d' || "$ans" == $'\x0a' || "$ans" == 'y' ]]; then
+      echo
+      eval $_ZSHCMD
+    else
+      _ZSHCMD=""
+    fi
   fi
 }
 
