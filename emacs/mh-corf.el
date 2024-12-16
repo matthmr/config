@@ -3,6 +3,7 @@
 (define-key corfu-map (kbd "C-v") 'scroll-up-command)
 (define-key corfu-map (kbd "M-v") 'scroll-down-command)
 (define-key corfu-map (kbd "SPC") 'corfu-insert-separator)
+(define-key corfu-map (kbd "[")   'corfu-quit)
 
 (global-corfu-mode 1)
 (corfu-terminal-mode 1)

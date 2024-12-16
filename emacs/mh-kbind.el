@@ -391,23 +391,23 @@
   (interactive)
   (shell-command-on-region
    (region-beginning) (region-end)
-   "xclip -selection clipboard -i" nil nil))
+   "xc" nil nil))
 
 (global-set-key (kbd "C-c SPC x M-w") 'mh/xclip-copy)
 
 (defun mh/xclip-read ()
   "Read to clipboard"
   (interactive)
-  (let ((buffer-file-name "/tmp/clipboard"))
+  (let ((buffer-file-name "/tmp/emacs/xclip"))
     (save-buffer))
-  (shell-command "xclip -selection clipboard -i < /tmp/clipboard") nil nil)
+  (shell-command "xc < /tmp/emacs/xclip") nil nil)
 
 (global-set-key (kbd "C-c SPC x C-s") 'mh/xclip-read)
 
 (defun mh/xclip-paste ()
   "Paste XCLIP's clipboard"
   (interactive)
-  (shell-command "xclip -selection clipboard -o")
+  (shell-command "xp")
   (insert-buffer "*Shell Command Output*"))
 
 (global-set-key (kbd "C-c SPC x C-y") 'mh/xclip-paste)
@@ -416,8 +416,8 @@
   "Edit XCLIP's clipboard"
   (interactive)
   (shell-command
-   "xclip -selection clipboard -o > /tmp/clipboard" nil nil)
-  (find-file "/tmp/clipboard")
+   "xp > /tmp/emacs/xclip" nil nil)
+  (find-file "/tmp/emacs/xclip")
   (revert-buffer-quick))
 
 (global-set-key (kbd "C-c SPC x C-e") 'mh/xclip-edit)
@@ -538,8 +538,8 @@
    make `keyboard-quit' (`C-g') dwim-like"
   (interactive)
   (cond
-   ;; (region-active-p
-   ;;  (keyboard-quit))
+   ((region-active-p)
+    (keyboard-quit))
    ((derived-mode-p 'completion-list-mode)
     (delete-completion-window))
    ((> (minibuffer-depth) 0)

@@ -71,6 +71,9 @@
 (setq c-default-style "linux"
       c-basic-offset 2)
 
+(with-eval-after-load 'cc-mode
+  (define-key c-mode-map (kbd "TAB") #'indent-for-tab-command))
+
 ;;; Python
 
 (setq python-basic-offset 2
