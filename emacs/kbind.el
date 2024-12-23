@@ -221,7 +221,7 @@
 (global-set-key (kbd "C-x C-M-d")   'delete-region)
 (global-set-key (kbd "C-x C-M-k")   'kill-whole-line)
 (global-set-key (kbd "C-x C-M-i")   'imenu)
-(global-set-key (kbd "C-x C-M-l")   'ispell-complete-word)
+;; (global-set-key (kbd "C-x C-M-l")   'ispell-complete-word)
 (global-set-key (kbd "C-x C-M-u")   'raise-sexp)
 (global-set-key (kbd "C-x C-M-f")   'find-file-at-point)
 (global-set-key (kbd "C-x C-M-v")   'view-file)

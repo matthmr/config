@@ -197,6 +197,7 @@
  '(fill-column-indicator ((t (:background "color-18" :foreground "color-19"))))
  '(icomplete-first-match ((t (:foreground "#dc9656"))))
  '(log-view-message ((t (:extend t :background "grey85" :foreground "black"))))
+ '(pulse-highlight-start-face ((t (:inverse-video t))))
  '(smerge-base ((t (:extend t :background "#ffffaa" :foreground "black"))))
  '(smerge-lower ((t (:extend t :background "#ddffdd" :foreground "black"))))
  '(smerge-markers ((t (:extend t :background "grey85" :foreground "black"))))
