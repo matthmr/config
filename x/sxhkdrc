@@ -106,15 +106,17 @@ super + control + x; x; s
 #### wallpaper
 
 super + control + x; w; n
-  wpset -d @SXHKDRC_WPDIR@ -w
+  wpset -d @SXHKDRC_WPDIR@ -w -t
 super + control + x; w; control + n
   wpsetdc next
 super + control + x; w; control + k
   wpsetdc kill
 super + control + x; w; r
-  wpset -r
+  wpset -r -t
 super + control + x; w; control + r
-  wpset -R -t
+  wpset -R
+super + control + x; w; control + alt + r
+  wpset -L
 super + control + x; w; l
   nsxiv -r @SXHKDRC_WPDIR@
 
