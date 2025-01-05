@@ -150,11 +150,26 @@ function confirm_exit() {
   [[ "$ans" = $'\x0d' || "$ans" == 'y' ]] && exit || zle reset-prompt
 }
 
+#### Toggle hist
+
+function toggle_hist() {
+  if [[ -z "$HISTFILE" ]]; then
+    HISTFILE="$PREV_HISTFILE"
+  else
+    nohist
+  fi
+
+  echo "save: $HISTFILE"
+}
+
 zle -N confirm_exit
+zle -N toggle_hist
+
 setopt IGNORE_EOF
 bindkey '^D' confirm_exit
 bindkey '^[^I' list-choices
 bindkey '^[s' autosuggest-toggle
+bindkey '^[h' toggle_hist
 
 #### Common source
 source @ZSH_ALIAS@

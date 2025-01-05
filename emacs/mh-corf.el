@@ -10,17 +10,10 @@
 
 (setq tab-always-indent 'complete)
 
-;; DEBUG
-;; (setq mh/test nil)
-
 (defun mh/corfu-show-eglot-doc ()
   (interactive)
 
   (let ((comp (nth corfu--index corfu--candidates)))
-    ;; DEBUG
-    ;; (message "got comp: %s" comp)
-    ;; (setf mh/test comp)
-
     (let* ((eglot-response (get-text-property 0 'eglot--lsp-item comp))
            (doc (cadr
                  (memq :value (cadr

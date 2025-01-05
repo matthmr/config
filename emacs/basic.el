@@ -132,7 +132,7 @@
 (tab-bar-mode 1)
 (auto-save-mode 1)
 (recentf-mode 1)
-(savehist-mode 1)
+;; (savehist-mode 1)
 
 ;;;; Hooks
 
