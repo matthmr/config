@@ -186,6 +186,7 @@
  '(vc-follow-symlinks t)
  '(vc-make-backup-files t)
  '(version-control t)
+ '(warning-suppress-log-types '((flymake flymake)))
  '(windmove-wrap-around t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

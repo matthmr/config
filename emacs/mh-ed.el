@@ -99,8 +99,9 @@
 
 (defun mh/ed-cur (load)
   (if load
-    (push mh/ed-on 'mh/cursor-box)
-    (push mh/ed-off 'mh/cursor-bar)
+    (progn
+      (push 'mh/cursor-box mh/ed-on)
+      (push 'mh/cursor-bar mh/ed-off))
     (progn
       (pop mh/ed-on)
       (pop mh/ed-off)
