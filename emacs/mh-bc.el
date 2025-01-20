@@ -23,6 +23,9 @@
   (breadcrumb-local-mode -1)
   (mh/bc-mode t))
 
+(defun mh/bc-bind ()
+  (global-set-key (kbd "C-x C-M-i") #'breadcrumb-jump))
+
 (mh/provide 'bc-tab #'mh/bc-tab t)
 
 ;; Little hack to reset bc's cache after starting something that meddles with
