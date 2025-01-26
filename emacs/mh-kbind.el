@@ -278,84 +278,6 @@
 (global-set-key (kbd "C-x C-M-m C-M-m") 'mh/edit-buffer-y)
 (global-set-key (kbd "C-x C-M-m C-M-n") 'mh/edit-buffer-n)
 
-;;;; Scrolling
-
-(defun mh/scroll-up (arg)
-  "Pull up half screen."
-  (interactive "P")
-  (condition-case nil
-      (if (null arg)
-          (scroll-up (/ (window-height) 2))
-    (scroll-up arg))
-    (error (beep 1)
-           (message "End of buffer")
-           (goto-char (point-max)))))
-
-(defun mh/scroll-down (arg)
-  "Pull down half screen."
-  (interactive "P")
-  (condition-case nil
-      (if (null arg)
-          (scroll-down (/ (window-height) 2))
-        (scroll-down arg))
-    (error (beep 1)
-           (message "Beginning of buffer")
-           (goto-char (point-min)))))
-
-(defun mh/next-line-keep ()
-  "Go to the next line, and keep the cursor position"
-  (interactive)
-  (forward-line 1)
-  (scroll-up 1))
-
-(defun mh/previous-line-keep ()
-  "Go to the previous line, and keep the cursor position"
-  (interactive)
-  (forward-line -1)
-  (scroll-down 1))
-
-(defun mh/scroll-right ()
-  (interactive)
-  (mh/with-prefix 15 'scroll-right))
-
-(defun mh/scroll-left ()
-  (interactive)
-  (mh/with-prefix 15 'scroll-left))
-
-(global-set-key (kbd "C-x <") #'mh/scroll-right)
-(global-set-key (kbd "C-x >") #'mh/scroll-left)
-
-(global-set-key (kbd "M-K") 'mh/previous-line-keep)
-(global-set-key (kbd "M-J") 'mh/next-line-keep)
-
-(global-set-key (kbd "C-v")   'mh/scroll-up)
-(global-set-key (kbd "M-v")   'mh/scroll-down)
-(global-set-key (kbd "C-M-v") 'scroll-lock-mode)
-
-;;;; Up-to-Char
-
-(defun mh/up-to-char (arg char)
-  "Points to char given by interactive `char'"
-  (interactive "P\ncUp to char: ")
-  (if (eq arg '-)
-      (search-backward (char-to-string char) nil nil 1)
-    (progn
-      (search-forward (char-to-string char) nil nil 1)
-      (backward-char))))
-
-(defun mh/to-char (arg char)
-  "Points over char given by interactive `char'"
-  (interactive "P\ncTo char: ")
-  (mh/up-to-char arg char)
-  (if (eq arg '-)
-      (backward-char)
-    (forward-char)))
-
-(global-set-key (kbd "M-z")   'mh/to-char)
-(global-set-key (kbd "M-Z")   'zap-up-to-char)
-
-(global-set-key (kbd "C-x C-M-x") 'repeat-complex-command)
-
 ;;;; Formating
 
 (defun mh/delete-space-after-point ()
@@ -384,7 +306,7 @@
 (global-set-key (kbd "C-x C-M-\\") 'mh/delete-space-after-point)
 (global-set-key (kbd "C-x C-M-h")  'mh/backward-kill-line)
 
-;;;; Kill ring external program interop
+;;;; External prog kill-ring
 
 (defun mh/xclip-copy ()
   "Copy to XCLIP"
@@ -505,7 +427,7 @@
 (global-set-key (kbd "C-x v C-i") 'mh/vc-register-int)
 (global-set-key (kbd "C-x v C-u") 'mh/vc-revert-int)
 
-;;;; Yanking
+;;;; Editing
 
 (defun mh/yank (times)
   (interactive "P")
@@ -516,6 +438,15 @@
 
 (global-set-key (kbd "C-y")   'mh/yank)
 (global-set-key (kbd "C-M-y") 'yank)
+
+(defun mh/kill-to-register ()
+  (interactive)
+  (let ((bnd (car (region-bounds))))
+    (call-interactively #'copy-to-register)
+    (kill-region (car bnd) (cdr bnd))
+  ))
+
+(global-set-key (kbd "C-x r C-k") #'mh/kill-to-register)
 
 ;;;; Movement
 
@@ -530,6 +461,125 @@
     (goto-char (marker-position (car (last mark-ring))))))
 
 (global-set-key (kbd "C-c C-SPC") #'mh/pop-to-mark-forward)
+
+(defun mh/scroll-up (arg)
+  "Pull up half screen."
+  (interactive "P")
+  (condition-case nil
+      (if (null arg)
+          (scroll-up (/ (window-height) 2))
+    (scroll-up arg))
+    (error (beep 1)
+           (message "End of buffer")
+           (goto-char (point-max)))))
+
+(defun mh/scroll-down (arg)
+  "Pull down half screen."
+  (interactive "P")
+  (condition-case nil
+      (if (null arg)
+          (scroll-down (/ (window-height) 2))
+        (scroll-down arg))
+    (error (beep 1)
+           (message "Beginning of buffer")
+           (goto-char (point-min)))))
+
+(defun mh/next-line-keep ()
+  "Go to the next line, and keep the cursor position"
+  (interactive)
+  (forward-line 1)
+  (scroll-up 1))
+
+(defun mh/previous-line-keep ()
+  "Go to the previous line, and keep the cursor position"
+  (interactive)
+  (forward-line -1)
+  (scroll-down 1))
+
+(defun mh/scroll-right ()
+  (interactive)
+  (mh/with-prefix 15 'scroll-right))
+
+(defun mh/scroll-left ()
+  (interactive)
+  (mh/with-prefix 15 'scroll-left))
+
+(global-set-key (kbd "C-x <") #'mh/scroll-right)
+(global-set-key (kbd "C-x >") #'mh/scroll-left)
+
+(global-set-key (kbd "M-K") 'mh/previous-line-keep)
+(global-set-key (kbd "M-J") 'mh/next-line-keep)
+
+(global-set-key (kbd "C-v")   'mh/scroll-up)
+(global-set-key (kbd "M-v")   'mh/scroll-down)
+(global-set-key (kbd "C-M-v") 'scroll-lock-mode)
+
+(defun mh/up-to-char (arg char)
+  "Points to char given by interactive `char'"
+  (interactive "P\ncUp to char: ")
+  (if (eq arg '-)
+      (search-backward (char-to-string char) nil nil 1)
+    (progn
+      (search-forward (char-to-string char) nil nil 1)
+      (backward-char))))
+
+(defun mh/to-char (arg char)
+  "Points over char given by interactive `char'"
+  (interactive "P\ncTo char: ")
+  (mh/up-to-char arg char)
+  (if (eq arg '-)
+      (backward-char)
+    (forward-char)))
+
+(global-set-key (kbd "M-z") 'mh/to-char)
+(global-set-key (kbd "M-Z") 'zap-up-to-char)
+
+(global-set-key (kbd "C-x C-M-x") 'repeat-complex-command)
+
+(defun mh/imenu-at-point ()
+  "Uses `imenu' to find symbol at point"
+  (interactive)
+  (let ((symbol (symbol-at-point)))
+    (when symbol
+      (imenu (symbol-name symbol)))))
+
+(global-set-key (kbd "C-x C-M-j") 'mh/imenu-at-point)
+
+(defun mh/mark-sexp-at-point ()
+  "Marks the SEXP at point"
+  (interactive)
+  (let ((beg (save-excursion (beginning-of-sexp) (point)))
+        (end (save-excursion (end-of-sexp) (point))))
+    (goto-char end)
+    (set-mark (point))
+    (goto-char beg)
+  ))
+
+(global-set-key (kbd "C-x C-M-SPC") 'mh/mark-sexp-at-point)
+
+(defun mh/isearch-region ()
+  "Use `isearch' with the region as the search string"
+  (interactive)
+  (when (region-active-p)
+    (push
+      (let ((beg (caar (region-bounds)))
+            (end (cdar (region-bounds))))
+        (buffer-substring beg end)
+      )
+      search-ring)
+    (deactivate-mark)
+    (isearch-backward)
+  ))
+
+(global-set-key (kbd "C-x C-M-s") 'mh/isearch-region)
+
+(defun mh/goto-file-at-point ()
+  "Goto file at point"
+  (interactive)
+  (when-let ((file (ffap-file-at-point)))
+    (find-file file)))
+
+(global-set-key (kbd "C-x C-M-r") 'mh/goto-file-at-point)
 
 ;;;; Emacs Overrides
 

@@ -207,3 +207,11 @@
  '(smerge-upper ((t (:extend t :background "#ffdddd" :foreground "black"))))
  '(trailing-whitespace ((t (:background "color-124"))))
  '(vertical-border ((t (:background "color-18" :foreground "color-19")))))
+
+;;;; Late loaders
+
+;; min
+(progn
+  ; (recentf-mode 1)
+  (savehist-mode 1)
+  (load savehist-file))

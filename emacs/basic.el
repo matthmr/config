@@ -1,6 +1,5 @@
 ;;;; Emacs Basic Config
 
-(load @EMACS_MACROS@)
 (load @EMACS_KEYBINDINGS@)
 (load @EMACS_ABBREVS@) ; the abbrevs file is not in this repository
 
@@ -131,8 +130,6 @@
 ; min
 (tab-bar-mode 1)
 (auto-save-mode 1)
-(recentf-mode 1)
-;; (savehist-mode 1)
 
 ;;;; Hooks
 

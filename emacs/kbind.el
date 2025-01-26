@@ -208,15 +208,9 @@
 (global-set-key (kbd "M-I")  'replace-regexp)
 (global-set-key (kbd "M-F")  'indent-rigidly-right-to-tab-stop)
 (global-set-key (kbd "M-B")  'indent-rigidly-left-to-tab-stop)
+(global-set-key (kbd "M-R")  'jump-to-register)
 
 ;;; `C-x ESC' Commands
-
-(defun mh/imenu-at-point ()
-  "Uses `imenu' to find symbol at point"
-  (interactive)
-  (let ((symbol (symbol-at-point)))
-    (when symbol
-      (imenu (symbol-name symbol)))))
 
 (global-set-key (kbd "C-x C-M-d")   'delete-region)
 (global-set-key (kbd "C-x C-M-k")   'kill-whole-line)
@@ -226,11 +220,7 @@
 (global-set-key (kbd "C-x C-M-f")   'find-file-at-point)
 (global-set-key (kbd "C-x C-M-v")   'view-file)
 (global-set-key (kbd "C-x C-M-c")   'server-edit)
-(global-set-key (kbd "C-x C-M-j")   'mh/imenu-at-point)
 (global-set-key (kbd "C-x C-M-w")   'write-file)
-(global-set-key (kbd "C-x C-M-SPC") 'mh/mark-thing-at-point)
-(global-set-key (kbd "C-x C-M-s")   'mh/isearch-region)
-(global-set-key (kbd "C-x C-M-r")   'recentf-open)
 
 ;; (global-set-key (kbd "C-x C-M-l")   'desktop-read)
 ;; (global-set-key (kbd "C-x C-M-r")   'desktop-save-in-desktop-dir)
