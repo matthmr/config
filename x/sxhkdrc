@@ -26,7 +26,7 @@ super + control + x; a; control + m
 super + control + x; a; control + d
   dohibernate -x -f
 super + control + x; a; l
-  i3lock-wp
+  i3lock-wp -R
 
 #### launch-mode
 
