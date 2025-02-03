@@ -573,6 +573,8 @@
 
 (global-set-key (kbd "C-x C-M-s") 'mh/isearch-region)
 
+(require 'ffap)
+
 (defun mh/goto-file-at-point ()
   "Goto file at point"
   (interactive)

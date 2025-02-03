@@ -1,9 +1,9 @@
 ;;;; mh-ed.el --- Very small minor mode that adds some VI-like bindings
 
-;; Copyright (C) 2023-2024 mH
+;; Copyright (C) 2023-2025 mh
 
 ;; Author: mH <github.com/matthmr>
-;; Version: 2.2.2
+;; Version: 2.2.3
 
 ;; Permission is hereby granted, free of charge, to any person
 ;; obtaining a copy of this software and associated documentation
@@ -138,6 +138,7 @@
     (define-key map "<" 'indent-rigidly-left-to-tab-stop)
     (define-key map ">" 'indent-rigidly-right-to-tab-stop)
     (define-key map "f" 'mh/to-char)
+    (define-key map "t" 'mh/up-to-char)
     (define-key map "0" 'beginning-of-line)
     (define-key map "-" 'end-of-line)
     (define-key map "$" 'end-of-line)
