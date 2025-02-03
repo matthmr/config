@@ -1,6 +1,6 @@
 # By session:
 #   $1: wm
 
-@SX_XDAEMON@ "$1"
+@SX_XDAEMON@ "$1" &
 
 exec "$1"

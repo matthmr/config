@@ -44,14 +44,14 @@ super + control + x; l; e
 #### volume-mode
 # min
 super + control + x; v; minus
-  volume -5
+  volume -5; herbec "$(volume)"
 # min
 super + control + x; v; equal
-  volume +5
+  volume +5; herbec "$(volume)"
 super + control + x; v; v
   herbec "$(volume)"
 super + control + x; v; m
-  volume m
+  volume m; herbec "$(volume)"
 
 #### screenshot
 
@@ -90,9 +90,17 @@ super + control + x; m; period
   mpc seek +5% >/dev/null 2>/dev/null
 # min
 super + control + x; m; m
-  herbec "$(MPC_FORMAT='[%title%|%file%][ - %artist%[ "%album%"][ (%date%)]]' mpc)"
+  herbec "$(mpc)"
 super + control + x; m; q
-  herbec "$(MPC_FORMAT='[%title%|%file%][ - %artist%[ "%album%"][ (%date%)]]' mpc queue)"
+  herbec "$(mpc queued)"
+super + control + x; m; control + d
+  herbe-mpc player mixer || herbec "Already running"
+super + control + x; m; control + k
+  herbe-mpc kill
+super + control + x; m; control + s
+  herbe-mpc stop
+super + control + x; m; control + c
+  herbe-mpc cont
 
 ##### X
 
@@ -137,6 +145,8 @@ super + alt + x
   dmenu_run
 super + alt + y
   clipmenu
+super + alt + k
+  herbec kill
 super + g
   pkill -USR1 -F /tmp/statusbar-pid >/dev/null 2>/dev/null
 super + b
