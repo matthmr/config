@@ -71,7 +71,8 @@
       c-basic-offset 2)
 
 (with-eval-after-load 'cc-mode
-  (define-key c-mode-map (kbd "TAB") #'indent-for-tab-command))
+  (define-key c-mode-map (kbd "TAB") #'indent-for-tab-command)
+  (define-key c-mode-map (kbd "C-M-h") #'backward-kill-sexp))
 
 ;;; Python
 
