@@ -30,13 +30,11 @@ super + control + x; a; l
 
 #### launch-mode
 
-super + control + x; l; c
-  ungoogled-chromium
-super + control + x; l; f
+super + control + x; l; b
   firefox
-super + control + x; l; l
+super + control + x; l; f
   urxvt -e lf -single
-super + control + x; l; p
+super + control + x; l; l
   pcmanfm
 super + control + x; l; e
   emacstc

@@ -1,0 +1,33 @@
+color diff-header white default bold
+color diff-index white default bold
+color diff-stat white default bold
+
+color diff-chunk cyan default
+
+color title-focus white black bold
+color title-blur white black
+
+color cursor default default reverse
+
+bind generic g move-first-line
+bind generic G move-last-line
+
+bind main g move-first-line
+bind main G move-last-line
+
+bind generic h view-close
+bind generic . view-help
+
+bind status C none
+
+bind generic M :!man tigrc
+
+bind diff F :!git show %(commit) -- %(file)
+bind grep F :!git show %(commit) -- %(file)
+bind tree F :!git show %(commit) -- %(file)
+bind pager F :!git show %(commit) -- %(file)
+
+bind diff L :!git log %(commit) -- %(file)
+bind grep L :!git log %(commit) -- %(file)
+bind tree L :!git log %(commit) -- %(file)
+bind pager L :!git log %(commit) -- %(file)
