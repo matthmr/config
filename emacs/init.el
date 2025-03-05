@@ -30,7 +30,15 @@
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
 (with-eval-after-load "markdown-mode"
-  (define-key markdown-mode-map "\M-TAB" 'completion-at-point))
+  (define-key markdown-mode-map "\M-TAB" 'completion-at-point)
+
+  (set-face-attribute 'markdown-header-face-1 nil :inherit '(outline-1))
+  (set-face-attribute 'markdown-header-face-2 nil :inherit '(outline-2))
+  (set-face-attribute 'markdown-header-face-3 nil :inherit '(outline-3))
+  (set-face-attribute 'markdown-header-face-4 nil :inherit '(outline-4))
+  (set-face-attribute 'markdown-header-face-5 nil :inherit '(outline-5))
+  (set-face-attribute 'markdown-header-face-6 nil :inherit '(outline-6))
+  )
 
 ;;; TTY vs PTS
 
@@ -142,6 +150,7 @@
  '(global-display-line-numbers-mode t)
  '(goal-column nil)
  '(gud-key-prefix [3 1])
+ '(history-length 1000)
  '(icomplete-matches-format "[%s/%s] ")
  '(icomplete-mode t)
  '(icomplete-show-matches-on-no-input t)
@@ -197,6 +206,7 @@
  '(fill-column-indicator ((t (:background "color-18" :foreground "color-19"))))
  '(icomplete-first-match ((t (:foreground "#dc9656"))))
  '(log-view-message ((t (:extend t :background "grey85" :foreground "black"))))
+ '(markdown-bold-face ((t (:inherit bold :inverse-video t))))
  '(pulse-highlight-start-face ((t (:inverse-video t))))
  '(smerge-base ((t (:extend t :background "#ffffaa" :foreground "black"))))
  '(smerge-lower ((t (:extend t :background "#ddffdd" :foreground "black"))))

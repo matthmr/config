@@ -3,7 +3,7 @@
 ;; Copyright (C) 2023 mH
 
 ;; Author: mH <github.com/matthmr>
-;; Version: 1.1.0
+;; Version: 1.2.0
 
 ;; Permission is hereby granted, free of charge, to any person
 ;; obtaining a copy of this software and associated documentation
@@ -461,6 +461,21 @@ or a symbol, see `completion-pcm--merge-completions'."
 ;;   (lambda () (interactive) (mh/desktop-save @EMACS_DESKTOP@)))
 ;; (add-hook 'desktop-no-desktop-file-hook
 ;;   (lambda () (interactive) (mh/desktop-read @EMACS_DESKTOP@)))
+
+;;; Hello `foobar' biz baz'
+(defun mh/hi-keywords ()
+  "Highlight comment keywords"
+  (let ((comment-type
+         '(("\\<\\(TODO\\|FIXME\\|COMBAK\\|NOTE\\|HACK\\|BUG\\)\\>"
+            1 'font-lock-warning-face prepend)))
+        (comment-obj
+         '(("`\\(.*?\\)'"
+            1 'font-lock-constant-face prepend))))
+    (font-lock-add-keywords nil comment-type)
+    (font-lock-add-keywords nil comment-obj)
+    ))
+
+(add-hook 'prog-mode-hook #'mh/hi-keywords)
 
 ;;;; Theme
 
