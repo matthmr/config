@@ -1,4 +1,4 @@
-;;;; Emacs Basic Config
+;;;; Emacs basic config
 
 (load @EMACS_KEYBINDINGS@)
 (load @EMACS_ABBREVS@) ; the abbrevs file is not in this repository
@@ -57,7 +57,7 @@
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
-;;;; Major Modes
+;;;; Major modes
 
 ;;; Gnus
 
@@ -122,6 +122,33 @@
             (mh/eshell-block (eshell/pwd))
             (propertize ">" 'face `(:foreground "red")))))
 
+;;; Markdown
+
+(autoload 'markdown-mode "markdown-mode"
+  "Major mode for editing Markdown files" t)
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+
+(with-eval-after-load "markdown-mode"
+  (define-key markdown-mode-map "\M-TAB" 'completion-at-point)
+
+  (set-face-attribute 'markdown-header-face-1 nil :inherit '(outline-1))
+  (set-face-attribute 'markdown-header-face-2 nil :inherit '(outline-2))
+  (set-face-attribute 'markdown-header-face-3 nil :inherit '(outline-3))
+  (set-face-attribute 'markdown-header-face-4 nil :inherit '(outline-4))
+  (set-face-attribute 'markdown-header-face-5 nil :inherit '(outline-5))
+  (set-face-attribute 'markdown-header-face-6 nil :inherit '(outline-6))
+  )
+
+;;;; Minor modes
+
+;;; Scroll-lock
+
+(with-eval-after-load "scroll-lock"
+  (define-key scroll-lock-mode-map "\C-n" 'scroll-lock-next-line)
+  (define-key scroll-lock-mode-map "\C-p" 'scroll-lock-previous-line)
+  (define-key scroll-lock-mode-map "\M-{" 'scroll-lock-backward-paragraph)
+  (define-key scroll-lock-mode-map "\M-}" 'scroll-lock-forward-paragraph))
+
 ;;; Global minor modes
 
 ; min
@@ -161,6 +188,10 @@
             (display-fill-column-indicator-mode 1)
             (auto-fill-mode 1)
             (setq-local show-trailing-whitespace t)))
+
+(add-hook 'icomplete-minibuffer-setup-hook
+          (lambda ()
+            (setq truncate-lines t)))
 
 ;;; Prog mode
 

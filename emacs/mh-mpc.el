@@ -1,8 +1,8 @@
 ;;; mh-mpc.el --- Dead simple shell-command-based mpd client using mpc.
 
-;; Copyright (C) 2023 mH
+;; Copyright (C) 2023 mh
 
-;; Author: mH <github.com/matthmr>
+;; Author: mh <github.com/matthmr>
 ;; Version: 1.0.0
 
 ;; Permission is hereby granted, free of charge, to any person

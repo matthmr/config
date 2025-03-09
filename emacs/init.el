@@ -15,32 +15,7 @@
 
 @EMACS_LOAD@
 
-;;; Scroll-lock
-
-(with-eval-after-load "scroll-lock"
-  (define-key scroll-lock-mode-map "\C-n" 'scroll-lock-next-line)
-  (define-key scroll-lock-mode-map "\C-p" 'scroll-lock-previous-line)
-  (define-key scroll-lock-mode-map "\M-{" 'scroll-lock-backward-paragraph)
-  (define-key scroll-lock-mode-map "\M-}" 'scroll-lock-forward-paragraph))
-
-;;; Markdown
-
-(autoload 'markdown-mode "markdown-mode"
-  "Major mode for editing Markdown files" t)
-(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
-
-(with-eval-after-load "markdown-mode"
-  (define-key markdown-mode-map "\M-TAB" 'completion-at-point)
-
-  (set-face-attribute 'markdown-header-face-1 nil :inherit '(outline-1))
-  (set-face-attribute 'markdown-header-face-2 nil :inherit '(outline-2))
-  (set-face-attribute 'markdown-header-face-3 nil :inherit '(outline-3))
-  (set-face-attribute 'markdown-header-face-4 nil :inherit '(outline-4))
-  (set-face-attribute 'markdown-header-face-5 nil :inherit '(outline-5))
-  (set-face-attribute 'markdown-header-face-6 nil :inherit '(outline-6))
-  )
-
-;;; TTY vs PTS
+;;; Terminal setup: linuxVT, PTS
 
 (defvar mh/display-table
   `((truncation . ?…)
@@ -81,22 +56,6 @@
       (let ((base16-theme-256-color-source 'base16-shell))
         (load-theme 'base16-shell t))
       )))
-
-(defvar mh/initial-scratch-message "\
-;;                           ___
-;;                          (.. |
-;;                          (<> |          ,= ,-_-. =.
-;;                         / __  \\        ((_/)o o(\\_))
-;;                        ( /  \\ /|        `-!(. .)`-!
-;;                       _/\\ __)/_)            \\_/
-;;                       \\/-____\\/
-;;
-;;                       __             _
-;;                      /__ |\\ | | |   |_ ._ _   _.  _  _
-;;                      \\_| | \\| |_|   |_ | | | (_| (_ _>
-
-"
-  "Initial scratch message")
 
 ;;;; Customize
 
@@ -155,7 +114,20 @@
  '(icomplete-mode t)
  '(icomplete-show-matches-on-no-input t)
  '(imenu-auto-rescan t)
- '(initial-scratch-message mh/initial-scratch-message)
+ '(initial-scratch-message "\
+;;                           ___
+;;                          (.. |
+;;                          (<> |          ,= ,-_-. =.
+;;                         / __  \\        ((_/)o o(\\_))
+;;                        ( /  \\ /|        `-!(. .)`-!
+;;                       _/\\ __)/_)            \\_/
+;;                       \\/-____\\/
+;;
+;;                       __             _
+;;                      /__ |\\ | | |   |_ ._ _   _.  _  _
+;;                      \\_| | \\| |_|   |_ | | | (_| (_ _>
+
+")
  '(isearch-lazy-count t)
  '(ispell-alternate-dictionary @EMACS_ENGLISH_DICT@)
   ; min
@@ -169,7 +141,6 @@
  '(mpc-browser-tags '(Artist Album Title Filename))
  '(org-agenda-files nil)
  '(outline-minor-mode-prefix "\3\23")
- '(package-selected-packages '(dash with-editor))
  '(read-file-name-completion-ignore-case t)
  '(recentf-max-saved-items 200)
  '(recentf-save-file "~/em/recent")

@@ -1,4 +1,4 @@
-;;;; Emacs Keybindings
+;;;; Emacs keybindings
 
 (global-unset-key (kbd "ESC ESC ESC"))
 (global-unset-key (kbd "C-x m"))
@@ -59,7 +59,7 @@
                 (lambda () (interactive)
                   (mh/with-prefix -1 'other-window)))
 
-;;; Emacs 29
+;;; With `'minibuffer'
 
 (global-set-key (kbd "M-N") 'minibuffer-next-completion)
 (global-set-key (kbd "M-P") 'minibuffer-previous-completion)

@@ -2,7 +2,7 @@
 
 ;; Copyright (C) 2023-2025 mh
 
-;; Author: mH <github.com/matthmr>
+;; Author: mh <github.com/matthmr>
 ;; Version: 2.2.3
 
 ;; Permission is hereby granted, free of charge, to any person

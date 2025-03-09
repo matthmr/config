@@ -1,8 +1,8 @@
 ;;; mh-viper.el --- Custom layer for viper-mode.
 
-;; Copyright (C) 2023 mH
+;; Copyright (C) 2023 mh
 
-;; Author: mH <github.com/matthmr>
+;; Author: mh <github.com/matthmr>
 ;; Version: 2.0.0
 
 ;; Permission is hereby granted, free of charge, to any person

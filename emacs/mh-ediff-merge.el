@@ -1,8 +1,8 @@
 ;;;; mh-ediff-merge.el --- Custom layer atop ediff to merge with git-merge.sh
 
-;; Copyright (C) 2024 mH
+;; Copyright (C) 2024 mh
 
-;; Author: mH <github.com/matthmr>
+;; Author: mh <github.com/matthmr>
 ;; Version: 1.0.0
 
 ;; Permission is hereby granted, free of charge, to any person

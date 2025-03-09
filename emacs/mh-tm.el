@@ -1,8 +1,8 @@
 ;;;; mh-tm.el --- Tree-sitter movement based on `elisp-tree-sitter'
 
-;; Copyright (C) 2024 mH
+;; Copyright (C) 2024 mh
 
-;; Author: mH <github.com/matthmr>
+;; Author: mh <github.com/matthmr>
 ;; Version: 1.1.0
 
 ;; Permission is hereby granted, free of charge, to any person

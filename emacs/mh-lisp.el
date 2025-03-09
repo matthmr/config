@@ -1,8 +1,8 @@
 ;;; mh-lisp.el --- Generic LISP utils
 
-;; Copyright (C) 2024 mH
+;; Copyright (C) 2024 mh
 
-;; Author: mH <github.com/matthmr>
+;; Author: mh <github.com/matthmr>
 ;; Version: 1.1.0
 
 ;; Permission is hereby granted, free of charge, to any person
@@ -165,16 +165,19 @@
 ;;;; Cursor
 
 (defun mh/cursor-box ()
+  (interactive)
   (send-string-to-terminal "\e[1 q"))
 
 (global-set-key (kbd "C-x C-M-m 1") #'mh/cursor-box)
 
 (defun mh/cursor-bar ()
+  (interactive)
   (send-string-to-terminal "\e[5 q"))
 
 (global-set-key (kbd "C-x C-M-m 2") #'mh/cursor-bar)
 
 (defun mh/cursor-under ()
+  (interactive)
   (send-string-to-terminal "\e[3 q"))
 
 (global-set-key (kbd "C-x C-M-m 3") #'mh/cursor-under)
