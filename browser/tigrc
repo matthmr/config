@@ -16,11 +16,15 @@ bind main g move-first-line
 bind main G move-last-line
 
 bind generic h view-close
-bind generic . view-help
+bind generic <C-h> view-help
 
 bind status C none
 
 bind generic M :!man tigrc
+
+bind generic . move-half-page-down
+bind generic , move-half-page-up
+bind generic @ parent
 
 bind diff F :!git show %(commit) -- %(file)
 bind grep F :!git show %(commit) -- %(file)

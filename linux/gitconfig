@@ -100,6 +100,7 @@
   mt  = mergetool
   dfs = diff --stat --patch --color=always --cached
   dfh = diff --stat --patch --color=always @
+  lt  = describe --tags --abbrev=0
 
 [filter "lfs"]
 	process = git-lfs filter-process

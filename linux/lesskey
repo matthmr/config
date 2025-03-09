@@ -1,4 +1,6 @@
 ^b left-scroll
 ^f right-scroll
+, back-scroll
+. forw-scroll
 ^o prev-file
 ^i next-file

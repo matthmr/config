@@ -30,8 +30,9 @@ super + control + x; a; l
 
 #### launch-mode
 
+# min
 super + control + x; l; b
-  firefox
+  ungoogled-chromium
 super + control + x; l; f
   urxvt -e lf -single
 super + control + x; l; l
