@@ -1,0 +1,4 @@
+[input]
+
+method = alsa
+source = desktop
