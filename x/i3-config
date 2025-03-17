@@ -68,6 +68,7 @@ bindsym $mod+bracketleft focus parent, focus left
 bindsym $mod+bracketright focus parent, focus right
 bindsym $mod+Shift+bracketleft focus prev sibling
 bindsym $mod+Shift+bracketright focus next sibling
+bindsym $mod+n [urgent="latest"] focus
 
 # move focused window
 bindsym $mod+Shift+h move left $move_px

@@ -12,6 +12,8 @@ bind-key d  halfpagedown
 bind-key u  halfpageup
 bind-key l  open
 bind-key h  quit
+bind-key ,  halfpageup
+bind-key .  halfpagedown
 
 bind-key Q  hard-quit
 bind-key U  show-urls
