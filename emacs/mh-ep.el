@@ -1,9 +1,9 @@
 ;;;; mh-ep.el --- very crude `popon' integration with `eldoc'
 
-;; Copyright (C) 2024 mh
+;; Copyright (C) 2024-2025 mh
 
 ;; Author: mh <github.com/matthmr>
-;; Version: 1.1.0
+;; Version: 1.2.0
 
 ;; Permission is hereby granted, free of charge, to any person
 ;; obtaining a copy of this software and associated documentation
@@ -38,6 +38,8 @@
 (defvar mh/ep-popon nil
   "The popon we must delete")
 
+(defvar mh/ep-lines 0)
+
 (defun mh/ep-format-buffer (ep-buffer w h)
   "Format the eldoc buffer's contents to fit within the bounds"
   (with-current-buffer ep-buffer
@@ -45,11 +47,13 @@
                                "\n"))
           (output* (list)))
 
+      (setq mh/ep-lines (length lines))
       (dolist (line lines)
         (if (> (length line) w)
           ;; lines too big: break them down
           (let ((nlines (string-split
-                         (string-fill line width) "\n")))
+                         (string-fill line w) "\n")))
+            (setf mh/ep-lines (+ mh/ep-lines (- (length nlines) 1)))
             (dolist (nline nlines)
               (push (string-pad nline w ? ) output*)))
 
@@ -75,11 +79,29 @@
 (defun mh/ep-with-buffer (ep-buffer)
   "Call popon given the buffer"
   (setq mh/ep-popon
-    (let* ((pos (popon-x-y-at-pos (point)))
-           (width (- (/ (window-width) 2) 3))
-           (height (/ (window-height) 2))
-           (text (mh/ep-format-buffer ep-buffer width height)))
-      (popon-create text (progn (setcdr pos (1+ (cdr pos))) pos))
+    (let* ((w-pos (popon-x-y-at-pos (point)))
+           (w-width (window-body-width))
+           (w-height (window-body-height))
+
+           ;; at most 3/4 of the width, 1/2 of the height
+           (t-width (round (* 0.66 w-width)))
+           (t-height (/ w-height 2))
+           (text (mh/ep-format-buffer ep-buffer t-width t-height))
+
+           ;; expected border on each side of the popon
+           (p-bord (/ (- w-width t-width) 2))
+           (px-off (if (> (1+ (car w-pos)) p-bord)
+                     (- (car w-pos) p-bord)
+                     0))
+           (py-off (if (> (+ (1+ (cdr w-pos)) mh/ep-lines) w-height)
+                      mh/ep-lines
+                      -1))
+
+           (p-pos (progn (setcar w-pos (- (car w-pos) px-off))
+                         (setcdr w-pos (- (cdr w-pos) py-off))
+                          w-pos))
+           )
+      (popon-create text p-pos)
       ))
   nil)
 

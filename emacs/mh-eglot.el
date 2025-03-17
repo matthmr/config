@@ -59,9 +59,11 @@
   (mh/load "ep")
 
   (defun mh/eglot-ep (docs interactive)
-    (when eglot--highlights
-      (add-hook 'post-command-hook #'mh/ep-kill)
-      (mh/ep-with-buffer (eldoc--format-doc-buffer docs))))
+    (when eglot--managed-mode
+      (eldoc--format-doc-buffer docs)
+      (when (> (buffer-size eldoc--doc-buffer) 0)
+        (add-hook 'post-command-hook #'mh/ep-kill)
+        (mh/ep-with-buffer eldoc--doc-buffer))))
 
   (mh/ep-setup #'mh/eglot-ep))
 

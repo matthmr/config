@@ -37,6 +37,7 @@
 (global-set-key (kbd "C-x C-M-m C-M-i") #'mh/bc-reset)
 
 (add-hook 'prog-mode-hook #'mh/bc-mode)
+(add-hook 'diff-mode-hook #'mh/bc-mode)
 
 (with-eval-after-load "markdown"
   (add-hook 'markdown-mode-hook #'mh/bc-mode))
