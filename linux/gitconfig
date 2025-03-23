@@ -68,6 +68,7 @@
   sl  = log --oneline
   gl  = log --oneline --abbrev-commit --graph
   df  = diff --stat --patch --color=always
+  td  = diff --stat --patch
   fe  = fetch --verbose
   cm  = commit --verbose
   wt  = worktree

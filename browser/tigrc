@@ -35,3 +35,22 @@ bind diff L :!git log %(commit) -- %(file)
 bind grep L :!git log %(commit) -- %(file)
 bind tree L :!git log %(commit) -- %(file)
 bind pager L :!git log %(commit) -- %(file)
+
+bind pager <Esc>p :?^@@
+bind pager <Esc>n :/^@@
+bind pager <Esc>P :?^diff
+bind pager <Esc>N :/^diff
+
+bind diff <Esc>p :?^@@
+bind diff <Esc>n :/^@@
+bind diff <Esc>P :?^diff
+bind diff <Esc>N :/^diff
+
+bind stage <Esc>p :?^@@
+bind stage <Esc>n :/^@@
+bind stage <Esc>P :?^diff
+bind stage <Esc>N :/^diff
+
+set wrap-search = false
+set ignore-case = smart-case
+set diff-highlight = true
