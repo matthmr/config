@@ -39,7 +39,7 @@
 (add-hook 'prog-mode-hook #'mh/bc-mode)
 (add-hook 'diff-mode-hook #'mh/bc-mode)
 
-(with-eval-after-load "markdown"
+(with-eval-after-load 'markdown-mode
   (add-hook 'markdown-mode-hook #'mh/bc-mode))
 
 (call-interactively #'mh/bc-mode)

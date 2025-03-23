@@ -3,7 +3,7 @@
 ;; Copyright (C) 2023-2025 mh
 
 ;; Author: mh <github.com/matthmr>
-;; Version: 2.2.3
+;; Version: 2.2.4
 
 ;; Permission is hereby granted, free of charge, to any person
 ;; obtaining a copy of this software and associated documentation
@@ -153,6 +153,8 @@
     (define-key map "V" 'beginning-of-buffer)
     (define-key map "x" 'exchange-point-and-mark)
     (define-key map "|" 'back-to-indentation)
+    (define-key map (kbd "RET") 'next-line)
+    (define-key map (kbd "DEL") 'previous-line)
 
     ;; toggle/quit
 

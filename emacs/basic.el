@@ -226,19 +226,16 @@
 (add-hook 'lisp-mode-hook
           (lambda ()
             (setq-local page-delimiter "^;\\{4\\}")
-            (hs-minor-mode 1)
             (rainbow-delimiters-mode 1)))
 
 (add-hook 'scheme-mode-hook
           (lambda ()
             (setq-local page-delimiter "^;\\{4\\}")
-            (hs-minor-mode 1)
             (rainbow-delimiters-mode 1)))
 
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
             (setq-local page-delimiter "^;\\{4\\}")
-            (hs-minor-mode 1)
             (rainbow-delimiters-mode 1)))
 
 ;;;; Misc

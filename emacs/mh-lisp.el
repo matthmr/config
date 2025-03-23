@@ -1,9 +1,9 @@
 ;;; mh-lisp.el --- Generic LISP utils
 
-;; Copyright (C) 2024 mh
+;; Copyright (C) 2024-2025 mh
 
 ;; Author: mh <github.com/matthmr>
-;; Version: 1.1.0
+;; Version: 1.1.1
 
 ;; Permission is hereby granted, free of charge, to any person
 ;; obtaining a copy of this software and associated documentation
@@ -126,7 +126,7 @@
 
     ;; define the mode
     (let ((init (if init (list init) t))
-          (msg (format "%s>" prefix-mode)))
+          (msg (format "[%s]" prefix-mode)))
       (eval
        `(defun ,mode ()
          (interactive)

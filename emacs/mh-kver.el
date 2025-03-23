@@ -21,12 +21,12 @@
   (setq hs-minor-mode-map (make-sparse-keymap))
 
   ;; These bindings roughly imitate those used by Outline mode.
-  (keymap-set hs-minor-mode-map "C-c C-s C-d" #'hs-hide-block)
-  (keymap-set hs-minor-mode-map "C-c C-s C-s" #'hs-show-block)
-  (keymap-set hs-minor-mode-map "C-c C-s C-M-d" #'hs-hide-all)
-  (keymap-set hs-minor-mode-map "C-c C-s C-M-s" #'hs-show-all)
-  (keymap-set hs-minor-mode-map "C-c C-s C-l" #'hs-hide-level)
-  (keymap-set hs-minor-mode-map "C-c C-s C-c" #'hs-toggle-hiding)
+  (keymap-set hs-minor-mode-map "M-D d" #'hs-hide-block)
+  (keymap-set hs-minor-mode-map "M-D s" #'hs-show-block)
+  (keymap-set hs-minor-mode-map "M-D D" #'hs-hide-all)
+  (keymap-set hs-minor-mode-map "M-D S" #'hs-show-all)
+  (keymap-set hs-minor-mode-map "M-D l" #'hs-hide-level)
+  (keymap-set hs-minor-mode-map "M-D M-D" #'hs-toggle-hiding)
 )
 
 ;;;; Indent
