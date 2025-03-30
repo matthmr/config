@@ -74,10 +74,8 @@
  '(base16-theme-distinct-fringe-background nil)
  '(browse-url-browser-display nil)
  '(browse-url-browser-function
-   (lambda
-     (url &optional args)
-     (async-shell-command
-      (format "uhandle -d '%s'" url "*url*" "*url-error*"))))
+   (lambda (url &optional args)
+     (async-shell-command (format "uhandle -d '%s'" url "*url*" "*url-error*"))))
  '(browse-url-text-browser "w3m")
  '(column-number-mode t)
  '(comment-column 0)
@@ -172,6 +170,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(corfu-bar ((t (:background "white"))))
+ '(corfu-border ((t (:background "black"))))
+ '(corfu-current ((t (:extend t :inverse-video t))))
  '(eglot-highlight-symbol-face ((t (:inverse-video t))))
  '(eglot-mode-line ((t nil)))
  '(fill-column-indicator ((t (:background "color-18" :foreground "color-19"))))

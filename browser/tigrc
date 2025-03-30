@@ -1,8 +1,16 @@
-color diff-header white default bold
-color diff-index white default bold
-color diff-stat white default bold
+# diff --git ...
+color diff-header yellow black bold
 
-color diff-chunk cyan default
+# index ...
+color diff-index yellow default # black bold
+
+# @@ ...
+color diff-chunk magenta black
+
+# ... @@ foo {
+color diff-stat white black
+
+####
 
 color title-focus white black bold
 color title-blur white black

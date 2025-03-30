@@ -65,6 +65,27 @@ super + control + x; s; q
 super + control + x; s; control + q
   screenshot -q -f /tmp
 
+#### playerctl
+
+super + control + x; p; space
+  dbusc -f playerctl play-pause
+super + control + x; p; s
+  dbusc -f playerctl stop
+super + control + x; p; n
+  dbusc -f playerctl next
+super + control + x; p; p
+  dbusc -f playerctl previous
+super + control + x; p; minus
+  dbusc -f playerctl volume 0.05-
+super + control + x; p; equal
+  dbusc -f playerctl position 0.05+
+super + control + x; p; comma
+  dbusc -f playerctl position 10-
+super + control + x; p; period
+  dbusc -f playerctl position 10+
+super + control + x; p; m
+  herbec "$(dbusc -f playerctl metadata)"
+
 #### MPD
 
 super + control + x; m; space
@@ -108,7 +129,7 @@ super + control + x; x; k
 super + control + x; x; r
   @SXHKDRC_RESIZE@
 super + control + x; x; s
-  pkill -USR1 sxhkd
+  pkill -USR1 sxhkd; herbec "Restarted sxhkd"
 
 #### wallpaper
 
