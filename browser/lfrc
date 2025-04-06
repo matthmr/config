@@ -123,6 +123,9 @@ map <c-x>w setfilter
 map <a-n> jump-next
 map <a-p> jump-prev
 
+map , half-up
+map . half-down
+
 map <a-l> set number!
 
 map <a-s> push :glob-select<space>
