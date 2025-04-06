@@ -134,7 +134,6 @@
  '(kept-old-versions 50)
  '(menu-bar-mode nil)
  '(mh/eglot-markdown-doc nil)
- '(mh/tm-use-region-as-mark 'always)
  '(mode-line-compact nil)
  '(mpc-browser-tags '(Artist Album Title Filename))
  '(org-agenda-files nil)
@@ -172,7 +171,7 @@
  ;; If there is more than one, they won't work right.
  '(corfu-bar ((t (:background "white"))))
  '(corfu-border ((t (:background "black"))))
- '(corfu-current ((t (:extend t :inverse-video t))))
+ '(corfu-current ((t (:inherit highlight :extend t))))
  '(eglot-highlight-symbol-face ((t (:inverse-video t))))
  '(eglot-mode-line ((t nil)))
  '(fill-column-indicator ((t (:background "color-18" :foreground "color-19"))))
