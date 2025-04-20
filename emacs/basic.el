@@ -212,6 +212,7 @@
               page-delimiter "^/\\{4\\}")
             ; min
             (outline-minor-mode 1)
+            (auto-fill-mode 1)
             (abbrev-mode -1)))
 
 (add-hook 'python-mode-hook

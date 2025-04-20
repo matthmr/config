@@ -359,7 +359,8 @@ Run the `mh/tm-up-funcs' after changing this variable during run-time")
 (defun mh/tm-echo (load)
   (setq mh/tm-echo load))
 
-(global-set-key (kbd "C-x C-M-m C-M-a") #'mh/tm-move-mode)
+(with-eval-after-load 'cc-mode
+  (define-key c-mode-map (kbd "C-M-q") #'mh/tm-move-mode))
 
 (mh/provide 'tm-mov #'mh/tm-move t)
 (mh/provide 'tm-echo #'mh/tm-echo t)

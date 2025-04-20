@@ -146,6 +146,7 @@
     ("C-b" .   'kill-buffer-and-window))
 
   '(("C-w" . 'mh/new-window)
+    ("TAB" . 'mh/last-window)
     ("l" . 'windmove-display-right)
     ("h" . 'windmove-display-left)
     ("k" . 'windmove-display-up)

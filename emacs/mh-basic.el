@@ -47,6 +47,8 @@
       (newline-mark ?\n [?↵ ?\n] [?$ ?\n])
       )))
 
+;;;; Ediff
+
 (with-eval-after-load "ediff"
   (add-hook 'ediff-mode-hook
     (lambda ()
@@ -78,6 +80,8 @@
       (define-key ediff-mode-map "c" #'mh/ediff-copy-ancestor-to-C)))
   )
 
+;;;; Window
+
 (defun mh/split-window (&optional _)
   (let ((window (selected-window)))
     (with-selected-window window
@@ -90,7 +94,15 @@
   (interactive)
   (select-window (mh/split-window)))
 
+(defun mh/last-window ()
+  "Selects the last active window"
+  (interactive)
+  (when-let ((window (get-mru-window t t t)))
+    (select-window window)))
+
 (setq-default split-window-preferred-function 'mh/split-window)
+
+;;;; Buffer
 
 (defun mh/erase-buffer ()
   "Erase buffer regardless"
