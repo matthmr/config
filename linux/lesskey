@@ -4,3 +4,4 @@
 . forw-scroll
 ^o prev-file
 ^i next-file
+h quit

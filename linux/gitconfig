@@ -102,6 +102,7 @@
   dfs = diff --stat --patch --color=always --cached
   dfh = diff --stat --patch --color=always @
   lt  = describe --tags --abbrev=0
+  gr  = grep --column -n
 
 [filter "lfs"]
 	process = git-lfs filter-process
