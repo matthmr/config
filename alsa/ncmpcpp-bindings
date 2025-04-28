@@ -1,12 +1,9 @@
-def_key "mouse"
-  mouse_event
-
 def_key "U"
   update_database
 
-def_key "u"
+def_key ","
   page_up
-def_key "d"
+def_key "."
   page_down
 
 def_key "k"
@@ -113,9 +110,9 @@ def_key "4"
 def_key "5"
   toggle_crossfade
 
-def_key "."
+def_key ">"
   seek_forward
-def_key ","
+def_key "<"
   seek_backward
 
 def_key "t"
