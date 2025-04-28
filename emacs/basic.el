@@ -199,10 +199,18 @@
           (lambda ()
             (setq-local
               tab-width 2
-              indent-tabs-mode nil)
+              indent-tabs-mode nil
               comment-column 0)
-            (add-hook
-             'completion-at-point-functions #'comint-filename-completion))
+            (let ((capf (buffer-local-value
+                          'completion-at-point-functions
+                          (current-buffer))))
+              (setq-local completion-at-point-functions
+                (append
+                  (delete t capf)
+                  (list #'ispell-completion-at-point
+                        #'comint-filename-completion
+                        t))
+                ))))
 
 (add-hook 'c-mode-hook
           (lambda ()

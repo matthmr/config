@@ -32,7 +32,9 @@
              (memq 'c-mode (car mode-form)))
     (setf (cdr mode-form) '("clangd" "--header-insertion=never"))))
 
-(add-hook 'eglot-managed-mode-hook (lambda () (eglot-inlay-hints-mode -1)))
+(add-hook 'eglot-managed-mode-hook
+          (lambda ()
+            (eglot-inlay-hints-mode -1)))
 
 (if mh/eglot-markdown-doc
   (progn

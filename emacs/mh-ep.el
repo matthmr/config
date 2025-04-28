@@ -135,7 +135,9 @@ See `eldoc-documentation-strategy' for more detail."
   (mh/ep-with-buffer (eldoc-doc-buffer)))
 
 (defun mh/ep-mode (load)
-  (unless load
+  (if load
+      (when (fboundp 'mh/eglot-ep)
+        (push #'mh/eglot-ep eldoc-display-functions))
     ;; TODO: undo the `turn-on-eldoc-mode' aliasing
     (pop eldoc-display-functions)))
 
