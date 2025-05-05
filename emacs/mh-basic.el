@@ -133,7 +133,7 @@
 (defun mh/hi-keywords ()
   "Highlight comment keywords"
   (let ((comment-type
-         '(("\\<\\(TODO\\|FIXME\\|COMBAK\\|NOTE\\|HACK\\|BUG\\)\\>"
+         '(("\\<\\(TODO\\|FIXME\\|COMBAK\\|NOTE\\|HACK\\|BUG\\|DEBUG\\)\\>"
             1 'font-lock-warning-face prepend)))
         (comment-obj
          '(("`\\(.*?\\)'"
