@@ -75,12 +75,9 @@ chpwd () {
 
 autoload -Uz vcs_info
 
-zstyle ':vcs_info:git:*' formats '@%F{reset}%B%b%F{red}'
+zstyle ':vcs_info:git:*' formats ' @%B%b%F{reset}'
 
 #### Prompt
-
-# [USER@HOST] [SHELL@TTY] [ELLAPSED EXIT]
-# [PWD@HEAD]>
 
 function zshtime() {
   echo "$(($(date +%s%0N) / 1000000))"
@@ -97,15 +94,52 @@ function shortpwd {
 
 SHORTPWD=$(shortpwd)
 
-PROMPTSYM='>'
-PROMPT='\
-%F{red}[%F{reset}%B%n%b%F{red}@%F{reset}%B%m%b%F{red}] \
-%F{red}[%F{reset}%B${SHORTPWD}%b%F{red}${vcs_info_msg_0_}%b%F{red}] \
-%F{red}[%F{reset}%Bzsh%b%F{red}@%F{reset}%B%l%b%F{red}] \
-%F{red}[%F{reset}%B%D{%I%M%p}%b%F{red}@%F{reset}%B%D{%S}%b%F{red}] \
-%F{red}[%F{reset}%B${ELLAPSED}ms%b%F{red}@%F{reset}%B%?%b%F{red}]
-$PROMPTSYM%F{reset} '
-PS2='%F{red}>%F{reset} '
+function prompt {
+  local user='%B%n@%m%b'
+  local cwd='%B${SHORTPWD}${vcs_info_msg_0_}%b'
+  local tty='%B%l%b'
+  local date='%B%D{%I%M%p}@%D{%S}%b'
+  local run='%B${ELLAPSED}ms =%?%b'
+  local sym="$(echo $PROMPT | /bin/sed -n '$s/\(.*\) \?/\1/p')"
+
+  case $1 in
+    '--help'|'-h')
+      echo "Usage:       prompt (MODULE...|PROMPT_SYMBOL)"
+      echo "Description: Modify \`zsh's prompt by loading modules"
+      echo "Modules:
+  - user: user- and hostname
+  - cwd: CWD
+  - tty: TTY file
+  - date: current date
+  - run: runtime info
+  - PROMPT_SYMBOL (string): prompt symbol (on a new line)"
+      return 0
+      ;;
+  esac
+
+  PROMPT='%K{black}'
+
+  for arg in $@; do
+    case $arg in
+     'user'|'cwd'|'tty'|'date'|'run')
+        local mod_val="$(eval echo \$$arg)"
+
+        PROMPT+="$mod_val : "
+        ;;
+
+      *) sym="$arg";;
+    esac
+  done
+
+  PROMPT="${PROMPT% : }
+%k$sym "
+  PS2="$sym "
+}
+
+prompt cwd tty run \
+      $([[ $TERM == 'linux' ]] && echo '>' || echo 'λ')
+
+# RPROMPT='%K{black}%B${ELLAPSED}ms : %?%b%k'
 
 #### Completion
 autoload -U compinit
@@ -146,11 +180,14 @@ __fzfcmd() {
 function confirm_exit() {
   local ans
 
-  printf 'Kill shell [Y/n] '
+  printf '\nKill shell [Y/n] '
 
   read -s -k1 ans
 
-  [[ "$ans" = $'\x0d' || "$ans" == 'y' ]] && exit || zle reset-prompt
+  [[ "$ans" = $'\x0d' || "$ans" == 'y' ]] && exit || {
+    printf "\x1b[2K\x1b[F\x1b[2C"
+  }
+  # zle reset-prompt
 }
 
 #### Toggle hist
