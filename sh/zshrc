@@ -206,9 +206,18 @@ function file_mgr {
   fm
 }
 
+function tput_reset {
+  tput reset
+
+  tux
+  echo
+  zle reset-prompt
+}
+
 zle -N confirm_exit
 zle -N toggle_hist
 zle -N file_mgr
+zle -N tput_reset
 
 setopt IGNORE_EOF
 bindkey '^D' confirm_exit
@@ -216,6 +225,7 @@ bindkey '^[^I' list-choices
 bindkey '^[s' autosuggest-toggle
 bindkey '^[h' toggle_hist
 bindkey '^[d' file_mgr
+bindkey '^[r' tput_reset
 
 #### Common source
 source @ZSH_ALIAS@
