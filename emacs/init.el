@@ -77,6 +77,7 @@
    (lambda (url &optional args)
      (async-shell-command (format "uhandle -d '%s'" url "*url*" "*url-error*"))))
  '(browse-url-text-browser "w3m")
+ '(c-block-comment-prefix "")
  '(column-number-mode t)
  '(comment-column 0)
  '(completion-styles '(basic partial-completion emacs22 substring))

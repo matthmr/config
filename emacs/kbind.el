@@ -15,7 +15,15 @@
 (global-set-key (kbd "M-+")     'next-error-select-buffer)
 (global-set-key (kbd "C-^")     'delete-indentation)
 
-(global-set-key (kbd "C-x C-_")  'undo-only)
+(with-eval-after-load "comint"
+  (global-set-key (kbd "M-D") #'comint-dynamic-complete-filename))
+
+(global-set-key (kbd "M-Q")
+  (lambda () (interactive)
+    (let ((completion-at-point-functions (list #'ispell-completion-at-point)))
+      (completion-at-point))))
+
+(global-set-key (kbd "C-x C-_") 'undo-only)
 (global-set-key (kbd "C-M-_")   'undo-redo)
 
 ;(global-unset-key (kbd "C-x C-t"))
@@ -59,7 +67,7 @@
                 (lambda () (interactive)
                   (mh/with-prefix -1 'other-window)))
 
-;;; With `'minibuffer'
+;;; With `minibuffer'
 
 (global-set-key (kbd "M-N") 'minibuffer-next-completion)
 (global-set-key (kbd "M-P") 'minibuffer-previous-completion)
@@ -136,6 +144,11 @@
     ;; doesn't really have a 'reverse' version
     ;; ("C-M-s" . (lambda () (interactive)
     ;;            (mh/with-prefix -1 'window-swap-states)))
+
+    ("^" . 'enlarge-window)
+    ("%" . 'shrink-window)
+    ("{" . 'shrink-window-horizontally)
+    ("}" . 'enlarge-window-horizontally)
 
     ("C-e" . 'mh/enlarge-window-horizontally)
     ("C-M-e" . 'mh/shrink-window-horizontally)
