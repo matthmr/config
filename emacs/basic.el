@@ -51,7 +51,8 @@
   enable-recursive-minibuffers t
   search-whitespace-regexp ".*?"
   show-trailing-whitespace t
-  lazy-count-prefix-format "[%s/%s] ")
+  lazy-count-prefix-format "[%s/%s] "
+  overlay-arrow-string ">")
 
 (setq-local default-directory @EMACS_TMP@)
 
@@ -246,6 +247,10 @@
           (lambda ()
             (setq-local page-delimiter "^;\\{4\\}")
             (rainbow-delimiters-mode 1)))
+
+(add-hook 'compilation-mode-hook #'mh/edit-buffer-n)
+(add-hook 'compilation-minor-mode-hook #'mh/edit-buffer-n)
+(add-hook 'gud-mode-hook #'mh/edit-buffer-n)
 
 ;;;; Misc
 
