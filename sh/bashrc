@@ -31,7 +31,7 @@ source @BASHRC_FUNCTIONS@
 clear
 tux
 
-if [[ ! -z "$LOGINCMD" ]]; then
-  eval $LOGINCMD
-  unset LOGINCMD
+if [[ ! -z "$INIT" ]]; then
+  eval $INIT
+  unset INIT
 fi

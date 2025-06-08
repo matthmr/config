@@ -234,12 +234,16 @@ source @ZSH_FUNCTIONS@
 #### GPG
 export GPG_TTY=$(tty)
 
-clear
+# do not clear on `none' session
+if [[ ! -z "$SESSION" && "$SESSION" != 'none' ]]; then
+ clear
+fi
+
 tux
 
 unset ZSH_MODE
 
-if [[ ! -z "$LOGINCMD" ]]; then
-  eval $LOGINCMD
-  unset LOGINCMD
+if [[ ! -z "$INIT" ]]; then
+  eval $INIT
+  unset INIT
 fi
