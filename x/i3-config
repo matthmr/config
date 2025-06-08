@@ -3,6 +3,9 @@
 # create the directory
 exec --no-startup-id mkdir -p /tmp/i3
 
+# disable logging
+exec --no-startup-id i3-msg 'shmlog off; debuglog off'
+
 # pixel variables
 # min
 set $border_lit_px 3px
@@ -147,7 +150,7 @@ bindsym $mod+p scratchpad show
 
 # marks
 bindsym $mod+m mark win
-bindsym $mod+alt+m unmark win
+bindsym $mod+$alt+m unmark win
 bindsym $mod+Shift+m swap container with mark win
 bindsym $mod+apostrophe [con_mark="^win$"] focus
 bindsym $mod+Shift+c [con_mark="^win$"] move workspace current

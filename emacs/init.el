@@ -80,6 +80,8 @@
  '(c-block-comment-prefix "")
  '(column-number-mode t)
  '(comment-column 0)
+ ;; min
+ '(compilation-skip-threshold 2)
  '(completion-styles '(basic partial-completion emacs22 substring))
  '(corfu-preview-current nil)
  '(delete-active-region nil)

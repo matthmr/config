@@ -48,16 +48,22 @@ bind pager <Esc>p :?^@@
 bind pager <Esc>n :/^@@
 bind pager <Esc>P :?^diff
 bind pager <Esc>N :/^diff
+bind pager <Esc><C-p> :?^commit
+bind pager <Esc><C-n> :/^commit
 
 bind diff <Esc>p :?^@@
 bind diff <Esc>n :/^@@
 bind diff <Esc>P :?^diff
 bind diff <Esc>N :/^diff
+bind diff <Esc><C-p> :?^commit
+bind diff <Esc><C-n> :/^commit
 
 bind stage <Esc>p :?^@@
 bind stage <Esc>n :/^@@
 bind stage <Esc>P :?^diff
 bind stage <Esc>N :/^diff
+bind stage <Esc><C-p> :?^commit
+bind stage <Esc><C-n> :/^commit
 
 set wrap-search = false
 set ignore-case = smart-case
