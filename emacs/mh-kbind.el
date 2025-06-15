@@ -288,7 +288,7 @@
     (kill-region (car bnd) (cdr bnd))
   ))
 
-(global-set-key (kbd "C-x r C-k") #'mh/kill-to-register)
+(global-set-key (kbd "C-x r C-w") #'mh/kill-to-register)
 
 ;;;; Movement
 
@@ -424,6 +424,28 @@
     (find-file file)))
 
 (global-set-key (kbd "C-x C-M-r") 'mh/goto-file-at-point)
+
+(defun mh/first-error-with-warning ()
+  "Call `first-error' but also accepting warnings"
+  (interactive)
+  (let ((compilation-skip-threshold 1))
+    (call-interactively #'first-error)))
+
+(defun mh/next-error-with-warning ()
+  "Call `next-error' but also accepting warnings"
+  (interactive)
+  (let ((compilation-skip-threshold 1))
+    (call-interactively #'next-error)))
+
+(defun mh/previous-error-with-warning ()
+  "Call `previous-error' but also accepting warnings"
+  (interactive)
+  (let ((compilation-skip-threshold 1))
+    (call-interactively #'previous-error)))
+
+(global-set-key (kbd "C-x C-M-_") #'mh/first-error-with-warning)
+(global-set-key (kbd "C-x C-M-n") #'mh/next-error-with-warning)
+(global-set-key (kbd "C-x C-M-p") #'mh/previous-error-with-warning)
 
 ;;;; Emacs Overrides
 

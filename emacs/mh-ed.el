@@ -218,7 +218,7 @@
 
 (defun mh/ed-string ()
   "Displays the string state of `mh/ed'. `=' for ed on, `*' for ed off"
-  (if mh/ed " = " " * "))
+  (if mh/ed "=" "*"))
 
 ;;;; Minor Mode
 
