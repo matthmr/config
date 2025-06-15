@@ -5,6 +5,9 @@ super + Return
   urxvt -T urxvt -e tmux new-session -A # -b 10
 # min
 super + control + Return
+  urxvt -T urxvt -e tmux new-session # -b 10
+# min
+super + control + alt + Return
   urxvt -T urxvt -e zsh # -b 10
 
 #### action-mode
