@@ -65,9 +65,9 @@
 (global-set-key (kbd "M-M")     'kmacro-end-and-call-macro)
 (global-set-key (kbd "C-x ;")   'point-to-register)
 (global-set-key (kbd "C-x '")   'jump-to-register)
-(global-set-key (kbd "C-x \"")  'copy-to-register)
-(global-set-key (kbd "C-x M-\"") 'mh/kill-to-register)
-(global-set-key (kbd "C-x C-y") 'insert-register)
+(global-set-key (kbd "C-x :")   'copy-to-register)
+(global-set-key (kbd "C-x M-:")  'mh/kill-to-register)
+(global-set-key (kbd "C-x \"") 'insert-register)
 (global-set-key (kbd "C-x M-;") 'comment-line)
 
 (global-set-key (kbd "C-x C-M-o")
