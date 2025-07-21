@@ -117,21 +117,21 @@ function prompt {
       ;;
   esac
 
-  PROMPT='%K{black}'
+  PROMPT='%K{black}| '
 
   for arg in $@; do
     case $arg in
      'user'|'cwd'|'tty'|'date'|'run')
         local mod_val="$(eval echo \$$arg)"
 
-        PROMPT+="$mod_val : "
+        PROMPT+="$mod_val | "
         ;;
 
       *) sym="$arg";;
     esac
   done
 
-  PROMPT="${PROMPT% : }
+  PROMPT="${PROMPT% }
 %k$sym "
   PS2="$sym "
 }
@@ -223,13 +223,20 @@ function tput_reset {
   zle reset-prompt
 }
 
+function foreground_current {
+  fg
+}
+
 zle -N confirm_exit
 zle -N toggle_hist
 zle -N file_mgr
 zle -N tput_reset
+zle -N foreground_current
 
 setopt IGNORE_EOF
 bindkey '^D' confirm_exit
+bindkey '^X' foreground_current
+
 bindkey '^[^I' list-choices
 bindkey '^[s' autosuggest-toggle
 bindkey '^[h' toggle_hist
@@ -252,7 +259,14 @@ tux
 
 unset ZSH_MODE
 
-if [[ ! -z "$INIT" ]]; then
-  eval $INIT
-  unset INIT
-fi
+function zsh_init {
+  local init="$INIT"
+
+  if [[ ! -z "$INIT" ]]; then
+    # unset first because `INIT' could be another shell, for instance
+    unset INIT
+    eval $init
+  fi
+}
+
+zsh_init
